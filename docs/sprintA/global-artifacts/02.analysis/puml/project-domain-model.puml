@@ -1,84 +1,86 @@
 @startuml
-skinparam monochrome true
-skinparam packageStyle rectangle
-skinparam shadowing false
-'skinparam linetype ortho
-'left to right direction
+
+skinparam class {
+    BackgroundColor #FEFECE
+    ArrowColor #3498db
+    BorderColor #2ecc71
+}
+
 skinparam classAttributeIconSize 0
-hide circle
-hide methods
 
-'title Domain Model
+class User {
+}
 
-'class Platform {
-'  -description
-'}
+class Parque {
+}
 
 class Organization {
-    name
-    vatNumber
-    website
-    phoneNumber
-    email
 }
 
-class Task {
-    reference
-    description
-    informalDesc
-    technicalDesc
-    duration
-    cost
-}
-
-class Category {
-    description
+class Admin {
 }
 
 class Employee {
-    name
-    email
-    position
-    phone
 }
 
-class TechnicalSkill{
-    shortDescription
-    fullDescription
+class Job {
 }
 
-class ActivityArea{
-    shortDescription
-    fullDescription
+class Skill {
 }
 
-class FeatureTS{
-    mandatory
+class Team {
 }
 
-'class User {
-'    name
-'    email
-'    password
-'}
-class PostalAddress{
-    street
-    zipCode
-    city
+class Vehicle {
 }
-'Platform "1" -- "*" Organization : has registered >
-'Platform "1" -- "*" Category : defines >
-Organization "1" - "0..*" Employee : has >
-Organization "1" - "0..*" Task: owns >
-'Task "*" -- "1" Employee: created by >
-Employee "1" -- "*" Task : creates >
-'Employee "0..1" -- "1" User: acts as >
-Task "*" - "1" Category: cataloged as >
-TechnicalSkill "*" - "1" ActivityArea: regarding an >
 
-Category "*" - "*" TechnicalSkill :  : requires >
-(Category, TechnicalSkill) . FeatureTS
+class Schedule {
+}
 
-Organization "1" -left "1" PostalAddress : located At >
+class Task {
+}
+
+class Tool {
+}
+
+class Machine {
+}
+
+' Relationships
+User -down-> Parks : uses
+Parks -down-> Organization : belongs to
+Organization -down-> Admin : managed by
+Admin -down-> Employee : is a >
+Admin -down-> Job : assigns >
+Admin -down-> Skill : regists >
+Admin -down-> Team : organizes >
+Admin -down-> Vehicle : operates >
+Job -[hidden]-> Skill
+Skill -[hidden]-> Team
+Team -[hidden]-> Vehicle
+Job -left-> Employee : performed by >
+Skill -left-> Employee : possesses >
+Employee -right-> Team : part of >
+Team -right-> Vehicle : uses
+Team -right-> Tool : uses >
+Team -right-> Machine : operates >
+Admin -right-> Schedule : plans >
+Schedule -right-> Task : organize >
+Task -up-> Parks : involves
+
+' Layout adjustments
+User -[hidden]- Parks
+Parks -[hidden]- Organization
+Organization -[hidden]- Admin
+Admin -[hidden]- Employee
+Employee -[hidden]- Job
+Job -[hidden]- Skill
+Skill -[hidden]- Team
+Team -[hidden]- Vehicle
+Vehicle -[hidden]- Schedule
+Schedule -[hidden]- Task
+Task -[hidden]- Tool
+Tool -[hidden]- Machine
 
 @enduml
