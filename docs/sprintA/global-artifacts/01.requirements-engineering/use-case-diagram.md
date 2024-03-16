@@ -14,7 +14,12 @@ However, be aware, this is a pedagogical simplification. On further projects and
 
 | UC/US | Description                                   |                   
 |:------|:----------------------------------------------|
-| US001 | [Short name for US001](../../us001/Readme.md) |
-| ...   | ...                                           |
-| US006 | [Create a Task](../../us006/Readme.md)        |
-| ...   | ...                                           |
+| US01 | [Register Skills](docs/sprintA/us001/US001.md) |
+| US02 |    [RegisterJobs](docs/sprintA/us002/US002.md) |
+| US03 | [Register Collaborators](../../us006/Readme.md)        |
+| US04 | [Assign skills to a collaborator](../../us006/Readme.md)        |
+| US05 | [Team proposal automatically](../../us006/Readme.md)        |
+| US06 | [Register Vehicle](../../us006/Readme.md)        |
+| US07 | [Register Vehicle maintneance](../../us006/Readme.md)        |
+| US08 | [List vehihcles with a pending maintenance ](../../us006/Readme.md)        |
+
