@@ -15,14 +15,16 @@ _As an HRM, I want to register a job._
 
 _The main occupation of employees such as designer, estimator, gardener, electrician, or mason, being inputted by the HRM._
 
+_Client clarification, just a Job Name insertion is needed._
+
 
 ### 1.3. Acceptance Criteria
 
-_AC1 - Filled all fields._
+_AC1 - Filled field._
 
 ### 1.4. Found out Dependencies
 
-_US04 Depends on this US._
+_US03 Depends on this US._
 
 ### 1.5 Input and Output Data
 
@@ -32,14 +34,13 @@ _Input typed data in text field. Output error or success message._
 
 _Insert here a SSD depicting the envisioned Actor-System interactions and throughout which data is inputted and outputted to fulfill the requirement. All interactions must be numbered._
 
-![USXXX-SSD](svg/usXXX-system-sequence-diagram.svg)
+![US002-SSD](svg/us002-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 
 _Use this section to capture other relevant information that is related with this US such as:  
-&nbsp; &nbsp; (i) special requirements;  
-&nbsp; &nbsp; (ii) data and/or technology variations;  
-&nbsp; &nbsp; (iii) how often this US is held._
+&nbsp; &nbsp; (i) Alphanumeric data.  
+
 
 
 ## 2. OO Analysis
