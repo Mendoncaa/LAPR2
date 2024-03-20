@@ -7,18 +7,18 @@ title System Sequence Diagram (SSD) - Alternative One
 
 autonumber
 
-actor "Organization\nEmployee" as Employee
+actor "Human Resources Manager\n(HRM)" as Employee
 participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to create a new task
+    Employee -> System : asks to create a assign one skill or more to a collaborator
     activate System
 
-        System --> Employee : requests data (i.e. reference, designation, informal\ndescription, technical description, duration, cost)
+        System --> Employee : requests data (which collaborator?)
     deactivate System
 
-    Employee -> System : types requested data
+    Employee -> System : name the collaborator
     activate System
 
         System --> Employee : shows task category list and asks to select one
