@@ -1,0 +1,38 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Improved System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Human Resources\nManager" as HRManager
+participant ":System" as System
+
+activate HRManager
+
+HRManager -> System : Requests team generation for a task
+activate System
+
+    System --> HRManager : Presents team with options (Approve, Reject, Edit)
+deactivate System
+
+HRManager -> System : Submits selection (Approve/Reject/Edit)
+activate System
+
+alt Approve
+    System --> HRManager : Confirms team approval
+else Reject
+    System --> HRManager : Prompts for new team generation criteria
+    HRManager -> System : Provides criteria
+    System --> HRManager : Generates and presents new team
+else Edit
+    System --> HRManager : Displays list of available workers for team editing
+    HRManager -> System : Submits selected workers for the team
+    System --> HRManager : Updates team composition and confirms
+end
+
+deactivate System
+
+@enduml

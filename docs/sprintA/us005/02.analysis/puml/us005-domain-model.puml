@@ -1,0 +1,53 @@
+@startuml
+
+skinparam class {
+    BackgroundColor #FEFECE
+    ArrowColor #3498db
+    BorderColor #2ecc71
+}
+
+skinparam classAttributeIconSize 0
+
+class Organization {
+}
+
+class Admin {
+}
+
+class Employee {
+}
+
+class Skill {
+}
+
+class Team {
+}
+
+class Task {
+}
+
+class Parks {
+}
+
+' Relationships
+Parks -down-> Organization : belongs to
+Organization -down-> Admin : managed by
+Admin -down-> Employee : is a >
+Admin -down-> Skill : regists >
+Admin -down-> Team : organizes >
+Job -left-> Employee : performed by >
+Skill -left-> Employee : possesses >
+Employee -right-> Team : part of >
+Admin -right-> Task : assigns >
+Task -up-> Parks : involves
+
+' Layout adjustments
+Parks -[hidden]- Organization
+Organization -[hidden]- Admin
+Admin -[hidden]- Employee
+Employee -[hidden]- Skill
+Skill -[hidden]- Team
+Team -[hidden]- Task
+Task -[hidden]- Parks
+
+@enduml
