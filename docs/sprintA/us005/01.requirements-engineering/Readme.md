@@ -11,7 +11,7 @@ As a HRM, I want to generate a team proposal automatically
 
 **From the specifications document:**
 
->	The responsibility for forming the team lies with HRM, who must introduce the number of employees   necessary to carry out the task as well as the desired skills.
+>	The responsibility for forming the team relies on HRM, who must introduce the number of employees   necessary to carry out the task as well as the desired skills.
 
 >	Teams are temporary associations of employees until the task is completed.
 
@@ -30,7 +30,7 @@ As a HRM, I want to generate a team proposal automatically
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** When a team is created, HRM can reject the proposal, accept it, and/or edit the team.
+* **AC1:** When a team is created, HRM can reject the proposal or accept the team.
 
 ### 1.4. Found out Dependencies
 
@@ -41,11 +41,9 @@ As a HRM, I want to generate a team proposal automatically
 **Input Data:**
 
 * Typed data:
-    * number of colaborators
-    * description of the competences
+    * maximum team members
+    * skills required
 	
-* Selected data [in case of edit the team pruposed]:
-    * colaborators to join the team
 
 **Output Data:**
 
@@ -54,16 +52,9 @@ As a HRM, I want to generate a team proposal automatically
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**_Other alternatives might exist._**
+![System Sequence Diagram](svg/us005-system-sequence-diagram.svg)
 
-#### Alternative One
-
-![System Sequence Diagram - Alternative One](svg/us005-system-sequence-diagram.svg)
-
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
-
+#
 ### 1.7 Other Relevant Remarks
 
 * Collaborators are available if they are not assigned to any team

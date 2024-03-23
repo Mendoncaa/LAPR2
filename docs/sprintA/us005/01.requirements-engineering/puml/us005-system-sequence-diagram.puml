@@ -16,13 +16,13 @@ HRManager -> System : Requests team generation for a task
 activate System
 
     System --> HRManager : Requests for data(skills needed, max size of the team)
-    
-    HRManager -> System : Provides data
     deactivate System
 
-    
-    System --> HRManager : Presents team with options (Approve, Reject)
+    HRManager -> System : Provides data
+    activate System
 
+    System --> HRManager : Confirms data reception and presents options (Approve, Rejet)
+    deactivate System
 
 HRManager -> System : Submits selection (Approve/Reject)
 activate System
@@ -33,6 +33,6 @@ else Reject
     System --> HRManager : Declines team approval
 end
 
-deactivate System
+deactivate System
 
 @enduml
