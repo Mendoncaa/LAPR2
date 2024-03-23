@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title Improved System Sequence Diagram (SSD)
+title System Sequence Diagram (SSD)
 
 autonumber
 
@@ -15,24 +15,24 @@ activate HRManager
 HRManager -> System : Requests team generation for a task
 activate System
 
-    System --> HRManager : Presents team with options (Approve, Reject, Edit)
-deactivate System
+    System --> HRManager : Requests for data(skills needed, max size of the team)
+    
+    HRManager -> System : Provides data
+    deactivate System
 
-HRManager -> System : Submits selection (Approve/Reject/Edit)
+    
+    System --> HRManager : Presents team with options (Approve, Reject)
+
+
+HRManager -> System : Submits selection (Approve/Reject)
 activate System
 
 alt Approve
     System --> HRManager : Confirms team approval
 else Reject
-    System --> HRManager : Prompts for new team generation criteria
-    HRManager -> System : Provides criteria
-    System --> HRManager : Generates and presents new team
-else Edit
-    System --> HRManager : Displays list of available workers for team editing
-    HRManager -> System : Submits selected workers for the team
-    System --> HRManager : Updates team composition and confirms
+    System --> HRManager : Declines team approval
 end
 
-deactivate System
+deactivate System
 
 @enduml
