@@ -7,6 +7,8 @@ class Employee {
 }
 
 class Collaborator {
+  - name 
+  - id 
 }
 
 class HRM {
@@ -19,33 +21,54 @@ class VFM {
 }
 
 class Job {
+  - description
+  - skillsAssigned
 }
 
 class Skills {
+  - name 
 }
 
 class Teams {
+  - numElements 
+  - skillsNeeded
 }
 
 class Tasks {
+  - taskCategory 
 }
 
 class Agenda {
+  
 }
 
 class Malfunctions {
+  - description 
+  - reportedDate 
 }
 
 class GreenSpaces {
+  - type 
 }
 
 class Equipment {
+  - description 
 }
 
 class Vehicles {
+  - brand 
+  - model 
+  - type 
+  - tareWeight 
+  - grossWeight 
+  - currentKms 
+  - registrationDate
+  - acquisitionDate 
+  - maintenanceFrequency 
 }
 
 class Machines {
+  - description 
 }
 
 class GSU {
@@ -55,7 +78,10 @@ class Portal {
 }
 
 class Faults {
+  - description 
+  - reportedDate
 }
+
 
 Organization --> Employee : "employs"
 
