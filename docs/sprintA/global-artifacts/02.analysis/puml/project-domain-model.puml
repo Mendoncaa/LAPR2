@@ -1,86 +1,99 @@
 @startuml
 
-skinparam class {
-    BackgroundColor #FEFECE
-    ArrowColor #3498db
-    BorderColor #2ecc71
-}
-
-skinparam classAttributeIconSize 0
-
-class User {
-}
-
-class Parque {
-}
-
 class Organization {
-}
-
-class Admin {
 }
 
 class Employee {
 }
 
+class Collaborator {
+}
+
+class HRM {
+}
+
+class GSM {
+}
+
+class VFM {
+}
+
 class Job {
 }
 
-class Skill {
+class Skills {
 }
 
-class Team {
+class Teams {
 }
 
-class Vehicle {
+class Tasks {
 }
 
-class Schedule {
+class Agenda {
 }
 
-class Task {
+class Malfunctions {
 }
 
-class Tool {
+class GreenSpaces {
 }
 
-class Machine {
+class Equipment {
 }
 
-' Relationships
-User -down-> Parks : uses
-Parks -down-> Organization : belongs to
-Organization -down-> Admin : managed by
-Admin -down-> Employee : is a >
-Admin -down-> Job : assigns >
-Admin -down-> Skill : regists >
-Admin -down-> Team : organizes >
-Admin -down-> Vehicle : operates >
-Job -[hidden]-> Skill
-Skill -[hidden]-> Team
-Team -[hidden]-> Vehicle
-Job -left-> Employee : performed by >
-Skill -left-> Employee : possesses >
-Employee -right-> Team : part of >
-Team -right-> Vehicle : uses
-Team -right-> Tool : uses >
-Team -right-> Machine : operates >
-Admin -right-> Schedule : plans >
-Schedule -right-> Task : organize >
-Task -up-> Parks : involves
+class Vehicles {
+}
 
-' Layout adjustments
-User -[hidden]- Parks
-Parks -[hidden]- Organization
-Organization -[hidden]- Admin
-Admin -[hidden]- Employee
-Employee -[hidden]- Job
-Job -[hidden]- Skill
-Skill -[hidden]- Team
-Team -[hidden]- Vehicle
-Vehicle -[hidden]- Schedule
-Schedule -[hidden]- Task
-Task -[hidden]- Tool
-Tool -[hidden]- Machine
+class Machines {
+}
+
+class GSU {
+}
+
+class Portal {
+}
+
+class Faults {
+}
+
+Organization --> Employee : "employs"
+
+Employee --> Collaborator : "is"
+Employee --> HRM : "is"
+Employee --> GSM : "is"
+Employee --> VFM : "is"
+
+Collaborator --> HRM : "managed by"
+Collaborator --> Job : "has"
+Collaborator --> Skills : "possesses"
+Collaborator --> Teams : "belongs to"
+
+Job --> HRM : "managed by"
+
+Skills --> HRM : "managed by"
+Skills --> Teams : "utilized in"
+
+Teams --> Tasks : "assigned"
+
+GSM --> Agenda : "manages"
+GSM --> Tasks : "manages"
+GSM --> Malfunctions : "manages"
+
+Agenda --> Tasks : "schedules"
+
+Tasks --> GreenSpaces : "relates to"
+Tasks --> Equipment : "utilizes"
+Tasks --> Vehicles : "utilizes"
+Tasks --> Machines : "utilizes"
+
+VFM --> Vehicles : "maintains"
+VFM --> Machines : "maintains"
+VFM --> Equipment : "maintains"
+
+GSU --> Portal : "utilizes"
+Portal --> Malfunctions : "reports"
+Portal --> Faults : "reports"
+GSU --> GreenSpaces : "manages"
 
 @enduml
