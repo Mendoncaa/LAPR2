@@ -1,0 +1,39 @@
+@startuml
+skinparam monochrome false
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US007 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Vehicle and Equipment\nFleet Manager (VFM)" as VFM
+participant ":System" as System
+
+activate VFM
+
+    VFM -> System : asks to create a new task
+    activate System
+
+        System --> VFM : requests data (i.e. reference, designation, informal\ndescription, technical description, duration, cost)
+    deactivate System
+
+    VFM -> System : types requested data
+    activate System
+
+        System --> VFM : shows task category list and asks to select one
+    deactivate System
+
+    VFM -> System : selects a task category
+    activate System
+
+        System --> VFM : shows all data and requests confirmation
+    deactivate System
+
+    VFM -> System : confirms data
+    activate System
+
+        System --> VFM : displays operation success
+    deactivate System
+
+@enduml
