@@ -8,4 +8,4 @@
 
 ### 2.2. Other Remarks
 
-n/a
+As the client said there is no purpose, at least in this sprint, to generate a team. I decided to not include tasks in the excerpt domain model.

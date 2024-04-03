@@ -15,7 +15,7 @@ activate HRManager
 HRManager -> System : Requests team generation for a task
 activate System
 
-    System --> HRManager : Requests for data(skills needed, max size of the team)
+    System --> HRManager : Requests for data(skills needed, min size, max size of the team)
     deactivate System
 
     HRManager -> System : Provides data

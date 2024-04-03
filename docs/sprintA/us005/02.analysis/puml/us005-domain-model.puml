@@ -8,13 +8,12 @@ skinparam class {
 
 skinparam classAttributeIconSize 0
 
-class Organization {
+
+
+class HRM {
 }
 
-class Admin {
-}
-
-class Employee {
+class Collaborator {
 }
 
 class Skill {
@@ -23,31 +22,19 @@ class Skill {
 class Team {
 }
 
-class Task {
-}
+HRM -down-> Collaborator : manages >
+HRM -down-> Skill : needs >
+HRM -down-> Team : organizes >
+Skill -left-> Collaborator : possesses <
+Collaborator -right-> Team : part of >
 
-class Parks {
-}
 
-' Relationships
-Parks -down-> Organization : belongs to
-Organization -down-> Admin : managed by
-Admin -down-> Employee : is a >
-Admin -down-> Skill : regists >
-Admin -down-> Team : organizes >
-Job -left-> Employee : performed by >
-Skill -left-> Employee : possesses >
-Employee -right-> Team : part of >
-Admin -right-> Task : assigns >
-Task -up-> Parks : involves
 
-' Layout adjustments
-Parks -[hidden]- Organization
-Organization -[hidden]- Admin
-Admin -[hidden]- Employee
-Employee -[hidden]- Skill
+
+HRM -[hidden]- Collaborator
+Collaborator -[hidden]- Skill
 Skill -[hidden]- Team
-Team -[hidden]- Task
-Task -[hidden]- Parks
+
+
 
 @enduml
