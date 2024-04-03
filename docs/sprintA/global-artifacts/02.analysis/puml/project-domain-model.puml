@@ -4,6 +4,8 @@
 class Organization {
 }
 
+class Employee {
+}
 
 class Collaborator {
   - name 
@@ -81,64 +83,44 @@ class Faults {
   - reportedDate
 }
 
-class Agenda {
-}
 
-Organization --> Collaborator
+Organization --> Employee : "employs"
 
-Collaborator --> HRM : "is"
-Collaborator --> GSM : "is"
-Collaborator --> VFM : "is"
-Collaborator ---> Teams
+Employee --> Collaborator : "is"
+Employee --> HRM : "is"
+Employee --> GSM : "is"
+Employee --> VFM : "is"
 
-HRM --- Teams
-HRM ---> Skills
-HRM ---> Job
+Collaborator --> HRM : "managed by"
+Collaborator --> Job : "has"
+Collaborator --> Skills : "possesses"
+Collaborator --> Teams : "belongs to"
 
-GSM ---> Agenda
-GSM ---> Tasks
+Job --> HRM : "managed by"
 
-Agenda ---> Tasks : "Shedule"
+Skills --> HRM : "managed by"
+Skills --> Teams : "utilized in"
 
+Teams --> Tasks : "assigned"
 
-VFM ---> Vehicles
-VFM ---> Machines
-VFM ---> Equipment
+GSM --> Agenda : "manages"
+GSM --> Tasks : "manages"
+GSM --> Malfunctions : "manages"
 
-Job ---> Collaborator
+Agenda --> Tasks : "schedules"
 
-Skills ---> Collaborator
-Skills ---> Teams
-Skills --> Tasks
+Tasks --> GreenSpaces : "relates to"
+Tasks --> Equipment : "utilizes"
+Tasks --> Vehicles : "utilizes"
+Tasks --> Machines : "utilizes"
 
-Vehicles ---> Tasks
-Machines ---> Tasks
-Equipment ---> Tasks
+VFM --> Vehicles : "maintains"
+VFM --> Machines : "maintains"
+VFM --> Equipment : "maintains"
 
-Teams ---> Skills
-Teams ---> Tasks
-
-GSU ---> Portal
-GSU ---> GreenSpaces
-
-Portal ---> Malfunctions
-Portal ---> Comments
-Portal ---> Faults
-
-Tasks ---> GreenSpaces
-Tasks ---> Skills
-
-
-
-
-
-
-
-
-
-
-
-
-
+GSU --> Portal : "utilizes"
+Portal --> Malfunctions : "reports"
+Portal --> Faults : "reports"
+GSU --> GreenSpaces : "manages"
 
 @enduml
