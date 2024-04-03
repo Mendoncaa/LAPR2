@@ -12,28 +12,24 @@ participant ":System" as System
 
 activate VFM
 
-    VFM -> System : asks to create a new task
+    VFM -> System : asks to register a new vehicle for check's up
     activate System
 
-        System --> VFM : requests data (i.e. reference, designation, informal\ndescription, technical description, duration, cost)
+        System --> VFM : requests data (Vehicle ID, current km's, Check's up date)
     deactivate System
 
-    VFM -> System : types requested data
+    VFM -> System : Types requested data
     activate System
 
-        System --> VFM : shows task category list and asks to select one
+        System --> VFM : Shows data and requests confirmation
     deactivate System
 
-    VFM -> System : selects a task category
-    activate System
-
-        System --> VFM : shows all data and requests confirmation
-    deactivate System
-
-    VFM -> System : confirms data
+    VFM -> System : Confirms data
     activate System
 
         System --> VFM : displays operation success
+    deactivate System
+
     deactivate System
 
 @enduml
