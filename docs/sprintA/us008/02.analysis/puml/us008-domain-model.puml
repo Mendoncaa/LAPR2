@@ -1,0 +1,20 @@
+@startuml
+
+class VFM {
+}
+
+class Vehicles {
+  - brand 
+  - model 
+  - type 
+  - tareWeight 
+  - grossWeight 
+  - currentKms 
+  - registrationDate
+  - acquisitionDate 
+  - maintenanceFrequency 
+}
+
+VFM --> Vehicles : "manages"
+
+@enduml

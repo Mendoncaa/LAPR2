@@ -1,5 +1,4 @@
-# US002 - Register a job.
-
+# US008 - List the vehicles needing the check-up.
 
 
 
@@ -9,13 +8,19 @@
 
 ### 1.1. User Story Description
 
-_As an HRM, I want to register a job._
+As an FM, I want to list the vehicles needing the check-up.
 
 ### 1.2. Customer Specifications and Clarifications 
 
-_The main occupation of employees such as designer, estimator, gardener, electrician, or mason, being inputted by the HRM._
+> **Question:** 
+>
+> **Answer:**
 
-_Client clarification, just a Job Name insertion is needed._
+> **Question:** 
+>
+> **Answer:** 
+
+> **Question:** 
 
 
 ### 1.3. Acceptance Criteria
