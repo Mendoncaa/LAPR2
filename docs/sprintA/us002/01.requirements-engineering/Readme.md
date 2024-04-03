@@ -20,7 +20,9 @@ _Client clarification, just a Job Name insertion is needed._
 
 ### 1.3. Acceptance Criteria
 
-_AC1 - Filled field._
+_AC1 - Required field filled._
+
+_AC2 - Is mandatory login as HRM._
 
 ### 1.4. Found out Dependencies
 
@@ -32,14 +34,13 @@ _Input typed data in text field. Output error or success message._
 
 ### 1.6. System Sequence Diagram (SSD)
 
-_Insert here a SSD depicting the envisioned Actor-System interactions and throughout which data is inputted and outputted to fulfill the requirement. All interactions must be numbered._
 
 ![US002-SSD](svg/us002-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 
-_Use this section to capture other relevant information that is related with this US such as:  
-&nbsp; &nbsp; (i) Alphanumeric data.  
+
+  
 
 
 

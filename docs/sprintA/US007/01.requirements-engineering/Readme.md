@@ -1,36 +1,37 @@
-# US001 - Register skills that may be appointed to a collaborator
-
-
+# US007 - As an FM, I wish to register a vehicle's check-up.
 
 
 ## 1. Requirements Engineering
-
-
 ### 1.1. User Story Description
 
-_As a HRM, I want to register skills that may be appointed to a collaborator_
+_US07 - As an FM,I wish to register a vehicle's check-up._
 
 ### 1.2. Customer Specifications and Clarifications 
 
-_The skills must be clearly defined and described.
- Options of add, edit and delete skills must be defined.
- It must be easy visualize the skills of each collaborator.
- Skills must be linked to the individual profile of each employee._
+_The client uses vehicles to carry out the tasks assigned, and are used as well to trasnport machines and equipments._
 
 ### 1.3. Acceptance Criteria
 
-_AC1 - Every skills must be registered.
- AC2 - Each collaborator must have at least one skill.
- AC3 - Identify skills._
+* **AC1 -** All required fields of the form must be filled before submit a vehicle for ckeck up.
+* **AC2 -** Check's up date cannot be schedule before the current date.
+* **AC3 -** The system allows the FM to register a vehicle’s check-up.
 
 ### 1.4. Found out Dependencies
 
-_Non_
+_US007 depends on US006 - "As an FM, I wish to register a vehicle (...)" It's necessary to have a vehicle registered into the system_
+before register a vehicle for check up.
 
 ### 1.5 Input and Output Data
 
-_Input - Collaborator's name; skill
-Output - List of collaborator's skills_
+**INPUT DATA**
+* Typed Data:
+  * Vehicle's ID;
+  * Schedule's date;
+  * Current Km's;
+
+**OUTPUT DATA**
+* (In)Success of the operation;
+* km's until next check up;
 
 ### 1.6. System Sequence Diagram (SSD)
 
@@ -40,9 +41,10 @@ _Insert here a SSD depicting the envisioned Actor-System interactions and throug
 
 ### 1.7 Other Relevant Remarks
 
-_Maintain skills up to date to ensure accuracy of workers' skills.
- The system must handle the introduction of input errors, and process as invalid data.
- Users must be given an adequate explanation of how the program works._
+_Use this section to capture other relevant information that is related with this US such as:  
+&nbsp; &nbsp; (i) special requirements;  
+&nbsp; &nbsp; (ii) data and/or technology variations;  
+&nbsp; &nbsp; (iii) how often this US is held._
 
 
 ## 2. OO Analysis

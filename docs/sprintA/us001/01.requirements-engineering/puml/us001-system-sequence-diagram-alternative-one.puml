@@ -21,6 +21,12 @@ activate Employee
     Employee -> System : types requested data
     activate System
 
+    System --> Employee : shows all data and requests confirmation
+        deactivate System
+
+        Employee -> System : confirms data
+        activate System
+
         System --> Employee : displays operation success
     deactivate System
 
