@@ -83,6 +83,9 @@ class Faults {
   - reportedDate
 }
 
+class Comments {
+}
+
 
 Organization --> Employee : "employs"
 
@@ -121,6 +124,7 @@ VFM --> Equipment : "maintains"
 GSU --> Portal : "utilizes"
 Portal --> Malfunctions : "reports"
 Portal --> Faults : "reports"
+Portal ---> Comments : "makes"
 GSU --> GreenSpaces : "manages"
 
 @enduml
