@@ -7,7 +7,7 @@ class Organization {
 class Employee {
 }
 
-class Collaborator {
+class TeamMember {
   - name 
   - id 
 }
@@ -89,15 +89,15 @@ class Comments {
 
 Organization --> Employee : "employs"
 
-Employee --> Collaborator : "is"
+Employee --> TeamMember : "is"
 Employee --> HRM : "is"
 Employee --> GSM : "is"
 Employee --> VFM : "is"
 
-Collaborator --> HRM : "managed by"
-Collaborator --> Job : "has"
-Collaborator --> Skills : "possesses"
-Collaborator --> Teams : "belongs to"
+TeamMember --> HRM : "managed by"
+TeamMember --> Job : "has"
+TeamMember --> Skills : "possesses"
+TeamMember --> Teams : "belongs to"
 
 Job --> HRM : "managed by"
 
@@ -106,9 +106,9 @@ Skills --> Teams : "utilized in"
 
 Teams --> Tasks : "assigned"
 
-GSM --> Agenda : "manages"
+
 GSM --> Tasks : "manages"
-GSM --> Malfunctions : "manages"
+GSM --> Portal : "manages"
 
 Agenda --> Tasks : "schedules"
 
@@ -121,10 +121,12 @@ VFM --> Vehicles : "maintains"
 VFM --> Machines : "maintains"
 VFM --> Equipment : "maintains"
 
-GSU --> Portal : "utilizes"
 Portal --> Malfunctions : "reports"
 Portal --> Faults : "reports"
 Portal ---> Comments : "makes"
 GSU --> GreenSpaces : "manages"
+GSU -->Malfunctions : "reports"
+GSU --> Faults : "reports"
+GSU --> Comments : "reports"
 
 @enduml
