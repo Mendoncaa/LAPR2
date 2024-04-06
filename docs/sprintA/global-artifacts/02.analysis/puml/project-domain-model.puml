@@ -1,5 +1,9 @@
 @startuml
 
+hide methods
+hide circle
+
+
 
 class Organization {
 }
@@ -87,46 +91,46 @@ class Comments {
 }
 
 
-Organization --> Employee : "employs"
+Organization "1"---"1..*" Employee : employs >
 
-Employee --> TeamMember : "is"
-Employee --> HRM : "is"
-Employee --> GSM : "is"
-Employee --> VFM : "is"
+Employee "1"---"1" TeamMember : is a >
+Employee "1"---"0..*" Tasks: manages > 
+Employee "1"---"1" HRM : is a >
+Employee "1"---"1" GSM : is a >
+Employee "1"---"1" VFM : is a >
+Employee "1"---"0..*" Teams : manages >
 
-TeamMember --> HRM : "managed by"
-TeamMember --> Job : "has"
-TeamMember --> Skills : "possesses"
-TeamMember --> Teams : "belongs to"
-
-Job --> HRM : "managed by"
-
-Skills --> HRM : "managed by"
-Skills --> Teams : "utilized in"
-
-Teams --> Tasks : "assigned"
+TeamMember "1..*"---"1" HRM : managed by >
 
 
-GSM --> Tasks : "manages"
-GSM --> Portal : "manages"
+Job "1..*"---"1" HRM : created by >
+Job "1"---"1" TeamMember: assigned to >
+Skills "1..*"---"1" HRM : created by >
+Skills "0..*"---"1" TeamMember : assigned to > 
 
-Agenda --> Tasks : "schedules"
 
-Tasks --> GreenSpaces : "relates to"
-Tasks --> Equipment : "utilizes"
-Tasks --> Vehicles : "utilizes"
-Tasks --> Machines : "utilizes"
+Teams "1"---"0..*" Tasks : assigned to >
 
-VFM --> Vehicles : "maintains"
-VFM --> Machines : "maintains"
-VFM --> Equipment : "maintains"
 
-Portal --> Malfunctions : "reports"
-Portal --> Faults : "reports"
-Portal ---> Comments : "makes"
-GSU --> GreenSpaces : "manages"
-GSU -->Malfunctions : "reports"
-GSU --> Faults : "reports"
-GSU --> Comments : "reports"
+GSM "1"---"1" Portal : manages >
+GSM "1"---"1" Agenda : manages >
+
+
+Tasks "1..*"---"1" GreenSpaces : relates to >
+Agenda "1"---"1..*" Tasks : organizes >
+
+
+VFM "1"---"1..*" Vehicles : manages >
+VFM "1"---"1..*" Machines : manages >
+VFM "1"---"1..*" Equipment : manages >
+
+Portal "1"---"0..*" Malfunctions : aggregates >
+Portal "1"--- "0..*" Faults : aggregates >
+Portal "1"---"0..*" Comments : receives  >
+
+GSU "1"---"1..*" GreenSpaces : manages >
+GSU "1"---"0..*" Malfunctions : reports > 
+GSU "1"---"0..*" Faults : reports >
+GSU "1"---"0..*" Comments : reports >
 
 @enduml

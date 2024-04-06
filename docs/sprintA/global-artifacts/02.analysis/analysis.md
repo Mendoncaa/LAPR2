@@ -1,140 +1,77 @@
-# OO Analysis
+# Object-Oriented Analysis for Green Spaces Management System
 
-The construction process of the domain model is based on the client specifications, especially the nouns (for _concepts_) and verbs (for _relations_) used.
+## Introduction
 
-## Rationale to identify domain conceptual classes
-To identify domain conceptual classes, start by making a list of candidate conceptual classes inspired by the list of categories suggested in the book "Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design and Iterative Development".
+This document outlines the object-oriented analysis conducted for the development of an IT solution aimed at supporting the management and maintenance of green spaces. Based on the client's specifications, conceptual classes and associations have been identified to construct a comprehensive domain model.
 
+## Rationale for Identifying Conceptual Classes
 
-### _Conceptual Class Category List_
+Conceptual classes were identified by analyzing the client specifications, focusing on nouns (for concepts) and verbs (for relations) used in the description. The list of candidate conceptual classes was inspired by the categories suggested in "Applying UML and Patterns: An Introduction to Object-Oriented Analysis and Design and Iterative Development".
 
-**Business Transactions**
+### Conceptual Class Categories
 
-* 
+#### Business Transactions
 
----
+- **Teams**: Groups of TeamMembers managed by an Employee, characterized by their number of elements and required skills.
+- **Tasks**: Categories of work assigned to Teams and related to GreenSpaces, organized by an Agenda.
 
-**Transaction Line Itemss**
+#### Transaction Line Items
 
-* 
+- **Skills**: Abilities that a TeamMember can possess, created and assigned by HRM.
+- **Job**: A role with specific responsibilities and required skills, created and assigned by HRM.
 
----
+#### Product/Service Related
 
-**Product/Service related to a Transaction or Transaction Line Item**
+- **GreenSpaces**: Types of spaces Tasks are related to, managed by GSU.
 
-* 
+#### Transaction Records
 
----
+- **Malfunctions, Faults, Comments**: Records related to the operational status of green spaces, managed and reported through the Portal by GSU.
 
-**Transaction Records**
+#### Roles of People or Organizations
 
-* 
+- **Employee, TeamMember, HRM, GSM, VFM, GSU**: Various roles within the organization, each with distinct responsibilities and interactions within the system.
 
----  
+#### Noteworthy Events
 
-**Roles of People or Organizations**
+- **Agenda**: A schedule organizing Tasks, managed by GSM.
 
-* 
+#### Physical Objects
 
----
+- **Vehicles, Machines, Equipment**: Objects required for the maintenance and management of GreenSpaces, managed by VFM.
 
-**Places**
+#### Catalogs
 
-* 
+- **Portal**: A platform aggregating reports and feedback on green spaces, managed by GSM.
 
----
+#### Organizations
 
-**Noteworthy Events**
+- **Organization**: The entity employing all Employees and overseeing the system's operations.
 
-* 
+## Rationale for Identifying Associations
 
----
+Associations were identified based on the relevance of connections between object instances, derived from common association patterns such as part-whole relationships, containment, description, and management or ownership links.
 
-**Physical Objects**
+### Key Associations
 
-* 
-
----
-
-**Descriptions of Things**
-
-* 
-
----
-
-**Catalogs**
-
-* 
-
----
-
-**Containers**
-
-* 
-
----
-
-**Elements of Containers**
-
-* 
-
----
-
-**Organizations**
-
-* 
-
----
-
-**Other External/Collaborating Systems**
-
-* 
-
----
-
-**Records of finance, work, contracts, legal matters**
-
-* 
-
----
-
-**Financial Instruments**
-
-* 
-
----
-
-**Documents mentioned/used to perform some work/**
-
-* 
-
----
-
-
-## Rationale to identify associations between conceptual classes
-
-An association is a relationship between instances of objects that indicates a relevant connection and that is worth of remembering, or it is derivable from the List of Common Associations:
-
-- **_A_** is physically or logically part of **_B_**
-- **_A_** is physically or logically contained in/on **_B_**
-- **_A_** is a description for **_B_**
-- **_A_** known/logged/recorded/reported/captured in **_B_**
-- **_A_** uses or manages or owns **_B_**
-- **_A_** is related with a transaction (item) of **_B_**
-- etc.
-
-
-| Concept (A) 		|  Association   	|  Concept (B) |
-|----------	   		|:-------------:		|------:       |
-| C1  	| verb1    		 	| C2  |
-| ...  	| ...    		 	| ...  |
-
-
+- Organization employs Employee.
+- Employee manages Teams and can be a TeamMember, HRM, GSM, or VFM.
+- TeamMember is managed by HRM and can be assigned Skills.
+- Jobs and Skills are created and assigned by HRM.
+- Teams are assigned to Tasks, which relate to GreenSpaces.
+- GSM manages the Portal and Agenda.
+- VFM manages Vehicles, Machines, and Equipment.
+- The Portal aggregates Malfunctions, Faults, and receives Comments.
+- GSU manages GreenSpaces and reports issues through the Portal.
 
 ## Domain Model
 
-**Do NOT forget to identify concept atributes too.**
-
-**Insert below the Domain Model Diagram in a SVG format**
+The domain model diagram provides a visual representation of the identified conceptual classes and their associations. Attributes for each concept have been defined based on the specifications provided.
 
 ![Domain Model](svg/project-domain-model.svg)
+
+*Please note: The domain model diagram is to be included as an SVG file in the project documentation.*
+
+## Conclusion
+
+This analysis lays the groundwork for the design and implementation phases of the green spaces management system. The identified conceptual classes and associations form a robust domain model that aligns with the client's requirements and objectives for the project.
