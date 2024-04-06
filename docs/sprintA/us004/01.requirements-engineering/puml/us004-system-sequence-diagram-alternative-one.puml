@@ -18,13 +18,13 @@ activate Employee
         System --> Employee : Shows list of collaborators
     deactivate System
 
-    Employee -> System : choose the collaborator
+    Employee -> System : choose collaborator
     activate System
 
-        System --> Employee : shows task category list and asks to select one
+        System --> Employee : shows skills list and asks to select one or more
     deactivate System
 
-    Employee -> System : selects a task category
+    Employee -> System : selects one or more skills
     activate System
 
         System --> Employee : shows all data and requests confirmation
