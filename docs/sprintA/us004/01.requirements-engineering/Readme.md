@@ -53,7 +53,7 @@ Output - Updated record of collaborator skills_
 
 _Insert here a SSD depicting the envisioned Actor-System interactions and throughout which data is inputted and outputted to fulfill the requirement. All interactions must be numbered._
 
-![USXXX-SSD](svg/usXXX-system-sequence-diagram.svg)
+![US004-SSD](svg/us004-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 

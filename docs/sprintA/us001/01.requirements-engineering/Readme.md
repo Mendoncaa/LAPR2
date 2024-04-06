@@ -42,14 +42,15 @@ _"US04 - As an HRM, I want to assign one or more skills to a collaborator." depe
 
 ### 1.5 Input and Output Data
 
-_Input - Collaborator's name; skill
-Output - List of collaborator's skills_
+Input - Collaborator's name; skill
+
+Output - List of collaborator's skills
 
 ### 1.6. System Sequence Diagram (SSD)
 
 _Insert here a SSD depicting the envisioned Actor-System interactions and throughout which data is inputted and outputted to fulfill the requirement. All interactions must be numbered._
 
-![USXXX-SSD](svg/usXXX-system-sequence-diagram.svg)
+![US001-SSD](svg/us001-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 
@@ -61,9 +62,8 @@ _Maintain skills up to date to ensure accuracy of workers' skills.
 ## 2. OO Analysis
 
 ### 2.1. Relevant Domain Model Excerpt 
-_In this section, it is suggested to present an excerpt of the domain model that is seen as relevant to fulfill this requirement._ 
 
-![USXXX-DM](svg/usXXX-domain-model.svg)
+![US001-DM](svg/us001-domain-model.svg)
 
 ### 2.2. Other Remarks
 
