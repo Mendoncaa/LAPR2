@@ -11,62 +11,59 @@ As an organization HRM, I want to create a new collaborator with a job.
 
 **From the specifications document:**
 
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost, as well as a task category. 
+A collaborator must be registered with a job and fundamental characteristics. 
 
->	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
+Name, birthdate, admission date, address, contact info (mobile and email), ID doc type and respective number should be provided by HRM.
 
-**From the client clarifications:**
+**From client meeting:**
 
-> **Question:** Which is the unit of measurement used to estimate duration?
->
-> **Answer:** Duration is estimated in days.
+What information is considered as Address?
 
-> **Question:** Monetary data is expressed in any particular currency?
->
-> **Answer:** Monetary data (e.g. estimated cost of a task) is indicated in POT (virtual currency internal to the platform).
+Address information includes Street, city and Zip Code.
+
+Must be some skill assigned in the new collaborator?
+
+No, skills will be assigned in another US.
+
+
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** All required fields must be filled in.
-* **AC2:** The task reference must have at least 5 alphanumeric characters.
-* **AC3:** When creating a task with an existing reference, the system must reject such operation and the user must be able to modify the typed reference.
+* **AC1:** Required fields (Name, birthdate, admission date, address, contact info (mobile and email), ID doc type, ID number and Job are mandatory.
+* **AC2:** The address must include street, city and Zipcode.
+* **AC3:** When creating a collaborator with an existing doc type and doc number, the system must reject such operation.
+* **AC4:** Name must have at least one word and maximum six words.
+* **AC5:** Phone number must have 9 digits.
+* **AC6:** Only HRM can create a Job.
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US003 - Create a task category" as there must be at least one task category to classify the task being created.
+* There is a dependency on "US002 - Register a Job" as there must be at least one Job name to classify the task being created.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    * a reference
-    * a designation 
-    * an informal description
-    * a technical description
-    * an estimated duration
-    * an estimated cost
+  * Name
+  * Birthdate
+  * Admission date
+  * Address (including street, city, and Zipcode)
+  * Contact info (including mobile, email)
+  * ID doc type
+  * ID document number
 	
 * Selected data:
-    * a task category 
+    * Job
 
 **Output Data:**
 
-* List of existing task categories
 * (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**_Other alternatives might exist._**
-
-#### Alternative One
-
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
-
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
+![US003-SSD](svg/us003-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.
+* The created collaborator not have Skills assigned.

@@ -1,0 +1,25 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title "US003 - Create a collaborator" Domain Model
+
+class HRM {
+}
+
+class Job {
+  - description
+  - skillsAssigned
+}
+
+HRM "1" -- "*" TeamMember : managed by <
+TeamMember "1" - "1" Job: have >
+@enduml

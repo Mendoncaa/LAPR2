@@ -3,11 +3,11 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD)
+title US002 - Register a Job\nSystem Sequence Diagram (SSD)
 
 autonumber
 
-actor "Human Resorces\n Manager" as Employee
+actor "Human Resources\n Manager" as Employee
 participant ":System" as System
 
 activate Employee

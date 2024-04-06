@@ -20,17 +20,18 @@ _Client clarification, just a Job Name insertion is needed._
 
 ### 1.3. Acceptance Criteria
 
-_AC1 - Required field filled._
+_AC1 - Required field filled with at least one word._
 
-_AC2 - Is mandatory login as HRM._
+_AC2 - Only HRM can create a Job._
 
 ### 1.4. Found out Dependencies
 
-_US03 Depends on this US._
+_"US03 - Register a Collaborator" depends on this US, one Job must be selected to register a collaborator._
 
 ### 1.5 Input and Output Data
 
-_Input typed data in text field. Output error or success message._
+_Input typed Job name in text field._
+_Output (in)success message._
 
 ### 1.6. System Sequence Diagram (SSD)
 

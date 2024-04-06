@@ -12,14 +12,14 @@ However, be aware, this is a pedagogical simplification. On further projects and
 
 # Use Cases / User Stories
 
-| UC/US | Description                                   |                   
-|:------|:----------------------------------------------|
-| US01 | [Register Skills](docs/sprintA/us001/US001.md) |
-| US02 |    [RegisterJobs](docs/sprintA/us002/US002.md) |
-| US03 | [Register Collaborators](../../us006/Readme.md)        |
-| US04 | [Assign skills to a collaborator](../../us006/Readme.md)        |
-| US05 | [Team proposal automatically](../../us006/Readme.md)        |
-| US06 | [Register Vehicle](../../us006/Readme.md)        |
-| US07 | [Register Vehicle maintneance](../../us006/Readme.md)        |
-| US08 | [List vehihcles with a pending maintenance ](../../us006/Readme.md)        |
+| UC/US | Description                                                         |                   
+|:------|:--------------------------------------------------------------------|
+| US01  | [Register Skills](docs/sprintA/us001/US001.md)                      |
+| US02  | [RegisterJobs](docs/sprintA/us002/Readme.md)                        |
+| US03  | [Register Collaborators](docs/sprintA/us002/Readme.md)                     |
+| US04  | [Assign skills to a collaborator](../../us006/Readme.md)            |
+| US05  | [Team proposal automatically](../../us006/Readme.md)                |
+| US06  | [Register Vehicle](../../us006/Readme.md)                           |
+| US07  | [Register Vehicle maintneance](../../us006/Readme.md)               |
+| US08  | [List vehihcles with a pending maintenance ](../../us006/Readme.md) |
 
