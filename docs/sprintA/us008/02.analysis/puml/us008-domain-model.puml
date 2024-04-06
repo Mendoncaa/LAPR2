@@ -1,5 +1,8 @@
 @startuml
 
+hide methods
+hide circle
+
 class VFM {
 }
 
@@ -15,6 +18,6 @@ class Vehicles {
   - maintenanceFrequency 
 }
 
-VFM --> Vehicles : "manages"
+VFM -- Vehicles : manages >
 
 @enduml

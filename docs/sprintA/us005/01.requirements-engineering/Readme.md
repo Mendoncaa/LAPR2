@@ -58,12 +58,12 @@ the HRM.
 ### 1.4. Found out Dependencies
 
 * There is a dependency on:
-      
-      "US04 - As an HRM, I want to assign one or more skills to a collaborator.
+ 
+      • US04 - As an HRM, I want to assign one or more skills to a collaborator.
 
       • US03 - As an HRM, I want to register a collaborator with a job and fundamental characteristics
 
-      US01 - As a Human Resources Manager (HRM), I want to register skills that a collaborator may have.
+      
 
 
 

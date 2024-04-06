@@ -15,19 +15,14 @@ activate FM
     FM -> System : Selects the option to list vehicles needing check-up
     activate System
 
-        System --> FM : Asks for input data (Current Km and Check-up Frequency)
-    deactivate System
-    
-    FM -> System : Inputs requested data
-    activate System
-
-        System --> FM : Confirms data and asks for user confirmation of check-up criteria
+    System --> FM : Lists vehicles needing check-up and their details (plate number, brand, model, current kms, frequency, last checkup kms, next checkup)
     deactivate System
 
-    FM -> System : Confirms check-up criteria
+    FM -> System : Confirms data
     activate System
 
-        System --> FM : Lists vehicles needing check-up and confirms operation success
+    System --> FM : Confirms Operation Success
+
 
     deactivate System
 

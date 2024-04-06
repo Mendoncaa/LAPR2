@@ -1,40 +1,38 @@
 @startuml
 
-skinparam class {
-    BackgroundColor #FEFECE
-    ArrowColor #3498db
-    BorderColor #2ecc71
+skinparam linetype polyline
+
+hide methods
+hide circle
+
+class Employee {
 }
 
-skinparam classAttributeIconSize 0
-
-
+class TeamMember {
+  - name 
+  - id 
+}
 
 class HRM {
 }
 
-class Collaborator {
+class Skills {
+  - name 
 }
 
-class Skill {
+class Teams {
+  - numElements 
+  - skillsNeeded
 }
 
-class Team {
-}
+Employee "1"---"1" TeamMember : is a >
+Employee "1"---"0..*" Teams : manages >
 
-HRM -down-> Collaborator : manages >
-HRM -down-> Skill : needs >
-HRM -down-> Team : organizes >
-Skill -left-> Collaborator : possesses <
-Collaborator -right-> Team : part of >
+TeamMember "1..*"---"1" HRM : managed by >
 
+Skills "1..*"---"1" HRM : created by >
+Skills "0..*"---"1" TeamMember : assigned to > 
 
-
-
-HRM -[hidden]- Collaborator
-Collaborator -[hidden]- Skill
-Skill -[hidden]- Team
-
-
+Teams "1"---"0..*" TeamMember : includes >
 
 @enduml

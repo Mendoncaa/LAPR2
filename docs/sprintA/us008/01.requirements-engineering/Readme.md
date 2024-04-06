@@ -38,17 +38,11 @@ As an FM, I want to list the vehicles needing the check-up.
 
 ### 1.4. Found out Dependencies
 
-US08 depend on US06 - Register a vehicle including Brand, Model...Current Km, Register Date, Acquisition Date, Maintenance/Check￾up Frequency (in Kms)...
+US08 depend on US06 - Register a vehicle including Brand, Model...Current Km, Register Date, Acquisition Date, Maintenance/Check-up Frequency (in Kms)...
 
 US07 - As an FM, I wish to register a vehicle’s check-up.
 
 ### 1.5 Input and Output Data
-
-**Input Data:**
-
-     Current Kms
-     Check-up frequency
-	
 
 **Output Data:**
 
