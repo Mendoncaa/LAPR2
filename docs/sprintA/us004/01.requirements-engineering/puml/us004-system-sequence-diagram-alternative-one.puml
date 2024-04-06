@@ -12,13 +12,13 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to create a assign one skill or more to a collaborator
+    Employee -> System : asks for a collaborator available
     activate System
 
-        System --> Employee : requests data (which collaborator?)
+        System --> Employee : Shows list of collaborators
     deactivate System
 
-    Employee -> System : name the collaborator
+    Employee -> System : choose the collaborator
     activate System
 
         System --> Employee : shows task category list and asks to select one
