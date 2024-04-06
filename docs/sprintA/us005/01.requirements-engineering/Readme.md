@@ -47,13 +47,25 @@ As a HRM, I want to generate a team proposal automatically
 
 ### 1.3. Acceptance Criteria
 
+* **AC1**  The maximum and minimum team size and the set of skills need to be supplied by
+the HRM.
+
 * **AC1:** When a team is created, HRM can reject the proposal or accept the team.
 
-* **AC2:** Each collaborator can´t be in more than one team at the same time
+* **AC3:** The system should generate a new team until the HRM accept the team sugestion.
+
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US04 - As an HRM, I want to assign one or more skills to a collaborator.
+* There is a dependency on:
+      
+      "US04 - As an HRM, I want to assign one or more skills to a collaborator.
+
+      • US03 - As an HRM, I want to register a collaborator with a job and fundamental characteristics
+
+      US01 - As a Human Resources Manager (HRM), I want to register skills that a collaborator may have.
+
+
 
 ### 1.5 Input and Output Data
 
@@ -77,6 +89,6 @@ As a HRM, I want to generate a team proposal automatically
 #
 ### 1.7 Other Relevant Remarks
 
-* Collaborators are available if they are not assigned to any team
+* Collaborators are available if they are not assigned to any team (Each collaborator can´t be in more than one team at the same time)
 
 * If my team max size, for instance, is 4 and I need 4 collaborators with the same skill but I need another skill. The system must search for a collaborator with those 2 skills.
