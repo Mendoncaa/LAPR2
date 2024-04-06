@@ -21,17 +21,19 @@ activate System
     HRManager -> System : Provides data
     activate System
 
-    System --> HRManager : Confirms data reception and presents options (Approve, Rejet)
-    deactivate System
+    loop until approved
+        System --> HRManager : Confirms data reception and presents options (Approve, Reject)
+        deactivate System
 
-HRManager -> System : Submits selection (Approve/Reject)
-activate System
+        HRManager -> System : Submits selection (Approve/Reject)
+        activate System
 
-alt Approve
-    System --> HRManager : Confirms team approval
-else Reject
-    System --> HRManager : Declines team approval
-end
+        alt Approve
+            System --> HRManager : Confirms team approval
+        else Reject
+            System --> HRManager : Declines team approval and generates new team
+        end
+    end loop
 
 deactivate System
 
