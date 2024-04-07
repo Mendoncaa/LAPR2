@@ -1,4 +1,4 @@
-# US003 - Create a Task 
+# US003 - Create a collaborator. 
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

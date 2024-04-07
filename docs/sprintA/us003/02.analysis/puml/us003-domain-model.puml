@@ -3,14 +3,25 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-'left to right direction
 
 skinparam classAttributeIconSize 0
+
+left to right direction
 
 hide circle
 hide methods
 
 title "US003 - Create a collaborator" Domain Model
+
+class TeamMember {
+   - name
+   - birthdate
+   - admission date
+   - address
+   - contact info
+   - ID doc type
+   - ID document number
+}
 
 class HRM {
 }
@@ -20,6 +31,7 @@ class Job {
   - skillsAssigned
 }
 
-HRM "1" -- "*" TeamMember : managed by <
-TeamMember "1" - "1" Job: have >
+HRM "1"---"1.." TeamMember: manages >
+TeamMember "1"---"1" Job: assignes >
+
 @enduml

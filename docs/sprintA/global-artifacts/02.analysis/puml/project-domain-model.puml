@@ -2,18 +2,29 @@
 
 hide methods
 hide circle
+skinparam linetype ortho
+
 
 
 
 class Organization {
+    -name
+    -address
+    -phone
+    -email
 }
 
 class Employee {
 }
 
 class TeamMember {
-  - name 
-  - id 
+   - name
+   - birthdate
+   - admission date
+   - address
+   - contact info
+   - ID doc type
+   - ID document number
 }
 
 class HRM {
@@ -26,8 +37,7 @@ class VFM {
 }
 
 class Job {
-  - description
-  - skillsAssigned
+  - name
 }
 
 class Skills {
@@ -93,39 +103,38 @@ class Comments {
 
 Organization "1"---"1..*" Employee : employs >
 
-Employee "1"---"1" TeamMember : is a >
+Employee "1"---"1" TeamMember : is a <
 Employee "1"---"0..*" Tasks: manages > 
-Employee "1"---"1" HRM : is a >
-Employee "1"---"1" GSM : is a >
-Employee "1"---"1" VFM : is a >
+Employee "1"---"1" HRM : is a <
+Employee "1"---"1" GSM : is a <
+Employee "1"---"1" VFM : is a <
 Employee "1"---"0..*" Teams : manages >
 
 TeamMember "1..*"---"1" HRM : managed by >
 
-
+Skills "1..*"---"1" HRM : created by >
 Job "1..*"---"1" HRM : created by >
 Job "1"---"1" TeamMember: assigned to >
-Skills "1..*"---"1" HRM : created by >
 Skills "0..*"---"1" TeamMember : assigned to > 
 
 
 Teams "1"---"0..*" Tasks : assigned to >
-
-
-GSM "1"---"1" Portal : manages >
-GSM "1"---"1" Agenda : manages >
-
-
 Tasks "1..*"---"1" GreenSpaces : relates to >
 Agenda "1"---"1..*" Tasks : organizes >
 
+GSM "1"---"1" Portal : manages >
+GSM "1"---"1" Agenda : manages >
 
 VFM "1"---"1..*" Vehicles : manages >
 VFM "1"---"1..*" Machines : manages >
 VFM "1"---"1..*" Equipment : manages >
 
+Tasks "1"---"0..*" Vehicles : assigned to <
+Tasks "1"---"0..*" Machines : assigned to <
+Tasks "1"---"0..*" Equipment : assigned to <
+
 Portal "1"---"0..*" Malfunctions : aggregates >
-Portal "1"--- "0..*" Faults : aggregates >
+Portal "1"---"0..*" Faults : aggregates >
 Portal "1"---"0..*" Comments : receives  >
 
 GSU "1"---"1..*" GreenSpaces : manages >

@@ -1,4 +1,4 @@
-# US008 - List the vehicles needing the check-up. 
+# US007 - As an FM, I wish to register a vehicle's check-up. 
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

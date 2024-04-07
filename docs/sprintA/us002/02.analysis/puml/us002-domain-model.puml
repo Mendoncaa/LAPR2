@@ -10,18 +10,17 @@ skinparam classAttributeIconSize 0
 hide circle
 hide methods
 
-title "US002 - Register a Job" Domain Model
+left to right direction
 
+title "US002 - Register a Job" Domain Model
 
 class HRM {
 }
 
 class Job {
-  - description
-  - skillsAssigned
+  - name
 }
 
-
-Job --> HRM : "managed by"
+HRM "1"---"1..*" Job : creates >
 
 @enduml

@@ -1,4 +1,4 @@
-# US008 - List the vehicles needing the check-up. 
+# US04 - Assign one or more skills to a collaborator. 
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

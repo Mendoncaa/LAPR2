@@ -32,9 +32,7 @@ No, skills will be assigned in another US.
 * **AC1:** Required fields (Name, birthdate, admission date, address, contact info (mobile and email), ID doc type, ID number and Job are mandatory.
 * **AC2:** The address must include street, city and Zipcode.
 * **AC3:** When creating a collaborator with an existing doc type and doc number, the system must reject such operation.
-* **AC4:** Name must have at least one word and maximum six words.
-* **AC5:** Phone number must have 9 digits.
-* **AC6:** Only HRM can create a Job.
+* **AC4:** Only HRM can create a Job.
 
 ### 1.4. Found out Dependencies
 
