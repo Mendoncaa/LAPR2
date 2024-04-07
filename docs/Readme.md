@@ -4,12 +4,12 @@
 
 The teams consists of students identified in the following table.
 
-| Student Number | Name               |
-|----------------|--------------------|
-| **1010488**    | Flávio Cruz        |
-| **1211572**    | David Mendonça     |
-| **1181885**    | Ricardo Teixeira   |
-| **1XXXXXX**    | Name of student 4  |
+| Student Number | Name             |
+|----------------|------------------|
+| **1010488**    | Flávio Cruz      |
+| **1211572**    | David Mendonça   |
+| **1181885**    | Ricardo Teixeira |
+| **1130277**    | Pedro Morgado    |
 
 # 2. Task Distribution ###
 
@@ -29,6 +29,6 @@ was carried out as described in the following table.
 | US003 (SDP Activities)      | [1010488](sprintA/us003/Readme.md)                                                         |                                                                                            |                                                                                            |
 | US004 (SDP Activities)      | [1181885](sprintA/us004/Readme.md)                                                         |
 | US005 (SDP Activities)      | [1211572](sprintA/us005/Readme.md)                                                         |                                                                                            |                                                                                            |
-| US006 (SDP Activities)      | [1XXXXXX](sprintA/us006/Readme.md)                                                         |                                                                                            |
-| US007 (SDP Activities) | [1XXXXXX](sprintA/us007/Readme.md)                                                         
+| US006 (SDP Activities)      | [1130277](sprintA/us006/Readme.md)                                                         |                                                                                            |
+| US007 (SDP Activities) | [1130277](sprintA/us007/Readme.md)                                                         
 | US008 (SDP Activities)      | [1211572](sprintA/us008/Readme.md)                                                         |                                                                                            |                                                                                        
