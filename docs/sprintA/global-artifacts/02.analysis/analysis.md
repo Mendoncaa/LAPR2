@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This document outlines the object-oriented analysis conducted for the development of an IT solution aimed at supporting the management and maintenance of green spaces. Based on the client's specifications, conceptual classes and associations have been identified to construct a comprehensive domain model.
+This document outlines the object-oriented analysis conducted for the development of an Minimal Viable Product (PVM) aimed at supporting the management and maintenance of green spaces. 
 
 ## Rationale for Identifying Conceptual Classes
 
@@ -12,17 +12,16 @@ Conceptual classes were identified by analyzing the client specifications, focus
 
 #### Business Transactions
 
-- **Teams**: Groups of TeamMembers managed by an Employee, characterized by their number of elements and required skills.
+
 - **Tasks**: Categories of work assigned to Teams and related to GreenSpaces, organized by an Agenda.
 
 #### Transaction Line Items
 
 - **Skills**: Abilities that a TeamMember can possess, created and assigned by HRM.
-- **Job**: A role with specific responsibilities and required skills, created and assigned by HRM.
 
 #### Product/Service Related
 
-- **GreenSpaces**: Types of spaces Tasks are related to, managed by GSU.
+- **GreenSpaces**: Types of spaces Tasks are related to, used by GSU.
 
 #### Transaction Records
 
@@ -30,7 +29,13 @@ Conceptual classes were identified by analyzing the client specifications, focus
 
 #### Roles of People or Organizations
 
-- **Employee, TeamMember, HRM, GSM, VFM, GSU**: Various roles within the organization, each with distinct responsibilities and interactions within the system.
+- **Employee** : Various types of roles (in case of the TeamMember, a Job) within the organization, each with distinct responsibilities and interactions within the system. Can be a: TeamMember, HRM, GSM, VFM.
+
+
+- **Teams**: Groups of TeamMembers managed by an Employee, characterized by their number of elements and required skills.
+
+-**GSU**: User of a green space that reports malfunctions, faults and makes comments about the green space on the portal.
+
 
 #### Noteworthy Events
 
@@ -62,7 +67,7 @@ Associations were identified based on the relevance of connections between objec
 - GSM manages the Portal and Agenda.
 - VFM manages Vehicles, Machines, and Equipment.
 - The Portal aggregates Malfunctions, Faults, and receives Comments.
-- GSU manages GreenSpaces and reports issues through the Portal.
+- GSU uses GreenSpaces and reports issues through the Portal.
 
 ## Domain Model
 
