@@ -25,14 +25,12 @@ class Teams {
   - skillsNeeded
 }
 
-Employee "1"---"1" TeamMember : is a >
+Employee "1"---"1" TeamMember : is a <
 Employee "1"---"0..*" Teams : manages >
 
 TeamMember "1..*"---"1" HRM : managed by >
 
 Skills "1..*"---"1" HRM : created by >
 Skills "0..*"---"1" TeamMember : assigned to > 
-
-Teams "1"---"0..*" TeamMember : includes >
 
 @enduml
