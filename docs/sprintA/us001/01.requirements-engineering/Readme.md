@@ -70,7 +70,7 @@ _Maintain skills up to date to ensure accuracy of workers' skills.
 
 ### 2.2. Other Remarks
 
-_Use this section to capture some aditional notes/remarks that must be taken into consideration into the design activity. In some case, it might be usefull to add other analysis artifacts (e.g. activity or state diagrams)._ 
+__ 
 
 
 ## 3. Design - User Story Realization 
