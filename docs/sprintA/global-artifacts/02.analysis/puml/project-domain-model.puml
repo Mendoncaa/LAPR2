@@ -2,7 +2,9 @@
 
 hide methods
 hide circle
-skinparam linetype ortho
+hide empty attributes
+skinparam linetype polyline
+
 
 
 
