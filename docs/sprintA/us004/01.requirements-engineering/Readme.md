@@ -67,14 +67,13 @@ _Give clear feedback on the outcome of the skills assignment.
 
 ## 2. OO Analysis
 
-### 2.1. Relevant Domain Model Excerpt 
-_In this section, it is suggested to present an excerpt of the domain model that is seen as relevant to fulfill this requirement._ 
+### 2.1. Relevant Domain Model Excerpt
 
-![USXXX-DM](svg/usXXX-domain-model.svg)
+![US004-DM](svg/us004-domain-model.svg)
 
 ### 2.2. Other Remarks
 
-_Use this section to capture some aditional notes/remarks that must be taken into consideration into the design activity. In some case, it might be usefull to add other analysis artifacts (e.g. activity or state diagrams)._ 
+__
 
 
 ## 3. Design - User Story Realization 
