@@ -31,6 +31,8 @@ Employee "1"---"0..*" Teams : manages >
 TeamMember "1..*"---"1" HRM : managed by >
 
 Skills "1..*"---"1" HRM : created by >
-Skills "0..*"---"1" TeamMember : assigned to > 
+Skills "0..*"---"1" TeamMember : assigned to >
+
+HRM "1"---"1" Employee : is a >
 
 @enduml
