@@ -27,25 +27,63 @@ Given the project's scope, we currently do not predict significant failures, aim
 
 ## Performance
 
-[To be specified]
+Evaluates the performance requirements of the software, namely: response time, start-up time, recovery time, memory consumption, CPU usage, load capacity and application availability.
+
+The system should load pages and perform actions quickly. The system should be able to handle concurrent user requests without slowdowns. The system should have reasonable response times for data queries and updates.
 
 ## Supportability
+_The supportability requirements gathers several characteristics, such as:
+testability, adaptability, maintainability, compatibility, configurability, installability, scalability and more.
 
-The system aims to incorporate several supportability characteristics, such as testability, adaptability, maintainability, compatibility, configurability, installability, and scalability.
 
-[Details to be filled in]
+- ### Testability
+    - The development team must implement unit tests for all methods The unit tests should be implemented using the JUnit 5 framework. 
+- ### Adaptability
+    - 
+- ### Maintainability
+    - The system should have documentation and support resources available to all actors.
+- ### Compatibility
+    - The system must be compatible with different devices.
+- ### Configurability
+    - ""
+- ### Installability
+    - The system should be easy to install and maintain.
+- ### Scalability
+    - The system should be modular and allow for easy upgrades and additions.
+
 
 ## Design Constraints
 
-[To be specified]
+Specifies or constraints the system design process. Examples may include: programming languages, software process, mandatory standards/patterns, use of development tools, class library, etc.
+  
+
+- #### Mandatory standards/patterns: 
+  - GRASP
+  - SOLID
+  - Modularity
+  - Tell, Don't Ask (Principle)
+  - Test-Driven Design (RDD)
+  - OO software analysis and design practices
+- #### Development tools: 
+  - PlantUML 
+  - Markdown
+  - IntelliJ IDE or Visual Studio Code
+  - JUnit Framework
+  - Bitbucket 
 
 ## Implementation Constraints
 
-[To be specified]
+- #### Mandatory standards/patterns:
+    - JavaDoc
+- #### Implementation languages:
+  - Java
+- #### Java Plugins:
+  - JUnit Framework
+
 
 ## Interface Constraints
 
-[To be specified]
+Specifies or constraints the features inherent to the interaction of the system being developed with other external systems
 
 ## Physical Constraints
 
