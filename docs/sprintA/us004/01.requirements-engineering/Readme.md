@@ -14,10 +14,12 @@ _As an HRM, I want to assign one or more skills to a collaborator._
 
 **From the specifications document:**
 
- The skills must be clearly defined and described.
- When assigning competence/s to a worker. 
- It must be possible assigning one or more skills to a collaborator each time. 
- In each moment assigning those skills.
+_The skills must be clearly defined and described._
+
+_When assigning competence/s to a worker._
+
+_It must be possible assigning one or more skills to a collaborator each time._
+
 
 
 **From the client clarifications:**
@@ -36,9 +38,11 @@ _As an HRM, I want to assign one or more skills to a collaborator._
 
 ### 1.3. Acceptance Criteria
 
-_AC1 - Must be a collaborator of the company. 
- AC2 - The collaborator needs to have at least one skill.  
- AC3 - It must be impossible to assign skills to collaborator who are not in the company's database._
+_AC1 - Must be a collaborator of the company._
+
+_AC2 - The collaborator needs to have at least one skill._
+
+_AC3 - It must be impossible to assign skills to collaborator who are not in the company's database._
 
 ### 1.4. Found out Dependencies
 
@@ -46,12 +50,12 @@ _US04 depends the US01._
 
 ### 1.5 Input and Output Data
 
-_Input - Collaborator's name; worker's role; skills to be assigned 
-Output - Updated record of collaborator skills_
+_Input - Collaborator's name; worker's role; skills to be assigned._ 
+
+_Output - Updated record of collaborator skills._
 
 ### 1.6. System Sequence Diagram (SSD)
 
-_Insert here a SSD depicting the envisioned Actor-System interactions and throughout which data is inputted and outputted to fulfill the requirement. All interactions must be numbered._
 
 ![US004-SSD](svg/us004-system-sequence-diagram.svg)
 

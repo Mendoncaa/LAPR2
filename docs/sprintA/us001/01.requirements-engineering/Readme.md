@@ -8,16 +8,19 @@
 
 ### 1.1. User Story Description
 
-_As a HRM, I want to register skills that may be appointed to a collaborator_
+_As a HRM, I want to register skills that may be appointed to a collaborator._
 
 ### 1.2. Customer Specifications and Clarifications 
 
 **From the specifications document:**
 
-> The skills must be clearly defined and described.
-  Options of add, edit and delete skills must be defined.
-  It must be easy visualize the skills of each collaborator.
-  Skills must be linked to the individual profile of each employee.
+_The skills must be clearly defined and described._
+
+_Options of add, edit and delete skills must be defined._
+
+_It must be easy visualize the skills of each collaborator._
+
+_Skills must be linked to the individual profile of each employee._
 
 **From the client clarifications:**
 
@@ -32,9 +35,11 @@ _As a HRM, I want to register skills that may be appointed to a collaborator_
 
 ### 1.3. Acceptance Criteria
 
-_AC1 - Every skills must be registered.
- AC2 - Each collaborator must have at least one skill.
- AC3 - Identify skills._
+_AC1 - Every skills must be registered._
+
+_AC2 - Each collaborator must have at least one skill._
+
+_AC3 - Identify skills._
 
 ### 1.4. Found out Dependencies
 
@@ -42,13 +47,11 @@ _"US04 - As an HRM, I want to assign one or more skills to a collaborator." depe
 
 ### 1.5 Input and Output Data
 
-Input - Collaborator's name; skill
+Input - Collaborator's name; skill.
 
-Output - List of collaborator's skills
+Output - List of collaborator's skills.
 
 ### 1.6. System Sequence Diagram (SSD)
-
-_Insert here a SSD depicting the envisioned Actor-System interactions and throughout which data is inputted and outputted to fulfill the requirement. All interactions must be numbered._
 
 ![US001-SSD](svg/us001-system-sequence-diagram.svg)
 
