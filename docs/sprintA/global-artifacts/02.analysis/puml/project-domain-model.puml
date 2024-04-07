@@ -139,7 +139,7 @@ Portal "1"---"0..*" Malfunctions : aggregates >
 Portal "1"---"0..*" Faults : aggregates >
 Portal "1"---"0..*" Comments : receives  >
 
-GSU "1"---"1..*" GreenSpaces : manages >
+GSU "1"---"1..*" GreenSpaces : uses >
 GSU "1"---"0..*" Malfunctions : reports > 
 GSU "1"---"0..*" Faults : reports >
 GSU "1"---"0..*" Comments : reports >
