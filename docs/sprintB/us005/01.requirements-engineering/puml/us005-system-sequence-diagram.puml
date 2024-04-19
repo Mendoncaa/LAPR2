@@ -1,0 +1,40 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Human Resources\nManager" as HRManager
+participant ":System" as System
+
+activate HRManager
+
+HRManager -> System : Requests team generation for a task
+activate System
+
+    System --> HRManager : Requests for data(skills needed, min size, max size of the team)
+    deactivate System
+
+    HRManager -> System : Provides data
+    activate System
+
+    loop until approved
+        System --> HRManager : Confirms data reception and presents options (Approve, Reject)
+        deactivate System
+
+        HRManager -> System : Submits selection (Approve/Reject)
+        activate System
+
+        alt Approve
+            System --> HRManager : Confirms team approval
+        else Reject
+            System --> HRManager : Declines team approval and generates new team
+        end
+    end loop
+
+deactivate System
+
+@enduml
