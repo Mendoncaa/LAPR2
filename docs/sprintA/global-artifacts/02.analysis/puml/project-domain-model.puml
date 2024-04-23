@@ -107,9 +107,9 @@ Organization "1"---"1..*" Employee : employs >
 
 Employee "1"---"1" TeamMember : is a <
 Employee "1"---"0..*" Tasks: manages > 
-Employee "1"---"1" HRM : is a <
-Employee "1"---"1" GSM : is a <
-Employee "1"---"1" VFM : is a <
+Employee "1"---"1..*" HRM : is a <
+Employee "1"---"1..*" GSM : is a <
+Employee "1"---"1..*" VFM : is a <
 Employee "1"---"0..*" Teams : manages >
 
 TeamMember "1..*"---"1" HRM : managed by >
