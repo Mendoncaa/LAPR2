@@ -2,7 +2,7 @@
 
 ## 3. Design - User Story Realization 
 
-### 3.1. Rationale
+### 3.1. Rationale [teste]
 
 _**Note that SSD - Alternative One is adopted.**_
 
