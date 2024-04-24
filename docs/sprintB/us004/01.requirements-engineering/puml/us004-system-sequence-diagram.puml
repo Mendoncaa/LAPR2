@@ -12,7 +12,7 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks for a collaborator available
+    Employee -> System : List for a collaborator available
     activate System
 
         System --> Employee : Shows list of collaborators

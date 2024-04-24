@@ -35,11 +35,11 @@ _Skills must be linked to the individual profile of each employee._
 
 ### 1.3. Acceptance Criteria
 
-_AC1 - Every skills must be registered._
+_AC1 - Skills can be registered and appointed to collaborator by the HRM._
 
-_AC2 - Each collaborator must have at least one skill._
+_AC2 - Every skills must be registered._
 
-_AC3 - Identify skills._
+_AC3 - Identify skills names._
 
 ### 1.4. Found out Dependencies
 
@@ -47,7 +47,7 @@ _"US04 - As an HRM, I want to assign one or more skills to a collaborator." depe
 
 ### 1.5 Input and Output Data
 
-Input - Collaborator's name; skill.
+Input - Skill.
 
 Output - List of collaborator's skills.
 

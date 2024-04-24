@@ -38,11 +38,11 @@ _It must be possible assigning one or more skills to a collaborator each time._
 
 ### 1.3. Acceptance Criteria
 
-_AC1 - Must be a collaborator of the company._
+_AC1 - The system allows HRM to assign one or more skills to a collaborator._
 
-_AC2 - The collaborator needs to have at least one skill._
+_AC2 - Must be a collaborator of the company._
 
-_AC3 - It must be impossible to assign skills to collaborator who are not in the company's database._
+_AC3 - It must be impossible to assign skills to collaborator who are not in the company's database._ 
 
 ### 1.4. Found out Dependencies
 

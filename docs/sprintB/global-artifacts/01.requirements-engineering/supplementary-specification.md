@@ -18,6 +18,7 @@ The system emphasizes a user-friendly interface with a focus on:
 
 - **Error Prevention**: Validation of user credentials to prevent unauthorized access.
 - **Interface Aesthetics and Design**: Two main options for login and signup, with tailored sub-menus for admin and non-admin users based on their roles and responsibilities.
+- **Color blindness**: This application is not adapted for people with color blindness.
 
 ## Reliability
 
