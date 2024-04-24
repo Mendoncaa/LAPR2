@@ -32,10 +32,9 @@ Evaluates the performance requirements of the software, namely: response time, s
 The system should load pages and perform actions quickly. The system should be able to handle concurrent user requests without slowdowns. The system should have reasonable response times for data queries and updates.
 
 ## Supportability
-_The supportability requirements gathers several characteristics, such as:
+_ The supportability requirements gathers several characteristics, such as:
 testability, adaptability, maintainability, compatibility, configurability, installability, scalability and more.
-
-
+_ This application is supported by the following Operating Systems: Windows and MacOS.
 - ### Testability
     - The development team must implement unit tests for all methods The unit tests should be implemented using the JUnit 5 framework. 
 - ### Adaptability

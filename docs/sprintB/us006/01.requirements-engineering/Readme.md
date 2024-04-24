@@ -32,7 +32,7 @@ Gross Weight, Current Km, Register Date, Acquisition Date, Maintenance/Checkup F
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** All required fields must be filled out before the registration.
+* **AC1:** All input data must be filled out before the registration.
 * **AC2:** If any field contains invalid data, an error message should be displayed, and the registration. 
 * **AC3:** Allows the VFM to register a vehicle.
 

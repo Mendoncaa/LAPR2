@@ -26,7 +26,7 @@ _US07 - As an FM,I wish to register a vehicle's check-up._
 
 ### 1.3. Acceptance Criteria
 
-* **AC1 -** All required fields of the form must be filled before submitting the vehicle's check up.
+* **AC1 -** All input data of the form must be filled before submitting the vehicle's check up.
 * **AC2 -** Check's up date cannot be registered after the current date.
 * **AC3 -** The system allows the FM to register a vehicle’s check-up.
 
@@ -39,13 +39,13 @@ before register the vehicle's check up.
 
 ### 1.5 Input and Output Data
 
-**INPUT DATA**
+**Input data:**
 * Typed Data:
   * Vehicle's ID;
   * Schedule's date;
   * Current Km's;
 
-**OUTPUT DATA**
+**Output data**
 * (In)Success of the operation;
 
 
