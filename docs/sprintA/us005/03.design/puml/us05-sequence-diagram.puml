@@ -1,0 +1,116 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+actor "Admin" as Admin
+participant ":HRMUI" as HRMUI
+participant ":Controller" as Controller
+participant "teamService:\nTeamService" as TeamService
+participant "employeeRepository:\nEmployeeRepository" as EmployeeRepository
+participant "team\n:Team" as Team
+
+activate Admin
+
+Admin -> HRMUI : Requests team generation with minSize and maxSize
+activate HRMUI
+
+HRMUI -> Controller : Requests team generation with minSize and maxSize
+activate Controller
+
+Controller -> HRMUI : Requests skill selection
+deactivate Controller
+
+Admin -> HRMUI : Requests available skills
+activate HRMUI
+
+HRMUI -> Controller : Requests available skills
+activate Controller
+
+Controller -> EmployeeRepository : getAvailableSkills()
+activate EmployeeRepository
+
+EmployeeRepository --> Controller : Returns available skills
+deactivate EmployeeRepository
+
+Controller --> HRMUI : Returns available skills
+deactivate Controller
+
+HRMUI --> Admin : Displays available skills
+deactivate HRMUI
+
+Admin -> HRMUI : Selects skills
+activate HRMUI
+
+HRMUI -> Controller : Selects skills
+activate Controller
+
+Controller -> TeamService : generateTeam(minSize, maxSize, skills)
+activate TeamService
+
+loop until approved
+    TeamService -> Team : createTeam(minSize, maxSize)
+    activate Team
+
+    loop for each skill in skills
+        TeamService -> EmployeeRepository : findEmployeeWithSkill(skill)
+        activate EmployeeRepository
+
+        EmployeeRepository --> TeamService : Returns employee with skill
+        deactivate EmployeeRepository
+
+        TeamService -> Team : assignEmployee(employee)
+        activate Team
+
+        Team --> TeamService : Returns assigned employee
+        deactivate Team
+    end
+
+    Team --> TeamService : Returns proposed team
+    deactivate Team
+
+    TeamService --> Controller : Returns proposed team
+    deactivate TeamService
+
+    Controller --> HRMUI : Returns proposed team
+    deactivate Controller
+
+    HRMUI --> Admin : Presents proposed team
+    deactivate HRMUI
+
+    Admin -> HRMUI : Submits selection (Approve/Reject)
+    activate HRMUI
+
+    HRMUI -> Controller : Submits selection (Approve/Reject)
+    activate Controller
+
+    alt Approve
+        Controller -> TeamService : confirmTeam(team)
+        activate TeamService
+
+        TeamService --> Controller : Confirms team approval
+        deactivate TeamService
+
+        Controller --> HRMUI : Confirms team approval
+        deactivate Controller
+
+        HRMUI --> Admin : Confirms team approval
+        deactivate HRMUI
+    else Reject
+        Controller -> TeamService : rejectTeam(team)
+        activate TeamService
+
+        TeamService --> Controller : Acknowledges team rejection
+        deactivate TeamService
+
+        Controller --> HRMUI : Acknowledges team rejection
+        deactivate Controller
+
+        HRMUI --> Admin : Acknowledges team rejection
+        deactivate HRMUI
+    end
+end loop
+
+@enduml
