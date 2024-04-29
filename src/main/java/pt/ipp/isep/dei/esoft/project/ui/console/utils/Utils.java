@@ -29,16 +29,23 @@ public class Utils {
     }
 
     static public int readIntegerFromConsole(String prompt) {
+
         do {
+
             try {
+
                 String input = readLineFromConsole(prompt);
 
                 int value = Integer.parseInt(input);
 
                 return value;
+
             } catch (NumberFormatException ex) {
+
                 Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+
             }
+
         } while (true);
     }
 
