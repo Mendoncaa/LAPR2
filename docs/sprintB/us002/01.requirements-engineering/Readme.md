@@ -1,4 +1,4 @@
-# US002 - Register a job.
+# US002 - As an HRM, I want to register a job.
 
 
 
@@ -9,29 +9,40 @@
 
 ### 1.1. User Story Description
 
-_As an HRM, I want to register a job._
+As a Human Resources Manager in the organization, I want to register a job that defines main occupation of an employee.
 
 ### 1.2. Customer Specifications and Clarifications 
 
-_The main occupation of employees such as designer, estimator, gardener, electrician, or mason, being inputted by the HRM._
+**From the specifications document:**
 
-_Client clarification, just a Job Name insertion is needed._
+The main occupation of employees such as designer, estimator, gardener, electrician, or mason, being inputted by the HRM.
+
+**From client meeting:**
+
+Client clarification, just a Job Name insertion is needed.
 
 
 ### 1.3. Acceptance Criteria
 
-_AC1 - Required field filled with at least one word._
+**AC1** - A job name can’t have special characters or digits.
 
-_AC2 - Only HRM can create a Job._
+**AC2** - Required field (name) filled with at least one word.
+
+**AC3** - Only HRM can create a Job.
 
 ### 1.4. Found out Dependencies
 
-_"US03 - Register a Collaborator" depends on this US, one Job must be selected to register a collaborator._
+None.
 
 ### 1.5 Input and Output Data
 
-_Input typed Job name in text field._
-_Output (in)success message._
+**Input Data:** 
+* Typed data: 
+  * Name
+
+**Output Data:**
+
+* (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
 
@@ -39,6 +50,8 @@ _Output (in)success message._
 ![US002-SSD](svg/us002-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
+
+Only a job is created, is not assigned to any employee in this US.
 
 
   

@@ -1,4 +1,4 @@
-# US002 - Create a Job. 
+# US002 - As an HRM, I want to register a job.
 
 ## 2. Analysis
 

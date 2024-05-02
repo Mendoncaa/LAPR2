@@ -1,0 +1,101 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class ApplicationSession
+{
+    + static getInstance()
+    + getCurrentSession()
+}
+
+class UserSession
+{
+    + getUserEmail()
+}
+
+class Employee {
+    - String name
+    - String email
+    - position
+    - phone
+    - Job job
+}
+
+class Job {
+    - String name
+}
+
+
+
+class Organization {
+    - String name
+    - String vatNumber
+    - String website
+    - String phone
+    - String email
+    - addJob(job)
+    - validateJob(job)
+    + anyEmployeeHasEmail(email)
+    + Organization(name, vatNumber, webSite, phone, email, postalAddress, manager)
+    + createJob(name)
+    - getEmployeeByEmail(email)
+
+}
+
+
+class OrganizationRepository {
+    + getOrganizationByEmployeeEmail(email)
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getOrganizationRepository()
+}
+
+class CreateJobController {
+    + CreateJobController(organizationRepository)
+    + createJob(userEmail, name)
+    - getEmployeeFromSession()
+}
+
+note right of CreateJobController
+    - userEmail is obtained
+    from the user session
+end note
+
+
+class CreateJobUI {
+}
+
+Repositories -> Repositories : instance
+ApplicationSession -> ApplicationSession : instance
+
+CreateJobUI .> CreateJobController
+
+CreateJobController .> Repositories : repositories
+
+
+CreateJobController ..> OrganizationRepository : organizationRepository
+
+Repositories --> "1" OrganizationRepository
+
+OrganizationRepository --> "*" Organization
+ApplicationSession --> "1" UserSession : userSession
+
+CreateJobController ..> "1" Organization : organization
+CreateJobController ..> ApplicationSession
+CreateJobController ..> UserSession
+Organization "1" --> "*" Job : identify
+Job --> Employee : createdBy
+
+Organization --> "*" Employee : employs
+
+@enduml

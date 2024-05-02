@@ -1,22 +1,20 @@
-# US006 - Create a Task 
+# US002 - As an HRM, I want to register a job.
 
 ## 4. Tests 
 
-**Test 1:** Check that it is not possible to create an instance of the Task class with null values. 
+**Test 1:** Check that it is not possible to create an instance of the Job class with null values. 
 
 	@Test(expected = IllegalArgumentException.class)
 		public void ensureNullIsNotAllowed() {
-		Task instance = new Task(null, null, null, null, null, null, null);
+		Job instance = new Job(null);
 	}
 	
 
-**Test 2:** Check that it is not possible to create an instance of the Task class with a reference containing less than five chars - AC2. 
+**Test 2:** Check that it is not possible to create an instance of the Job class with a name containing special characteres or digits - AC1. 
 
 	@Test(expected = IllegalArgumentException.class)
-		public void ensureReferenceMeetsAC2() {
-		Category cat = new Category(10, "Category 10");
-		
-		Task instance = new Task("Ab1", "Task Description", "Informal Data", "Technical Data", 3, 3780, cat);
+		public void ensureNameMeetsAC1() {
+		Job instance = new Job("Ab1");
 	}
 
 _It is also recommended to organize this content by subsections._ 
@@ -24,37 +22,31 @@ _It is also recommended to organize this content by subsections._
 
 ## 5. Construction (Implementation)
 
-### Class CreateTaskController 
+### Class CreateJobController 
 
 ```java
-public Task createTask(String reference, String description, String informalDescription, String technicalDescription,
-                       Integer duration, Double cost, String taskCategoryDescription) {
+public Job createJob(String name) {
 
-	TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
-
+	
 	Employee employee = getEmployeeFromSession();
 	Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
 
-	newTask = organization.createTask(reference, description, informalDescription, technicalDescription, duration,
-                                      cost,taskCategory, employee);
+	newJob = organization.createJob(name);
     
-	return newTask;
+	return newJob;
 }
 ```
 
 ### Class Organization
 
 ```java
-public Optional<Task> createTask(String reference, String description, String informalDescription,
-                                 String technicalDescription, Integer duration, Double cost, TaskCategory taskCategory,
-                                 Employee employee) {
+public Optional<Job> createJob(String name){
     
-    Task task = new Task(reference, description, informalDescription, technicalDescription, duration, cost,
-                         taskCategory, employee);
+    Job job = new Job(name);
 
-    addTask(task);
+    addJob(job);
         
-    return task;
+    return job;
 }
 ```
 
