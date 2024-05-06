@@ -35,11 +35,13 @@ _Skills must be linked to the individual profile of each employee._
 
 ### 1.3. Acceptance Criteria
 
-_AC1 - Skills can be registered and appointed to collaborator by the HRM._
+_AC1 - A skill name can’t have special characters or digits._
 
-_AC2 - Every skills must be registered._
+_AC2 - Skills can be registered and appointed to collaborator by the HRM._
 
-_AC3 - Identify skills names._
+_AC3 - Every skills must be registered._
+
+_AC4 - Identify skills names._
 
 ### 1.4. Found out Dependencies
 
