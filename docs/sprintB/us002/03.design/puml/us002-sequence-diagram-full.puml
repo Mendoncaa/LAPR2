@@ -9,10 +9,10 @@ autonumber
 actor "HRM" as ADM
 participant ":CreateJobUI" as UI
 participant ":CreateJobController" as CTRL
+participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant ":ApplicationSession" as _APP
-participant "appSession\n:ApplicationSession" as APP
-participant "currentSession\n:UserSession" as SESSAO
+participant "AuthFacade\n:AuthenticationRepository" as AUTHREP
+participant "userSession\n:UserSession" as USER
 participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
 participant "organization\n:Organization" as ORG
 participant "Job\n:Job" as JOB
@@ -20,10 +20,7 @@ participant "Job\n:Job" as JOB
 activate ADM
 
         ADM -> UI : asks to create a new job
-
         activate UI
-
-
 
         UI --> ADM : requests data (Job name)
     deactivate UI
@@ -40,60 +37,73 @@ activate ADM
         UI -> CTRL : createJob(Job name)
         activate CTRL
 
+        CTRL -> CTRL : getUserFromSession()
 
-            |||
-            CTRL -> CTRL : getEmployeeFromSession()
-            activate CTRL
+        CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+        CTRL <-- RepositorySingleton : Repositories
+        deactivate RepositorySingleton
 
-                CTRL -> _APP: getInstance()
-                activate _APP
-                    _APP -> CTRL: appSession
-                deactivate _APP
+        CTRL -> PLAT : getAuthenticationRepository()
 
-
-                CTRL -> APP: getCurrentSession()
-                activate APP
-
-                    APP --> CTRL: currentSession
-                deactivate APP
-
-                CTRL -> SESSAO: email = getUserEmail()
-                activate SESSAO
-
-                    SESSAO --> CTRL: email
-                deactivate SESSAO
+        activate PLAT
+        CTRL <-- PLAT : AuthenticationRepository()
+        deactivate PLAT
 
 
-                CTRL -> PLAT: getOrganizationRepository(email)
-                activate PLAT
 
-                    PLAT --> CTRL: organizationRepository
-                deactivate PLAT
+        CTRL -> AUTHREP : getCurrentUserSession()
+
+        activate AUTHREP
 
 
-                CTRL -> OrganizationRepository: getOrganizationByEmployeeEmail(email)
-                activate OrganizationRepository
 
-                    loop [for each organization
-                        OrganizationRepository -> ORG : anyEmployeeHasEmail(email)
-                        activate ORG
 
-                             ORG --> OrganizationRepository : true/false
-                        deactivate ORG
-                    end
-                    OrganizationRepository --> CTRL : organization
-                deactivate OrganizationRepository
+        AUTHREP -> USER : isLoggedWithRule(HRM)
 
-                CTRL -> ORG: getEmployeeByEmail(email)
-                activate ORG
+        activate USER
 
-                    ORG --> CTRL : employee
-                deactivate ORG
+        AUTHREP <-- USER : "True/False"
+        AUTHREP --> USER : getUserId(email)
+        AUTHREP <-- USER : userId(email)
+        deactivate USER
 
-                CTRL --> CTRL : employee
-            deactivate CTRL
+        CTRL <-- AUTHREP : userId(email)
+        deactivate AUTHREP
 
-            |||
+        CTRL -> CTRL : getOrganizationByUserId(email)
+
+
+        CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+        CTRL <-- RepositorySingleton : Repositories
+        deactivate RepositorySingleton
+
+
+
+        CTRL -> PLAT : getOrganizationRepository()
+        activate PLAT
+        CTRL <-- PLAT : OrganizationRepository()
+        deactivate PLAT
+
+
+        CTRL -> OrganizationRepository :getOrganizationByUserId(email)
+        activate OrganizationRepository
+            loop for each organization
+            OrganizationRepository -> ORG : anyUserHasId(email)
+            activate ORG
+            OrganizationRepository <-- ORG : True/False
+            deactivate ORG
+            end loop
+
+        CTRL <-- OrganizationRepository : organitazion
+
+
+
+
+
+
+
             CTRL -> ORG: createJob(Job name)
             activate ORG
 

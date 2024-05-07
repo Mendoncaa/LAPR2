@@ -53,9 +53,7 @@ public Optional<Job> createJob(String name){
 
 ## 6. Integration and Demo 
 
-* A new option on the Employee menu options was added.
 
-* For demo purposes some tasks are bootstrapped while system starts.
 
 
 ## 7. Observations

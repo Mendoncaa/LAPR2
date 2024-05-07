@@ -5,21 +5,21 @@
 ### 3.1. Rationale
 
 
-| Interaction ID | Question: Which class is responsible for...   | Answer              | Justification (with patterns)                                                                                 |
-|:---------------|:----------------------------------------------|:--------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1  		     | 	... interacting with the actor?              | CreateJobUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-| 			  		        | 	... coordinating the US?                     | CreateJobController | Controller                                                                                                    |
-| 			  		        | 	... instantiating a new Job?                 | Organization        | Creator (Rule 1): in the DM Organization owns Jobs list.                                                      |
-| 			  		        | ... knowing the user using the system?        | UserSession         | IE: see Auth component documentation.                                                                         |
-| 			  		        | 							                                       | Organization        | IE: has its own Employees                                                                                     |
-| 			  		        | 							                                       | Employee            | IE: knows its own data                                                                                        |
-| Step 2  		     | 							                                       |                     |                                                                                                               |
-| Step 3  		     | 	...saving the inputted data?                 | Job                 | IE: object created in step 1 has its own data.                                                                |
-| Step 4  		     | 							                                       |                     |                                                                                                               |              
-| Step 5  		     | 	... validating all data (local validation)?  | Job                 | IE: owns its data.                                                                                            | 
-| 			  		        | 	... validating all data (global validation)? | Organization        | IE: knows all its jobs.                                                                                       | 
-| 			  		        | 	... saving the created job?                  | Organization        | IE: owns all its jobs.                                                                                        | 
-| Step 6  		     | 	... informing operation success?             | CreateJobUI         | IE: is responsible for user interactions.                                                                     | 
+| Interaction ID                             | Question: Which class is responsible for...                 | Answer              | Justification (with patterns)                                                                       |
+|:-------------------------------------------|:------------------------------------------------------------|:--------------------|:----------------------------------------------------------------------------------------------------|
+| Step 1 - ask to create a new Job 		  | ... interacting with the actor?                             | CreateJobUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the DM. |
+|                                            | ... coordinating the US?                                    | CreateJobController | Pure Fabrication(System Interaction Controller)                                                     |
+| Step 2 - requests data                     | ... displaying form for actor input?                        | CreateJobUI         | Pure Fabrication(Interation with Actor)                                                             |
+| Step 3 - types requested data              | ... temporaly keeping input data?                           | CreateJobUI         | Pure Fabrication(Interation with Actor)                                                             | 
+| Step 4 - show data an request confirmation | ... displaying all the information before submitting?       | CreateJobUI         | Pure Fabrication(Interation with Actor)                                                             |
+| Step 5 - confirms data			          | ... knowing the user using the system?                      | UserSession         | IE: see Auth component documentation.                                                               |        
+| 	                                          | ... instantiating a new Job (Object)?                       | Organization        | Creator (Rule 1): in the DM Organization owns Jobs list.                                            |
+|   		                                  | ... validating all data (local validation,i.e.mandatory)?   | Job                 | IE: owns its data.                                                                                  |
+| 		                                      | ... validating all data (global validation,i.e.duplicates)? | Organization        | IE: knows all its jobs.                                                                             |
+| 			  		                          | ... saving the created job?                                 | Organization        | IE: owns all its jobs.                                                                              |
+| 		                                      | ... saving the inputted data?                               | Job                 | IE: object created previously has its own data.                                                     |
+| Step 6 - dysplay operation sucess	  	  | ... information operation sucess?                           | CreateJobUI         | PureFabrication(Interation with Actor)                                                              |              
+
 
 ### Systematization ##
 
@@ -42,24 +42,9 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us006-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us002-sequence-diagram-full.svg)
 
-### Split Diagrams
-
-The following diagram shows the same sequence of interactions between the classes involved in the realization of this user story, but it is split in partial diagrams to better illustrate the interactions between the classes.
-
-It uses Interaction Occurrence (a.k.a. Interaction Use).
-
-![Sequence Diagram - split](svg/us006-sequence-diagram-split.svg)
-
-**Get Employee**
-
-![Sequence Diagram - Partial - Get Employee](svg/us006-sequence-diagram-partial-get-employee.svg)
-
-**Create Job**
-
-![Sequence Diagram - Partial - Create Job](svg/us006-sequence-diagram-partial-create-task.svg)
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us006-class-diagram.svg)
+![Class Diagram](svg/us002-class-diagram.svg)
