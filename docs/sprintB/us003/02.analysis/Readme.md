@@ -1,4 +1,4 @@
-# US003 - Create a collaborator. 
+# US003 - As an HRM, I want to register a collaborator with a job and fundamental characteristics.
 
 ## 2. Analysis
 
