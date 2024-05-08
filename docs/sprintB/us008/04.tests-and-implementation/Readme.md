@@ -1,69 +1,80 @@
-# US006 - Create a Task 
+# US008 - List the vehicles needing the check-up.
 
 ## 4. Tests 
 
-**Test 1:** Check that it is not possible to create an instance of the Task class with null values. 
+**Test 1:** Ensure Vehicles are Correctly Identified for Check-up Based on Current Km and Frequency
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Task instance = new Task(null, null, null, null, null, null, null);
-	}
+
+	@Test
+		public void ensureVehiclesAreCorrectlyIdentifiedForCheckUp() {
+    	VehicleRepository vehicleRepository = new VehicleRepository();
+    	VehicleService vehicleService = new VehicleService(vehicleRepository);
+
+    	
+    	vehicleRepository.add(new Vehicle("123-ABC", "Toyota", "Corolla", 100000, 15000, 85000));
+    	vehicleRepository.add(new Vehicle("456-DEF", "Honda", "Civic", 120000, 20000, 100000));
+
+    	
+    	List<Vehicle> vehiclesNeedingCheckup = vehicleService.listVehiclesNeedingCheckUp();
+
+    	
+    	assertEquals(2, vehiclesNeedingCheckup.size());
+    	assertTrue(vehiclesNeedingCheckup.stream().anyMatch(v -> v.getPlateNumber().equals("123-ABC")));
+    	assertTrue(vehiclesNeedingCheckup.stream().anyMatch(v -> v.getPlateNumber().equals("456-DEF")));
+} 
 	
 
-**Test 2:** Check that it is not possible to create an instance of the Task class with a reference containing less than five chars - AC2. 
+**Test 2:** Validate that Vehicles Not Needing a Check-up are not Listed
+	
+	@Test
+		public void ensureVehiclesNotNeedingCheckUpAreNotListed() {
+    	VehicleRepository vehicleRepository = new VehicleRepository();
+    	VehicleService vehicleService = new VehicleService(vehicleRepository);
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureReferenceMeetsAC2() {
-		Category cat = new Category(10, "Category 10");
-		
-		Task instance = new Task("Ab1", "Task Description", "Informal Data", "Technical Data", 3, 3780, cat);
+    	
+    	vehicleRepository.add(new Vehicle("789-GHI", "Ford", "Fiesta", 5000, 15000, 0));
+    	vehicleRepository.add(new Vehicle("012-JKL", "Nissan", "Leaf", 10000, 20000, 0));
+
+    	
+    	List<Vehicle> vehiclesNeedingCheckup = vehicleService.listVehiclesNeedingCheckUp();
+
+    	
+    	assertTrue(vehiclesNeedingCheckup.isEmpty());
 	}
 
-_It is also recommended to organize this content by subsections._ 
+**Test 3**: Check Display of Vehicle Information
+
+	@Test
+		public void checkDisplayOfVehicleInformation() {
+    	VehicleRepository vehicleRepository = new VehicleRepository();
+    	VehicleService vehicleService = new VehicleService(vehicleRepository);
+    	VFMUI vfmui = new VFMUI();
+
+    	
+    	vehicleRepository.add(new Vehicle("345-MNO", "Mazda", "3", 30000, 15000, 15000));
+
+    	List<Vehicle> vehicles = vehicleService.listVehiclesNeedingCheckUp();
+    	vfmui.showVehiclesNeedingCheckUp(vehicles);
+
+    	assertEquals(1, vfmui.getDisplayedVehicles().size());
+    	assertEquals("345-MNO", vfmui.getDisplayedVehicles().get(0).getPlateNumber());
+}
 
 
 ## 5. Construction (Implementation)
 
-### Class CreateTaskController 
+### VFMController
 
-```java
-public Task createTask(String reference, String description, String informalDescription, String technicalDescription,
-                       Integer duration, Double cost, String taskCategoryDescription) {
 
-	TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
 
-	Employee employee = getEmployeeFromSession();
-	Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
+### Class Vehicle
 
-	newTask = organization.createTask(reference, description, informalDescription, technicalDescription, duration,
-                                      cost,taskCategory, employee);
-    
-	return newTask;
-}
-```
 
-### Class Organization
-
-```java
-public Optional<Task> createTask(String reference, String description, String informalDescription,
-                                 String technicalDescription, Integer duration, Double cost, TaskCategory taskCategory,
-                                 Employee employee) {
-    
-    Task task = new Task(reference, description, informalDescription, technicalDescription, duration, cost,
-                         taskCategory, employee);
-
-    addTask(task);
-        
-    return task;
-}
-```
 
 
 ## 6. Integration and Demo 
 
-* A new option on the Employee menu options was added.
 
-* For demo purposes some tasks are bootstrapped while system starts.
 
 
 ## 7. Observations

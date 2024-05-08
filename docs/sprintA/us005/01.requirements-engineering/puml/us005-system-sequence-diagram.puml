@@ -15,26 +15,28 @@ activate HRManager
 HRManager -> System : Requests team generation for a task
 activate System
 
-    System --> HRManager : Requests for data(skills needed, min size, max size of the team)
+System --> HRManager : Requests for data(skills needed, min size, max size of the team)
+deactivate System
+
+HRManager -> System : Provides data
+activate System
+
+loop until approved
+    System --> HRManager : Confirms data reception and returns proposed team (team members, skills)
     deactivate System
 
-    HRManager -> System : Provides data
+    HRManager -> System : Submits selection (Approve/Reject)
     activate System
 
-    loop until approved
-        System --> HRManager : Confirms data reception and presents options (Approve, Reject)
+    alt Approve
+        System --> HRManager : Confirms team approval
         deactivate System
-
-        HRManager -> System : Submits selection (Approve/Reject)
+    else Reject
+        HRManager -> System : Rejects team
+        deactivate System
+        HRManager -> System : Requests team generation for a task
         activate System
-
-        alt Approve
-            System --> HRManager : Confirms team approval
-        else Reject
-            System --> HRManager : Declines team approval and generates new team
-        end
-    end loop
-
-deactivate System
+    end
+end loop
 
 @enduml

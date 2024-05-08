@@ -8,4 +8,4 @@
 
 ### 2.2. Other Remarks
 
-[n/a]
+O número de kms percorridos pelo veiculo deve ser introduzido ao fim de um intervalo de tempo a definir

@@ -1,0 +1,42 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+
+class VFMUI {
+    + initiateCheckUpListing()
+    + showVehiclesNeedingCheckUp(List<Vehicle>)
+}
+
+class VFMController {
+    + listVehiclesNeedingCheckUp()
+}
+
+class VehicleService {
+    + listVehiclesNeedingCheckUp() : List<Vehicle>
+}
+
+class VehicleRepository {
+    + getVehicles() : List<Vehicle>
+}
+
+class Vehicle {
+    - plateNumber : String
+    - brand : String
+    - model : String
+    - currentKm : double
+    - frequency : double
+    - lastCheckupKm : double
+    - nextCheckupKm : double
+
+    + calculateNextCheckup() : void
+}
+
+VFMUI --> VFMController
+VFMController --> VehicleService
+VehicleService --> VehicleRepository
+VehicleService --> Vehicle
+Vehicle --> VehicleService
+
+@enduml

@@ -44,6 +44,9 @@ US07 - As an FM, I wish to register a vehicle’s check-up.
 
 ### 1.5 Input and Output Data
 
+**Input Data:**
+[n/a]
+
 **Output Data:**
 
      List of vehicles that need check-up

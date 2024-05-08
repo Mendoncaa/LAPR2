@@ -1,0 +1,47 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor "VFM" as VFM
+participant ":VFMUI" as VFMUI
+participant ":VFMController" as VFMController
+participant "vehicleService:\nVehicleService" as VehicleService
+participant "vehicleRepository:\nVehicleRepository" as VehicleRepository
+participant "vehicle\n:Vehicle" as Vehicle
+
+autonumber
+
+VFM -> VFMUI : Initiate check-up listing
+activate VFMUI
+
+VFMUI -> VFMController : Requests check-up listing
+activate VFMController
+
+VFMController -> VehicleService : listVehiclesNeedingCheckUp()
+activate VehicleService
+
+VehicleService -> vehicleRepository : getVehicles()
+activate vehicleRepository
+
+vehicleRepository --> VehicleService : List of vehicles
+deactivate vehicleRepository
+
+loop for each Vehicle in the list
+    VehicleService -> Vehicle : calculateNextCheckup()
+    activate Vehicle
+
+    Vehicle --> VehicleService : Next check-up details
+    deactivate Vehicle
+end
+
+VehicleService --> VFMController : List of vehicles needing check-up
+deactivate VehicleService
+
+VFMController --> VFMUI : Show vehicles needing check-up
+deactivate VFMController
+
+VFMUI --> VFM : Display list
+deactivate VFMUI
+
+@enduml
