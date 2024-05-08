@@ -21,14 +21,14 @@ class TeamMember {
    - contact info
    - ID doc type
    - ID document number
+   - Taxpayer ID
 }
 
 class HRM {
 }
 
 class Job {
-  - description
-  - skillsAssigned
+  - name
 }
 
 HRM "1"---"1.." TeamMember: manages >
