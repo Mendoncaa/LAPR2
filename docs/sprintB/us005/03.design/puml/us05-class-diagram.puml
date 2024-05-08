@@ -1,0 +1,35 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+class HRMUI {
+}
+
+class HRMController {
+}
+
+class TeamService {
+    + generateTeam(minSize: int, maxSize: int, skills: List)
+    + confirmTeam(team: Team)
+    + rejectTeam(team: Team)
+}
+
+class EmployeeRepository {
+    + findEmployeeWithSkill(skill: String): Employee
+}
+
+class Team {
+    - members: List<Employee>
+    - skills: List<String>
+    + createTeam(minSize: int, maxSize: int)
+    + assignEmployee(employee: Employee)
+}
+
+HRMUI --> HRMController
+HRMController --> TeamService
+HRMController --> HRMUI
+TeamService --> EmployeeRepository
+TeamService --> Team
+
+@enduml

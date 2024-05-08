@@ -1,0 +1,39 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant ":HRMController" as HRMController
+participant "teamService:\nTeamService" as TeamService
+participant "employeeRepository:\nEmployeeRepository" as EmployeeRepository
+participant "team\n:Team" as Team
+
+autonumber
+
+HRMController -> TeamService : generateTeam(minSize, maxSize, skills)
+activate TeamService
+
+TeamService -> Team : createTeam(minSize, maxSize)
+activate Team
+
+loop for each skill in skills
+    TeamService -> EmployeeRepository : findEmployeeWithSkill(skill)
+    activate EmployeeRepository
+
+    EmployeeRepository --> TeamService : Returns employee with skill
+    deactivate EmployeeRepository
+
+    TeamService -> Team : assignEmployee(employee)
+    activate Team
+
+    Team --> TeamService : Returns assigned employee
+    deactivate Team
+end
+
+Team --> TeamService : Returns proposed team
+deactivate Team
+
+TeamService --> HRMController : Returns proposed team
+deactivate TeamService
+
+@enduml

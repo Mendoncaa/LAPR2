@@ -1,4 +1,4 @@
-# US005 - Generate Team to perform a task
+# US005 - Generate a Team
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

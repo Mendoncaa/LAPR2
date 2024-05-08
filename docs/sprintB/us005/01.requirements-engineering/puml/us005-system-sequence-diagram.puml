@@ -1,6 +1,4 @@
 @startuml
-skinparam monochrome true
-skinparam packageStyle rectangle
 skinparam shadowing false
 
 title System Sequence Diagram (SSD)
@@ -21,19 +19,20 @@ activate System
     HRManager -> System : Provides data
     activate System
 
-    loop until approved
-        System --> HRManager : Confirms data reception and presents options (Approve, Reject)
-        deactivate System
+    System --> HRManager : Confirms data reception and presents options (Approve, Reject)
+    deactivate System
 
-        HRManager -> System : Submits selection (Approve/Reject)
-        activate System
+    HRManager -> System : Submits selection (Approve/Reject)
+    activate System
 
-        alt Approve
-            System --> HRManager : Confirms team approval
-        else Reject
+    alt Reject
+        loop until approved
             System --> HRManager : Declines team approval and generates new team
+            HRManager -> System : Submits selection (Approve/Reject)
         end
-    end loop
+    else Approve
+        System --> HRManager : Confirms team approval
+    end
 
 deactivate System
 

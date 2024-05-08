@@ -1,69 +1,80 @@
-# US006 - Create a Task 
+# US005 - Generate a team
 
 ## 4. Tests 
 
-**Test 1:** Check that it is not possible to create an instance of the Task class with null values. 
+**Test 1:** Check that it is not possible to create a Team with a size out of the specified bounds. 
 
 	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Task instance = new Task(null, null, null, null, null, null, null);
+		public void ensureTeamSizeIsWithinBounds() {
+    	TeamService teamService = new TeamService(new EmployeeRepository());
+    	teamService.generateTeam(0, 5, Arrays.asList("skill1", "skill2"));
 	}
 	
 
-**Test 2:** Check that it is not possible to create an instance of the Task class with a reference containing less than five chars - AC2. 
+**Test 2:**  Ensure that a team cannot be created without required skills being specified. 
 
 	@Test(expected = IllegalArgumentException.class)
-		public void ensureReferenceMeetsAC2() {
-		Category cat = new Category(10, "Category 10");
-		
-		Task instance = new Task("Ab1", "Task Description", "Informal Data", "Technical Data", 3, 3780, cat);
+		public void ensureTeamRequiresSkills() {
+    	TeamService teamService = new TeamService(new EmployeeRepository());
+    	teamService.generateTeam(1, 3, new ArrayList<>()); 
 	}
 
-_It is also recommended to organize this content by subsections._ 
+**Test 3**: Validate that a team cannot have employees assigned without the matching skills.
+
+	@Test
+		public void ensureEmployeesHaveRequiredSkills() {
+    	TeamService teamService = new TeamService(new EmployeeRepository());
+    	Team team = teamService.createTeam(2, 4);
+    
+    	Employee employeeWithSkill = new Employee("John Doe", "Developer", Arrays.asList("Java", "SQL"));
+    	Employee employeeWithoutSkill = new Employee("Jane Smith", "Analyst", Arrays.asList("Excel"));
+    
+    	
+    	team.assignEmployee(employeeWithSkill);
+    
+    	try {
+        
+        team.assignEmployee(employeeWithoutSkill);
+        fail("Expected an IllegalArgumentException to be thrown");
+    	} catch (IllegalArgumentException e) {
+        assertEquals("Employee does not have the required skill.", e.getMessage());
+    	}
+	}
+
+**Test 4**: Check that the team approval and rejection process works as expected.
+
+	@Test
+		public void ensureTeamApprovalAndRejection() {
+    	TeamService teamService = new TeamService(new EmployeeRepository());
+    	Team team = teamService.createTeam(1, 2);
+
+    	teamService.confirmTeam(team);
+    	assertTrue("Team should be marked as confirmed.", team.isConfirmed());
+
+    	teamService.rejectTeam(team);
+    	assertFalse("Team should be marked as not confirmed after rejection.", team.isConfirmed());
+	}
+
+
+
+
+
 
 
 ## 5. Construction (Implementation)
 
-### Class CreateTaskController 
+### Class HRMController
 
-```java
-public Task createTask(String reference, String description, String informalDescription, String technicalDescription,
-                       Integer duration, Double cost, String taskCategoryDescription) {
 
-	TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
 
-	Employee employee = getEmployeeFromSession();
-	Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
+### Class Team
 
-	newTask = organization.createTask(reference, description, informalDescription, technicalDescription, duration,
-                                      cost,taskCategory, employee);
-    
-	return newTask;
-}
-```
 
-### Class Organization
-
-```java
-public Optional<Task> createTask(String reference, String description, String informalDescription,
-                                 String technicalDescription, Integer duration, Double cost, TaskCategory taskCategory,
-                                 Employee employee) {
-    
-    Task task = new Task(reference, description, informalDescription, technicalDescription, duration, cost,
-                         taskCategory, employee);
-
-    addTask(task);
-        
-    return task;
-}
-```
 
 
 ## 6. Integration and Demo 
 
-* A new option on the Employee menu options was added.
 
-* For demo purposes some tasks are bootstrapped while system starts.
 
 
 ## 7. Observations
