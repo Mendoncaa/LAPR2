@@ -9,122 +9,69 @@ skinparam classAttributeIconSize 0
 
 'left to right direction
 
-class ApplicationSession
-{
-    + static getInstance()
-    + getCurrentSession()
+class AssignSkillUI {
 }
 
-class UserSession
-{
-    + getUserEmail()
-}
+class AssignSkillController {
+    - SkillRepository skillRepository
+    - TeamMember teamMember
 
-class Employee {
-    - name
-    - email
-    - position
-    - phone
-}
+    'Construtor para inicializar o controlador com o SkillRepository e TeamMember
+    + AssignSkillController(skillRepository: SkillRepository, teamMember: TeamMember)
 
-class Task {
-    - String reference
-    - String description
-    - String informalDescription
-    - String technicalDescription
-    - Integer duration
-    - Double cost
-
-    + Task(reference, description,\ninformalDescription, technicalDescription,\nduration, cost, createdBy, taskCategory)
-}
-
-class TaskCategory {
-    - String description
-
-    + TaskCategory(description)
-}
-
-class Organization {
-    - String name
-    - String vatNumber
-    - String website
-    - String phone
-    - String email
-
-    - addTask(task)
-    - validateTask(task)
-    + anyEmployeeHasEmail(email)
-    + Organization(name, vatNumber, webSite, phone, email, postalAddress, manager)
-    + createTask(reference, description, informalDesccription,\ntechnicalDescription, duration, cost, taskCategoryDescription)
-    - getEmployeeByEmail(email)
-
-'  +saveTask(task)
-}
-
-class TaskCategoryRepository {
-    + getTaskCategoryByDescription(description)
-}
-
-class OrganizationRepository {
-    + getOrganizationByEmployeeEmail(email)
+    'Método para atribuir skills a um membro da equipe
+    + assignSkillToTeamMember(teamMemberId: String, skillId: String): void
 }
 
 class Repositories {
-    - Repositories()
-    + getInstance() : Repositories
-    + getTaskCategoryRepository()
-    + getOrganizationRepository()
+    - SkillRepository skillRepository
+    - OrganizationRepository organizationRepository
+
+    'Construtor para inicializar os repositórios
+    + Repositories()
+
+    'Método para obter o repositório das skills
+    + getSkillRepository(): SkillRepository
+
+    'Método para obter o repositório da organização
+    + getOrganizationRepository(): OrganizationRepository
 }
 
-class CreateTaskController {
-    + CreateTaskController(organizationRepository, taskCategoryRepository)
-    + getTaskCategories()
-    + createTask(userEmail, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, categoryDescription)
-    - getTaskCategoryByDescription(taskCategoryDescription)
-    - getEmployeeFromSession()
+class SkillRepository {
+    'Retorna uma skill com base no seu ID
+    + getSkillById(skillId: String): Skill
+
+    'Adiciona uma nova skill ao repositório
+    + addSkill(skill: Skill): void
 }
 
-note right of CreateTaskController
-    - userEmail is obtained
-    from the user session
-    - categoryDescription
-    is retrieved from selected data
-end note
+ class TeamMember {
+     - id: String
+     - name: String
+     - List<Skill> skills
 
-note bottom of TaskCategoryRepository
-    - used for displaying
-    the category list
-end note
+     'Construtor para criar um novo membro da equipe
+     + TeamMember(name: String)
 
-class CreateTaskUI {
-}
+     'Método para adicionar uma skill a um membro da equipe
+     + addSkill(skill: Skill): void
+ }
 
-Repositories -> Repositories : instance
-ApplicationSession -> ApplicationSession : instance
+ class Skill {
+    - id: String
+    - name: String
 
-CreateTaskUI .> CreateTaskController
+    'Construtor para criar uma nova skill
+    + Skill(name: String)
+  }
 
-CreateTaskController .> Repositories : repositories
+AssignSkillUI .> AssignSkillController
+AssignSkillController .> Repositories
+AssignSkillController .> SkillRepository
+AssignSkillController .> TeamMember
+Repositories --> SkillRepository
+TeamMember ---> Skill
 
-Repositories -> "1" TaskCategoryRepository
 
-CreateTaskController ..> TaskCategory
-CreateTaskController ..> OrganizationRepository : organizationRepository
-CreateTaskController ..> TaskCategoryRepository : TaskCategoryRepository
-
-Repositories --> "1" OrganizationRepository
-
-OrganizationRepository --> "*" Organization
-ApplicationSession --> "1" UserSession : userSession
-
-CreateTaskController ..> "1" Organization : organization
-CreateTaskController ..> ApplicationSession
-CreateTaskController ..> UserSession
-Task "*" --> "1" TaskCategory : taskCategory
-TaskCategoryRepository "1" --> "*" TaskCategory : taskCategory
-Organization "1" --> "*" Task : tasks
-Task --> Employee : createdBy
-
-Organization --> "*" Employee : employs
 
 @enduml

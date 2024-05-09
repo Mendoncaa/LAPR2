@@ -18,22 +18,22 @@ activate Employee
         System --> Employee : Shows list of collaborators
     deactivate System
 
-    Employee -> System : choose collaborator
+    Employee -> System : Choose collaborator
     activate System
 
-        System --> Employee : shows skills list and asks to select one or more
+        System --> Employee : Confirms collaborator choice and shows skills list, asks to select one or more
     deactivate System
 
-    Employee -> System : selects one or more skills
+    Employee -> System : Selects one or more skills
     activate System
 
-        System --> Employee : shows all data and requests confirmation
+        System --> Employee : Shows all data and requests confirmation
     deactivate System
 
-    Employee -> System : confirms data
+    Employee -> System : Confirms data
     activate System
 
-        System --> Employee : displays operation success
+        System --> Employee : Displays operation success
     deactivate System
 
 @enduml

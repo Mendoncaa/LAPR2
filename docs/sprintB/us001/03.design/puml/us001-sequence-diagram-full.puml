@@ -34,6 +34,11 @@ activate ADM
     UI -> CTRL : createSkill(skillName)
     activate CTRL
 
+    CTRL -> Skill : new Skill(skillName)
+    activate Skill
+    CTRL <-- Skill : skill
+    deactivate Skill
+
     CTRL -> RepositorySingleton : getInstance()
     activate RepositorySingleton
     CTRL <-- RepositorySingleton : Repositories
@@ -44,21 +49,20 @@ activate ADM
     CTRL <-- PLAT : SkillRepository()
     deactivate PLAT
 
-    CTRL -> SkillRepository : createSkill(skillName)
+    CTRL -> SkillRepository : addSkill(skill)
     activate SkillRepository
-        SkillRepository -> Skill : new Skill(skillName)
-        activate Skill
-        SkillRepository -> Skill : add to repository
-        deactivate Skill
+    CTRL <-- SkillRepository : success
     deactivate SkillRepository
 
-    CTRL --> UI : skill
+    CTRL --> UI : success
     deactivate CTRL
 
     UI --> ADM : displays operation success
 deactivate UI
 
 deactivate ADM
+
+
 
 
 @enduml
