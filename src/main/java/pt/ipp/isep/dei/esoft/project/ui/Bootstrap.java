@@ -23,8 +23,8 @@ public class Bootstrap implements Runnable {
         //get organization repository
         OrganizationRepository organizationRepository = Repositories.getInstance().getOrganizationRepository();
         Organization organization = new Organization("This Company");
-        organization.addEmployee(new Employee("admin@this.app"));
-        organization.addEmployee(new Employee("employee@this.app"));
+        //organization.addEmployee(new Employee("admin@this.app"));
+        //organization.addEmployee(new Employee("employee@this.app"));
         organizationRepository.add(organization);
     }
 
