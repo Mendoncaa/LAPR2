@@ -3,32 +3,32 @@
 
 ### 3.1. Rationale
 
-| InteractionID                                       | Question: Which class is responsible for…                 | Answer                    | Justification (with patterns)                              |
-|-----------------------------------------------------|-----------------------------------------------------------|---------------------------|-----------------------------------------------------------|
-| Step 1 - Ask to Register a New Vehicle              | … interacting with  the actor?                            | Create Vehicle UI         | Pure Fabrication                                          |
-|                                                     | … Coordinating the US?                                    | Create Vehicle Controller | Pure Fabrication (System Interaction Controller)          |
-| Step 2 - Requests Data                              | … displaying form for actor input?                        | Create Vehicle UI        | Pure Fabrication (Interaction with actor)                 |
-| Step 3 - Types Requested Data                       | … Validating input data?   temporarily keeping input data | Create Vehicle UI        | Pure Fabrication (Interaction with actor)                 |
-| Step 4 - Shows all data and requests Confirmation  | … displaying all the information before submitting?       | Create Vehicle UI        | Pure Fabrication (Interaction with actor)                 |
-| Step 5 - Confirms data                              | ... Knowing the user using the system?                    | User Session              | IE: see Auth component documentation                     |
-|                                                     | … instantiating a new Vehicle (Object)?                   | Organization              | Creator (Rule1): in the DM Organization owns VehicleList  |
-|                                                     | … validating all data (Local validation, i.e. mandatory)? | Vehicle                   | IE: owns its data                                         |
-|                                                     | … validating all data (Global validation, i.e. duplicates)?| Organization              | IE: knows all its Vehicles                                |
-|                                                     | … saving the created Vehicle?                             | Organization              | IE: owns all its Vehicles                                 |
-|                                                     | … Saving the inputted data?                               | Vehicle                   | IE: object created previously has its own data            |
-| Step 6 - Display operation Success                  | … information on operation success?                      | Create Vehicle UI        | Pure Fabrication (Interaction with Actor)                 |
+| InteractionID                                     | Question: Which class is responsible for…                   | Answer                     | Justification (with patterns)                             |
+|---------------------------------------------------|-------------------------------------------------------------|----------------------------|-----------------------------------------------------------|
+| Step 1 - Ask to Register a Vehicle for check's up | … interacting with  the actor?                              | Create Check-Up UI         | Pure Fabrication                                          |
+|                                                   | … Coordinating the US?                                      | Create Check-up Controller | Pure Fabrication (System Interaction Controller)          |
+| Step 2 - Requests Data                            | … displaying form for actor input?                          | Create Check-Up UI         | Pure Fabrication (Interaction with actor)                 |
+| Step 3 - Types Requested Data                     | … Validating input data?   temporarily keeping input data   | Create Check-Up UI         | Pure Fabrication (Interaction with actor)                 |
+| Step 4 - Shows all data and requests Confirmation | … displaying all the information before submitting?         | Create Check-Up UI         | Pure Fabrication (Interaction with actor)                 |
+| Step 5 - Confirms data                            | ... Knowing the user using the system?                      | User Session               | IE: see Auth component documentation                      |
+|                                                   | … instantiating a new Vehicle (Object)?                     | Organization               | Creator (Rule1): in the DM Organization owns Vehicle List |
+|                                                   | … validating all data (Local validation, i.e. mandatory)?   | Vehicle's Check-Up         | IE: owns its data                                         |
+|                                                   | … validating all data (Global validation, i.e. duplicates)? | Organization               | IE: knows all its Vehicles's Check up                     |
+|                                                   | … saving the created Vehicle's Check-Up?                    | Organization               | IE: owns all its Vehicles's Check-Up                      |
+|                                                   | … Saving the inputted data?                                 | Vehicle's Check-Up         | IE: object created previously has its own data            |
+| Step 6 - Display operation Success                | … information on operation success?                         | Create Check-Up UI         | Pure Fabrication (Interaction with Actor)                 |
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
 * Organization
-* Job
+* Check up
 
 Other software classes (i.e. Pure Fabrication) identified:
 
-* CreateJobUI
-* CreateJobController
+* CreateCheckUpUI
+* CreateCheckUpController
 
 
 ## 3.2. Sequence Diagram (SD)
