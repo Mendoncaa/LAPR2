@@ -40,7 +40,6 @@ before register the vehicle's check up.
 ### 1.5 Input and Output Data
 
 **Input data:**
-* Typed Data:
   * Vehicle's ID;
   * Schedule's date;
   * Current Km's;
@@ -54,7 +53,7 @@ before register the vehicle's check up.
 
 _Insert here a SSD depicting the envisioned Actor-System interactions and throughout which data is inputted and outputted to fulfill the requirement. All interactions must be numbered._
 
-![USXXX-SSD](svg/usXXX-system-sequence-diagram.svg)
+![us007-system-sequence-diagram-alternative-one.svg](svg%2Fus007-system-sequence-diagram-alternative-one.svg)
 
 ### 1.7 Other Relevant Remarks
  [n/a]
