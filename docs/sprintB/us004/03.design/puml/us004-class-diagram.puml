@@ -35,6 +35,8 @@ class Repositories {
 
     'Método para obter o repositório da organização
     + getOrganizationRepository(): OrganizationRepository
+
+
 }
 
 class SkillRepository {
@@ -55,6 +57,7 @@ class SkillRepository {
 
      'Método para adicionar uma skill a um membro da equipe
      + addSkill(skill: Skill): void
+
  }
 
  class Skill {

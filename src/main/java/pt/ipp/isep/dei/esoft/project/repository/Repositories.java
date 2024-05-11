@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
+import pt.ipp.isep.dei.esoft.project.domain.TeamMember;
 
 public class Repositories {
 
@@ -9,10 +10,17 @@ public class Repositories {
     private final TaskCategoryRepository taskCategoryRepository;
     private final AuthenticationRepository authenticationRepository;
 
+    private final SkillRepository skillRepository;
+
+    /**
+     *
+     */
     private Repositories() {
         organizationRepository = new OrganizationRepository();
         taskCategoryRepository = new TaskCategoryRepository();
         authenticationRepository = new AuthenticationRepository();
+        skillRepository = new SkillRepository();
+
     }
 
     public static Repositories getInstance() {
@@ -36,4 +44,16 @@ public class Repositories {
         return authenticationRepository;
     }
 
+    public SkillRepository getSkillRepository() {
+        return skillRepository;
+    }
+
+    /*public TeamMember getTeamMember(String id) {
+        return teamMembers.get(id);
+    }
+
+    public void addTeamMember(TeamMember teamMember) {
+        teamMembers.put(teamMember.getId(), teamMember);
+    }*/
 }
+
