@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.mdisc;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -13,7 +15,7 @@ public class IrrigationSystemManager {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         IrrigationSystemManager manager = new IrrigationSystemManager();
-        String inputFilePath = "us14_1.csv";
+        String inputFilePath = "US13_JardimDosSentimentos.csv";
         String outputFilePath = "output.csv";
         manager.processSingleFile(inputFilePath, outputFilePath);
         manager.performPerformanceAnalysis();
@@ -32,6 +34,11 @@ public class IrrigationSystemManager {
             long endTime = System.nanoTime();
             executionTimes[i - 1] = endTime - startTime;
             graph.clear();
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("ExecutionTimes.csv", true))) {
+                writer.write(i + ";" + executionTimes[i-1] + "\n");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         generateGraph(executionTimes);
     }
@@ -55,6 +62,13 @@ public class IrrigationSystemManager {
                 writer.write("    " + i + " -- " + (i + 1) + ";\n");
             }
             writer.write("}");
+        }
+        ProcessBuilder pb = new ProcessBuilder("dot", "-Tpng", "graph.dot", "-o", "graph.png");
+        try {
+            Process process = pb.start();
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

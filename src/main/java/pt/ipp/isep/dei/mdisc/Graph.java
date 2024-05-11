@@ -1,10 +1,6 @@
 package pt.ipp.isep.dei.mdisc;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.HashMap;
+
+import java.util.*;
 
 public class Graph {
     private Map<Integer, List<Edge>> adjacencyList = new HashMap<>();

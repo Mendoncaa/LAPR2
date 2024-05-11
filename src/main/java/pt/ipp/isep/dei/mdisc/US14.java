@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.mdisc;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class US14 {
 
@@ -10,12 +11,16 @@ public class US14 {
             long[] executionTimes = new long[30];
             for (int i = 1; i <= 30; i++) {
                 String fileName = "us14_" + i + ".csv";
-                // Ler o arquivo CSV
                 long startTime = System.nanoTime();
                 // Algoritmo
                 long endTime = System.nanoTime();
                 long executionTime = endTime - startTime;
                 executionTimes[i - 1] = executionTime;
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("output.csv", true))) {
+                    writer.write(i + "," + executionTime + "\n");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             generateGraph(executionTimes);
 

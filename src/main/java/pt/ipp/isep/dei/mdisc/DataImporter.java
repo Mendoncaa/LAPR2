@@ -1,6 +1,10 @@
 package pt.ipp.isep.dei.mdisc;
-import java.io.*;
-import java.util.*;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataImporter {
     public List<Edge> importData(String filePath) throws IOException {
