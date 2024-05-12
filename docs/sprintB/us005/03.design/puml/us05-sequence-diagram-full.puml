@@ -9,7 +9,7 @@ actor "Human Resources Manager" as HRM
 participant ":HRMUI" as HRMUI
 participant ":HRMController" as HRMController
 participant "teamService:\nTeamService" as TeamService
-participant "employeeRepository:\nEmployeeRepository" as EmployeeRepository
+participant "teamMemberRepository:\nteamMemberRepository" as teamMemberRepository
 participant "team\n:Team" as Team
 
 activate HRM
@@ -36,16 +36,16 @@ TeamService -> Team : createTeam(minSize, maxSize)
 activate Team
 
 loop for each skill in skills
-    TeamService -> EmployeeRepository : findEmployeeWithSkill(skill)
-    activate EmployeeRepository
+    TeamService -> TeamMemberRepository : findTeamMemberWithSkill(skill)
+    activate TeamMemberRepository
 
-    EmployeeRepository --> TeamService : Returns employee with skill
-    deactivate EmployeeRepository
+    TeamMemberRepository --> TeamService : Returns TeamMember with skill
+    deactivate TeamMemberRepository
 
-    TeamService -> Team : assignEmployee(employee)
+    TeamService -> Team : assignTeamMember(TeamMember)
     activate Team
 
-    Team --> TeamService : Returns assigned employee
+    Team --> TeamService : Returns assigned TeamMember
     deactivate Team
 end
 
@@ -107,16 +107,16 @@ else Reject
         activate Team
 
         loop for each skill in skills
-            TeamService -> EmployeeRepository : findEmployeeWithSkill(skill)
-            activate EmployeeRepository
+            TeamService -> TeamMemberRepository : findTeamMemberWithSkill(skill)
+            activate TeamMemberRepository
 
-            EmployeeRepository --> TeamService : Returns employee with skill
-            deactivate EmployeeRepository
+            TeamMemberRepository --> TeamService : Returns TeamMember with skill
+            deactivate TeamMemberRepository
 
-            TeamService -> Team : assignEmployee(employee)
+            TeamService -> Team : assignTeamMember(TeamMember)
             activate Team
 
-            Team --> TeamService : Returns assigned employee
+            Team --> TeamService : Returns assigned TeamMember
             deactivate Team
         end
 

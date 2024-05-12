@@ -3,17 +3,17 @@ package pt.ipp.isep.dei.mdisc;
 import java.util.*;
 
 public class Graph {
-    private Map<Integer, List<Edge>> adjacencyList = new HashMap<>();
+    private Map<String, List<Edge>> adjacencyList = new HashMap<>();
 
-    public void addEdge(int from, int to, double cost) {
+    public void addEdge(String from, String to, double cost) {
         adjacencyList.putIfAbsent(from, new ArrayList<>());
         adjacencyList.putIfAbsent(to, new ArrayList<>());
         Edge edge = new Edge(from, to, cost);
         adjacencyList.get(from).add(edge);
-        adjacencyList.get(to).add(edge);  // Para grafos não direcionados, adiciona para ambos os vértices
+        adjacencyList.get(to).add(edge);
     }
 
-    public List<Edge> getEdges(int vertex) {
+    public List<Edge> getEdges(String vertex) {
         return adjacencyList.getOrDefault(vertex, new ArrayList<>());
     }
 
@@ -25,13 +25,13 @@ public class Graph {
         return allEdges;
     }
 
-    public Set<Integer> getVertices() {
+    public Set<String> getVertices() {
         return adjacencyList.keySet();
     }
-
 
     public void clear() {
         adjacencyList.clear();
     }
 }
+
 

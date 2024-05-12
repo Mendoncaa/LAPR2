@@ -1,21 +1,21 @@
 package pt.ipp.isep.dei.mdisc;
 
 public class Edge implements Comparable<Edge> {
-    int from;
-    int to;
+    String from;
+    String to;
     double cost;
 
-    public Edge(int from, int to, double cost) {
+    public Edge(String from, String to, double cost) {
         this.from = from;
         this.to = to;
         this.cost = cost;
     }
 
-    public int getFrom() {
+    public String getFrom() {
         return from;
     }
 
-    public int getTo() {
+    public String getTo() {
         return to;
     }
 
