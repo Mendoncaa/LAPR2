@@ -5,11 +5,22 @@ import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * VFMUI class represents the user interface for Vehicle and Equipment Fleet Management (VFM) system.
+ * It provides a menu-driven interface to interact with different functionalities of the system.
+ */
 public class VFMUI {
 
+    /**
+     * Constructs a new VFMUI object.
+     */
     public VFMUI() {
     }
 
+    /**
+     * Runs the VFMUI, displaying a menu of options and executing the selected option.
+     */
     public void run() {
         List<MenuItem> options = new ArrayList<MenuItem>();
         options.add(new MenuItem("List vehicles needing checkup", new ListVehiclesCheckupUI()));

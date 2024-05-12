@@ -7,14 +7,27 @@ import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * ListVehiclesCheckupUI class represents the user interface for listing vehicles needing checkup.
+ * It interacts with the ListVehiclesCheckupController to perform the necessary operations.
+ */
 public class ListVehiclesCheckupUI implements Runnable {
 
     private ListVehiclesCheckupController listVehiclesCheckupController;
 
+
+    /**
+     * Constructs a new ListVehiclesCheckupUI object.
+     */
     public ListVehiclesCheckupUI() {
         this.listVehiclesCheckupController = new ListVehiclesCheckupController();
     }
 
+
+    /**
+     * Runs the ListVehiclesCheckupUI, displaying a menu of options and executing the selected option.
+     */
     public void run() {
         List<String> options = new ArrayList<String>();
         options.add("List vehicles needing checkup");
@@ -37,7 +50,10 @@ public class ListVehiclesCheckupUI implements Runnable {
 
     }
 
-
+    /**
+     * Initiates the checkup process for vehicles needing checkup.
+     * Retrieves the list of vehicles needing checkup and prints their details.
+     */
     public void initiateCheckUp() {
 
         ListVehiclesCheckupController listVehiclesCheckupController = new ListVehiclesCheckupController();
