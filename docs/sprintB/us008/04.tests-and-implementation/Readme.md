@@ -66,7 +66,7 @@ public class ListVehiclesCheckupController {
 
 ```
 
-### Class VehicleCheckup
+### Class VehicleService
 
 ```java
 
