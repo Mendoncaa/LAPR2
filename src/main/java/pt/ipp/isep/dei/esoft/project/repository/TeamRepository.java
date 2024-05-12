@@ -1,12 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.repository;
-
-import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.domain.TeamMember;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class TeamRepository {
 

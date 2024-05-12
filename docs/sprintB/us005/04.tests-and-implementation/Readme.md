@@ -52,9 +52,49 @@
 
     }
 
+**Test 3:** Ensures the team creation has been done properly
+
+    @Test
+    public void testCreateTeam() {
+        
+        int minSize = 2;
+        int maxSize = 5;
+        List<Skill> skills = new ArrayList<>();
+        List<TeamMember> teamMembers = new ArrayList<>();
 
 
+        Team createdTeam = teamRepository.createTeam(minSize, maxSize, skills, teamMembers);
 
+
+        assertNotNull(createdTeam);
+        assertEquals(1, teamRepository.getTeams().size());
+        assertEquals(minSize, createdTeam.getMinSize());
+        assertEquals(maxSize, createdTeam.getMaxSize());
+        assertEquals(skills, createdTeam.getSkills());
+        assertEquals(teamMembers, createdTeam.getTeamMembers());
+
+    }
+
+**Test 4:** Checks if getTeams method is working properly
+    
+    @Test
+    public void testGetTeams() {
+
+        Team team1 = new Team(3, 6, new ArrayList<>(), new ArrayList<>());
+        Team team2 = new Team(2, 4, new ArrayList<>(), new ArrayList<>());
+
+        teamRepository.getTeams().add(team1);
+        teamRepository.getTeams().add(team2);
+
+
+        List<Team> teams = teamRepository.getTeams();
+
+
+        assertNotNull(teams);
+        assertEquals(2, teams.size());
+        assertTrue(teams.contains(team1));
+        assertTrue(teams.contains(team2));
+    }
 
 
 
