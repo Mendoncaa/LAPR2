@@ -15,7 +15,7 @@ public class DevTeamUI implements Runnable {
         System.out.println("  Flávio Cruz - 1010488@isep.ipp.pt");
         System.out.println("  Francisco Primavera - 1230840@isep.ipp.pt");
         System.out.println("  Pedro Morgado - 1130277@isep.ipp.pt");
-        System.out.println("  Student Name 4 - 1XXXXXX@isep.ipp.pt");
+        System.out.println("  Ricardo Teixeira - 1181885@isep.ipp.pt");
         System.out.println("  Student Name 5 - 1XXXXXX@isep.ipp.pt");
         System.out.println("\n");
     }
