@@ -16,11 +16,10 @@ public class IrrigationSystemManager {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the input file path:");
+        System.out.println("Insira o nome do ficheiro:");
         String inputFilePath = scanner.nextLine();
-        System.out.println("Enter the output file path:");
-        
-        String outputFilePath = createOutputFileName(inputFilePath);
+
+        String outputFilePath = ("output_"+inputFilePath);
 
         IrrigationSystemManager manager = new IrrigationSystemManager();
         manager.processSingleFile(inputFilePath, outputFilePath);
@@ -29,11 +28,6 @@ public class IrrigationSystemManager {
         scanner.close();
     }
 
-    private static String createOutputFileName(String inputFilePath) {
-        int lastDotIndex = inputFilePath.lastIndexOf('.');
-        String baseName = (lastDotIndex == -1) ? inputFilePath : inputFilePath.substring(0, lastDotIndex);
-        return baseName + "_output.csv";
-    }
 
     public void processSingleFile(String inputFilePath, String outputFilePath) throws IOException {
         List<Edge> edges = importer.importData(inputFilePath);
