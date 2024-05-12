@@ -2,68 +2,104 @@
 
 ## 4. Tests 
 
-**Test 1:** Check that it is not possible to create an instance of the Task class with null values. 
+**Test 1:** Ensure Vehicle creation with null values is not allowed 
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Task instance = new Task(null, null, null, null, null, null, null);
-	}
+    @Test
+    public void testCreateVehicleWithNullValues() {
+    assertThrows(IllegalArgumentException.class, () -> {
+    Vehicle vehicle = new Vehicle(null, null, null, null, 0, 0, 0, null, null, 0);
+    });
+    }
+
 	
 
-**Test 2:** Check that it is not possible to create an instance of the Task class with a reference containing less than five chars - AC2. 
+**Test 2:** Ensure Vehicle creation with plate ID less than 5 characters is not allowed. 
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureReferenceMeetsAC2() {
-		Category cat = new Category(10, "Category 10");
-		
-		Task instance = new Task("Ab1", "Task Description", "Informal Data", "Technical Data", 3, 3780, cat);
-	}
+    @Test
+    public void testCreateVehicleWithShortPlateID() {
+    assertThrows(IllegalArgumentException.class, () -> {
+    Vehicle vehicle = new Vehicle("Ab1", "Toyota", "Corolla", "Sedan", 1200, 1500,
+    50000, "2022-01-01", "2022-01-01", 10000);
+    });
+    }
 
-_It is also recommended to organize this content by subsections._ 
+**Test 3:** Ensure Vehicle creation with invalid register date is not allowed
+    
+    @Test
+    public void testCreateVehicleWithInvalidRegisterDate() {
+    assertThrows(IllegalArgumentException.class, () -> {
+    Vehicle vehicle = new Vehicle("AB123CD", "Toyota", "Corolla", "Sedan", 1200, 1500,
+    50000, null, "2022-01-01", 10000);
+    });
+    }
+
+
+
 
 
 ## 5. Construction (Implementation)
 
 ### Class CreateTaskController 
 
-```java
-public Task createTask(String reference, String description, String informalDescription, String technicalDescription,
-                       Integer duration, Double cost, String taskCategoryDescription) {
+[//]: # (```java)
 
-	TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
+[//]: # (public Task createTask&#40;String reference, String description, String informalDescription, String technicalDescription,)
 
-	Employee employee = getEmployeeFromSession();
-	Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
+[//]: # (                       Integer duration, Double cost, String taskCategoryDescription&#41; {)
 
-	newTask = organization.createTask(reference, description, informalDescription, technicalDescription, duration,
-                                      cost,taskCategory, employee);
-    
-	return newTask;
-}
-```
+[//]: # ()
+[//]: # (	TaskCategory taskCategory = getTaskCategoryByDescription&#40;taskCategoryDescription&#41;;)
+
+[//]: # ()
+[//]: # (	Employee employee = getEmployeeFromSession&#40;&#41;;)
+
+[//]: # (	Organization organization = getOrganizationRepository&#40;&#41;.getOrganizationByEmployee&#40;employee&#41;;)
+
+[//]: # ()
+[//]: # (	newTask = organization.createTask&#40;reference, description, informalDescription, technicalDescription, duration,)
+
+[//]: # (                                      cost,taskCategory, employee&#41;;)
+
+[//]: # (    )
+[//]: # (	return newTask;)
+
+[//]: # (})
+
+[//]: # (```)
 
 ### Class Organization
 
-```java
-public Optional<Task> createTask(String reference, String description, String informalDescription,
-                                 String technicalDescription, Integer duration, Double cost, TaskCategory taskCategory,
-                                 Employee employee) {
-    
-    Task task = new Task(reference, description, informalDescription, technicalDescription, duration, cost,
-                         taskCategory, employee);
+[//]: # ()
+[//]: # (```java)
 
-    addTask(task);
-        
-    return task;
-}
-```
+[//]: # (public Optional<Task> createTask&#40;String reference, String description, String informalDescription,)
+
+[//]: # (                                 String technicalDescription, Integer duration, Double cost, TaskCategory taskCategory,)
+
+[//]: # (                                 Employee employee&#41; {)
+
+[//]: # (    )
+[//]: # (    Task task = new Task&#40;reference, description, informalDescription, technicalDescription, duration, cost,)
+
+[//]: # (                         taskCategory, employee&#41;;)
+
+[//]: # ()
+[//]: # (    addTask&#40;task&#41;;)
+
+[//]: # (        )
+[//]: # (    return task;)
+
+[//]: # (})
+
+[//]: # (```)
 
 
 ## 6. Integration and Demo 
 
-* A new option on the Employee menu options was added.
+[//]: # (* A new option on the Employee menu options was added.)
 
-* For demo purposes some tasks are bootstrapped while system starts.
+[//]: # ()
+[//]: # (* For demo purposes some tasks are bootstrapped while system starts.)
 
 
 ## 7. Observations

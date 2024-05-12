@@ -1,5 +1,6 @@
+// VehicleRepository.java
 package pt.ipp.isep.dei.esoft.project.repository;
-
+import pt.ipp.isep.dei.esoft.project.domain.CheckUp;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
 import java.util.ArrayList;
@@ -28,8 +29,14 @@ public class VehicleRepository {
     public void addVehicle(Vehicle vehicle) {
         this.vehicles.add(vehicle);
     }
+
+    // Method to add check-up to a vehicle
+    public boolean addCheckUpToVehicle(String plateID, CheckUp checkUp) {
+        Vehicle vehicle = getVehicleByPlateId(plateID);
+        if (vehicle != null) {
+            // Logic to add the check-up to the vehicle
+            return true;
+        }
+        return false;
+    }
 }
-
-
-
-

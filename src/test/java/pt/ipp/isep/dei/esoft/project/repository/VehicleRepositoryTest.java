@@ -37,4 +37,9 @@ public class VehicleRepositoryTest {
         assertTrue(vehicles.contains(vehicle1));
         assertTrue(vehicles.contains(vehicle2));
     }
+
+
+
+
+
 }

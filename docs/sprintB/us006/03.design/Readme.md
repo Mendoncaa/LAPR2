@@ -23,7 +23,7 @@
 
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
-* Organization
+
 * Vehicle
 
 Other software classes (i.e. Pure Fabrication) identified:
