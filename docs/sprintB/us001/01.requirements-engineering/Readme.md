@@ -8,7 +8,7 @@
 
 ### 1.1. User Story Description
 
-_As a HRM, I want to register skills that may be appointed to a collaborator._
+_As a Human Resources Manager (HRM), I want to register skills that a collaborator may have_
 
 ### 1.2. Customer Specifications and Clarifications 
 

@@ -1,4 +1,4 @@
-# US001 - As a HRM, I want to register skills that may be appointed to a collaborator.
+# US001 - As a Human Resources Manager (HRM), I want to register skills that a collaborator may have.
 
 ## 4. Tests 
 
