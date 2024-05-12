@@ -20,14 +20,6 @@ public class AssignSkillController {
             return false;
         }
 
-
-       /* TeamMember teamMember = repositories.getTeamMember(teamMemberId);
-        if (teamMember == null) {
-            System.out.println("Collaborator not found.");
-            return false;
-        }
-
-        teamMember.addSkill(skill); */
         return true;
     }
 }

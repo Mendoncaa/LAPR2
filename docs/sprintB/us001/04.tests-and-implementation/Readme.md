@@ -1,69 +1,187 @@
-# US006 - Create a Task 
+# US001 - As a HRM, I want to register skills that may be appointed to a collaborator.
 
 ## 4. Tests 
 
-**Test 1:** Check that it is not possible to create an instance of the Task class with null values. 
+**Test 1:** Checks the functionality of creating a new skill in the system 
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Task instance = new Task(null, null, null, null, null, null, null);
-	}
+	@Test
+    void createSkillWithValidName() {
+        String skillName = "Test Skill";
+        boolean expResult = true;
+        boolean result = controller.createSkill(skillName);
+        assertEquals(expResult, result);
+    }
+
+**Test 2:** Checks the functionality of creating a new skill in the system when the skill name is invalid
+
+    @Test
+    void createSkillWithInvalidName() {
+        String skillName = "Test Skill 123";
+        boolean expResult = false;
+        boolean result = controller.createSkill(skillName);
+        assertEquals(expResult, result);
+    }
+
+**Test 3:** Checks the functionality of the SkillRepository class constructor and the initial behavior of the skill list
+
+    @Test
+    void testConstructor() {
+        SkillRepository skillRepository = new SkillRepository();
+        skillRepository.getSkills();
+        assertTrue(skillRepository.getSkills().isEmpty());
+    }
 	
 
-**Test 2:** Check that it is not possible to create an instance of the Task class with a reference containing less than five chars - AC2. 
+**Test 4:** Checks the functionality of the getSkillById method of the SkillRepository class
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureReferenceMeetsAC2() {
-		Category cat = new Category(10, "Category 10");
-		
-		Task instance = new Task("Ab1", "Task Description", "Informal Data", "Technical Data", 3, 3780, cat);
-	}
+    @Test
+    void testGetSkillById_found() {
+        SkillRepository skillRepository = new SkillRepository();
+        Skill skill = new Skill("Programming");
+        skillRepository.addSkill(skill);
+        assertEquals(skill, skillRepository.getSkillById(skill.getId()));
+    }
+	
 
-_It is also recommended to organize this content by subsections._ 
+**Test 5:** Checks the functionality of the SkillRepository class's getSkillById method when the provided ID does not match any existing skills
+
+    @Test
+    void testGetSkillById_notFound() {
+        SkillRepository skillRepository = new SkillRepository();
+        assertNull(skillRepository.getSkillById("nonexistentId"));
+    }
+
+**Test 6:** Checks the functionality of the createTeamMember method of the TeamMemberRepository class
+
+    @Test
+    void testCreateTeamMember() {
+        TeamMember teamMember = teamMemberRepository.createTeamMember("João Gomes");
+        assertNotNull(teamMember);
+        assertEquals("João Gomes", teamMember.getName());
+    }
+    
+**Test 7:** Checks the functionality of the getTeamMemberById method of the TeamMemberRepository class
+
+    @Test
+    void testGetTeamMemberById() {
+        TeamMember teamMember = teamMemberRepository.createTeamMember("João Gomes");
+        TeamMember fetchedTeamMember = teamMemberRepository.getTeamMemberById(teamMember.getId());
+        assertEquals(teamMember, fetchedTeamMember);
+    }
+
+**Test 8:** Checks the functionality of the deleteTeamMember method of the TeamMemberRepository class
+
+    @Test
+    void testDeleteTeamMember() {
+        TeamMember teamMember = teamMemberRepository.createTeamMember("João Gomes");
+        teamMemberRepository.deleteTeamMember(teamMember.getId());
+        assertNull(teamMemberRepository.getTeamMemberById(teamMember.getId()));
+    }
+
+**Test 9:** Checks the functionality of the Team Member class constructor
+
+    @Test
+    void testConstructor() {
+        TeamMember teamMember = new TeamMember("Pedro Gomes");
+        assertEquals("Pedro Gomes", teamMember.getName());
+        assertTrue(teamMember.getSkills().isEmpty());
+    }
+
+**Test 10:** Checks the functionality of the add Skill method of the Team Member class
+
+    @Test
+    void testAddSkill() {
+        TeamMember teamMember = new TeamMember("Pedro Gomes");
+        Skill skill = new Skill("Programming");
+        teamMember.addSkill(skill);
+        assertTrue(teamMember.getSkills().contains(skill));
+    }
+
+**Test 11:** Checks the functionality of the Skill class constructor
+
+    @Test
+    void testConstructor_validName() {
+        Skill skill = new Skill("Programming");
+        assertEquals("Programming", skill.getName());
+    }
+
+**Test 12:** Checks the functionality of the getId method of the Skill class
+
+    @Test
+    void testGenerateId() {
+        Skill skill1 = new Skill("Programming");
+        Skill skill2 = new Skill("Design");
+        assertNotEquals(skill1.getId(), skill2.getId());
+    }
+
 
 
 ## 5. Construction (Implementation)
 
-### Class CreateTaskController 
+### Class CreateSkillController 
 
 ```java
-public Task createTask(String reference, String description, String informalDescription, String technicalDescription,
-                       Integer duration, Double cost, String taskCategoryDescription) {
+public class CreateSkillController {
+    private SkillRepository skillRepository;
 
-	TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
+    public CreateSkillController(SkillRepository skillRepository) {
+        this.skillRepository = skillRepository;
+    }
 
-	Employee employee = getEmployeeFromSession();
-	Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
+    /**
+     *
+     * @param skillName
+     * @return Checks whether the skill name contains special characters or digits
+     */
+    public boolean createSkill(String skillName) {
 
-	newTask = organization.createTask(reference, description, informalDescription, technicalDescription, duration,
-                                      cost,taskCategory, employee);
-    
-	return newTask;
+        if (!skillName.matches("[a-zA-Z ]+")) {
+            System.out.println("The skill name cannot contain special characters or digits.");
+            return false;
+        }
+
+        Skill skill = new Skill(skillName);
+        skillRepository.addSkill(skill);
+        return true;
+    }
 }
 ```
 
 ### Class Organization
 
 ```java
-public Optional<Task> createTask(String reference, String description, String informalDescription,
-                                 String technicalDescription, Integer duration, Double cost, TaskCategory taskCategory,
-                                 Employee employee) {
-    
-    Task task = new Task(reference, description, informalDescription, technicalDescription, duration, cost,
-                         taskCategory, employee);
 
-    addTask(task);
-        
-    return task;
+public class TeamMember {
+    private String id;
+    private String name;
+    private List<Skill> skills;
+
+    public TeamMember(String name) {
+        this.name = name;
+        this.id = UUID.randomUUID().toString(); //
+        this.skills = new ArrayList<>();
+    }
+
+
+    public class Skill {
+        private String id;
+        private String name;
+
+        public Skill(String name) {
+            // Checks whether the skill name contains special characters or digits
+            if (!name.matches("[a-zA-Z ]+")) {
+                throw new IllegalArgumentException("The skill name cannot contain special characters or digits.");
+            }
+            this.name = name;
+            this.id = generateId();
+        }
+    }
 }
 ```
 
 
 ## 6. Integration and Demo 
 
-* A new option on the Employee menu options was added.
-
-* For demo purposes some tasks are bootstrapped while system starts.
 
 
 ## 7. Observations
