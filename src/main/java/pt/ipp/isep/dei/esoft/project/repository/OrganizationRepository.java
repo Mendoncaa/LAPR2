@@ -28,6 +28,7 @@ public class OrganizationRepository {
         return returnOrganization;
     }
 
+
     public Optional<Organization> getOrganizationByEmployeeEmail(String email) {
 
         Optional<Organization> returnOrganization = Optional.empty();

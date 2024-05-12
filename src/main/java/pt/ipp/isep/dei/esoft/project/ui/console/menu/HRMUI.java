@@ -1,15 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.authorization.CreateSkillController;
-import pt.ipp.isep.dei.esoft.project.application.controller.authorization.HRMController;
-import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.repository.application.controller.authorization.HRMController;
 import pt.ipp.isep.dei.esoft.project.domain.TeamMember;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class HRMUI implements Runnable {
 

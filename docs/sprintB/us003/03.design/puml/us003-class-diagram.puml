@@ -58,7 +58,7 @@ class Organization {
 
 
 class OrganizationRepository {
-    + getOrganizationByUserEmail(email)
+    + getOrganizationByEmployeeEmail(email)
 }
 
 class Repositories {
@@ -66,11 +66,12 @@ class Repositories {
     + getInstance() : Repositories
     + getOrganizationRepository()
     + getAuthenticationRepository()
+    + getJobRepository()
 }
 
 class CreateEmployeeController {
-    + CreateEmployeeController(organizationRepository)
-    + createEmployee(userEmail,userRole, name)
+    + CreateEmployeeController()
+    + createEmployee(name)
 
 }
 

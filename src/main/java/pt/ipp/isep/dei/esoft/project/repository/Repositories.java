@@ -1,15 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
-import pt.ipp.isep.dei.esoft.project.domain.TeamMember;
-
 public class Repositories {
 
     private static Repositories instance;
     private final OrganizationRepository organizationRepository;
     private final TaskCategoryRepository taskCategoryRepository;
     private final AuthenticationRepository authenticationRepository;
-
+    private final JobRepository jobRepository;
     private final SkillRepository skillRepository;
 
     /**
@@ -20,6 +17,7 @@ public class Repositories {
         taskCategoryRepository = new TaskCategoryRepository();
         authenticationRepository = new AuthenticationRepository();
         skillRepository = new SkillRepository();
+        jobRepository = new JobRepository();
 
     }
 
@@ -47,6 +45,8 @@ public class Repositories {
     public SkillRepository getSkillRepository() {
         return skillRepository;
     }
+
+    public JobRepository getJobRepository() {return jobRepository; }
 
     /*public TeamMember getTeamMember(String id) {
         return teamMembers.get(id);

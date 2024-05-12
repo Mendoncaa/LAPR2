@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.application.controller;
+package pt.ipp.isep.dei.esoft.project.repository.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 

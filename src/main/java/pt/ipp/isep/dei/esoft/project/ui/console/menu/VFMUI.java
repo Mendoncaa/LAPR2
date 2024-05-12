@@ -1,10 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.VFMController;
-import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
-
-import java.util.ArrayList;
-import java.util.List;
+import pt.ipp.isep.dei.esoft.project.repository.application.controller.VFMController;
 
 public class VFMUI {
 

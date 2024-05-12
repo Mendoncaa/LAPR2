@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.application.session;
+package pt.ipp.isep.dei.esoft.project.repository.application.session;
 
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;

@@ -23,7 +23,7 @@ class UserSession
 
 
 class Job {
-    - String name
+    - String jobName
 }
 
 
@@ -37,7 +37,7 @@ class Organization {
     - addJob(job)
     - validateJob(job)
     + Organization(name, vatNumber, webSite, phone, email, postalAddress)
-    + createJob(name)
+    + createJob(job)
     - getUserByEmail(email)
 
 }
@@ -55,8 +55,8 @@ class Repositories {
 }
 
 class CreateJobController {
-    + CreateJobController(organizationRepository)
-    + createJob(userEmail,userRole, name)
+    + CreateJobController(organizationRepository,AuthenticationRepository)
+    + createJob(job)
 
 }
 
