@@ -6,18 +6,10 @@
 
 	@Test(expected = IllegalArgumentException.class)
 		public void ensureNullIsNotAllowed() {
-		Employee instance = new Task(null, null, null, null, null, null, null);
+		Employee instance = new employee(null, null, null, null, null, null, null);
 	}
 	
 
-**Test 2:** Check that it is not possible to create an instance of the Employee class with a same taxpayer id - AC2. 
-
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureReferenceMeetsAC2() {
-		Category cat = new Category(10, "Category 10");
-		
-		Task instance = new Task("Ab1", "Task Description", "Informal Data", "Technical Data", 3, 3780, cat);
-	}
 
 _It is also recommended to organize this content by subsections._ 
 
