@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import java.util.Date;
+
 import java.util.UUID;
 
 public class Vehicle {
@@ -11,8 +11,8 @@ public class Vehicle {
     private int tare;
     private int grossWeight;
     private int currentKms;
-    private Date registerDate;
-    private Date acquisitionDate;
+    private String registerString;
+    private String acquisitionString;
     private int checkUpFrequencyInKms;
 
 
@@ -25,12 +25,12 @@ public class Vehicle {
      * @param tare                      - Tara do Veículo
      * @param grossWeight               - Peso Bruto do Veículo
      * @param currentKms                - km's atuais do Veículo
-     * @param registerDate              - Data de Registo do Veículo
-     * @param acquisitionDate           - Data de Aquisição
+     * @param registerString              - Data de Registo do Veículo
+     * @param acquisitionString           - Data de Aquisição
      * @param checkUpFrequencyInKms     - Frequência de km para revisão
      */
     public Vehicle(String plateID, String brand, String model, String type, int tare, int grossWeight,
-                   int currentKms, Date registerDate,Date acquisitionDate, int checkUpFrequencyInKms){
+                   int currentKms, String registerString,String acquisitionString, int checkUpFrequencyInKms){
         this.plateID = plateID;
         this.brand = brand;
         this.model = model;
@@ -38,8 +38,8 @@ public class Vehicle {
         this.tare = tare;
         this.grossWeight = grossWeight;
         this.currentKms = currentKms;
-        this.registerDate = registerDate;
-        this.acquisitionDate = acquisitionDate;
+        this.registerString = registerString;
+        this.acquisitionString = acquisitionString;
         this.checkUpFrequencyInKms = checkUpFrequencyInKms;
     }
 
@@ -48,7 +48,7 @@ public class Vehicle {
     }
 
     public void setPlateID(String plateID) {
-        if (plateID == null || plateID.trim().isEmpty()) {
+        if (plateID == null ) {
             throw new IllegalArgumentException("Employee name cannot be null or empty");
         }
         this.plateID = plateID;
@@ -102,27 +102,27 @@ public class Vehicle {
         this.currentKms = currentKms;
     }
 
-    public Date getRegisterDate() {
-        return registerDate;
+    public String getRegisterString() {
+        return registerString;
     }
 
-    public void setRegisterDate(Date registerDate) {
-        if (registerDate == null || registerDate.after(new Date())) {
-            throw new IllegalArgumentException("Invalid Aquisition Date");
+    public void setRegisterString(String registerString) {
+        if (registerString == null ) {
+            throw new IllegalArgumentException("Invalid Aquisition String");
         }
-        this.registerDate = registerDate;
+        this.registerString = registerString;
     }
 
-    public Date getAcquisitionDate() {
+    public String getAcquisitionString() {
 
-        return acquisitionDate;
+        return acquisitionString;
     }
 
-    public void setAcquisitionDate(Date acquisitionDate) {
-        if (acquisitionDate == null || acquisitionDate.after(new Date())) {
-            throw new IllegalArgumentException("Invalid Aquisition Date");
+    public void setAcquisitionString(String acquisitionString) {
+        if (acquisitionString == null ) {
+            throw new IllegalArgumentException("Invalid Aquisition String");
         }
-        this.acquisitionDate = acquisitionDate;
+        this.acquisitionString = acquisitionString;
     }
 
     public int getCheckUpFrequencyInKms() {
@@ -147,8 +147,8 @@ public class Vehicle {
                 ", tare=" + tare +
                 ", grossWeight=" + grossWeight +
                 ", currentKms=" + currentKms +
-                ", registerDate=" + registerDate +
-                ", acquisitionDate=" + acquisitionDate +
+                ", registerString=" + registerString +
+                ", acquisitionString=" + acquisitionString +
                 ", checkUpFrequencyInKms=" + checkUpFrequencyInKms +
                 '}';
     }
