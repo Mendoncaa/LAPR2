@@ -2,14 +2,11 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-
-public class CreateVehicleControllerTest {
-
-package pt.ipp.isep.dei.esoft.project.domain;
-
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import pt.ipp.isep.dei.esoft.project.repository.application.controller.authorization.CreateCheckUpController;
+import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
 
     public class CreateVehicleControllerTest {
 

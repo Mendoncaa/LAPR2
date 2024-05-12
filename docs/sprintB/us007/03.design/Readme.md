@@ -11,18 +11,21 @@
 | Step 3 - Types Requested Data                     | … Validating input data?   temporarily keeping input data   | Create Check-Up UI         | Pure Fabrication (Interaction with actor)                 |
 | Step 4 - Shows all data and requests Confirmation | … displaying all the information before submitting?         | Create Check-Up UI         | Pure Fabrication (Interaction with actor)                 |
 | Step 5 - Confirms data                            | ... Knowing the user using the system?                      | User Session               | IE: see Auth component documentation                      |
-|                                                   | … instantiating a new Vehicle (Object)?                     | Organization               | Creator (Rule1): in the DM Organization owns Vehicle List |
+|                                                   | … instantiating a new Check Up (Object)?                    | Check up                   | Creator (Rule1): in the DM Organization owns Vehicle List |
 |                                                   | … validating all data (Local validation, i.e. mandatory)?   | Vehicle's Check-Up         | IE: owns its data                                         |
-|                                                   | … validating all data (Global validation, i.e. duplicates)? | Organization               | IE: knows all its Vehicles's Check up                     |
-|                                                   | … saving the created Vehicle's Check-Up?                    | Organization               | IE: owns all its Vehicles's Check-Up                      |
+|                                                   | … saving the created Vehicle's Check-Up?                    | Check uo                   | IE: owns all its Vehicles's Check-Up                      |
 |                                                   | … Saving the inputted data?                                 | Vehicle's Check-Up         | IE: object created previously has its own data            |
 | Step 6 - Display operation Success                | … information on operation success?                         | Create Check-Up UI         | Pure Fabrication (Interaction with Actor)                 |
+
+
+
+
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
-* Organization
+* Vehicle
 * Check up
 
 Other software classes (i.e. Pure Fabrication) identified:

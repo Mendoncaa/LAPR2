@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
 
-import pt.ipp.isep.dei.esoft.project.repository.application.controller.checkup.CreateCheckUpController;
+import pt.ipp.isep.dei.esoft.project.repository.application.controller.authorization.CreateCheckUpController;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-# US006 - Create a Task 
+# US006 - Register a vehicle 
 
 ## 4. Tests 
 
@@ -23,7 +23,7 @@
     });
     }
 
-**Test 3:** Ensure Vehicle creation with invalid register date is not allowed
+**Test 3:** Ensure Vehicle Creation with invalida Register Date in not allowed
     
     @Test
     public void testCreateVehicleWithInvalidRegisterDate() {
@@ -33,7 +33,56 @@
     });
     }
 
+**Test 4:** Ensure Vehicle creation with valid data
 
+    @Test
+    void testCreateVehicle() {
+    Vehicle vehicle = new Vehicle("AB123CD", "Toyota", "Corolla", "Sedan", 1200, 1500,
+    50000, "2022-01-01", "2022-01-01", 10000);
+    
+            assertEquals("AB123CD", vehicle.getPlateID());
+            assertEquals("Toyota", vehicle.getBrand());
+            assertEquals("Corolla", vehicle.getModel());
+            assertEquals("Sedan", vehicle.getType());
+            assertEquals(1200, vehicle.getTare());
+            assertEquals(1500, vehicle.getGrossWeight());
+            assertEquals(50000, vehicle.getCurrentKms());
+            assertEquals("2022-01-01", vehicle.getRegisterString());
+            assertEquals("2022-01-01", vehicle.getAcquisitionString());
+            assertEquals(10000, vehicle.getCheckUpFrequencyInKms());
+        }
+
+**Test 5:** Verifies if in a vehicle repository a vehicle can be added or retrieved by it's plate ID
+
+
+    @Test
+    void testAddVehicleAndGetVehicleByPlateId() {
+        VehicleRepository repository = new VehicleRepository();
+        Vehicle vehicle = new Vehicle("AB123CD", "Toyota", "Corolla", "Sedan", 1200, 1500,
+                50000, "2022-01-01", "2022-01-01", 10000);
+        repository.addVehicle(vehicle);
+
+        assertEquals(vehicle, repository.getVehicleByPlateId("AB123CD"));
+    }
+        @Test
+        void testCreateVehicle() {
+            // Criar um repositório simulado manualmente
+            VehicleRepository repository = new VehicleRepository();
+
+            // Criar um controlador com o repositório simulado
+            CreateVehicleController controller = new CreateVehicleController(repository);
+
+            // Chamar o método createVehicle no controlador
+            boolean result = controller.createVehicle("AB123CD", "Toyota", "Corolla", "Sedan", 1200, 1500,
+                    50000, "2022-01-01", "2022-01-01", 10000);
+
+            // Verificar se o resultado é verdadeiro
+            assertTrue(result);
+
+            // Verificar se o método addVehicle foi chamado no repositório
+            assertEquals(1, repository.getVehicles().size());
+        }
+    }
 
 
 
