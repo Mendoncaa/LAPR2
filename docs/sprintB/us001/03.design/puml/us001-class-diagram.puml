@@ -16,10 +16,10 @@ class CreateSkillController {
     - SkillRepository skillRepository
     - TeamMemberRepository teamMemberRepository
 
-    'Construtor para inicializar o controlador com o SkillRepository e TeamMemberRepository'
+    'Constructor to initialize the controller with the SkillRepository and TeamMemberRepositor'
     + CreateSkillController(skillRepository: SkillRepository, teamMemberRepository: TeamMemberRepository)
 
-    'Método para criar uma nova skill'
+    'Method for creating a new skilll'
     + createSkill(skillName: String): void
 }
 

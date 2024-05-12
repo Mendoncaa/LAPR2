@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.TeamMember;
+
 public class Repositories {
 
     private static Repositories instance;
@@ -53,12 +55,6 @@ public class Repositories {
 
     public VehicleRepository getVehicleRepository() {return vehicleRepository;}
 
-    /*public TeamMember getTeamMember(String id) {
-        return teamMembers.get(id);
-    }
 
-    public void addTeamMember(TeamMember teamMember) {
-        teamMembers.put(teamMember.getId(), teamMember);
-    }*/
 }
 
