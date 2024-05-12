@@ -14,72 +14,95 @@ class CreateSkillUI {
 
 class CreateSkillController {
     - SkillRepository skillRepository
-    - TeamMember teamMember
+    - TeamMemberRepository teamMemberRepository
 
-    'Construtor para inicializar o controlador com o SkillRepository e TeamMember
-    + CreateSkillController(skillRepository: SkillRepository, teamMember: TeamMember)
+    'Construtor para inicializar o controlador com o SkillRepository e TeamMemberRepository'
+    + CreateSkillController(skillRepository: SkillRepository, teamMemberRepository: TeamMemberRepository)
 
-    'Método para criar uma nova skill
+    'Método para criar uma nova skill'
     + createSkill(skillName: String): void
 }
 
 class Repositories {
     - static Repositories instance
     - SkillRepository skillRepository
+    - TeamMemberRepository teamMemberRepository
 
-    'Construtor privado para implementar o padrão Singleton
+    'Construtor privado para implementar o padrão Singleton'
     - Repositories()
 
-    'Método para obter a instância Singleton de Repositories
+    'Método para obter a instância Singleton de Repositories'
     + static getInstance(): Repositories
 
-    'Método para obter o repositório das skills
+    'Método para obter o repositório das skills'
     + getSkillRepository(): SkillRepository
-}
 
+    'Método para obter o repositório dos membros da equipe'
+    + getTeamMemberRepository(): TeamMemberRepository
+}
 
 class SkillRepository {
     - List<Skill> skills
 
-    'Construtor para inicializar o repositório de skills
+    'Construtor para inicializar o repositório de skills'
     + SkillRepository()
 
-    'Retorna uma skill com base no seu nome
+    'Retorna uma skill com base no seu nome'
     + getSkillByName(skillName: String): Skill
 
-    'Cria uma nova skill e a adiciona ao repositório
+    'Cria uma nova skill e a adiciona ao repositório'
     + createSkill(skillName: String): Skill
 
-    'Remove uma skill do repositório
+    'Remove uma skill do repositório'
     + deleteSkill(skillId: String): void
 }
 
+class TeamMemberRepository {
+    - List<TeamMember> teamMembers
+
+    'Construtor para inicializar o repositório de membros da equipe'
+    + TeamMemberRepository()
+
+    'Retorna um membro da equipe com base no seu ID'
+    + getTeamMemberById(id: String): TeamMember
+
+    'Cria um novo membro da equipe e o adiciona ao repositório'
+    + createTeamMember(name: String): TeamMember
+
+    'Remove um membro da equipe do repositório'
+    + deleteTeamMember(id: String): void
+}
 
 class TeamMember {
     - id: String
     - name: String
     - List<Skill> skills
 
-    'Construtor para criar um novo membro da equipe
+    'Construtor para criar um novo membro da equipe'
     + TeamMember(name: String)
 
-    'Método para adicionar uma skill a um membro da equipe
+    'Método para adicionar uma skill a um membro da equipe'
     + addSkill(skill: Skill): void
 }
 
 class Skill {
     - String name
 
-    'Construtor para criar uma nova skill
+    'Construtor para criar uma nova skill'
     + Skill(name: String)
 }
 
 CreateSkillUI .> CreateSkillController
 CreateSkillController .> Repositories
 CreateSkillController .> SkillRepository
-CreateSkillController .> TeamMember
+CreateSkillController .> TeamMemberRepository
 Repositories --> SkillRepository
+Repositories --> TeamMemberRepository
+SkillRepository --> Skill
+TeamMemberRepository --> TeamMember
 TeamMember ---> Skill
+
+
 
 
 @enduml

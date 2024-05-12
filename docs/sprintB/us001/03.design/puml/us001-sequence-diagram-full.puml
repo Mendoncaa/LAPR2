@@ -12,6 +12,7 @@ participant ":CreateSkillController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
 participant "skillRepository\n:SkillRepository" as SkillRepository
+participant "teamMemberRepository\n:TeamMemberRepository" as TeamMemberRepository
 participant "skill\n:Skill" as Skill
 
 activate ADM
@@ -53,6 +54,16 @@ activate ADM
     activate SkillRepository
     CTRL <-- SkillRepository : success
     deactivate SkillRepository
+
+    CTRL -> PLAT : getTeamMemberRepository()
+    activate PLAT
+    CTRL <-- PLAT : TeamMemberRepository()
+    deactivate PLAT
+
+    CTRL -> TeamMemberRepository : addSkillToTeamMember(skill)
+    activate TeamMemberRepository
+    CTRL <-- TeamMemberRepository : success
+    deactivate TeamMemberRepository
 
     CTRL --> UI : success
     deactivate CTRL

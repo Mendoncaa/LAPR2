@@ -14,65 +14,90 @@ class AssignSkillUI {
 
 class AssignSkillController {
     - SkillRepository skillRepository
-    - TeamMember teamMember
+    - TeamMemberRepository teamMemberRepository
 
-    'Construtor para inicializar o controlador com o SkillRepository e TeamMember
-    + AssignSkillController(skillRepository: SkillRepository, teamMember: TeamMember)
+    'Construtor para inicializar o controlador com o SkillRepository e TeamMemberRepository'
+    + AssignSkillController(skillRepository: SkillRepository, teamMemberRepository: TeamMemberRepository)
 
-    'Método para atribuir skills a um membro da equipe
+    'Método para atribuir skills a um membro da equipe'
     + assignSkillToTeamMember(teamMemberId: String, skillId: String): void
 }
 
 class Repositories {
+    - static Repositories instance
     - SkillRepository skillRepository
-    - OrganizationRepository organizationRepository
+    - TeamMemberRepository teamMemberRepository
 
-    'Construtor para inicializar os repositórios
-    + Repositories()
+    'Construtor privado para implementar o padrão Singleton'
+    - Repositories()
 
-    'Método para obter o repositório das skills
+    'Método para obter a instância Singleton de Repositories'
+    + static getInstance(): Repositories
+
+    'Método para obter o repositório das skills'
     + getSkillRepository(): SkillRepository
 
-    'Método para obter o repositório da organização
-    + getOrganizationRepository(): OrganizationRepository
-
-
+    'Método para obter o repositório dos membros da equipe'
+    + getTeamMemberRepository(): TeamMemberRepository
 }
 
 class SkillRepository {
-    'Retorna uma skill com base no seu ID
+    - List<Skill> skills
+
+    'Construtor para inicializar o repositório de skills'
+    + SkillRepository()
+
+    'Retorna uma skill com base no seu ID'
     + getSkillById(skillId: String): Skill
 
-    'Adiciona uma nova skill ao repositório
+    'Adiciona uma nova skill ao repositório'
     + addSkill(skill: Skill): void
 }
 
- class TeamMember {
-     - id: String
-     - name: String
-     - List<Skill> skills
+class TeamMemberRepository {
+    - List<TeamMember> teamMembers
 
-     'Construtor para criar um novo membro da equipe
-     + TeamMember(name: String)
+    'Construtor para inicializar o repositório de membros da equipe'
+    + TeamMemberRepository()
 
-     'Método para adicionar uma skill a um membro da equipe
-     + addSkill(skill: Skill): void
+    'Retorna um membro da equipe com base no seu ID'
+    + getTeamMemberById(id: String): TeamMember
 
- }
+    'Cria um novo membro da equipe e o adiciona ao repositório'
+    + createTeamMember(name: String): TeamMember
 
- class Skill {
+    'Remove um membro da equipe do repositório'
+    + deleteTeamMember(id: String): void
+}
+
+class TeamMember {
+    - id: String
+    - name: String
+    - List<Skill> skills
+
+    'Construtor para criar um novo membro da equipe'
+    + TeamMember(name: String)
+
+    'Método para adicionar uma skill a um membro da equipe'
+    + addSkill(skill: Skill): void
+}
+
+class Skill {
     - id: String
     - name: String
 
-    'Construtor para criar uma nova skill
+    'Construtor para criar uma nova skill'
     + Skill(name: String)
-  }
+}
 
 AssignSkillUI .> AssignSkillController
 AssignSkillController .> Repositories
 AssignSkillController .> SkillRepository
-AssignSkillController .> TeamMember
+AssignSkillController .> TeamMemberRepository
 Repositories --> SkillRepository
+Repositories --> TeamMemberRepository
+SkillRepository --> Skill
+TeamMemberRepository --> TeamMember
 TeamMember ---> Skill
 
 
