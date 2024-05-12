@@ -4,15 +4,15 @@
 
 ### 3.1. Rationale
 
-| InteractionID                                       | Question: Which class is responsible for…                 | Answer                    | Justification (with patterns)                              |
+| InteractionID                                       | Question: Which class is responsible for…                 | Answer                    | Justification (with patterns)                             |
 |-----------------------------------------------------|-----------------------------------------------------------|---------------------------|-----------------------------------------------------------|
 | Step 1 - Ask to Register a New Vehicle              | … interacting with  the actor?                            | Create VehicleUI         | Pure Fabrication                                          |
 |                                                     | … Coordinating the US?                                    | Create Vehicle Controller | Pure Fabrication (System Interaction Controller)          |
 | Step 2 - Requests Data                              | … displaying form for actor input?                        | Create VehicleUI        | Pure Fabrication (Interaction with actor)                 |
 | Step 3 - Types Requested Data                       | … Validating input data?   temporarily keeping input data | Create VehicleUI        | Pure Fabrication (Interaction with actor)                 |
 | Step 4 - Shows all data and requests Confirmation  | … displaying all the information before submitting?       | Create VehicleUI        | Pure Fabrication (Interaction with actor)                 |
-| Step 5 - Confirms data                              | ... Knowing the user using the system?                    | User Session              | IE: see Auth component documentation                     |
-|                                                     | … instantiating a new Vehicle (Object)?                   | Organization              | Creator (Rule1): in the DM Organization owns VehicleList  |
+| Step 5 - Confirms data                              | ... Knowing the user using the system?                    | User Session              | IE: see Auth component documentation                      |
+|                                                     | … instantiating a new Vehicle (Object)?                   | Organization              | Creator (Rule1): in the DM Organization owns Vehicle List |
 |                                                     | … validating all data (Local validation, i.e. mandatory)? | Vehicle                   | IE: owns its data                                         |
 |                                                     | … validating all data (Global validation, i.e. duplicates)?| Organization              | IE: knows all its Vehicles                                |
 |                                                     | … saving the created Vehicle?                             | Organization              | IE: owns all its Vehicles                                 |

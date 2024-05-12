@@ -5,7 +5,7 @@
 
 | InteractionID                                     | Question: Which class is responsible for…                   | Answer                     | Justification (with patterns)                             |
 |---------------------------------------------------|-------------------------------------------------------------|----------------------------|-----------------------------------------------------------|
-| Step 1 - Ask to Register a Vehicle for check's up | … interacting with  the actor?                              | Create Check-Up UI         | Pure Fabrication                                          |
+| Step 1 - Ask to Register a Vehicle for check's up | … interacting with  the actor?                              | Create Check-up UI         | Pure Fabrication                                          |
 |                                                   | … Coordinating the US?                                      | Create Check-up Controller | Pure Fabrication (System Interaction Controller)          |
 | Step 2 - Requests Data                            | … displaying form for actor input?                          | Create Check-Up UI         | Pure Fabrication (Interaction with actor)                 |
 | Step 3 - Types Requested Data                     | … Validating input data?   temporarily keeping input data   | Create Check-Up UI         | Pure Fabrication (Interaction with actor)                 |

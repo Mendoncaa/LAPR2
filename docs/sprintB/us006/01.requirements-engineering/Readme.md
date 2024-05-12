@@ -51,7 +51,6 @@ Gross Weight, Current Km, Register Date, Acquisition Date, Maintenance/Checkup F
   * Current Km
   * Register Date
   * Acquisition Date
-  * Maintenance Frequency (in kms)
   * Checkup Frequency (in kms)
   * vehicle plate (ID)
 
