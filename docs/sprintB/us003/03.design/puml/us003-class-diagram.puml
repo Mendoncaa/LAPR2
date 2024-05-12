@@ -52,7 +52,6 @@ class Organization {
     + Organization(name, vatNumber, webSite, phone, email, postalAddress)
     + createEmployee(name,birthdate,admission date,Address,phone,email,Id doctype,Id number,taxpayer id)
     - getUserByEmail(email)
-    + getJobList()
 
 }
 
@@ -68,10 +67,15 @@ class Repositories {
     + getAuthenticationRepository()
     + getJobRepository()
 }
+class JobRepository{
+
+    + getJobList()
+
+}
 
 class CreateEmployeeController {
     + CreateEmployeeController()
-    + createEmployee(name)
+    + createEmployee(name,birthdate,admission date,Address,phone,email,Id doctype,Id number,taxpayer id, job)
 
 }
 
@@ -91,7 +95,8 @@ Repositories --> "1" OrganizationRepository
 OrganizationRepository --> "*" Organization : organizations
 AuthenticationRepository -> "1" UserSession : usersession
 Repositories --> "1" AuthenticationRepository
-Organization "1" --> "*" Job : owns
+Repositories --> "1" JobRepository
+JobRepository "1" --> "*" Job : aggregate
 Organization "1" --> "*" Employee : owns
 Employee "1" -> "1" Job : have
 
