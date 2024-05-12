@@ -1,0 +1,61 @@
+@startuml
+'skinparam monochrome true
+'skinparam packageStyle rectangle
+'skinparam shadowing false
+'skinparam linetype polyline
+
+class CreateCheckUpUI {
+    + displayForm(): void
+    + requestCheckUpData(): void
+    + displayConfirmation(): void
+}
+
+class CreateCheckUpController {
+    + createCheckUp(): void
+}
+
+class Repositories {
+    - vehicleRepository: VehicleRepository
+    - checkUpRepository: CheckUpRepository
+    + getInstance(): Repositories
+    + getVehicleRepository(): VehicleRepository
+    + getCheckUpRepository(): CheckUpRepository
+}
+
+class VehicleRepository {
+    - vehicles: List<Vehicle>
+    + getVehicleByIdPlate(plateId: String): Vehicle
+    + save(vehicle: Vehicle): void
+    + update(vehicle: Vehicle): void
+    + delete(id: String): void
+}
+
+class Vehicle {
+    - plateId: String
+    - brand: String
+    - model: String
+    - type: String
+    - tare: int
+    - grossWeight: int
+    - currentKm: int
+    - registerDate: Date
+    - acquisitionDate: Date
+    - maintenanceFrequency: int
+    - checkupFrequency: int
+    + createCheckUp(): void
+}
+
+class CheckUp {
+    - checkUpId: String
+    - plateId: String
+    - date: Date
+    + createCheckUp(): void
+}
+
+CreateCheckUpUI -- CreateCheckUpController
+CreateCheckUpController -- Repositories
+Repositories -- VehicleRepository
+VehicleRepository -- Vehicle
+Vehicle --|> Repositories : knows
+CheckUp --|> Repositories : knows
+@enduml

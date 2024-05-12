@@ -9,6 +9,8 @@ public class Repositories {
     private final JobRepository jobRepository;
     private final SkillRepository skillRepository;
 
+    private final VehicleRepository vehicleRepository;
+
     /**
      *
      */
@@ -18,6 +20,7 @@ public class Repositories {
         authenticationRepository = new AuthenticationRepository();
         skillRepository = new SkillRepository();
         jobRepository = new JobRepository();
+        vehicleRepository = new VehicleRepository();
 
     }
 
@@ -47,6 +50,8 @@ public class Repositories {
     }
 
     public JobRepository getJobRepository() {return jobRepository; }
+
+    public VehicleRepository getVehicleRepository() {return vehicleRepository;}
 
     /*public TeamMember getTeamMember(String id) {
         return teamMembers.get(id);
