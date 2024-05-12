@@ -1,16 +1,16 @@
-# US006 - Create a Task 
+# US003 - Create a Task 
 
 ## 4. Tests 
 
-**Test 1:** Check that it is not possible to create an instance of the Task class with null values. 
+**Test 1:** Check that it is not possible to create an instance of the Employee class with null values. 
 
 	@Test(expected = IllegalArgumentException.class)
 		public void ensureNullIsNotAllowed() {
-		Task instance = new Task(null, null, null, null, null, null, null);
+		Employee instance = new Task(null, null, null, null, null, null, null);
 	}
 	
 
-**Test 2:** Check that it is not possible to create an instance of the Task class with a reference containing less than five chars - AC2. 
+**Test 2:** Check that it is not possible to create an instance of the Employee class with a same taxpayer id - AC2. 
 
 	@Test(expected = IllegalArgumentException.class)
 		public void ensureReferenceMeetsAC2() {
@@ -24,37 +24,51 @@ _It is also recommended to organize this content by subsections._
 
 ## 5. Construction (Implementation)
 
-### Class CreateTaskController 
+### Class CreateEmployeeController 
 
 ```java
-public Task createTask(String reference, String description, String informalDescription, String technicalDescription,
-                       Integer duration, Double cost, String taskCategoryDescription) {
+public class CreateEmployeeController {
 
-	TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
+    private OrganizationRepository organizationRepository;
+    private JobRepository jobRepository;
+    private AuthenticationRepository authenticationRepository;
+    private EmployeeRepository employeeRepository;
 
-	Employee employee = getEmployeeFromSession();
-	Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
+    //Repository instances are obtained from the Repositories class
+    public CreateEmployeeController() {
+        getOrganizationRepository();
+        getAuthenticationRepository();
+        getEmployeeRepository();
+        getJobRepository();
+    }
 
-	newTask = organization.createTask(reference, description, informalDescription, technicalDescription, duration,
-                                      cost,taskCategory, employee);
-    
-	return newTask;
+    //Allows receiving the repositories as parameters for testing purposes
+    public CreateEmployeeController(OrganizationRepository organizationRepository,
+                                    TaskCategoryRepository jobRepository,
+                                    AuthenticationRepository authenticationRepository) {
+        this.organizationRepository = organizationRepository;
+        this.jobRepository = jobRepository;
+        this.authenticationRepository = authenticationRepository;
+    }
 }
 ```
 
 ### Class Organization
 
 ```java
-public Optional<Task> createTask(String reference, String description, String informalDescription,
-                                 String technicalDescription, Integer duration, Double cost, TaskCategory taskCategory,
-                                 Employee employee) {
-    
-    Task task = new Task(reference, description, informalDescription, technicalDescription, duration, cost,
-                         taskCategory, employee);
-
-    addTask(task);
-        
-    return task;
+public Employee(String name, Date birthdate, Date admissionDate, String street, String city, String zipCode, String phone, String email, String idDocType, String idDocNumber, String taxpayerId, Job job) {
+    this.name = name;
+    this.birthdate = birthdate;
+    this.admissionDate = admissionDate;
+    this.street = street;
+    this.city = city;
+    this.zipCode = zipCode;
+    this.phone = phone;
+    this.email = email;
+    this.idDocType = idDocType;
+    this.idDocNumber = idDocNumber;
+    this.taxpayerId = taxpayerId;
+    this.job = job;
 }
 ```
 

@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Representa um repositório de funcionários.
+ * Repositório de funcionários.
  */
-class EmployeeRepository {
+public class EmployeeRepository {
     private List<Employee> employees;
 
     /**

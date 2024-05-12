@@ -12,16 +12,17 @@ import java.util.Optional;
 public class CreateJobController {
     private Repositories repositories;
 
-    public CreateJobController(Repositories repositories) {
+    public CreateJobController() {
         this.repositories = repositories;
     }
 
     /**
      * Cria um novo trabalho para a organização atual.
+     *
      * @param jobName O nome do trabalho a ser criado.
      * @throws IllegalStateException Se o usuário não estiver autenticado ou não tiver permissão para criar um trabalho.
      */
-    public void createJob(String jobName) {
+    public Optional<Job> createJob(String jobName) {
         // Obtém a sessão atual
         UserSession currentUserSession = repositories.getAuthenticationRepository().getCurrentUserSession();
 
@@ -50,5 +51,6 @@ public class CreateJobController {
         } else {
             throw new IllegalStateException("Usuário não autenticado ou sem permissão para criar um trabalho.");
         }
+        return null;
     }
 }
