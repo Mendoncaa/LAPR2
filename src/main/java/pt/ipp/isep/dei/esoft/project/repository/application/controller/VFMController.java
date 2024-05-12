@@ -1,7 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.repository.application.controller;
 
+import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
+import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.ArrayList;
@@ -9,7 +11,7 @@ import java.util.List;
 
 public class VFMController {
 
-    /*private VehicleRepository vehicleRepository;
+    private VehicleRepository vehicleRepository;
 
     public VFMController() {
         this.vehicleRepository = Repositories.getInstance().getVehicleRepository();
@@ -17,7 +19,6 @@ public class VFMController {
 
     public void listVehiclesNeedingCheckUp() {
         List<Vehicle> vehicles = vehicleRepository.getVehicles();
-        List<Vehicle> vehiclesNeedingCheckUp = new ArrayList<Vehicle>();
 
         for (Vehicle vehicle : vehicles) {
 
@@ -30,11 +31,12 @@ public class VFMController {
     }
 
     public boolean needsCheckup(Vehicle vehicle) {
-        return calculateNextCheckup() > 365;
+        return calculateNextCheckup(vehicle.getCurrentKms(), vehicle.getCheckUpFrequencyInKms()) < 0;
     }
 
 
-    public int calculateNextCheckup() {
+    public int calculateNextCheckup(int currentKMs, int nextKMs) {
+        return currentKMs - nextKMs;
+    }
 
-    }*/
 }

@@ -24,9 +24,13 @@ public class VFMUI {
             option = Utils.showAndSelectIndex(options, "\n\n--- VFM MENU --------------------------");
 
             if ((option >= 0) && (option < options.size())) {
+
                 if (option == 0) {
+
                     initiateCheckUp();
+
                 }
+
             }
         } while (option != -1);
     }
