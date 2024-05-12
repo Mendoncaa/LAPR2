@@ -4,19 +4,21 @@ import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.domain.TeamMember;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TeamMemberRepository {
-    private List<TeamMember> teamMembers;
+public class TeamRepository {
 
-    public TeamMemberRepository() {
-        this.teamMembers = new ArrayList<>();
+    private List<Team> team;
+
+    public TeamRepository() {
+        this.team = new ArrayList<>();
     }
 
-    public TeamMember getTeamMemberById(String id) {
-        for (TeamMember teamMember : teamMembers) {
-            if (teamMember.getId().equals(id)) {
-                return teamMember;
+    /*public TeamMember getTeamById(String id) {
+        for (Team team : team) {
+            if (team.getId().equals(id)) {
+                return team;
             }
         }
         return null;
@@ -24,7 +26,7 @@ public class TeamMemberRepository {
 
     public TeamMember createTeamMember(String name) {
         TeamMember teamMember = new TeamMember(name);
-        teamMembers.add(teamMember);
+        team.add(teamMember);
         return teamMember;
     }
 
@@ -33,7 +35,7 @@ public class TeamMemberRepository {
         if (teamMember != null) {
             teamMembers.remove(teamMember);
         }
-    }
+    }*/
 
 
     public List<TeamMember> findTeamMemberWithSkill(Skill skill, Team team) {
@@ -53,5 +55,6 @@ public class TeamMemberRepository {
         return teamMembers;
 
     }
+
 
 }
