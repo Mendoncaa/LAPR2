@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListVehiclesCheckupUI {
+public class ListVehiclesCheckupUI implements Runnable {
 
     private ListVehiclesCheckupController listVehiclesCheckupController;
 

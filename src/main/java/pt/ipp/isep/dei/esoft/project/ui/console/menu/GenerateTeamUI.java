@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class GenerateTeamUI {
+public class GenerateTeamUI implements Runnable {
 
     private static GenerateTeamController generateTeamController = new GenerateTeamController();
     private static SkillRepository skillRepository = new SkillRepository();
