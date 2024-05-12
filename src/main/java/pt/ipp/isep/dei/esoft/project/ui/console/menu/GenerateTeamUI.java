@@ -1,21 +1,21 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.domain.TeamMember;
-import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 import pt.ipp.isep.dei.esoft.project.repository.application.controller.GenerateTeamController;
-import pt.ipp.isep.dei.esoft.project.repository.application.controller.VFMController;
-import pt.ipp.isep.dei.esoft.project.repository.application.controller.authorization.HRMController;
+import pt.ipp.isep.dei.esoft.project.ui.console.DevTeamUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.authorization.AuthenticationUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class GenerateTeamUI {
 
     private static GenerateTeamController generateTeamController = new GenerateTeamController();
-    SkillRepository skillRepository = new SkillRepository();
-
+    private final Scanner scan = new Scanner(System.in);
 
     public GenerateTeamUI(GenerateTeamController generateTeamController) {
 
@@ -34,33 +34,40 @@ public class GenerateTeamUI {
 
         for (int i = 0; i < numSkills; i++) {
 
-            skills.add(chooseSkill(numSkills));
+            skills.add(generateTeamController.getChooseSkill());
 
         }
 
-        generateTeamController.initialize(min, max, skills);
+        Team team = generateTeamController.getGenerateTeam(min, max, skills);
 
-    }
+        System.out.println(team);
 
+        System.out.println("  1 - Accept Team");
+        System.out.println("  2 - Reject Team");
 
-    public Skill chooseSkill(int numSkills) {
+        int option;
 
-        List<Skill> skills = skillRepository.getSkills();
-
-        int option = 0;
         do {
-            Utils.showAndSelectIndex(skills, "\n\n--- SKILLS -------------------------");
 
-            if ((option >= 0) && (option < skills.size())) {
+            option = scan.nextInt();
 
-                return skills.get(option);
+        } while (option < 1 || option > 2);
 
-            }
 
-        } while (option != -1);
+        if (option == 1) {
 
-        return null;
+            
+
+        } else {
+
+
+
+        }
 
     }
+
+
+
+
 
 }

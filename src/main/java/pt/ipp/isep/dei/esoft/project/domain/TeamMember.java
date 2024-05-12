@@ -26,9 +26,13 @@ public class TeamMember {
     }
 
     public void addSkill(Skill skill) {
+
         if (!skills.contains(skill)) {
+
             skills.add(skill);
+
         }
+
     }
 }
 

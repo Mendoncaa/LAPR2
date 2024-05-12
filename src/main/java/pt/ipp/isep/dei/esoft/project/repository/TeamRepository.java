@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.domain.TeamMember;
@@ -9,52 +10,56 @@ import java.util.List;
 
 public class TeamRepository {
 
-    private List<Team> team;
+    private List<Team> teams;
 
     public TeamRepository() {
-        this.team = new ArrayList<>();
+        this.teams = new ArrayList<>();
     }
 
-    /*public TeamMember getTeamById(String id) {
-        for (Team team : team) {
-            if (team.getId().equals(id)) {
-                return team;
+
+    public Team createTeamMember(int minSize, int maxSize, List<Skill> skills, List<TeamMember> teamMembers) {
+
+        Team team = new Team(minSize, maxSize, skills, teamMembers);
+
+        teams.add(team);
+
+        return team;
+
+    }
+
+
+
+    public TeamMember findTeamMemberWithSkill(Skill skill, List<TeamMember> team) {
+
+
+        for (TeamMember teamMember : team) {
+
+            if (teamMember.getSkills().contains(skill) || !isInAnyTeam(teamMember)) {
+
+                return teamMember;
+
             }
+
         }
+
         return null;
+
     }
 
-    public TeamMember createTeamMember(String name) {
-        TeamMember teamMember = new TeamMember(name);
-        team.add(teamMember);
-        return teamMember;
-    }
-
-    public void deleteTeamMember(String id) {
-        TeamMember teamMember = getTeamMemberById(id);
-        if (teamMember != null) {
-            teamMembers.remove(teamMember);
-        }
-    }*/
+    public boolean isInAnyTeam(TeamMember teamMember) {
 
 
-    public List<TeamMember> findTeamMemberWithSkill(Skill skill, Team team) {
+        for (Team team : teams) {
 
-        List<TeamMember> teamMembers = team.getTeamMembers();
+            if (team.getTeamMembers().contains(teamMember)) {
 
-        for (TeamMember teamMember : teamMembers) {
-
-            if (teamMember.getSkills().contains(skill) || !teamMembers.contains(teamMember)) {
-
-                teamMembers.add(teamMember);
+                return true;
 
             }
-
         }
 
-        return teamMembers;
+        return false;
 
     }
-
 
 }

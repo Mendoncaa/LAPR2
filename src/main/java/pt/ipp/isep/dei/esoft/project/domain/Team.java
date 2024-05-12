@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.domain.TeamMember;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,7 @@ public class Team {
     private List<TeamMember> teamMembers;
 
 
-    public Team(int minSize, int maxSize, List<Skill> skills) {
+    public Team(int minSize, int maxSize, List<Skill> skills, List<TeamMember> teamMembers) {
         this.id = UUID.randomUUID().toString();
         validateInput(minSize);
         this.minSize = minSize;
@@ -88,4 +90,20 @@ public class Team {
 
     }
 
+
+    @Override
+    public String toString() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("### Team Members ###\n");
+
+        for (TeamMember teamMember : teamMembers) {
+
+            stringBuilder.append(teamMember.toString()).append("\n");
+
+        }
+
+        return stringBuilder.toString();
+    }
 }
