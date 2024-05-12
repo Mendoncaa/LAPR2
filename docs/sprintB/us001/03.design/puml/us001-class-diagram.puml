@@ -16,10 +16,10 @@ class CreateSkillController {
     - SkillRepository skillRepository
     - TeamMemberRepository teamMemberRepository
 
-    'Constructor to initialize the controller with the SkillRepository and TeamMemberRepositor'
+    'Constructor to initialize the controller with the SkillRepository and TeamMemberRepository'
     + CreateSkillController(skillRepository: SkillRepository, teamMemberRepository: TeamMemberRepository)
 
-    'Method for creating a new skilll'
+    'Method for creating a new skill'
     + createSkill(skillName: String): void
 }
 
@@ -28,48 +28,48 @@ class Repositories {
     - SkillRepository skillRepository
     - TeamMemberRepository teamMemberRepository
 
-    'Construtor privado para implementar o padrão Singleton'
+    'Private constructor to implement the Singleton pattern'
     - Repositories()
 
-    'Método para obter a instância Singleton de Repositories'
+    'Method to get Singleton instance from Repositories'
     + static getInstance(): Repositories
 
-    'Método para obter o repositório das skills'
+    'Method to obtain the skills repository'
     + getSkillRepository(): SkillRepository
 
-    'Método para obter o repositório dos membros da equipe'
+    'Method to get team members repository'
     + getTeamMemberRepository(): TeamMemberRepository
 }
 
 class SkillRepository {
     - List<Skill> skills
 
-    'Construtor para inicializar o repositório de skills'
+    'Constructor to initialize the skills repository'
     + SkillRepository()
 
-    'Retorna uma skill com base no seu nome'
+    'Returns a skill based on its name'
     + getSkillByName(skillName: String): Skill
 
-    'Cria uma nova skill e a adiciona ao repositório'
+    'Create a new skill and add it to the repository'
     + createSkill(skillName: String): Skill
 
-    'Remove uma skill do repositório'
+    'Remove a skill from the repository'
     + deleteSkill(skillId: String): void
 }
 
 class TeamMemberRepository {
     - List<TeamMember> teamMembers
 
-    'Construtor para inicializar o repositório de membros da equipe'
+    'Constructor to initialize the team member repository'
     + TeamMemberRepository()
 
-    'Retorna um membro da equipe com base no seu ID'
+    'Returns a team member based on their ID'
     + getTeamMemberById(id: String): TeamMember
 
-    'Cria um novo membro da equipe e o adiciona ao repositório'
+    'Creates a new team member and adds it to the repository'
     + createTeamMember(name: String): TeamMember
 
-    'Remove um membro da equipe do repositório'
+    'Remove a team member from the repository'
     + deleteTeamMember(id: String): void
 }
 
@@ -78,17 +78,17 @@ class TeamMember {
     - name: String
     - List<Skill> skills
 
-    'Construtor para criar um novo membro da equipe'
+    'Constructor to create a new team member'
     + TeamMember(name: String)
 
-    'Método para adicionar uma skill a um membro da equipe'
+    'Method for adding a skill to a team member'
     + addSkill(skill: Skill): void
 }
 
 class Skill {
     - String name
 
-    'Construtor para criar uma nova skill'
+    'Constructor to create a new skill'
     + Skill(name: String)
 }
 
