@@ -32,14 +32,16 @@ public class GenerateTeamUI {
             ArrayList<Skill> skills = new ArrayList<>();
 
             while(true) {
+                int option = Utils.showAndSelectIndex(skills, "\n\n--- SKILLS -------------------------");
 
-                if (generateTeamController.getChooseSkill() == null) {
+
+                if (generateTeamController.getChooseSkill(option) == null) {
 
                     break;
 
                 }
 
-                skills.add(generateTeamController.getChooseSkill());
+                skills.add(generateTeamController.getChooseSkill(option));
 
             }
 

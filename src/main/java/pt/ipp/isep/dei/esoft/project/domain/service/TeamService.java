@@ -40,27 +40,25 @@ public class TeamService {
     }
 
 
-    public Skill chooseSkill() {
+    public Skill chooseSkill(int skillSelected) {
 
         List<Skill> skills = skillRepository.getSkills();
 
-        int option = 0;
         do {
-            Utils.showAndSelectIndex(skills, "\n\n--- SKILLS -------------------------");
 
-            if ((option >= 0) && (option < skills.size())) {
+            if ((skillSelected >= 0) && (skillSelected < skills.size())) {
 
-                if (option == 0) {
+                if (skillSelected == 0) {
 
                     return null;
 
                 }
 
-                return skills.get(option);
+                return skills.get(skillSelected - 1);
 
             }
 
-        } while (option != -1);
+        } while (skillSelected != -1);
 
         return null;
 

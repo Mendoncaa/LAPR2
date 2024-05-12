@@ -23,9 +23,9 @@ public class GenerateTeamController {
 
     }
 
-    public Skill getChooseSkill() {
+    public Skill getChooseSkill(int option) {
 
-        return teamService.chooseSkill();
+        return teamService.chooseSkill(option);
 
     }
 
