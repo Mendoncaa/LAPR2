@@ -6,12 +6,11 @@ import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 
 public class AssignSkillController {
-    private SkillRepository skillRepository;
-    private Repositories repositories;
+    private final SkillRepository skillRepository;
 
-    public AssignSkillController(SkillRepository skillRepository, Repositories repositories) {
-        this.skillRepository = skillRepository;
-        this.repositories = repositories;
+
+    public AssignSkillController() {
+        this.skillRepository = Repositories.getInstance().getSkillRepository();
     }
 
     public boolean assignSkillToTeamMember(String teamMemberId, String skillId) {
@@ -20,6 +19,8 @@ public class AssignSkillController {
             System.out.println("Skill not found");
             return false;
         }
+
+
 
         /*TeamMember teamMember = repositories.getTeamMember(teamMemberId);
         if (teamMember == null) {
@@ -31,5 +32,6 @@ public class AssignSkillController {
         return true;
     }
 }
+
 
 
