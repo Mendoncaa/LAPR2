@@ -11,32 +11,7 @@ import java.util.List;
 
 public class VFMController {
 
-    private VehicleRepository vehicleRepository;
 
-    public VFMController() {
-        this.vehicleRepository = Repositories.getInstance().getVehicleRepository();
-    }
-
-    public void listVehiclesNeedingCheckUp() {
-        List<Vehicle> vehicles = vehicleRepository.getVehicles();
-
-        for (Vehicle vehicle : vehicles) {
-
-            if (needsCheckup(vehicle)) {
-                System.out.println(vehicle);
-            }
-
-        }
-
-    }
-
-    public boolean needsCheckup(Vehicle vehicle) {
-        return calculateNextCheckup(vehicle.getCurrentKms(), vehicle.getCheckUpFrequencyInKms()) < 0;
-    }
-
-
-    public int calculateNextCheckup(int currentKMs, int nextKMs) {
-        return currentKMs - nextKMs;
-    }
 
 }
+

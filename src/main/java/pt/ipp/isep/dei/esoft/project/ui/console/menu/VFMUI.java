@@ -37,7 +37,8 @@ public class VFMUI {
 
 
     public void initiateCheckUp() {
-        vfmController.listVehiclesNeedingCheckUp();
+        VFMController vfmController = new VFMController();
     }
 
 }
+
