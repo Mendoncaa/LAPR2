@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.domain.TeamMember;
+import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 import pt.ipp.isep.dei.esoft.project.repository.application.controller.GenerateTeamController;
 import pt.ipp.isep.dei.esoft.project.ui.console.DevTeamUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.authorization.AuthenticationUI;
@@ -15,6 +16,7 @@ import java.util.Scanner;
 public class GenerateTeamUI {
 
     private static GenerateTeamController generateTeamController = new GenerateTeamController();
+    private static SkillRepository skillRepository = new SkillRepository();
     private final Scanner scan = new Scanner(System.in);
 
 
@@ -32,7 +34,8 @@ public class GenerateTeamUI {
             ArrayList<Skill> skills = new ArrayList<>();
 
             while(true) {
-                int option = Utils.showAndSelectIndex(skills, "\n\n--- SKILLS -------------------------");
+
+                int option = Utils.showAndSelectIndex(skillRepository.getSkills(), "\n\n--- SKILLS -------------------------");
 
 
                 if (generateTeamController.getChooseSkill(option) == null) {

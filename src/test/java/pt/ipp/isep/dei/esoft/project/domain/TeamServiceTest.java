@@ -55,8 +55,7 @@ public class TeamServiceTest {
 
 
         assertTrue(isInTeam);
-        
-    }
 
+    }
 
 }

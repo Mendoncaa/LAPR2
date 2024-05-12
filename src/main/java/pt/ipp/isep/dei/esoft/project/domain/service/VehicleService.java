@@ -21,7 +21,7 @@ public class VehicleService {
 
         for (Vehicle vehicle : vehicles) {
 
-            if (vehicle.calculateNextCheckup() < 0)  {
+            if (vehicle.calculateNextCheckup() <= 0)  { // if <= 0 needs to do checkup
 
                 vehicleNeedingCheckup.add(vehicle);
 

@@ -134,7 +134,7 @@ public class Vehicle {
     }
 
     public int calculateNextCheckup() {
-        return currentKms - checkUpFrequencyInKms;
+        return checkUpFrequencyInKms - currentKms;
     }
 
 
