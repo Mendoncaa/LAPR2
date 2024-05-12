@@ -109,6 +109,9 @@ public class Vehicle {
         this.checkUpFrequencyInKms = checkUpFrequencyInKms;
     }
 
+    public int calculateNextCheckup() {
+        return currentKms - checkUpFrequencyInKms;
+    }
 
 
 }

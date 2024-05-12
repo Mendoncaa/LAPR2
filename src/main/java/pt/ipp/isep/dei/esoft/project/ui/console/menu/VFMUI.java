@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
+import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.repository.application.controller.VFMController;
 import pt.ipp.isep.dei.esoft.project.ui.console.DevTeamUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.authorization.AuthenticationUI;
@@ -21,6 +22,7 @@ public class VFMUI {
         options.add("List vehicles needing checkup");
         int option = 0;
         do {
+
             option = Utils.showAndSelectIndex(options, "\n\n--- VFM MENU --------------------------");
 
             if ((option >= 0) && (option < options.size())) {
@@ -32,12 +34,24 @@ public class VFMUI {
                 }
 
             }
+
         } while (option != -1);
+
     }
 
 
     public void initiateCheckUp() {
+
         VFMController vfmController = new VFMController();
+        List<Vehicle> list = vfmController.checkup();
+
+        for (Vehicle vehicle : list) {
+
+            System.out.println(vehicle);
+
+        }
+
+
     }
 
 }

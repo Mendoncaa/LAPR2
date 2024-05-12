@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VehicleService {
@@ -13,16 +14,22 @@ public class VehicleService {
     public VehicleService() {
         this.vehicleRepository = Repositories.getInstance().getVehicleRepository();
     }
-    public void listVehiclesNeedingCheckUp() {
+    public List<Vehicle> listVehiclesNeedingCheckUp() {
+
         List<Vehicle> vehicles = vehicleRepository.getVehicles();
+        List<Vehicle> vehicleNeedingCheckup = new ArrayList<>();
 
         for (Vehicle vehicle : vehicles) {
 
-            /*if (vehicle.calculateNextCheckup() < 0)  {
-                System.out.println(vehicle);
-            }*/
+            if (vehicle.calculateNextCheckup() < 0)  {
+
+                vehicleNeedingCheckup.add(vehicle);
+
+            }
 
         }
+
+        return vehicleNeedingCheckup;
 
     }
 }
