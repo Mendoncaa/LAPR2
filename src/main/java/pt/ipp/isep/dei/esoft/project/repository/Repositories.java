@@ -12,6 +12,7 @@ public class Repositories {
     private final SkillRepository skillRepository;
     private final TeamRepository teamRepository;
     private final VehicleRepository vehicleRepository;
+    private final TeamMemberRepository teamMemberRepository;
 
     /**
      *
@@ -24,6 +25,7 @@ public class Repositories {
         jobRepository = new JobRepository();
         vehicleRepository = new VehicleRepository();
         teamRepository = new TeamRepository();
+        teamMemberRepository = new TeamMemberRepository();
     }
 
     public static Repositories getInstance() {
@@ -57,6 +59,10 @@ public class Repositories {
 
     public TeamRepository getTeamRepository() {
         return teamRepository;
+    }
+
+    public TeamMemberRepository getTeamMemberRepository() {
+        return teamMemberRepository;
     }
 }
 

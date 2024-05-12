@@ -17,6 +17,7 @@ public class TeamService {
 
     private final SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
     private final TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
+    private final TeamMemberRepository teamMemberRepository = Repositories.getInstance().getTeamMemberRepository();
 
     public Team generateTeam(int minSize, int maxSize, List<Skill> skills) {
 
@@ -24,7 +25,7 @@ public class TeamService {
 
         for (Skill skill : skills) {
 
-            TeamMember addition = teamRepository.findTeamMemberWithSkill(skill, team);
+            TeamMember addition = teamMemberRepository.findTeamMemberWithSkill(skill, team);
 
             if (addition != null) {
 
@@ -49,6 +50,12 @@ public class TeamService {
 
             if ((option >= 0) && (option < skills.size())) {
 
+                if (option == 0) {
+
+                    return null;
+
+                }
+
                 return skills.get(option);
 
             }
@@ -60,7 +67,11 @@ public class TeamService {
     }
 
 
+    public void teamApproved(Team team) {
 
+        teamRepository.createTeam(team.getMinSize(), team.getMaxSize(), team.getSkills(), team.getTeamMembers());
+
+    }
 
 
 }

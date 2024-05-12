@@ -29,4 +29,10 @@ public class GenerateTeamController {
 
     }
 
+    public void getTeamApproved(Team team) {
+
+        teamService.teamApproved(team);
+
+    }
+
 }

@@ -22,11 +22,13 @@ public class TeamMemberRepository {
         return null;
     }
 
+
     public TeamMember createTeamMember(String name) {
         TeamMember teamMember = new TeamMember(name);
         teamMembers.add(teamMember);
         return teamMember;
     }
+
 
     public void deleteTeamMember(String id) {
         TeamMember teamMember = getTeamMemberById(id);
@@ -36,22 +38,41 @@ public class TeamMemberRepository {
     }
 
 
-    public List<TeamMember> findTeamMemberWithSkill(Skill skill, Team team) {
+    public TeamMember findTeamMemberWithSkill(Skill skill, List<TeamMember> team) {
 
-        List<TeamMember> teamMembers = team.getTeamMembers();
 
-        for (TeamMember teamMember : teamMembers) {
+        for (TeamMember teamMember : team) {
 
-            if (teamMember.getSkills().contains(skill) || !teamMembers.contains(teamMember)) {
+            if (teamMember.getSkills().contains(skill) || !isInAnyTeam(teamMember)) {
 
-                teamMembers.add(teamMember);
+                return teamMember;
 
             }
 
         }
 
-        return teamMembers;
+        return null;
 
     }
+
+
+    public boolean isInAnyTeam(TeamMember teamMember) {
+
+        TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
+
+
+        for (Team team : teamRepository.getTeams()) {
+
+            if (team.getTeamMembers().contains(teamMember)) {
+
+                return true;
+
+            }
+        }
+
+        return false;
+
+    }
+
 
 }

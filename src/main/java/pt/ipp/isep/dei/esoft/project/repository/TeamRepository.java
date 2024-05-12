@@ -17,7 +17,7 @@ public class TeamRepository {
     }
 
 
-    public Team createTeamMember(int minSize, int maxSize, List<Skill> skills, List<TeamMember> teamMembers) {
+    public Team createTeam(int minSize, int maxSize, List<Skill> skills, List<TeamMember> teamMembers) {
 
         Team team = new Team(minSize, maxSize, skills, teamMembers);
 
@@ -28,38 +28,7 @@ public class TeamRepository {
     }
 
 
-
-    public TeamMember findTeamMemberWithSkill(Skill skill, List<TeamMember> team) {
-
-
-        for (TeamMember teamMember : team) {
-
-            if (teamMember.getSkills().contains(skill) || !isInAnyTeam(teamMember)) {
-
-                return teamMember;
-
-            }
-
-        }
-
-        return null;
-
+    public List<Team> getTeams() {
+        return teams;
     }
-
-    public boolean isInAnyTeam(TeamMember teamMember) {
-
-
-        for (Team team : teams) {
-
-            if (team.getTeamMembers().contains(teamMember)) {
-
-                return true;
-
-            }
-        }
-
-        return false;
-
-    }
-
 }

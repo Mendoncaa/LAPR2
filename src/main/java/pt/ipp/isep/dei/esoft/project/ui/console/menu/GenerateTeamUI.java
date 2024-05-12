@@ -17,57 +17,65 @@ public class GenerateTeamUI {
     private static GenerateTeamController generateTeamController = new GenerateTeamController();
     private final Scanner scan = new Scanner(System.in);
 
-    public GenerateTeamUI(GenerateTeamController generateTeamController) {
-
-        this.generateTeamController = generateTeamController;
-
-    }
-
 
     public void run() {
 
-        int min = Utils.readIntegerFromConsole("Min team size: ");
-        int max = Utils.readIntegerFromConsole("Max team size: ");
-        int numSkills = Utils.readIntegerFromConsole("Num skills: ");
+        boolean sucess = false; // validates the acceptance of the HRM
 
-        ArrayList<Skill> skills = new ArrayList<>();
-
-        for (int i = 0; i < numSkills; i++) {
-
-            skills.add(generateTeamController.getChooseSkill());
-
-        }
-
-        Team team = generateTeamController.getGenerateTeam(min, max, skills);
-
-        System.out.println(team);
-
-        System.out.println("  1 - Accept Team");
-        System.out.println("  2 - Reject Team");
-
-        int option;
 
         do {
 
-            option = scan.nextInt();
 
-        } while (option < 1 || option > 2);
+            int min = Utils.readIntegerFromConsole("Min team size: ");
+            int max = Utils.readIntegerFromConsole("Max team size: ");
+
+            ArrayList<Skill> skills = new ArrayList<>();
+
+            while(true) {
+
+                if (generateTeamController.getChooseSkill() == null) {
+
+                    break;
+
+                }
+
+                skills.add(generateTeamController.getChooseSkill());
+
+            }
+
+            Team team = generateTeamController.getGenerateTeam(min, max, skills);
+
+            if (team.getTeamMembers().size() < min) {
+
+                System.out.println("  No employees available to join the team for now!!!");
+                continue;
+
+            }
 
 
-        if (option == 1) {
+            System.out.println(team);
 
-            
+            System.out.println("  1 - Accept Team");
+            System.out.println("  2 - Reject Team");
 
-        } else {
+            int option;
+
+            do {
+
+                option = scan.nextInt();
+
+            } while (option < 1 || option > 2);
 
 
+            if (option == 1) {
 
-        }
+                sucess = true;
+
+                generateTeamController.getTeamApproved(team);
+
+            }
+
+        } while (!sucess);
 
     }
-
-
-
-
-
 }
