@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class Vehicle {
@@ -10,13 +11,26 @@ public class Vehicle {
     private int tare;
     private int grossWeight;
     private int currentKms;
-    private String registerDate;
-    private String acquisitionDate;
+    private Date registerDate;
+    private Date acquisitionDate;
     private int checkUpFrequencyInKms;
 
 
+    /**
+     *
+     * @param plateID                   - Matricula do Veículo
+     * @param brand                     - Marcada do Veículo
+     * @param model                     - Modelo do Veículo
+     * @param type                      - Tipologia do Veículo
+     * @param tare                      - Tara do Veículo
+     * @param grossWeight               - Peso Bruto do Veículo
+     * @param currentKms                - km's atuais do Veículo
+     * @param registerDate              - Data de Registo do Veículo
+     * @param acquisitionDate           - Data de Aquisição
+     * @param checkUpFrequencyInKms     - Frequência de km para revisão
+     */
     public Vehicle(String plateID, String brand, String model, String type, int tare, int grossWeight,
-                   int currentKms, String registerDate,String acquisitionDate, int checkUpFrequencyInKms){
+                   int currentKms, Date registerDate,Date acquisitionDate, int checkUpFrequencyInKms){
         this.plateID = plateID;
         this.brand = brand;
         this.model = model;
@@ -34,6 +48,9 @@ public class Vehicle {
     }
 
     public void setPlateID(String plateID) {
+        if (plateID == null || plateID.trim().isEmpty()) {
+            throw new IllegalArgumentException("Employee name cannot be null or empty");
+        }
         this.plateID = plateID;
     }
 
@@ -85,19 +102,26 @@ public class Vehicle {
         this.currentKms = currentKms;
     }
 
-    public String getRegisterDate() {
+    public Date getRegisterDate() {
         return registerDate;
     }
 
-    public void setRegisterDate(String registerDate) {
+    public void setRegisterDate(Date registerDate) {
+        if (registerDate == null || registerDate.after(new Date())) {
+            throw new IllegalArgumentException("Invalid Aquisition Date");
+        }
         this.registerDate = registerDate;
     }
 
-    public String getAcquisitionDate() {
+    public Date getAcquisitionDate() {
+
         return acquisitionDate;
     }
 
-    public void setAcquisitionDate(String acquisitionDate) {
+    public void setAcquisitionDate(Date acquisitionDate) {
+        if (acquisitionDate == null || acquisitionDate.after(new Date())) {
+            throw new IllegalArgumentException("Invalid Aquisition Date");
+        }
         this.acquisitionDate = acquisitionDate;
     }
 
@@ -113,5 +137,20 @@ public class Vehicle {
         return currentKms - checkUpFrequencyInKms;
     }
 
+
+    public String toString() {
+        return "Vehicle{" +
+                "plateID='" + plateID + '\'' +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", type='" + type + '\'' +
+                ", tare=" + tare +
+                ", grossWeight=" + grossWeight +
+                ", currentKms=" + currentKms +
+                ", registerDate=" + registerDate +
+                ", acquisitionDate=" + acquisitionDate +
+                ", checkUpFrequencyInKms=" + checkUpFrequencyInKms +
+                '}';
+    }
 
 }
