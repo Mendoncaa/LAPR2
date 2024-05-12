@@ -4,21 +4,21 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 
 actor "VFM" as VFM
-participant ":VFMUI" as VFMUI
-participant ":VFMController" as VFMController
+participant ":ListVehiclesCheckupUI" as ListVehiclesCheckupUI
+participant ":ListVehiclesCheckupController" as ListVehiclesCheckupController
 participant "vehicleService:\nVehicleService" as VehicleService
 participant "vehicleRepository:\nVehicleRepository" as VehicleRepository
 participant "vehicle\n:Vehicle" as Vehicle
 
 autonumber
 
-VFM -> VFMUI : Initiate check-up listing
-activate VFMUI
+VFM -> ListVehiclesCheckupUI : Initiate check-up listing
+activate ListVehiclesCheckupUI
 
-VFMUI -> VFMController : Requests check-up listing
-activate VFMController
+ListVehiclesCheckupUI -> ListVehiclesCheckupController : Requests check-up listing
+activate ListVehiclesCheckupController
 
-VFMController -> VehicleService : listVehiclesNeedingCheckUp()
+ListVehiclesCheckupController -> VehicleService : listVehiclesNeedingCheckUp()
 activate VehicleService
 
 VehicleService -> vehicleRepository : getVehicles()
@@ -35,13 +35,13 @@ loop for each Vehicle in the list
     deactivate Vehicle
 end
 
-VehicleService --> VFMController : List of vehicles needing check-up
+VehicleService --> ListVehiclesCheckupController : List of vehicles needing check-up
 deactivate VehicleService
 
-VFMController --> VFMUI : Show vehicles needing check-up
-deactivate VFMController
+ListVehiclesCheckupController --> ListVehiclesCheckupUI : Show vehicles needing check-up
+deactivate ListVehiclesCheckupController
 
-VFMUI --> VFM : Display list
-deactivate VFMUI
+ListVehiclesCheckupUI --> VFM : Display list
+deactivate ListVehiclesCheckupUI
 
 @enduml

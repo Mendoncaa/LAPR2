@@ -2,58 +2,56 @@
 
 ## 4. Tests 
 
-**Test 1:** Check that it is not possible to create a Team with a size out of the specified bounds. 
+**Test 1:** Check if the team is saved properly on the List
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureTeamSizeIsWithinBounds() {
-    	TeamService teamService = new TeamService(new EmployeeRepository());
-    	teamService.generateTeam(0, 5, Arrays.asList("skill1", "skill2"));
-	}
+	@Test
+    public void testTeamRepositoryIsNotEmptyAfterCreation() {
+        TeamService teamService = new TeamService();
+        TeamRepository teamRepository = new TeamRepository();
+
+        TeamMember member1 = new TeamMember("John");
+        TeamMember member2 = new TeamMember("Alice");
+
+        member1.addSkill(new Skill("Python"));
+        member2.addSkill(new Skill("Java"));
+
+        List<Skill> skills = new ArrayList<>();
+        skills.add(new Skill("Python"));
+        skills.add(new Skill("Java"));
+
+        List<TeamMember> teamMembers = new ArrayList<>();
+        teamMembers.add(member1);
+        teamMembers.add(member2);
+
+        teamService.teamApproved(new Team(2, 4, skills, teamMembers));
+
+        assertFalse(teamRepository.getTeams().isEmpty());
+    }
 	
 
-**Test 2:**  Ensure that a team cannot be created without required skills being specified. 
-
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureTeamRequiresSkills() {
-    	TeamService teamService = new TeamService(new EmployeeRepository());
-    	teamService.generateTeam(1, 3, new ArrayList<>()); 
-	}
-
-**Test 3**: Validate that a team cannot have employees assigned without the matching skills.
+**Test 2:**  Ensures that the verification of a collaborator being in a team is working.
 
 	@Test
-		public void ensureEmployeesHaveRequiredSkills() {
-    	TeamService teamService = new TeamService(new EmployeeRepository());
-    	Team team = teamService.createTeam(2, 4);
-    
-    	Employee employeeWithSkill = new Employee("John Doe", "Developer", Arrays.asList("Java", "SQL"));
-    	Employee employeeWithoutSkill = new Employee("Jane Smith", "Analyst", Arrays.asList("Excel"));
-    
-    	
-    	team.assignEmployee(employeeWithSkill);
-    
-    	try {
-        
-        team.assignEmployee(employeeWithoutSkill);
-        fail("Expected an IllegalArgumentException to be thrown");
-    	} catch (IllegalArgumentException e) {
-        assertEquals("Employee does not have the required skill.", e.getMessage());
-    	}
-	}
+    public void testIsInAnyTeam_ReturnsTrueWhenMemberIsInTeam() {
 
-**Test 4**: Check that the team approval and rejection process works as expected.
+        List<TeamMember> members = new ArrayList<>();
+        TeamMember teamMember = new TeamMember("John");
+        members.add(teamMember);
+        Team team = new Team(3, 5, new ArrayList<>(), members);
 
-	@Test
-		public void ensureTeamApprovalAndRejection() {
-    	TeamService teamService = new TeamService(new EmployeeRepository());
-    	Team team = teamService.createTeam(1, 2);
 
-    	teamService.confirmTeam(team);
-    	assertTrue("Team should be marked as confirmed.", team.isConfirmed());
+        TeamRepository teamRepository = new TeamRepository();
+        teamRepository.createTeam(team.getMinSize(), team.getMaxSize(), team.getSkills(), team.getTeamMembers());
 
-    	teamService.rejectTeam(team);
-    	assertFalse("Team should be marked as not confirmed after rejection.", team.isConfirmed());
-	}
+
+        TeamMemberRepository teamMemberRepository = new TeamMemberRepository();
+        boolean isInTeam = teamMemberRepository.isInAnyTeam(teamMember);
+
+
+        assertTrue(isInTeam);
+
+    }
+
 
 
 
@@ -63,14 +61,63 @@
 
 ## 5. Construction (Implementation)
 
-### Class HRMController
+### Class GenerateTeamController
+
+```java
+public class GenerateTeamController {
+
+
+    private final TeamService teamService = new TeamService();
 
 
 
-### Class Team
+    public Team getGenerateTeam(int minSize, int maxSize, List<Skill> skills) {
+
+        return teamService.generateTeam(minSize, maxSize, skills);
+
+    }
+
+    public Skill getChooseSkill(int option) {
+
+        return teamService.chooseSkill(option);
+
+    }
+
+    public void getTeamApproved(Team team) {
+
+        teamService.teamApproved(team);
+
+    }
+
+}
+```
+
+### Class TeamService
+
+```java
 
 
+public Team generateTeam(int minSize, int maxSize, List<Skill> skills) {
 
+        ArrayList<TeamMember> team = new ArrayList<>();
+
+        for (Skill skill : skills) {
+
+            TeamMember addition = teamMemberRepository.findTeamMemberWithSkill(skill, team);
+
+            if (addition != null) {
+
+                team.add(addition);
+
+            }
+
+        }
+
+        return new Team(minSize, maxSize, skills, team);
+
+    }
+
+```
 
 ## 6. Integration and Demo 
 

@@ -1,35 +1,58 @@
 @startuml
 skinparam monochrome true
-skinparam packageStyle rectangle
-skinparam shadowing false
+skinparam classAttributeIconSize 0
 
-class HRMUI {
+
+
+class GenerateTeamUI {
+    - scan: Scanner
+    - generateTeamController: GenerateTeamController
+    - skillRepository: SkillRepository
+    + run(): void
 }
 
-class HRMController {
+class GenerateTeamController {
+    - teamService: TeamService
+    + getChooseSkill(option: int): Skill
+    + getGenerateTeam(minSize: int, maxSize: int, skills: List<Skill>): Team
+    + teamApproved(team: Team): void
 }
 
 class TeamService {
-    + generateTeam(minSize: int, maxSize: int, skills: List)
-    + confirmTeam(team: Team)
-    + rejectTeam(team: Team)
+    - skillRepository: SkillRepository
+    - teamRepository: TeamRepository
+    - teamMemberRepository: TeamMemberRepository
+    + chooseSkill(option: int): Skill
+    + generateTeam(minSize: int, maxSize: int, skills: List<Skill>): Team
+    + teamApproved(team: Team): void
 }
 
-class EmployeeRepository {
-    + findEmployeeWithSkill(skill: String): Employee
+class SkillRepository {
+    + getSkills(): List<Skill>
+}
+
+class TeamMemberRepository {
+    + findTeamMemberWithSkill(skill: Skill, team: List<TeamMember>): TeamMember
+}
+
+class TeamRepository {
+    + createTeam(minSize: int, maxSize: int, skills: List<Skill>, teamMembers: List<TeamMember>): Team
 }
 
 class Team {
-    - members: List<Employee>
-    - skills: List<String>
-    + createTeam(minSize: int, maxSize: int)
-    + assignEmployee(employee: Employee)
+    - minSize: int
+    - maxSize: int
+    - skills: List<Skill>
+    - teamMembers: List<TeamMember>
+    + assignTeamMember(teamMember: TeamMember): void
 }
 
-HRMUI --> HRMController
-HRMController --> TeamService
-HRMController --> HRMUI
-TeamService --> EmployeeRepository
-TeamService --> Team
+GenerateTeamUI --> GenerateTeamController 
+GenerateTeamController --> TeamService 
+TeamService --> SkillRepository 
+TeamService --> TeamMemberRepository 
+TeamService --> TeamRepository 
+TeamRepository --> Team
+Team --> TeamMember
 
 @enduml

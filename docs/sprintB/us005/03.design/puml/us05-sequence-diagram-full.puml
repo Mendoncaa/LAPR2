@@ -6,142 +6,119 @@ skinparam shadowing false
 autonumber
 
 actor "Human Resources Manager" as HRM
-participant ":HRMUI" as HRMUI
-participant ":HRMController" as HRMController
-participant "teamService:\nTeamService" as TeamService
-participant "teamMemberRepository:\nteamMemberRepository" as teamMemberRepository
+participant ":GenerateTeamUI" as GenerateTeamUI
+participant "SkillRepository:\nSkillRepository" as SkillRepository
+participant ":GenerateTeamController" as GenerateTeamController
+participant "TeamService:\nTeamService" as TeamService
+participant "TeamMemberRepository:\nTeamMemberRepository" as TeamMemberRepository
+participant "TeamRepository:\nTeamRepository" as TeamRepository
 participant "team\n:Team" as Team
 
 activate HRM
 
-HRM -> HRMUI : Initiate team generation
-activate HRMUI
+HRM -> GenerateTeamUI : Initiate team generation
+activate GenerateTeamUI
 
-HRMUI -> HRMController : Requests team generation
-activate HRMController
-
-HRMController -> HRMUI : Requests minimum and maximum size, and skills
-deactivate HRMController
-
-HRM -> HRMUI : Provides minSize, maxSize, and skills
-activate HRMUI
-
-HRMUI -> HRMController : Sends minSize, maxSize, and skills
-activate HRMController
-
-HRMController -> TeamService : generateTeam(minSize, maxSize, skills)
-activate TeamService
-
-TeamService -> Team : createTeam(minSize, maxSize)
-activate Team
-
-loop for each skill in skills
-    TeamService -> TeamMemberRepository : findTeamMemberWithSkill(skill)
-    activate TeamMemberRepository
-
-    TeamMemberRepository --> TeamService : Returns TeamMember with skill
-    deactivate TeamMemberRepository
-
-    TeamService -> Team : assignTeamMember(TeamMember)
-    activate Team
-
-    Team --> TeamService : Returns assigned TeamMember
-    deactivate Team
-end
-
-Team --> TeamService : Returns proposed team
-deactivate Team
-
-TeamService --> HRMController : Returns proposed team
-deactivate TeamService
-
-HRMController --> HRMUI : Presents proposed team
-deactivate HRMController
-
-HRMUI --> HRM : Displays proposed team
-deactivate HRMUI
-
-HRM -> HRMUI : Submits selection (Approve/Reject)
-activate HRMUI
-
-HRMUI -> HRMController : Submits selection (Approve/Reject)
-activate HRMController
-
-alt Approve
-    HRMController -> TeamService : confirmTeam(team)
-    activate TeamService
-
-    TeamService --> HRMController : Confirms team approval
-    deactivate TeamService
-
-    HRMController --> HRMUI : Confirms team approval
-    deactivate HRMController
-
-    HRMUI --> HRM : Confirms team approval
-    deactivate HRMUI
-
-else Reject
+loop until team is approved
+    
+    GenerateTeamUI -> GenerateTeamController : Request team size inputs
+    activate GenerateTeamController
+    
+    GenerateTeamController --> GenerateTeamUI : Returns min, max sizes
+    deactivate GenerateTeamController
 
     
-    HRMController -> TeamService : rejectTeam(team)
-    activate TeamService
+    GenerateTeamUI -> SkillRepository : getSkills
+    activate SkillRepository
 
-    TeamService --> HRMController : Acknowledges team rejection
-    deactivate TeamService
+    SkillRepository --> GenerateTeamUI : Returns list of Skills
+    deactivate SkillRepository
 
-    HRMController --> HRMUI : Acknowledges team rejection
-    deactivate HRMController
+    
+    loop for each required skill
+        GenerateTeamUI -> GenerateTeamUI : Select skill from list
+        GenerateTeamUI -> GenerateTeamController : skillSelected(option)
+        activate GenerateTeamController
 
-    HRMUI --> HRM : Acknowledges team rejection
-    deactivate HRMUI
-
-    ' Restart the loop for generating a new team
-    loop Until Approved
-        HRMUI -> HRMController : Requests team generation
-        activate HRMController
-
-        HRMController -> TeamService : generateTeam(minSize, maxSize, skills)
+        GenerateTeamController -> TeamService : chooseSkill(option)
         activate TeamService
 
-        TeamService -> Team : createTeam(minSize, maxSize)
-        activate Team
-
-        loop for each skill in skills
-            TeamService -> TeamMemberRepository : findTeamMemberWithSkill(skill)
-            activate TeamMemberRepository
-
-            TeamMemberRepository --> TeamService : Returns TeamMember with skill
-            deactivate TeamMemberRepository
-
-            TeamService -> Team : assignTeamMember(TeamMember)
-            activate Team
-
-            Team --> TeamService : Returns assigned TeamMember
-            deactivate Team
-        end
-
-        Team --> TeamService : Returns proposed team
-        deactivate Team
-
-        TeamService --> HRMController : Returns proposed team
+        TeamService --> GenerateTeamController : Returns Skill
         deactivate TeamService
 
-        HRMController --> HRMUI : Presents proposed team
-        deactivate HRMController
+        GenerateTeamController --> GenerateTeamUI : Returns Skill
+        deactivate GenerateTeamController
+    end
 
-        HRMUI --> HRM : Displays proposed team
-        deactivate HRMUI
-
-        HRM -> HRMUI : Submits selection (Approve/Reject)
-        activate HRMUI
-
-        HRMUI -> HRMController : Submits selection (Approve/Reject)
-        activate HRMController
-
-        note right: After step 38, return to step 17
     
-    end loop
+    GenerateTeamUI -> GenerateTeamController : getGenerateTeam(min, max, skills)
+    activate GenerateTeamController
 
-end loop
+    GenerateTeamController -> TeamService : generateTeam(minSize, maxSize, skills)
+    activate TeamService
 
+    
+    loop for each skill in skills
+        TeamService -> TeamMemberRepository : findTeamMemberWithSkill(skill, team)
+        activate TeamMemberRepository
+
+        TeamMemberRepository --> TeamService : Returns TeamMember or null
+        deactivate TeamMemberRepository
+
+        
+        TeamService -> Team : assignTeamMember
+        activate Team
+
+        Team --> TeamService : Updated Team
+        deactivate Team
+    end
+
+    TeamService --> GenerateTeamController : Returns Team
+    deactivate TeamService
+
+    GenerateTeamController --> GenerateTeamUI : Presents Team
+    deactivate GenerateTeamController
+
+    GenerateTeamUI --> HRM : Displays Team
+    deactivate GenerateTeamUI
+
+    
+    HRM -> GenerateTeamUI : Submits selection (Approve/
+
+
+    
+    HRM -> GenerateTeamUI : Submits selection (Approve/Reject)
+    activate GenerateTeamUI
+
+    GenerateTeamUI -> GenerateTeamController : Submits selection (Approve/Reject)
+    activate GenerateTeamController
+
+    alt Approve
+        GenerateTeamController -> TeamService : teamApproved(team)
+        activate TeamService
+
+       
+        TeamService -> TeamRepository : createTeam(team.getMinSize(), team.getMaxSize(), team.getSkills(), team.getTeamMembers())
+        activate TeamRepository
+
+        TeamRepository --> TeamService : Team created and stored
+        deactivate TeamRepository
+
+        TeamService --> GenerateTeamController : Confirms team approval
+        deactivate TeamService
+
+        GenerateTeamController --> GenerateTeamUI : Confirms team approval
+        deactivate GenerateTeamController
+
+        GenerateTeamUI --> HRM : Confirms team approval
+        deactivate GenerateTeamUI
+    else Reject
+        
+        GenerateTeamController --> GenerateTeamUI : Acknowledges team rejection
+        deactivate GenerateTeamController
+
+        GenerateTeamUI --> HRM : Acknowledges team rejection
+        deactivate GenerateTeamUI
+    end
+end
 @enduml

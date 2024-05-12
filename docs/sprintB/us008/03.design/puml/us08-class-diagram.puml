@@ -1,15 +1,15 @@
 @startuml
 skinparam monochrome true
-skinparam packageStyle rectangle
-skinparam shadowing false
+skinparam classAttributeIconSize 0
 
 
-class VFMUI {
-    + initiateCheckUpListing()
-    + showVehiclesNeedingCheckUp(List<Vehicle>)
+
+class ListVehiclesCheckupUI {
+    + initiateCheckupListing()
+    + displayVehicles(List<Vehicle>)
 }
 
-class VFMController {
+class ListVehiclesCheckupController {
     + listVehiclesNeedingCheckUp()
 }
 
@@ -22,21 +22,14 @@ class VehicleRepository {
 }
 
 class Vehicle {
-    - plateNumber : String
-    - brand : String
-    - model : String
-    - currentKm : double
-    - frequency : double
-    - lastCheckupKm : double
-    - nextCheckupKm : double
-
-    + calculateNextCheckup() : void
+    + calculateNextCheckup() : CheckupDetails
 }
 
-VFMUI --> VFMController
-VFMController --> VehicleService
-VehicleService --> VehicleRepository
-VehicleService --> Vehicle
-Vehicle --> VehicleService
+
+ListVehiclesCheckupUI --> ListVehiclesCheckupController 
+ListVehiclesCheckupController --> VehicleService 
+VehicleService --> VehicleRepository 
+VehicleRepository ..> Vehicle 
+VehicleService ..> Vehicle 
 
 @enduml

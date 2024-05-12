@@ -2,74 +2,103 @@
 
 ## 4. Tests 
 
-**Test 1:** Ensure Vehicles are Correctly Identified for Check-up Based on Current Km and Frequency
+**Test 1:** Ensure Vehicles that need Check-up are being listed.
 
 
 	@Test
-		public void ensureVehiclesAreCorrectlyIdentifiedForCheckUp() {
-    	VehicleRepository vehicleRepository = new VehicleRepository();
-    	VehicleService vehicleService = new VehicleService(vehicleRepository);
+    public void ensureVehiclesNeedingCheckUpAreListed() {
+        VehicleRepository vehicleRepository = new VehicleRepository();
+        VehicleService vehicleService = new VehicleService();
 
-    	
-    	vehicleRepository.add(new Vehicle("123-ABC", "Toyota", "Corolla", 100000, 15000, 85000));
-    	vehicleRepository.add(new Vehicle("456-DEF", "Honda", "Civic", 120000, 20000, 100000));
+        Vehicle vehicle1 = new Vehicle("789-GHI", "Ford", "Fiesta", "Sedan", 5000, 15000, 4000, "2022-01-01", "2021-01-01", 5000);
+        Vehicle vehicle2 = new Vehicle("012-JKL", "Nissan", "Leaf", "Electric", 10000, 20000, 9000, "2023-02-01", "2022-02-01", 10000);
 
-    	
-    	List<Vehicle> vehiclesNeedingCheckup = vehicleService.listVehiclesNeedingCheckUp();
+        vehicleRepository.addVehicle(vehicle1);
+        vehicleRepository.addVehicle(vehicle2);
 
-    	
-    	assertEquals(2, vehiclesNeedingCheckup.size());
-    	assertTrue(vehiclesNeedingCheckup.stream().anyMatch(v -> v.getPlateNumber().equals("123-ABC")));
-    	assertTrue(vehiclesNeedingCheckup.stream().anyMatch(v -> v.getPlateNumber().equals("456-DEF")));
-} 
+
+        List<Vehicle> vehiclesNeedingCheckup = vehicleService.listVehiclesNeedingCheckUp();
+
+        assertFalse(vehiclesNeedingCheckup.isEmpty());
+        assertTrue(vehiclesNeedingCheckup.contains(vehicle1));
+        assertTrue(vehiclesNeedingCheckup.contains(vehicle2));
+    }
 	
 
-**Test 2:** Validate that Vehicles Not Needing a Check-up are not Listed
+**Test 2:** Ensure Vehicles that not need check-up are not being listed.
 	
 	@Test
-		public void ensureVehiclesNotNeedingCheckUpAreNotListed() {
-    	VehicleRepository vehicleRepository = new VehicleRepository();
-    	VehicleService vehicleService = new VehicleService(vehicleRepository);
+    public void ensureVehiclesNotNeedingCheckUpAreNotListed() {
+        VehicleRepository vehicleRepository = new VehicleRepository();
+        VehicleService vehicleService = new VehicleService();
 
-    	
-    	vehicleRepository.add(new Vehicle("789-GHI", "Ford", "Fiesta", 5000, 15000, 0));
-    	vehicleRepository.add(new Vehicle("012-JKL", "Nissan", "Leaf", 10000, 20000, 0));
 
-    	
-    	List<Vehicle> vehiclesNeedingCheckup = vehicleService.listVehiclesNeedingCheckUp();
+        Vehicle vehicle1 = new Vehicle("789-GHI", "Ford", "Fiesta", "Sedan", 5000, 15000, 0, "2022-01-01", "2021-01-01", 5000);
+        Vehicle vehicle2 = new Vehicle("012-JKL", "Nissan", "Leaf", "Electric", 10000, 20000, 0, "2023-02-01", "2022-02-01", 10000);
 
-    	
-    	assertTrue(vehiclesNeedingCheckup.isEmpty());
-	}
+        List<Vehicle> vehiclesNeedingCheckup = new ArrayList<>();
+        vehiclesNeedingCheckup.add(vehicle1);
+        vehiclesNeedingCheckup.add(vehicle2);
 
-**Test 3**: Check Display of Vehicle Information
+        vehiclesNeedingCheckup = vehicleService.listVehiclesNeedingCheckUp();
 
-	@Test
-		public void checkDisplayOfVehicleInformation() {
-    	VehicleRepository vehicleRepository = new VehicleRepository();
-    	VehicleService vehicleService = new VehicleService(vehicleRepository);
-    	VFMUI vfmui = new VFMUI();
 
-    	
-    	vehicleRepository.add(new Vehicle("345-MNO", "Mazda", "3", 30000, 15000, 15000));
-
-    	List<Vehicle> vehicles = vehicleService.listVehiclesNeedingCheckUp();
-    	vfmui.showVehiclesNeedingCheckUp(vehicles);
-
-    	assertEquals(1, vfmui.getDisplayedVehicles().size());
-    	assertEquals("345-MNO", vfmui.getDisplayedVehicles().get(0).getPlateNumber());
-}
-
+        assertTrue(vehiclesNeedingCheckup.isEmpty());
+    }
 
 ## 5. Construction (Implementation)
 
-### VFMController
+### ListVehiclesCheckupController
+
+```java
+
+public class ListVehiclesCheckupController {
+
+    public List<Vehicle> checkup() {
+
+        VehicleService vehicleService = new VehicleService();
+
+        return vehicleService.listVehiclesNeedingCheckUp();
+
+    }
+
+}
+
+```
+
+### Class VehicleCheckup
+
+```java
+
+public class VehicleService {
+
+    private VehicleRepository vehicleRepository;
+
+    public VehicleService() {
+        this.vehicleRepository = Repositories.getInstance().getVehicleRepository();
+    }
+    public List<Vehicle> listVehiclesNeedingCheckUp() {
+
+        List<Vehicle> vehicles = vehicleRepository.getVehicles();
+        List<Vehicle> vehicleNeedingCheckup = new ArrayList<>();
+
+        for (Vehicle vehicle : vehicles) {
+
+            if (vehicle.calculateNextCheckup() <= 0)  { 
+
+                vehicleNeedingCheckup.add(vehicle);
+
+            }
+
+        }
+
+        return vehicleNeedingCheckup;
+
+    }
+}
 
 
-
-### Class Vehicle
-
-
+```
 
 
 ## 6. Integration and Demo 
