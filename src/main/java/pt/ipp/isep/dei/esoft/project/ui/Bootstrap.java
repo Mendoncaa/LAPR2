@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
+import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.repository.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.Organization;
 import pt.ipp.isep.dei.esoft.project.domain.TaskCategory;
@@ -22,8 +23,8 @@ public class Bootstrap implements Runnable {
         //get organization repository
         OrganizationRepository organizationRepository = Repositories.getInstance().getOrganizationRepository();
         Organization organization = new Organization("This Company");
-        //organization.addEmployee(new Employee("admin@this.app"));
-        //organization.addEmployee(new Employee("employee@this.app"));
+        organization.addEmployee(new Employee("admin@this.app"));
+        organization.addEmployee(new Employee("employee@this.app"));
         organizationRepository.add(organization);
     }
 
