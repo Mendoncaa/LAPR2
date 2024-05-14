@@ -1,0 +1,83 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class AuthenticationRepository
+{
+    + getCurrentUserSession()
+}
+
+class UserSession
+{
+    + isLoggedInWithRole()
+    + getUserId()
+}
+
+
+
+class Job {
+    - String jobName
+}
+
+
+
+class Organization {
+    - String name
+    - String vatNumber
+    - String phone
+    - String email
+    - Address postalAddress
+    - addJob(job)
+    - validateJob(job)
+    + Organization(name, vatNumber, webSite, phone, email, postalAddress)
+    + createJob(job)
+    - getUserByEmail(email)
+
+}
+
+
+class OrganizationRepository {
+    + getOrganizationByUserEmail(email)
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getOrganizationRepository()
+    + getAuthenticationRepository()
+}
+
+class CreateJobController {
+    + CreateJobController(organizationRepository,AuthenticationRepository)
+    + createJob(job)
+
+}
+
+note left of CreateJobController
+    - userEmail and userRole is obtained
+    from the user session.
+end note
+
+
+class CreateJobUI {
+}
+
+Repositories -> Repositories : instance
+CreateJobUI .> CreateJobController
+CreateJobController .> Repositories : repositories
+Repositories --> "1" OrganizationRepository
+OrganizationRepository --> "*" Organization : organizations
+AuthenticationRepository -> "1" UserSession : usersession
+Repositories --> "1" AuthenticationRepository
+Organization "1" --> "*" Job : identify
+
+
+
+@enduml

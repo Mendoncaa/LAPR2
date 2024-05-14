@@ -1,0 +1,70 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class CreateCheckUpUI{
+}
+
+
+
+class Vehicle {
+    - plateID: String
+    - brand: String
+    - model: String
+    - plateID: String
+    - type: String
+    - tare: int
+    - grossWeight: int
+    - current km:
+    - register Date: String
+    - acquisition Date: String
+    - checkUpFrequencyInKms: int
+    + createVehicle ()
+
+
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getVehicleRepository()
+    + getAuthenticationRepository()
+
+}
+
+class CreateCheckUpController {
+    + createCheckUpController()
+}
+
+class VehicleRepository {
+    - vehicles: List<Vehicle>
+    + getVehicleByIdPlate(plateId: String): Vehicle
+}
+
+class CheckUp{
+    - plateId: String
+    - scheduleDate: String
+    - currentKms: int
+    +createCheckUp()
+    }
+
+
+'Ligações
+
+CreateCheckUpUI ..> CreateCheckUpController
+CreateCheckUpController ---.> Repositories
+CreateCheckUpController ----.>Vehicle
+Repositories -> Repositories : instance
+Repositories -> VehicleRepository
+CreateCheckUpController -> VehicleRepository
+VehicleRepository -> Vehicle
+Vehicle --> CheckUp
+
+@enduml

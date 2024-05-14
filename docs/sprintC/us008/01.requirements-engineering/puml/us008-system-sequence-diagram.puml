@@ -1,0 +1,29 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - List Vehicles Needing Check-up
+
+autonumber
+
+actor "Fleet Manager" as FM
+participant ":System" as System
+
+activate FM
+
+    FM -> System : Selects the option to list vehicles needing check-up
+    activate System
+
+    System --> FM : Lists vehicles needing check-up and their details (plate number, brand, model, current kms, frequency, last checkup kms, next checkup)
+    deactivate System
+
+    FM -> System : Confirms data
+    activate System
+
+    System --> FM : Confirms Operation Success
+
+
+    deactivate System
+
+@enduml

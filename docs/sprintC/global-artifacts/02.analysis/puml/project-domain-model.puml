@@ -1,0 +1,147 @@
+@startuml
+
+hide methods
+hide circle
+hide empty attributes
+skinparam linetype polyline
+
+
+
+
+
+class Organization {
+    -name
+    -address
+    -phone
+    -email
+}
+
+class Employee {
+}
+
+class TeamMember {
+   - name
+   - birthdate
+   - admission date
+   - address
+   - contact info
+   - ID doc type
+   - ID document number
+}
+
+class HRM {
+}
+
+class GSM {
+}
+
+class VFM {
+}
+
+class Job {
+  - name
+}
+
+class Skills {
+  - name 
+}
+
+class Teams {
+  - numElements 
+  - skillsNeeded
+}
+
+class Tasks {
+  - taskCategory 
+}
+
+class Agenda {
+  
+}
+
+class Malfunctions {
+  - description 
+  - reportedDate 
+}
+
+class GreenSpaces {
+  - type 
+}
+
+class Equipment {
+  - description 
+}
+
+class Vehicles {
+  - brand 
+  - model 
+  - type 
+  - tareWeight 
+  - grossWeight 
+  - currentKms 
+  - registrationDate
+  - acquisitionDate 
+  - maintenanceFrequency 
+}
+
+class Machines {
+  - description 
+}
+
+class GSU {
+}
+
+class Portal {
+}
+
+class Faults {
+  - description 
+  - reportedDate
+}
+
+class Comments {
+}
+
+
+Organization "1"---"1..*" Employee : employs >
+
+Employee "1"---"1" TeamMember : is a <
+Employee "1"---"0..*" Tasks: manages > 
+Employee "1"---"1..*" HRM : is a <
+Employee "1"---"1..*" GSM : is a <
+Employee "1"---"1..*" VFM : is a <
+Employee "1"---"0..*" Teams : manages >
+
+TeamMember "1..*"---"1..*" HRM : managed by >
+
+Skills "1..*"---"1..*" HRM : created by >
+Job "1..*"---"1..*" HRM : created by >
+Job "1"---"1" TeamMember: assigned to >
+Skills "0..*"---"1" TeamMember : assigned to > 
+
+
+Teams "1"---"0..*" Tasks : assigned to >
+Tasks "1..*"---"1..*" GreenSpaces : relates to >
+Agenda "1"---"1..*" Tasks : organizes >
+
+GSM "1"---"1" Portal : manages >
+GSM "1"---"1" Agenda : manages >
+
+VFM "1..*"---"1..*" Vehicles : manages >
+VFM "1..*"---"1..*" Machines : manages >
+VFM "1..*"---"1..*" Equipment : manages >
+
+Tasks "1"---"0..*" Vehicles : assigned to <
+Tasks "1"---"0..*" Machines : assigned to <
+Tasks "1"---"0..*" Equipment : assigned to <
+
+Portal "1"---"0..*" Malfunctions : aggregates >
+Portal "1"---"0..*" Faults : aggregates >
+Portal "1"---"0..*" Comments : receives  >
+
+GSU "1..*"---"1..*" GreenSpaces : uses >
+GSU "1..*"---"0..*" Malfunctions : reports >
+GSU "1..*"---"0..*" Faults : reports >
+GSU "1..*"---"0..*" Comments : reports >
+
+@enduml

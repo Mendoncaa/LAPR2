@@ -17,6 +17,7 @@ public class AdminUI implements Runnable {
     }
 
     public void run() {
+
         List<MenuItem> options = new ArrayList<MenuItem>();
         options.add(new MenuItem("Create Task", new CreateTaskUI()));
         options.add(new MenuItem("Option 2", new ShowTextUI("You have chosen Option 2.")));
@@ -25,11 +26,15 @@ public class AdminUI implements Runnable {
 
         int option = 0;
         do {
+
             option = Utils.showAndSelectIndex(options, "\n\n--- ADMIN MENU -------------------------");
 
             if ((option >= 0) && (option < options.size())) {
+
                 options.get(option).run();
+
             }
+
         } while (option != -1);
     }
 }

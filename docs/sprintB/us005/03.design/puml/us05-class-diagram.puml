@@ -1,0 +1,58 @@
+@startuml
+skinparam monochrome true
+skinparam classAttributeIconSize 0
+
+
+
+class GenerateTeamUI {
+    - scan: Scanner
+    - generateTeamController: GenerateTeamController
+    - skillRepository: SkillRepository
+    + run(): void
+}
+
+class GenerateTeamController {
+    - teamService: TeamService
+    + getChooseSkill(option: int): Skill
+    + getGenerateTeam(minSize: int, maxSize: int, skills: List<Skill>): Team
+    + teamApproved(team: Team): void
+}
+
+class TeamService {
+    - skillRepository: SkillRepository
+    - teamRepository: TeamRepository
+    - teamMemberRepository: TeamMemberRepository
+    + chooseSkill(option: int): Skill
+    + generateTeam(minSize: int, maxSize: int, skills: List<Skill>): Team
+    + teamApproved(team: Team): void
+}
+
+class SkillRepository {
+    + getSkills(): List<Skill>
+}
+
+class TeamMemberRepository {
+    + findTeamMemberWithSkill(skill: Skill, team: List<TeamMember>): TeamMember
+}
+
+class TeamRepository {
+    + createTeam(minSize: int, maxSize: int, skills: List<Skill>, teamMembers: List<TeamMember>): Team
+}
+
+class Team {
+    - minSize: int
+    - maxSize: int
+    - skills: List<Skill>
+    - teamMembers: List<TeamMember>
+    + assignTeamMember(teamMember: TeamMember): void
+}
+
+GenerateTeamUI --> GenerateTeamController 
+GenerateTeamController --> TeamService 
+TeamService --> SkillRepository 
+TeamService --> TeamMemberRepository 
+TeamService --> TeamRepository 
+TeamRepository --> Team
+Team --> TeamMember
+
+@enduml

@@ -164,7 +164,7 @@ public class Organization {
         clone.email = (this.email);
 
         for (Employee in : this.employees) {
-            clone.employees.add(in.clone());
+  //          clone.employees.add(in.clone());
         }
 
 

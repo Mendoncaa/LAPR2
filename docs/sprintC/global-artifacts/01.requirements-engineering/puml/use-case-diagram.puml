@@ -1,0 +1,26 @@
+@startuml
+
+left to right direction
+actor "Human Resource Manager" as HR
+actor "Fleet Manager" as FM
+rectangle "Sprint A" {
+  usecase "UC01 - Register skills" as UC01
+  usecase "UC02 - Register jobs" as UC02
+  usecase "UC03 - Register Collaborators" as UC03
+  usecase "UC04 - Assign Skills to a Collaborator" as UC04
+  usecase "UC05 - Generate team proposal automatically" as UC05
+  usecase "UC06 - Register Vehicle" as UC06
+  usecase "UC07 - Register vehicle maintenance" as UC07
+  usecase "UC08 - List vehicles with pending maintenances" as UC08
+}
+
+HR --> UC01
+HR --> UC02
+HR --> UC03
+HR --> UC04
+HR --> UC05
+FM --> UC06
+FM --> UC07
+FM --> UC08
+
+@enduml

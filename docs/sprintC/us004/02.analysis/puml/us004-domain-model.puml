@@ -1,0 +1,41 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+class HRM {
+}
+
+class TeamMember {
+   - name
+   - birthdate
+   - admission date
+   - address
+   - contact info
+   - ID doc type
+   - ID document number
+}
+
+class Skills {
+  - name
+}
+
+
+
+
+Skills "1..*"---"1..*" HRM : created by >
+Skills "0..*"---"1" TeamMember : assigned to >
+
+TeamMember "1..*"---"1..*" HRM : managed by >
+
+Employee "1"---"1..*" HRM : is a <
+Employee "1"---"1" TeamMember : is a <
+
+@enduml

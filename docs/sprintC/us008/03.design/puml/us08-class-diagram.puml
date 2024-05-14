@@ -1,0 +1,35 @@
+@startuml
+skinparam monochrome true
+skinparam classAttributeIconSize 0
+
+
+
+class ListVehiclesCheckupUI {
+    + initiateCheckupListing()
+    + displayVehicles(List<Vehicle>)
+}
+
+class ListVehiclesCheckupController {
+    + listVehiclesNeedingCheckUp()
+}
+
+class VehicleService {
+    + listVehiclesNeedingCheckUp() : List<Vehicle>
+}
+
+class VehicleRepository {
+    + getVehicles() : List<Vehicle>
+}
+
+class Vehicle {
+    + calculateNextCheckup() : CheckupDetails
+}
+
+
+ListVehiclesCheckupUI --> ListVehiclesCheckupController 
+ListVehiclesCheckupController --> VehicleService 
+VehicleService --> VehicleRepository 
+VehicleRepository ..> Vehicle 
+VehicleService ..> Vehicle 
+
+@enduml
