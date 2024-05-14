@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @startuml
 skinparam monochrome true
 skinparam packageStyle rectangle
@@ -161,4 +162,169 @@ activate ADM
 
 deactivate ADM
 
+=======
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "HRM" as ADM
+participant ":CreateEmployeeUI" as UI
+participant ":CreateEmployeeController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "jobRepository:\nJobRepository" as JOBS
+participant "AuthFacade\n:AuthenticationRepository" as AUTHREP
+participant "userSession\n:UserSession" as USER
+participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
+participant "organization\n:Organization" as ORG
+participant "employee\n:Employee" as EMP
+
+activate ADM
+
+        ADM -> UI : asks to create a new employee
+        activate UI
+
+        UI --> ADM : requests data (name, birthdate, admission date, ...)
+    deactivate UI
+
+    ADM -> UI : types requested data (name, birthdate, admission date, ...)
+    activate UI
+
+    UI -> CTRL : getAllJobs()
+    activate CTRL
+
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
+    CTRL <-- RepositorySingleton : repositories
+    deactivate RepositorySingleton
+    CTRL -> PLAT : getJobRepository()
+    activate PLAT
+    CTRL <-- PLAT : jobRepository
+    deactivate PLAT
+    CTRL->JOBS : getAllJobs()
+    activate JOBS
+    CTRL<-- JOBS : AllJobsList
+    deactivate JOBS
+
+    UI <-- CTRL : AllJobsList
+    deactivate CTRL
+
+
+    ADM <-- UI : show jobs and ask to select one
+    deactivate UI
+
+    ADM -> UI : selects a job
+    activate UI
+
+        UI --> ADM : shows requested data and selected data
+    deactivate UI
+
+    ADM -> UI : submits data
+    activate UI
+
+        UI -> CTRL : createEmployee(name, birthdate, admission date,... ,job)
+        activate CTRL
+
+        CTRL -> CTRL : getUserFromSession()
+
+        CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+        CTRL <-- RepositorySingleton : Repositories
+        deactivate RepositorySingleton
+
+        CTRL -> PLAT : getAuthenticationRepository()
+
+        activate PLAT
+        CTRL <-- PLAT : AuthenticationRepository()
+        deactivate PLAT
+
+
+
+        CTRL -> AUTHREP : getCurrentUserSession()
+
+        activate AUTHREP
+
+
+
+
+        AUTHREP -> USER : isLoggedWithRule(HRM)
+
+        activate USER
+
+        AUTHREP <-- USER : "True/False"
+        AUTHREP --> USER : getUserId(email)
+        AUTHREP <-- USER : userId(email)
+        deactivate USER
+
+        CTRL <-- AUTHREP : userId(email)
+        deactivate AUTHREP
+
+        CTRL -> CTRL : getOrganizationByEmployeeEmail(email)
+
+
+        CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+        CTRL <-- RepositorySingleton : Repositories
+        deactivate RepositorySingleton
+
+
+
+        CTRL -> PLAT : getOrganizationRepository()
+        activate PLAT
+        CTRL <-- PLAT : OrganizationRepository()
+        deactivate PLAT
+
+
+        CTRL -> OrganizationRepository :getOrganizationByUserId(email)
+        activate OrganizationRepository
+            loop for each organization
+            OrganizationRepository -> ORG : anyUserHasId(email)
+            activate ORG
+            OrganizationRepository <-- ORG : True/False
+            deactivate ORG
+            end loop
+
+        CTRL <-- OrganizationRepository : organitazion
+
+
+
+
+
+
+
+            CTRL -> ORG: createEmployee(name, birthdate, admission date,... ,job)
+            activate ORG
+
+                ORG -> EMP**: create(employee)
+                note right of EMP
+                  Employee constructor validates data.
+                endnote
+
+
+                activate ORG
+                    ORG -> ORG: addEmployee(employee)
+                    ORG -> ORG: validateEmployee(employee)
+
+                    deactivate ORG
+
+                    ORG --> ORG
+                    ORG --> ORG
+                deactivate ORG
+
+                ORG --> CTRL : employee
+
+            deactivate ORG
+
+            CTRL --> UI: employee
+            deactivate CTRL
+            UI --> ADM: displays operation success
+    deactivate UI
+
+deactivate ADM
+
+>>>>>>> origin/origin/main
 @enduml
