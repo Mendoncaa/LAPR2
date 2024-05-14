@@ -116,19 +116,19 @@ communities.
 # Features
 
 
-| Functionality                               | Action                                                                                                                     | User                         |
-|---------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|------------------------------|
-| **Register a skill**                        | Create a skill by selecting functionality and inserting asked data.                                                        | Human Resources Manager(HRM) |
-| **Register a job**                          | Create a job by selecting functionality and inserting asked data.                                                          | Human Resources Manager(HRM) |
-| **Register a collaborator**                 | Create a collaborator by selecting functionality and inserting asked data ans choosing a Job from a list.                  | Human Resources Manager(HRM) |
-| **Assign skills to a collaborator**         | Selecting functionality to choose a collaborator and assign one or more skills from a list.                                | Human Resources Manager(HRM) |
-| **Generate a team automatically**           | Selecting this functionality a team will be created with skills and number of collaboratores inserted                      | Human Resources Manager(HRM) |
-| **Register a vehicle**                      | Create a vehicle by selecting functionality and inserting asked data.                                                      | Vehicle Fleet Manager(VFM)   |
-| **Register vehicle maintenance**            | Selecting this functionality will be asked by maintenance data and update that information.                                | Vehicle Fleet Manager(VFM)   |
-| **List vehicles needing maintenance**       | Functionality that lists vehicles that need maintenance appointment.                                                       | Vehicle Fleet Manager(VFM)   |
-| **Water consumption costs in Green Spaces** | Functionality that calculates water consumption costs reading a file given by GSM with water consumptions.                 | Green Spaces Manager(GSM)    |
-| **Equipment Use**                           | Creates a pie chart with percentages of used of a Green Space inputing a file with individual equipment uses.              | Green Spaces Manager(GSM)    |
-| **Park Use by age**                         | Generate a graph age organized with park uses and if is reccommended to other users with a inputted PortalUser information | Green Spaces Manager(GSM)    |
-| **Import "csv" file**                       | Data import from a file that cointains water points connections and associated distance                                    | Green Spaces Manager(GSM)    |
-| **Create water route**                      | Functionality that returns the routes to be opened and pipes needed to be laid with a minimum accumulated cost             | Green Spaces Manager(GSM)    |
-| **Execution time tests**                    | This action runs a series of tests to see how inputs affects execution times in a algorithm                                | Quality Manager (QAM)        |
+| **Number** | **Functionality**                           | Description                                                                                                                | User                            |
+|------------|---------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|---------------------------------|
+| **1**      | **Register a skill**                        | Create a skill by selecting functionality and inserting asked data.                                                        | Human Resources Manager(HRM)    |
+| **2**      | **Register a job**                          | Create a job by selecting functionality and inserting asked data.                                                          | Human Resources Manager(HRM)    |
+| **3**      | **Register a collaborator**                 | Create a collaborator by selecting functionality and inserting asked data ans choosing a Job from a list.                  | Human Resources Manager(HRM)    |
+| **4**      | **Assign skills to a collaborator**         | Selecting functionality to choose a collaborator and assign one or more skills from a list.                                | Human Resources Manager(HRM)    |
+| **5**      | **Generate a team automatically**           | Selecting this functionality a team will be created with skills and number of collaboratores inserted                      | Human Resources Manager(HRM)    |
+| **6**      | **Register a vehicle**                      | Create a vehicle by selecting functionality and inserting asked data.                                                      | Vehicle Fleet Manager(VFM)      |
+| **7**      | **Register vehicle maintenance**            | Selecting this functionality will be asked by maintenance data and update that information.                                | Vehicle Fleet Manager(VFM)      |
+| **8**      | **List vehicles needing maintenance**       | Functionality that lists vehicles that need maintenance appointment.                                                       | Vehicle Fleet Manager(VFM)      |
+| **9**      | **Water consumption costs in Green Spaces** | Functionality that calculates water consumption costs reading a file given by GSM with water consumptions.                 | Green Spaces Manager(GSM)       |
+| **10**     | **Equipment Use**                           | Creates a pie chart with percentages of used of a Green Space inputing a file with individual equipment uses.              | Green Spaces Manager(GSM)       |
+| **11**     | **Park Use by age**                         | Generate a graph age organized with park uses and if is reccommended to other users with a inputted PortalUser information | Green Spaces Manager(GSM)       |
+| **12**     | **Import "csv" file**                       | Data import from a file that cointains water points connections and associated distance                                    | Green Spaces Manager(GSM)       |
+| **13**     | **Create water route**                      | Functionality that returns the routes to be opened and pipes needed to be laid with a minimum accumulated cost             | Green Spaces Manager(GSM)       |
+| **14**     | **Execution time tests**                    | This action runs a series of tests to see how inputs affects execution times in a algorithm                                | Quality Assurance Manager (QAM) |
