@@ -5,4 +5,4 @@ set output "30Files_ExecutionTimes_plot.png"
 set xlabel "DataSet Size(Number of Edges)"
 set ylabel "Execution Time (nanoseconds)"
 set title "Execution Time vs. Data Set Size"
-plot "30Files_ExecutionTimes.csv" with lines
+plot "30Files_ExecutionTimes.csv" 

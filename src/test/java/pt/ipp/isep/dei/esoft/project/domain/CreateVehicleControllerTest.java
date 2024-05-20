@@ -1,14 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import pt.ipp.isep.dei.esoft.project.repository.application.controller.authorization.CreateCheckUpController;
 import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
+import pt.ipp.isep.dei.esoft.project.repository.application.controller.authorization.CreateVehicleController;
 
-    public class CreateVehicleControllerTest {
+public class CreateVehicleControllerTest {
 
         @Test
         void testCreateVehicle() {
@@ -30,4 +30,3 @@ import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
         }
     }
 
-}

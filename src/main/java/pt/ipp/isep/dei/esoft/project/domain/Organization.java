@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +15,7 @@ public class Organization {
     private String website;
     private String phone;
     private String email;
+    private JobRepository jobRepository;
 
     /**
      * This method is the constructor of the organization.
@@ -24,6 +27,30 @@ public class Organization {
         this.vatNumber = vatNumber;
         employees = new ArrayList<>();
         tasks = new ArrayList<>();
+        this.jobRepository = new JobRepository();
+    }
+    /**
+     * Creates a new job.
+     * @param jobName The name of the job.
+     * @return The created Job object.
+     * @throws IllegalArgumentException If the job name does not meet the specified criteria.
+     */
+    public Job createJob(String jobName) throws IllegalArgumentException {
+        return new Job(jobName);
+    }
+
+    /**
+     * Adds a job to the repository after checking for duplicates.
+     * @param job The job to add.
+     * @throws IllegalArgumentException If a job with the same name already exists.
+     */
+    public void addJob(Job job) throws IllegalArgumentException {
+        for (Job existingJob : jobRepository.listAllJobs()) {
+            if (existingJob.compareTo(job) == 0) {
+                throw new IllegalArgumentException("A job with the same name already exists: " + job.getJobName());
+            }
+        }
+        jobRepository.addJob(job);
     }
 
     /**

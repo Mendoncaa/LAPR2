@@ -1,10 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import pt.ipp.isep.dei.esoft.project.domain.TeamMember;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 

@@ -1,56 +1,101 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JobRepositoryTest {
 
+    private JobRepository jobRepository;
+
+    @BeforeEach
+    public void setUp() {
+        jobRepository = new JobRepository();
+    }
+
     @Test
     public void testAddJob() {
-        JobRepository repository = new JobRepository();
-        Job job1 = new Job("Desenvolvedor");
-        Job job2 = new Job("Tester");
-
-        repository.addJob(job1);
-        assertEquals(1, repository.getAllJobs().size());
-        assertTrue(repository.getAllJobs().contains(job1));
-
-        repository.addJob(job2);
-        assertEquals(2, repository.getAllJobs().size());
-        assertTrue(repository.getAllJobs().contains(job2));
+        Job job = new Job("Software Engineer");
+        jobRepository.addJob(job);
+        List<Job> jobs = jobRepository.listAllJobs();
+        assertEquals(1, jobs.size());
+        assertEquals("Software Engineer", jobs.get(0).getJobName());
     }
 
     @Test
-    public void testAddDuplicateJob() {
-        JobRepository repository = new JobRepository();
-        Job job1 = new Job("Desenvolvedor");
-        Job job2 = new Job("Desenvolvedor");
-
-        repository.addJob(job1);
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            repository.addJob(job2);
-        });
-
-        assertEquals("Já existe um trabalho com o mesmo nome na organização.", exception.getMessage());
-        assertEquals(1, repository.getAllJobs().size());
+    public void testAddMultipleJobs() {
+        Job job1 = new Job("Software Engineer");
+        Job job2 = new Job("Data Scientist");
+        jobRepository.addJob(job1);
+        jobRepository.addJob(job2);
+        List<Job> jobs = jobRepository.listAllJobs();
+        assertEquals(2, jobs.size());
+        assertEquals("Software Engineer", jobs.get(0).getJobName());
+        assertEquals("Data Scientist", jobs.get(1).getJobName());
     }
 
     @Test
-    public void testInvalidJobName() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Job("1234");
+    public void testAddJobWithInvalidNameContainingDigits() {
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            Job job = new Job("Engineer123");
+            jobRepository.addJob(job);
         });
+        assertEquals("The job name cannot contain special characters or digits.", thrown.getMessage());
+    }
 
-        assertEquals("O nome do trabalho não pode conter caracteres especiais ou dígitos.", exception.getMessage());
-
-        exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Job("");
+    @Test
+    public void testAddJobWithInvalidNameContainingSpecialCharacters() {
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            Job job = new Job("Engineer@Home");
+            jobRepository.addJob(job);
         });
+        assertEquals("The job name cannot contain special characters or digits.", thrown.getMessage());
+    }
 
-        assertEquals("O nome do trabalho deve conter pelo menos uma palavra.", exception.getMessage());
+    @Test
+    public void testAddJobWithEmptyName() {
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            Job job = new Job("");
+            jobRepository.addJob(job);
+        });
+        assertEquals("The job name cannot be empty.", thrown.getMessage());
+    }
+
+    @Test
+    public void testAddJobWithOnlySpaces() {
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            Job job = new Job("   ");
+            jobRepository.addJob(job);
+        });
+        assertEquals("The job name cannot be empty.", thrown.getMessage());
+    }
+
+    @Test
+    public void testAddJobWithNullName() {
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            Job job = new Job(null);
+            jobRepository.addJob(job);
+        });
+        assertEquals("The job name cannot be empty.", thrown.getMessage());
+    }
+
+    @Test
+    public void testListAllJobsEmpty() {
+        List<Job> jobs = jobRepository.listAllJobs();
+        assertTrue(jobs.isEmpty());
+    }
+
+    @Test
+    public void testListAllJobsImmutable() {
+        Job job = new Job("Software Engineer");
+        jobRepository.addJob(job);
+        List<Job> jobs = jobRepository.listAllJobs();
+        jobs.clear(); // Attempt to modify the returned list
+        jobs = jobRepository.listAllJobs(); // Get the list again
+        assertEquals(1, jobs.size()); // Original list should remain unchanged
     }
 }
-

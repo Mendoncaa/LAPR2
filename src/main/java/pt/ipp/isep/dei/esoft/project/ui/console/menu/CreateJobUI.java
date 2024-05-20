@@ -1,25 +1,23 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
 import pt.ipp.isep.dei.esoft.project.domain.Job;
-import pt.ipp.isep.dei.esoft.project.repository.application.controller.CreateJobController;
-
+import pt.ipp.isep.dei.esoft.project.controller.CreateJobController;
 
 import java.util.Optional;
 import java.util.Scanner;
-
-
 
 public class CreateJobUI implements Runnable {
 
     private final CreateJobController controller;
     private String jobName;
+
     public CreateJobUI() {
         controller = new CreateJobController();
     }
+
     private CreateJobController getController() {
         return controller;
     }
-
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
@@ -27,6 +25,7 @@ public class CreateJobUI implements Runnable {
         try {
             System.out.print("Please enter the job name: ");
             jobName = scanner.nextLine();
+
             System.out.println("The entered job name is: " + jobName);
 
             System.out.print("Are you sure you want to create this job? (Y/N): ");
@@ -45,14 +44,19 @@ public class CreateJobUI implements Runnable {
     }
 
     private void submitData() {
-        Optional<Job> job = getController().createJob(jobName);
-        if (job.isPresent()) {
-            System.out.println("\nJob successfully created!");
-        } else {
-            System.out.println("\nJob not created!");
+        try {
+            Optional<Job> job = getController().createJob(jobName);
+            if (job.isPresent()) {
+                System.out.println("\nJob successfully created!");
+            } else {
+                System.out.println("\nJob not created!");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("An error occurred while creating the job: " + e.getMessage());
         }
     }
 }
+
 
 
 

@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.mdisc;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
@@ -16,26 +17,50 @@ public class IrrigationSystemManager {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Insira o nome do ficheiro:");
-        String inputFilePath = scanner.nextLine();
-
-        String outputFilePath = ("output_"+inputFilePath);
-
-        IrrigationSystemManager manager = new IrrigationSystemManager();
-        manager.processSingleFile(inputFilePath, outputFilePath);
-        manager.performExecutionTimeAnalysis();
+        System.out.println("Qual a opção desejada:");
+        System.out.println("1 - Desenhar grafo de custo minimo.");
+        System.out.println("2 - Teste de tempo de execução do algoritmo.");
+        switch (scanner.nextInt()) {
+            case 1: {
+                scanner.nextLine();
+                System.out.println("Insira o nome do ficheiro:");
+                String inputFilePath = scanner.nextLine();
+                String outputFilePath = ("output_" + inputFilePath);
+                IrrigationSystemManager manager = new IrrigationSystemManager();
+                manager.processSingleFile(inputFilePath, outputFilePath);
+                break;
+            }
+            case 2: {
+                scanner.nextLine();
+                System.out.println("Insira o nome do ficheiro sem o '00.csv':");
+                String inputFilePath = scanner.nextLine();
+                IrrigationSystemManager manager = new IrrigationSystemManager();
+                manager.performExecutionTimeAnalysis(inputFilePath);
+                break;
+            }
+            default: break;
+        }
 
         scanner.close();
     }
 
 
+
     public void processSingleFile(String inputFilePath, String outputFilePath) throws IOException {
         List<Edge> edges = importer.importData(inputFilePath);
+
+        try {
+            generateGraph2( edges, inputFilePath.replace(".csv", ".png"));
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
         for (Edge edge : edges) {
             graph.addEdge(edge.from, edge.to, edge.cost);
         }
         Set<Edge> mst = kruskal.findMinimumSpanningTree(graph);
         exportToCsv(mst, outputFilePath);
+
         try {
             generateGraph(mst, outputFilePath.replace(".csv", ".png"));
         } catch (IOException | InterruptedException e) {
@@ -48,6 +73,23 @@ public class IrrigationSystemManager {
             for (Edge edge : mst) {
                 writer.write(edge.from + ";" + edge.to + ";" + edge.cost + "\n");
             }
+        }
+    }
+
+   private void generateGraph2(List<Edge> edges, String filePath) throws IOException, InterruptedException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("graph.dot"))) {
+            writer.write("graph G {\n");
+            for (Edge edge : edges) {
+                writer.write("    " + edge.from + " -- " + edge.to + " [label=\"" + edge.cost + "\"];\n");
+            }
+            writer.write("}\n");
+        }
+        ProcessBuilder pb = new ProcessBuilder("dot", "-Tpng", "graph.dot", "-o", filePath);
+        try {
+            Process process = pb.start();
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -68,12 +110,22 @@ public class IrrigationSystemManager {
         }
     }
 
-    public void performExecutionTimeAnalysis() throws IOException, InterruptedException {
+    public void performExecutionTimeAnalysis(String inputFilePath) throws IOException, InterruptedException {
         long[] executionTimes = new long[30];
         int[] sizeCounter = new int[30];
+        String outFileName = "30Files_ExecutionTimes.csv";
+        String fileName;
+        File fx = new File(outFileName);
+
+        // Apaga o ficheiro anterior, se existir
+        if (fx.exists()) {
+            if (!fx.delete()) {
+                System.out.println("Failed to delete the file: " + outFileName);
+            }
+        }
 
         for (int i = 1; i <= 30; i++) {
-            String fileName = "us14_" + i + ".csv";
+            fileName = (inputFilePath + i + ".csv");
             List<Edge> edges = importer.importData(fileName);
 
             for (Edge edge : edges) {
@@ -88,7 +140,7 @@ public class IrrigationSystemManager {
 
             graph.clear();
 
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter("30Files_ExecutionTimes.csv", true))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(outFileName, true))) {
                 writer.write(sizeCounter[i - 1] + ";" + executionTimes[i - 1] + "\n");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -109,7 +161,7 @@ public class IrrigationSystemManager {
             writer.write("set xlabel \"DataSet Size(Number of Edges)\"\n");
             writer.write("set ylabel \"Execution Time (nanoseconds)\"\n");
             writer.write("set title \"Execution Time vs. Data Set Size\"\n");
-            writer.write("plot \"30Files_ExecutionTimes.csv\" with lines");
+            writer.write("plot \"30Files_ExecutionTimes.csv\" ");
         }
 
         // Executa o script Gnuplot

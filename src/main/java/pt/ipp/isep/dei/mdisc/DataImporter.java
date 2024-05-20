@@ -13,10 +13,12 @@ public class DataImporter {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(";");
-                String from = parts[0].trim();
-                String to = parts[1].trim();
-                double cost = Double.parseDouble(parts[2].trim());
-                edges.add(new Edge(from, to, cost));
+                if (parts.length >= 3) {
+                    String from = parts[0].trim();
+                    String to = parts[1].trim();
+                    double cost = Double.parseDouble(parts[2].trim());
+                    edges.add(new Edge(from, to, cost));
+                }
             }
         }
         return edges;
