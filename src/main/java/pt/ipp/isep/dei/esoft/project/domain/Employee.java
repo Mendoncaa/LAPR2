@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Representa um funcionário de uma organização.
  */
-public class Employee {
+public class Employee implements Comparable<Employee>{
     private String name;
     private Date birthdate;
     private Date admissionDate;
@@ -305,10 +305,17 @@ public class Employee {
      * @param email O email a ser verificado.
      * @return true se o funcionário possui o email especificado, false caso contrário.
      */
-    public boolean hasEmail(String email) {
+    public boolean hasThisEmail(String email) {
         return this.email.equalsIgnoreCase(email);
     }
+
+    @Override
+    public int compareTo(Employee other) {
+        return this.taxpayerId.compareTo(other.taxpayerId);
+    }
 }
+
+
 
 
 

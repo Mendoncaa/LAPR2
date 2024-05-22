@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.repository.application.controller;
+package pt.ipp.isep.dei.esoft.project.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.domain.service.VehicleService;

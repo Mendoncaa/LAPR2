@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.ui.console.menu;
+package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.controller.CreateEmployeeController;
@@ -67,7 +67,7 @@ import java.util.Scanner;
 
         private String displayAndSelectJob() {
             // Display the list of Jobs
-            List<Job> job = controller.getAllJobs();
+            List<Job> job = controller.listAllJobs();
 
             int listSize = job.size();
             int answer = -1;
@@ -76,7 +76,7 @@ import java.util.Scanner;
 
             while (answer < 1 || answer > listSize) {
                 displayJobOptions(job);
-                System.out.print("Select a task category: ");
+                System.out.print("Select a job: ");
                 answer = input.nextInt();
             }
 

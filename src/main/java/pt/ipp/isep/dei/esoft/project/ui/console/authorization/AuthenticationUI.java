@@ -1,6 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.authorization;
 
-import pt.ipp.isep.dei.esoft.project.repository.application.controller.authorization.AuthenticationController;
+import pt.ipp.isep.dei.esoft.project.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.AdminUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.HrmUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MenuItem;
@@ -59,7 +59,7 @@ public class AuthenticationUI implements Runnable {
         boolean success = false;
         do {
             maxAttempts--;
-            String id = Utils.readLineFromConsole("Enter UserId/Email: ");
+            String id = Utils.readLineFromConsole("Enter UserId(Email): ");
             String pwd = Utils.readLineFromConsole("Enter Password: ");
 
             success = ctrl.doLogin(id, pwd);

@@ -2,59 +2,49 @@ package pt.ipp.isep.dei.esoft.project.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
-import pt.ipp.isep.dei.esoft.project.repository.*;
+import pt.ipp.isep.dei.esoft.project.domain.Organization;
+import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.isep.lei.esoft.auth.UserSession;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * Controller class for creating employees.
+ */
 public class CreateEmployeeController {
 
-        private OrganizationRepository organizationRepository;
-        private JobRepository jobRepository;
-        private AuthenticationRepository authenticationRepository;
-        private EmployeeRepository employeeRepository;
+    /**
+     * Creates a new job if the user is logged in with the HRM role.
+     *
+     * @return The created job, if successful.
+     * @throws IllegalArgumentException If the job name does not meet the specified criteria or if the user is not authorized.
+     */
+    public Optional<Employee> createEmployee(String name, Date birthdate, Date admissionDate, String street, String city, String zipCode, String phone, String email, String idDocType, String idDocNumber, String taxpayerId, Job job) throws IllegalArgumentException {
+        Repositories repositories = Repositories.getInstance();
+        UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
 
-    //Repository instances are obtained from the Repositories class
-    public CreateEmployeeController() {
-        getOrganizationRepository();
-        getAuthenticationRepository();
-        //getEmployeeRepository();
-        //getJobRepository();
-    }
+        if (userSession.isLoggedInWithRole("Hrm")) {
+            String userEmail = userSession.getUserId().toString();
+            Optional<Organization> organizationOptional = repositories.getOrganizationRepository().getOrganizationByEmployeeEmail(userEmail);
 
-    //Allows receiving the repositories as parameters for testing purposes
-    public CreateEmployeeController(OrganizationRepository organizationRepository,
-                                TaskCategoryRepository jobRepository,
-                                AuthenticationRepository authenticationRepository) {
-        this.organizationRepository = organizationRepository;
-        //this.jobRepository = jobRepository;
-        this.authenticationRepository = authenticationRepository;
-    }
-
-    private OrganizationRepository getOrganizationRepository() {
-        if (organizationRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-            organizationRepository = repositories.getOrganizationRepository();
+            if (organizationOptional.isPresent()) {
+                Organization organization = organizationOptional.get();
+                Employee employee = organization.createEmployee(name, birthdate, admissionDate, street, city, zipCode, phone, email, idDocType, idDocNumber, taxpayerId, job);
+                organization.addEmployee(employee);
+                return Optional.of(employee);
+            } else {
+                throw new IllegalArgumentException("Organization not found for user: " + userEmail);
+            }
+        } else {
+            throw new IllegalArgumentException("User is not authorized to create a job.");
         }
-        return organizationRepository;
-    }
-    private AuthenticationRepository getAuthenticationRepository() {
-        if (authenticationRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-
-            //Get the AuthenticationRepository
-            authenticationRepository = repositories.getAuthenticationRepository();
-        }
-        return authenticationRepository;
     }
 
-    public List<Job> getAllJobs() {
-        List<Job> Job = List.of();
-        return Job;}
-
-    public Optional<Employee> createEmployee(String name, Date birthdate, Date admissionDate, String street, String city, String zipCode, String phone, String email, String idDocType, String idDocNumber, String taxpayerId, Job job) {
-        return null;
+    public List<Job> listAllJobs() {
+        JobRepository jobRepository = Repositories.getInstance().getJobRepository();
+        return jobRepository.listAllJobs();
     }
 }

@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.repository.application.controller.authorization;
+package pt.ipp.isep.dei.esoft.project.controller.authorization;
 
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;

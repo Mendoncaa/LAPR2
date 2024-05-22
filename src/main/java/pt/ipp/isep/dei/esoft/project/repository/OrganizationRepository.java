@@ -15,26 +15,13 @@ public class OrganizationRepository {
         organizations = new ArrayList<>();
     }
 
-    public Optional<Organization> getOrganizationByEmployee(Employee employee) {
-
-        Optional<Organization> returnOrganization = Optional.empty();
-
-        for (Organization organization : organizations) {
-            if (organization.employs(employee)) {
-                returnOrganization = Optional.of(organization);
-            }
-        }
-
-        return returnOrganization;
-    }
-
 
     public Optional<Organization> getOrganizationByEmployeeEmail(String email) {
 
         Optional<Organization> returnOrganization = Optional.empty();
 
         for (Organization organization : organizations) {
-            if (organization.anyEmployeeHasEmail(email)) {
+            if (organization.isEmailExists(email)) {
                 returnOrganization = Optional.of(organization);
             }
         }

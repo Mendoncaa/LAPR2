@@ -23,7 +23,7 @@ public class CreateJobController {
         Repositories repositories = Repositories.getInstance();
         UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
 
-        if (userSession.isLoggedInWithRole("HRM")) {
+        if (userSession.isLoggedInWithRole("Hrm")) {
             String userEmail = userSession.getUserId().toString();
             Optional<Organization> organizationOptional = repositories.getOrganizationRepository().getOrganizationByEmployeeEmail(userEmail);
 

@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import org.junit.jupiter.api.Test;
-import pt.ipp.isep.dei.esoft.project.repository.application.controller.authorization.CreateCheckUpController;
+import pt.ipp.isep.dei.esoft.project.controller.authorization.CreateCheckUpController;
 import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;

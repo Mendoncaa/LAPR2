@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
-import pt.ipp.isep.dei.esoft.project.ui.console.menu.GenerateTeamUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.menu.MainMenuUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.GenerateTeamUI;
 
 public class Test {
 

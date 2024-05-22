@@ -5,43 +5,49 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Repositório de funcionários.
+ * Repository for employees.
  */
 public class EmployeeRepository {
     private List<Employee> employees;
 
     /**
-     * Constrói um novo repositório de funcionários.
+     * Constructs a new employee repository.
      */
     public EmployeeRepository() {
         this.employees = new ArrayList<>();
     }
 
     /**
-     * Adiciona um novo funcionário ao repositório.
+     * Adds a new employee to the repository.
      *
-     * @param employee O funcionário a ser adicionado.
-     * @throws IllegalArgumentException Se o funcionário já existe no repositório (com o mesmo email ou número de identificação fiscal).
+     * @param employee The employee to be added.
      */
     public void addEmployee(Employee employee) {
-        // Verifica se o funcionário já existe no repositório
-        for (Employee emp : employees) {
-            if (emp.getEmail().equals(employee.getEmail())) {
-                throw new IllegalArgumentException("Employee with the same email already exists");
-            }
-            if (emp.getTaxpayerId().equals(employee.getTaxpayerId())) {
-                throw new IllegalArgumentException("Employee with the same taxpayer ID already exists");
-            }
-        }
         employees.add(employee);
     }
 
     /**
-     * Retorna uma lista de todos os funcionários no repositório.
+     * Returns a list of all employees in the repository.
      *
-     * @return Uma lista de funcionários.
+     * @return A list of employees.
      */
     public List<Employee> listEmployees() {
         return new ArrayList<>(employees);
     }
+
+    /**
+     * Checks if an email belongs to an employee in the repository.
+     *
+     * @param email The email to be checked.
+     * @return true if an employee with the given email exists, false otherwise.
+     */
+    public boolean emailExists(String email) {
+        for (Employee employee : employees) {
+            if (employee.hasThisEmail(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
+
