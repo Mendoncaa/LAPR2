@@ -6,24 +6,24 @@
 
 
 
-| Interaction ID | Question: Which class is responsible for...          | Answer                     | Justification (with patterns)                                                                                   |
-|----------------|------------------------------------------------------|----------------------------|-----------------------------------------------------------------------------------------------------------------|
-| Step 1         | ... interacting with the actor?                      | ListVehiclesCheckupUI      | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+| Interaction ID | Question: Which class is responsible for...          | Answer                     | Justification (with patterns)                                                                                 |
+|----------------|------------------------------------------------------|----------------------------|---------------------------------------------------------------------------------------------------------------|
+| Step 1         | ... interacting with the actor?                      | ListVehiclesCheckupUI      | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
 |                | ... coordinating the US?                             | ListVehiclesCheckupController | Controller: Manages the flow between the user interface and the service layer.                                |
-|                | ... gathering and processing vehicle data?           | VehicleService             | Information Expert: Has the necessary information and methods to process vehicle data.                          |
-|                | ... accessing and retrieving vehicle data?           | VehicleRepository          | Information Expert: Directly accesses the data storage to fetch vehicle details.                                |
-| Step 2         | ... presenting the list of vehicles needing check-up?| ListVehiclesCheckupUI      | Information Expert: Displays the processed information to the user.                                            |
+|                | ... gathering and processing vehicle data?           | VehicleService             | Creator: Responsible for creating team instances based on given criteria.                                     |
+|                | ... accessing and retrieving vehicle data?           | VehicleRepository          | Pure Fabrication: technical abstraction that facilitates vehicles management.                                 |
+| Step 2         | ... presenting the list of vehicles needing check-up?| ListVehiclesCheckupUI      |                                                                                                               |
 
 ### Systematization
 
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
-- VehicleService
-- VehicleRepository
 - Vehicle
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
+- VehicleService
+- VehicleRepository
 - ListVehiclesCheckupUI  
 - ListVehiclesCheckupController
 
