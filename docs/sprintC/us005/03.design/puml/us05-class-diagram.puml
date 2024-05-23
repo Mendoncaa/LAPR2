@@ -18,6 +18,15 @@ class GenerateTeamController {
     + teamApproved(team: Team): void
 }
 
+class Repositories {
+    -Repositories()
+    +getInstance()
+    + getSkillRepository()
+    + getTeamMemberRepository()
+    + getTeamRepository()
+}
+
+
 class TeamService {
     - skillRepository: SkillRepository
     - teamRepository: TeamRepository
@@ -48,11 +57,12 @@ class Team {
 }
 
 GenerateTeamUI --> GenerateTeamController 
-GenerateTeamController --> TeamService 
-TeamService --> SkillRepository 
-TeamService --> TeamMemberRepository 
-TeamService --> TeamRepository 
+GenerateTeamController --> TeamService
 TeamRepository --> Team
 Team --> TeamMember
-
+Repositories--> Repositories: instance
+TeamService --> Repositories
+Repositories -->"1" SkillRepository
+Repositories--> "1" TeamMemberRepository
+Repositories--> "1" TeamRepository
 @enduml

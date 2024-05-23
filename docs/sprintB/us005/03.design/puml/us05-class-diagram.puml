@@ -49,9 +49,9 @@ class Team {
 
 GenerateTeamUI --> GenerateTeamController 
 GenerateTeamController --> TeamService 
-TeamService --> SkillRepository 
-TeamService --> TeamMemberRepository 
-TeamService --> TeamRepository 
+TeamService --> "1" SkillRepository
+TeamService --> "1" TeamMemberRepository
+TeamService --> "1" TeamRepository
 TeamRepository --> Team
 Team --> TeamMember
 

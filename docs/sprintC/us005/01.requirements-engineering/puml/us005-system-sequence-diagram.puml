@@ -19,7 +19,7 @@ activate System
     HRManager -> System : Provides data
     activate System
 
-    System --> HRManager : Confirms data reception and presents options (Approve, Reject)
+    System --> HRManager : Confirms data reception and returns proposed team (team members, skills)
     deactivate System
 
     HRManager -> System : Submits selection (Approve/Reject)
