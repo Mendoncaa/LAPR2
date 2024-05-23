@@ -23,18 +23,25 @@ loop until team is approved
     
     GenerateTeamUI -> GenerateTeamController : Request team size inputs
     activate GenerateTeamController
-    
+
     GenerateTeamController --> GenerateTeamUI : Returns min, max sizes
     deactivate GenerateTeamController
 
-    
-    GenerateTeamUI -> SkillRepository : getSkills
-    activate SkillRepository
+    GenerateTeamUI -> Repositories : getInstance()
+    activate Repositories
+    Repositories --> GenerateTeamUI : Repositories instance
+    deactivate Repositories
 
+    GenerateTeamUI -> Repositories : getSkillRepository()
+    activate Repositories
+    Repositories --> GenerateTeamUI : SkillRepository instance
+    deactivate Repositories
+
+    GenerateTeamUI -> SkillRepository : getSkills()
+    activate SkillRepository
     SkillRepository --> GenerateTeamUI : Returns list of Skills
     deactivate SkillRepository
 
-    
     loop for each required skill
         GenerateTeamUI -> GenerateTeamUI : Select skill from list
         GenerateTeamUI -> GenerateTeamController : skillSelected(option)
@@ -50,23 +57,30 @@ loop until team is approved
         deactivate GenerateTeamController
     end
 
-    
     GenerateTeamUI -> GenerateTeamController : getGenerateTeam(min, max, skills)
     activate GenerateTeamController
 
     GenerateTeamController -> TeamService : generateTeam(minSize, maxSize, skills)
     activate TeamService
 
-    
     loop for each skill in skills
+        TeamService -> Repositories : getInstance()
+        activate Repositories
+        Repositories --> TeamService : Repositories instance
+        deactivate Repositories
+
+        TeamService -> Repositories : getTeamMemberRepository()
+        activate Repositories
+        Repositories --> TeamService : TeamMemberRepository instance
+        deactivate Repositories
+
         TeamService -> TeamMemberRepository : findTeamMemberWithSkill(skill, team)
         activate TeamMemberRepository
 
         TeamMemberRepository --> TeamService : Returns TeamMember or null
         deactivate TeamMemberRepository
 
-        
-        TeamService -> Team : assignTeamMember
+        TeamService -> Team : assignTeamMember(teamMember)
         activate Team
 
         Team --> TeamService : Updated Team
@@ -82,11 +96,6 @@ loop until team is approved
     GenerateTeamUI --> HRM : Displays Team
     deactivate GenerateTeamUI
 
-    
-    HRM -> GenerateTeamUI : Submits selection (Approve/
-
-
-    
     HRM -> GenerateTeamUI : Submits selection (Approve/Reject)
     activate GenerateTeamUI
 
@@ -97,7 +106,16 @@ loop until team is approved
         GenerateTeamController -> TeamService : teamApproved(team)
         activate TeamService
 
-       
+        TeamService -> Repositories : getInstance()
+        activate Repositories
+        Repositories --> TeamService : Repositories instance
+        deactivate Repositories
+
+        TeamService -> Repositories : getTeamRepository()
+        activate Repositories
+        Repositories --> TeamService : TeamRepository instance
+        deactivate Repositories
+
         TeamService -> TeamRepository : createTeam(team.getMinSize(), team.getMaxSize(), team.getSkills(), team.getTeamMembers())
         activate TeamRepository
 
@@ -113,12 +131,12 @@ loop until team is approved
         GenerateTeamUI --> HRM : Confirms team approval
         deactivate GenerateTeamUI
     else Reject
-        
         GenerateTeamController --> GenerateTeamUI : Acknowledges team rejection
         deactivate GenerateTeamController
 
         GenerateTeamUI --> HRM : Acknowledges team rejection
         deactivate GenerateTeamUI
     end
+
 end
 @enduml

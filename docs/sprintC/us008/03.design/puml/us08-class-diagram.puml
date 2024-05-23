@@ -17,6 +17,12 @@ class VehicleService {
     + listVehiclesNeedingCheckUp() : List<Vehicle>
 }
 
+class Repositories {
+    -Repositories()
+    +getInstance()
+    + getVehicleRepository()
+}
+
 class VehicleRepository {
     + getVehicles() : List<Vehicle>
 }
@@ -28,8 +34,10 @@ class Vehicle {
 
 ListVehiclesCheckupUI --> ListVehiclesCheckupController 
 ListVehiclesCheckupController --> VehicleService 
-VehicleService --> VehicleRepository 
+VehicleService --> Repositories
+Repositories --> "1" VehicleRepository
 VehicleRepository ..> Vehicle 
-VehicleService ..> Vehicle 
+VehicleService ..> Vehicle
+
 
 @enduml

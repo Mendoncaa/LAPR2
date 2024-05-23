@@ -6,8 +6,9 @@ skinparam shadowing false
 actor "VFM" as VFM
 participant ":ListVehiclesCheckupUI" as ListVehiclesCheckupUI
 participant ":ListVehiclesCheckupController" as ListVehiclesCheckupController
+participant "Repositories" as RepositorySingleton
 participant "vehicleService:\nVehicleService" as VehicleService
-participant "vehicleRepository:\nVehicleRepository" as VehicleRepository
+participant "VehicleRepository" as VehicleRepository
 participant "vehicle\n:Vehicle" as Vehicle
 
 autonumber
@@ -21,11 +22,21 @@ activate ListVehiclesCheckupController
 ListVehiclesCheckupController -> VehicleService : listVehiclesNeedingCheckUp()
 activate VehicleService
 
-VehicleService -> vehicleRepository : getVehicles()
-activate vehicleRepository
+VehicleService -> RepositorySingleton : getInstance()
+activate RepositorySingleton
+RepositorySingleton --> VehicleService : Repositories instance
+deactivate RepositorySingleton
 
-vehicleRepository --> VehicleService : List of vehicles
-deactivate vehicleRepository
+VehicleService -> RepositorySingleton : getVehicleRepository()
+activate RepositorySingleton
+RepositorySingleton --> VehicleService : VehicleRepository instance
+deactivate RepositorySingleton
+
+VehicleService -> VehicleRepository : getVehicles()
+activate VehicleRepository
+
+VehicleRepository --> VehicleService : List of vehicles
+deactivate VehicleRepository
 
 loop for each Vehicle in the list
     VehicleService -> Vehicle : calculateNextCheckup()
