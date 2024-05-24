@@ -13,8 +13,8 @@ public class EmployeeRepositoryTest {
     public void testAddEmployee() {
         EmployeeRepository repository = new EmployeeRepository();
         Job job = new Job("Developer");
-        Employee emp1 = new Employee("John Doe", new Date(90, 0, 1), new Date(120, 0, 1), "123 Main St", "City", "12345-678", "123456789", "john@example.com", "CC", "123456789", "123456789", job);
-        Employee emp2 = new Employee("Jane Doe", new Date(95, 5, 15), new Date(121, 3, 20), "456 Elm St", "Town", "98765-432", "987654321", "jane@example.com", "BI", "987654321", "987654321", job);
+        Employee emp1 = new Employee("John Doe", new Date(90, 0, 1), new Date(120, 0, 1), "123 Main St", "City", "12345-678", "123456789", "john@example.com", "CC", "123456789", "123456789", job, this.jobRepository);
+        Employee emp2 = new Employee("Jane Doe", new Date(95, 5, 15), new Date(121, 3, 20), "456 Elm St", "Town", "98765-432", "987654321", "jane@example.com", "BI", "987654321", "987654321", job, this.jobRepository);
 
         repository.addEmployee(emp1);
         assertEquals(1, repository.listEmployees().size());
@@ -29,8 +29,8 @@ public class EmployeeRepositoryTest {
     public void testAddDuplicateEmployee() {
         EmployeeRepository repository = new EmployeeRepository();
         Job job = new Job("Developer");
-        Employee emp1 = new Employee("John Doe", new Date(90, 0, 1), new Date(120, 0, 1), "123 Main St", "City", "12345-678", "123456789", "john@example.com", "CC", "123456789", "123456789", job);
-        Employee emp2 = new Employee("John Doe", new Date(95, 5, 15), new Date(121, 3, 20), "456 Elm St", "Town", "98765-432", "987654321", "jane@example.com", "BI", "987654321", "987654321", job);
+        Employee emp1 = new Employee("John Doe", new Date(90, 0, 1), new Date(120, 0, 1), "123 Main St", "City", "12345-678", "123456789", "john@example.com", "CC", "123456789", "123456789", job, this.jobRepository);
+        Employee emp2 = new Employee("John Doe", new Date(95, 5, 15), new Date(121, 3, 20), "456 Elm St", "Town", "98765-432", "987654321", "jane@example.com", "BI", "987654321", "987654321", job, this.jobRepository);
 
         repository.addEmployee(emp1);
 
@@ -47,12 +47,12 @@ public class EmployeeRepositoryTest {
         Job job = new Job("Developer");
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Employee("", new Date(90, 0, 1), new Date(120, 0, 1), "123 Main St", "City", "12345-678", "123456789", "john@example.com", "CC", "123456789", "123456789", job);
+            new Employee("", new Date(90, 0, 1), new Date(120, 0, 1), "123 Main St", "City", "12345-678", "123456789", "john@example.com", "CC", "123456789", "123456789", job, this.jobRepository);
         });
         assertEquals("Employee name cannot be null or empty", exception.getMessage());
 
         exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Employee("John Doe", new Date(), new Date(120, 0, 1), "123 Main St", "City", "12345-678", "123456789", "john@example.com", "CC", "123456789", "123456789", job);
+            new Employee("John Doe", new Date(), new Date(120, 0, 1), "123 Main St", "City", "12345-678", "123456789", "john@example.com", "CC", "123456789", "123456789", job, this.jobRepository);
         });
         assertEquals("Invalid birthdate", exception.getMessage());
 

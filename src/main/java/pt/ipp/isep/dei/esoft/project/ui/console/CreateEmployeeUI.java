@@ -4,7 +4,8 @@ import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.controller.CreateEmployeeController;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -16,8 +17,8 @@ import java.util.Scanner;
 
         private final CreateEmployeeController controller;
         private String name;
-        private Date birthdate;
-        private Date admissionDate;
+        private LocalDate birthdate;
+        private LocalDate admissionDate;
         private String street;
         private String city;
         private String zipCode;
@@ -35,9 +36,9 @@ import java.util.Scanner;
         public void run() {
             System.out.println("\n\n--- Create Employee ------------------------");
 
-             String jobName = displayAndSelectJob();
-
+            Job selectedJob = displayAndSelectJob();
             requestData();
+
 
             submitData();
         }
@@ -53,19 +54,35 @@ import java.util.Scanner;
         }
 
         private void requestData() {
+                // Request each parameter from the console
+                name = requestString("Name");
+                birthdate = requestDate("Birthdate (yyyy-MM-dd)");
+                admissionDate = requestDate("Admission Date (yyyy-MM-dd)");
+                street = requestString("Street");
+                city = requestString("City");
+                zipCode = requestString("Zip Code (xxxx-xxx)");
+                phone = requestString("Phone(9 Digits)");
+                email = requestString("Email");
+                idDocType = requestString("ID Document Type (CC/BI/Other)");
+                idDocNumber = requestString("ID Document Number (CC/BI (8 Digits)");
+                taxpayerId = requestString("Taxpayer ID (9 Digits)");
+            }
 
-            // Request the Job Name from the console
-            name = requestName();
+            private String requestString(String prompt) {
+                Scanner input = new Scanner(System.in);
+                System.out.print(prompt + ": ");
+                return input.nextLine();
+            }
 
-        }
+            private LocalDate requestDate(String prompt) {
+                Scanner input = new Scanner(System.in);
+                System.out.print(prompt + ": ");
+                String dateString = input.nextLine();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                return LocalDate.parse(dateString, formatter);
+            }
 
-        private String requestName() {
-            Scanner input = new Scanner(System.in);
-            System.out.print("Job Name: ");
-            return input.nextLine();
-        }
-
-        private String displayAndSelectJob() {
+        private Job displayAndSelectJob() {
             // Display the list of Jobs
             List<Job> job = controller.listAllJobs();
 
@@ -80,8 +97,8 @@ import java.util.Scanner;
                 answer = input.nextInt();
             }
 
-            String description = job.get(answer - 1).getJobName();
-            return description;
+            Job selectedJob = job.get(answer - 1);
+            return selectedJob;
         }
 
         private void displayJobOptions(List<Job> jobs) {

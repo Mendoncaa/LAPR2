@@ -43,7 +43,7 @@ public class EmployeeRepository {
      */
     public boolean emailExists(String email) {
         for (Employee employee : employees) {
-            if (employee.hasThisEmail(email)) {
+            if (employee.getEmail().equalsIgnoreCase(email)) {
                 return true;
             }
         }
