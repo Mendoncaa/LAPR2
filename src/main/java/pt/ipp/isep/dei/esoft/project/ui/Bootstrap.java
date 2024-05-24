@@ -44,7 +44,7 @@ public class Bootstrap implements Runnable {
                 "CC",
                 "12345678",
                 "123456789",
-                job);
+                "Human Resources Manager");
 
         employeeRepository.addEmployee(hrm);
         organizationRepository.add(organization);

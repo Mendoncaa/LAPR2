@@ -1,5 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
+import pt.ipp.isep.dei.esoft.project.domain.Employee;
+import pt.ipp.isep.dei.esoft.project.domain.Job;
+import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MainMenuUI;
 

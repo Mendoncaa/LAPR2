@@ -50,7 +50,7 @@ public class Employee implements Comparable<Employee> {
         setIdDocType(idDocType);
         setIdDocNumber(idDocNumber);
         setTaxpayerId(taxpayerId);
-        setJob(job);
+        Job selectedJob=job;
     }
 
 
@@ -173,12 +173,6 @@ public class Employee implements Comparable<Employee> {
         return job;
     }
 
-    public void setJob(Job job) {
-        if (job == null) {
-            throw new IllegalArgumentException("Job cannot be null");
-        }
-        this.job = job;
-    }
 
     public Employee clone() {
         return new Employee(this.name, this.birthdate, this.admissionDate, this.street, this.city, this.zipCode, this.phone, this.email, this.idDocType, this.idDocNumber, this.taxpayerId, this.job);

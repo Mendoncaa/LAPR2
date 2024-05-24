@@ -22,7 +22,7 @@ public class CreateEmployeeController {
      * @return The created job, if successful.
      * @throws IllegalArgumentException If the job name does not meet the specified criteria or if the user is not authorized.
      */
-    public Optional<Employee> createEmployee(String name, LocalDate birthdate, LocalDate admissionDate, String street, String city, String zipCode, String phone, String email, String idDocType, String idDocNumber, String taxpayerId, Job job) throws IllegalArgumentException {
+    public Optional<Employee> createEmployee(String name, LocalDate birthdate, LocalDate admissionDate, String street, String city, String zipCode, String phone, String email, String idDocType, String idDocNumber, String taxpayerId, String job) throws IllegalArgumentException {
         Repositories repositories = Repositories.getInstance();
         UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
 

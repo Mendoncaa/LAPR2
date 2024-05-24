@@ -26,7 +26,16 @@ public class Organization {
         this.jobRepository = jobRepository;
     }
 
-    public Employee createEmployee(String name, LocalDate birthdate, LocalDate admissionDate, String street, String city, String zipCode, String phone, String email, String idDocType, String idDocNumber, String taxpayerId, Job job) {
+    public Employee createEmployee(String name, LocalDate birthdate, LocalDate admissionDate, String street, String city, String zipCode, String phone, String email, String idDocType, String idDocNumber, String taxpayerId, String selectedJob) {
+        Job job = null;
+
+        for (Job existingJob : jobRepository.listAllJobs()) {
+            if (existingJob.getJobName().equals(selectedJob)) {
+                job = existingJob;
+                break;
+            }
+        }
+
         Employee employee = new Employee(name, birthdate, admissionDate, street, city, zipCode, phone, email, idDocType, idDocNumber, taxpayerId, job);
         return employee.clone();
     }

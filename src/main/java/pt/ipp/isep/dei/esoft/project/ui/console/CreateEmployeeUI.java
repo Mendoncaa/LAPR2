@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.controller.CreateEmployeeController;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.Scanner;
         private String idDocType;
         private String idDocNumber;
         private String taxpayerId;
-        private Job job;
+        private String selectedjob;
 
         public CreateEmployeeUI() { controller = new CreateEmployeeController();}
 
@@ -36,15 +37,18 @@ import java.util.Scanner;
         public void run() {
             System.out.println("\n\n--- Create Employee ------------------------");
 
-            Job selectedJob = displayAndSelectJob();
+            selectedjob = displayAndSelectJob();
             requestData();
+            if (reviewData()) {
+                submitData();
+            } else {
+                System.out.println("\nEmployee creation cancelled.");
+            }
 
-
-            submitData();
         }
 
         private void submitData() {
-            Optional<Employee> employee = getController().createEmployee(name,birthdate,admissionDate,street,city,zipCode,phone,email,idDocType,idDocNumber,taxpayerId, job);
+            Optional<Employee> employee = getController().createEmployee(name,birthdate,admissionDate,street,city,zipCode,phone,email,idDocType,idDocNumber,taxpayerId, selectedjob);
 
             if (employee.isPresent()) {
                 System.out.println("\nEmployee successfully created!");
@@ -82,7 +86,7 @@ import java.util.Scanner;
                 return LocalDate.parse(dateString, formatter);
             }
 
-        private Job displayAndSelectJob() {
+        private String displayAndSelectJob() {
             // Display the list of Jobs
             List<Job> job = controller.listAllJobs();
 
@@ -97,8 +101,7 @@ import java.util.Scanner;
                 answer = input.nextInt();
             }
 
-            Job selectedJob = job.get(answer - 1);
-            return selectedJob;
+            return job.get(answer - 1).getJobName();
         }
 
         private void displayJobOptions(List<Job> jobs) {
@@ -108,5 +111,25 @@ import java.util.Scanner;
                 System.out.println("  " + i + " - " + job.getJobName());
                 i++;
             }
+        }
+
+        private boolean reviewData() {
+            Scanner input = new Scanner(System.in);
+            System.out.println("\n--- Review Employee Data ---");
+            System.out.println("Name: " + name);
+            System.out.println("Birthdate: " + birthdate);
+            System.out.println("Admission Date: " + admissionDate);
+            System.out.println("Street: " + street);
+            System.out.println("City: " + city);
+            System.out.println("Zip Code: " + zipCode);
+            System.out.println("Phone: " + phone);
+            System.out.println("Email: " + email);
+            System.out.println("ID Document Type: " + idDocType);
+            System.out.println("ID Document Number: " + idDocNumber);
+            System.out.println("Taxpayer ID: " + taxpayerId);
+            System.out.println("Job: " + selectedjob);
+            System.out.print("\nIs the above information correct? (Y/N): ");
+            String answer = input.nextLine().trim().toLowerCase();
+            return answer.equals("y");
         }
     }
