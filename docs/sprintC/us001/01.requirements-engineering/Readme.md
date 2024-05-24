@@ -49,7 +49,9 @@ _"US04 - As an HRM, I want to assign one or more skills to a collaborator." depe
 
 ### 1.5 Input and Output Data
 
-Input - Skill.
+Input:
+
+Typed data: Skill.
 
 Output - List of collaborator's skills.
 

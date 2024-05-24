@@ -50,7 +50,13 @@ _US04 depends the US01._
 
 ### 1.5 Input and Output Data
 
-_Input - Collaborator's name; worker's role; skills to be assigned._ 
+_Input: 
+
+Typed data: Collaborator's name; 
+
+Selected data: Worker's role; 
+
+Selected: skills to be assigned._ 
 
 _Output - Updated record of collaborator skills._
 
