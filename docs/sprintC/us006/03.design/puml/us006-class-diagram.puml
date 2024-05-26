@@ -7,17 +7,68 @@ skinparam linetype polyline
 
 skinparam classAttributeIconSize 0
 
-left to right direction
+'left to right direction
 
 class CreateVehicleUI{
 }
 
-'class Organization {
-'    - vehiclesRepository: VehicleRepository
-'    - name: String
-'    - address: String
-'    - phoneNumber: String
-'}
+class CreateVehicleController {
+    + createVehicleController(employeeRepository, AuthenticationRepository)
+    + createVehicle(vehicle)
+}
+
+
+' --------------------------------------------
+'             REPOSITORIOS
+' --------------------------------------------
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getEmployeeRepository()
+    + getAuthenticationRepository()
+}
+
+class EmployeeRepository {
+    + getEmployeeByUserEmail(email)
+}
+
+class VehicleRepository {
+    - vehicles: List<Vehicle>
+    + getVehicleByIdPlate(plateId): Vehicle
+}
+
+class AuthenticationRepository
+{
+    + getCurrentUserSession()
+}
+
+
+' --------------------------------------------
+'             CLASSES "FINAIS" & DOMAIN
+' --------------------------------------------
+
+class Employee {
+    - String name
+    - String vatNumber
+    - String phone
+    - String email
+    - Address postalAddress
+    - addVehicle(vehicle)
+    - validateVehicle(vehicle)
+    + Employee(name, vatNumber, webSite, phone, email, postalAddress)
+    + createVehicle(vehicle)
+'    - getUserByEmail(email)
+}
+
+
+
+
+class UserSession
+{
+    + isLoggedInWithRole()
+    + getUserId()
+}
 
 class Vehicle {
     - plateID: String
@@ -27,42 +78,42 @@ class Vehicle {
     - type: String
     - tare: int
     - grossWeight: int
-    - current km:
+    - current km: int
     - register Date: String
     - acquisition Date: String
     - checkUpFrequencyInKms: int
-    + createVehicle ()
+'    + createVehicle ()
 
 }
 
-class Repositories {
-    - Repositories()
-    + getInstance() : Repositories
-    + getVehicleRepository()
-    + getAuthenticationRepository()
-
-}
-
-class CreateVehicleController {
-    + createVehicleController()
-}
-
-class VehicleRepository {
-    - vehicles: List<Vehicle>
-    + getVehicleByIdPlate(plateId: String): Vehicle
-}
 
 
 
-'Ligações
+' --------------------------------------------
+'             LIGAÇÕES
+' --------------------------------------------
 
-CreateVehicleUI ..> CreateVehicleController
-CreateVehicleController ---.> Repositories
-CreateVehicleController ----.>Vehicle
-Repositories -> Repositories : instance
-Repositories -> VehicleRepository
-CreateVehicleController -> VehicleRepository
-VehicleRepository --> Vehicle
+'Create Vehicle UI
+CreateVehicleUI -r..> CreateVehicleController
+
+'Create Vehicle Controller
+CreateVehicleController -r---.> Repositories :repositories
+'CreateVehicleController ----.>Vehicle
+'CreateVehicleController -> VehicleRepository
+
+'REPOSITORIES
+
+
+Repositories -r-> Repositories : instance
+Repositories -r-> "1" VehicleRepository
+Repositories -d-> "1" EmployeeRepository
+Repositories -u-> "1" AuthenticationRepository
+
+EmployeeRepository -> Employee : employees
+AuthenticationRepository -> UserSession : usersession
+VehicleRepository -> Employee
+Employee "1" -> "*" Vehicle  : identify
+
 
 
 
