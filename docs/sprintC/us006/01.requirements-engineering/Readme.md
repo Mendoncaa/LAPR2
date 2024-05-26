@@ -43,6 +43,7 @@ Gross Weight, Current Km, Register Date, Acquisition Date, Maintenance/Checkup F
 ### 1.5 Input and Output Data
 
 **Input Data:**
+* Typed Data
   * Brand
   * Model
   * Type

@@ -40,9 +40,11 @@ before register the vehicle's check up.
 ### 1.5 Input and Output Data
 
 **Input data:**
-  * Vehicle's ID;
+* Typed Data
   * Schedule's date;
   * Current Km's;
+* Selected Data
+  * Vehicle's ID
 
 **Output data**
 * (In)Success of the operation;
