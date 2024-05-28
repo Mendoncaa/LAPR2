@@ -25,13 +25,11 @@ class Repositories {
     + getAuthenticationRepository()
 }
 
-class AuthenticationRepository
-{
+class AuthenticationRepository {
     + getCurrentUserSession()
 }
 
-class UserSession
-{
+class UserSession {
     + isLoggedInWithRole()
     + getUserId()
 }
@@ -73,7 +71,7 @@ Repositories -> Repositories : instance
 CreateSkillUI .> CreateSkillController
 CreateSkillController .> Repositories : repositories
 Repositories --> "1" EmployeeRepository
-EmployeeRepository --> "*" Employee : organizations
+EmployeeRepository --> "*" Employee : employees
 AuthenticationRepository -> "1" UserSession : usersession
 Repositories --> "1" AuthenticationRepository
 Employee "1" --> "*" Skill : create

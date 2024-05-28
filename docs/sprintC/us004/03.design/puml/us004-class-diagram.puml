@@ -9,97 +9,89 @@ skinparam classAttributeIconSize 0
 
 'left to right direction
 
+
 class AssignSkillUI {
 }
 
 class AssignSkillController {
     - SkillRepository skillRepository
-    - TeamMemberRepository teamMemberRepository
-
-    'Constructor to initialize the controller with the SkillRepository and TeamMemberRepository'
-    + AssignSkillController(skillRepository: SkillRepository, teamMemberRepository: TeamMemberRepository)
-
-    'Method for assigning skills to a team member'
-    + assignSkillToTeamMember(teamMemberId: String, skillId: String): void
+    - EmployeeRepository employeeRepository
+    + AssignSkillController(skillRepository: SkillRepository, employeeRepository: EmployeeRepository)
+    + assignSkillToTeamMember(employeeId: String, skillId: String): void
 }
 
 class Repositories {
-    - static Repositories instance
-    - SkillRepository skillRepository
-    - TeamMemberRepository teamMemberRepository
-
-    'Private constructor to implement the Singleton pattern'
     - Repositories()
-
-    'Method to get Singleton instance from Repositories'
-    + static getInstance(): Repositories
-
-    'Method to obtain the skills repository'
+    + getInstance(): Repositories
+    + getEmployeeRepository(): EmployeeRepository
     + getSkillRepository(): SkillRepository
+    + getAuthenticationRepository(): AuthenticationRepository
+}
 
-    'Method to get team members repository'
-    + getTeamMemberRepository(): TeamMemberRepository
+class AuthenticationRepository {
+    + getCurrentUserSession()
+}
+
+class UserSession {
+    + isLoggedInWithRole()
+    + getUserId()
+}
+
+class Employee {
+    - String name
+    - String vatNumber
+    - String phone
+    - String email
+    - Address postalAddress
+    - addSkill(skill)
+    - validateSkill(skill)
+    + Employee(name, vatNumber, webSite, phone, email, postalAddress)
+    + createSkill(skill)
+    - getUserByEmail(email)
+
+}
+
+class TeamMember {
+    - String name
+    - String vatNumber
+    - String phone
+    - String email
+    - Address postalAddress
+    - addSkill(skill)
+    - validateSkill(skill)
+    + Employee(name, vatNumber, webSite, phone, email, postalAddress)
+    + createSkill(skill)
+    - getUserByEmail(email)
+}
+
+class EmployeeRepository {
+    + getEmployeeById(employeeId: String): Employee
+    + getEmployeeByUserEmail(email: String): Employee
 }
 
 class SkillRepository {
     - List<Skill> skills
-
-    'Constructor to initialize the skills repository'
     + SkillRepository()
-
-    'Returns a skill based on its ID'
     + getSkillById(skillId: String): Skill
-
-    'Add a new skill to the repository'
-    + addSkill(skill: Skill): void
-}
-
-class TeamMemberRepository {
-    - List<TeamMember> teamMembers
-
-    'Constructor to initialize the team member repository'
-    + TeamMemberRepository()
-
-    'Returns a team member based on their ID'
-    + getTeamMemberById(id: String): TeamMember
-
-    'Creates a new team member and adds it to the repository'
-    + createTeamMember(name: String): TeamMember
-
-    'Remove a team member from the repository'
-    + deleteTeamMember(id: String): void
-}
-
-class TeamMember {
-    - id: String
-    - name: String
-    - List<Skill> skills
-
-    'Constructor to create a new team member'
-    + TeamMember(name: String)
-
-    'Method for adding a skill to a team member'
     + addSkill(skill: Skill): void
 }
 
 class Skill {
-    - id: String
-    - name: String
-
-    'Constructor to create a new skill'
-    + Skill(name: String)
+    - String skillName
+    + Skill(skillName: String)
 }
 
+Repositories -> Repositories : instance
 AssignSkillUI .> AssignSkillController
-AssignSkillController .> Repositories
-AssignSkillController .> SkillRepository
-AssignSkillController .> TeamMemberRepository
-Repositories --> SkillRepository
-Repositories --> TeamMemberRepository
+AssignSkillController .> Repositories : repositories
+Repositories --> "1" AuthenticationRepository
+Repositories --> "1" EmployeeRepository
+Repositories --> "1" SkillRepository
+AuthenticationRepository --> UserSession
+EmployeeRepository --> Employee : employees
 SkillRepository --> Skill
-TeamMemberRepository --> TeamMember
-TeamMember ---> Skill
-
+Employee --> TeamMember : is a
+Skill --> TeamMember  : assigned to
 
 
 @enduml
