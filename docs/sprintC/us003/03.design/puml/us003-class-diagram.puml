@@ -97,7 +97,7 @@ AuthenticationRepository -> "1" UserSession : usersession
 Repositories --> "1" AuthenticationRepository
 Repositories --> "1" JobRepository
 JobRepository "1" --> "*" Job : aggregate
-Organization "1" --> "*" Employee : owns
+Organization "1" --> "*" Employee : employs
 Employee "1" -> "1" Job : have
 
 

@@ -37,12 +37,17 @@ import java.util.Scanner;
         public void run() {
             System.out.println("\n\n--- Create Employee ------------------------");
 
-            selectedjob = displayAndSelectJob();
-            requestData();
-            if (reviewData()) {
-                submitData();
-            } else {
-                System.out.println("\nEmployee creation cancelled.");
+            try{
+                selectedjob = displayAndSelectJob();
+                requestData();
+                if (reviewData()) {
+                    submitData();
+                } else {
+                    System.out.println("\nEmployee creation cancelled.");
+                }
+            }
+            catch (Exception e) {
+                System.out.println("An error occurred while creating the job: " + e.getMessage());
             }
 
         }

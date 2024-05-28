@@ -53,6 +53,29 @@ class Repositories {
     + getOrganizationRepository()
     + getAuthenticationRepository()
 }
+class Employee {
+    - String name
+    - Date birthdate
+    - Date admission date
+    - Address postalAddress
+    - String phone
+    - String email
+    - String ID doc type
+    - String ID document number
+    - String Taxpayer ID
+    - Job job
+    + CompareTo(TaxPayerID)
+    + Clone()
+    + toString()
+    + hasThisEmail(mail)
+}
+
+class EmployeeRepository{
+    -EmployeeRepository()
+    +addJob(Job job)
+    +listEmployees()
+    +emailExists(mail)
+}
 
 class CreateJobController {
     + CreateJobController(organizationRepository,AuthenticationRepository)
@@ -76,7 +99,12 @@ Repositories --> "1" OrganizationRepository
 OrganizationRepository --> "*" Organization : organizations
 AuthenticationRepository -> "1" UserSession : usersession
 Repositories --> "1" AuthenticationRepository
-Organization "1" --> "*" Job : identify
+Employee "1" --> "*" Job : creates
+Repositories "1" --> "1" EmployeeRepository
+Organization "1" --> "*" Employee : employs
+EmployeeRepository "1" --> "*" Employee : agreggates
+CreateJobController .> AuthenticationRepository
+Organization "1" --> "1" EmployeeRepository
 
 
 

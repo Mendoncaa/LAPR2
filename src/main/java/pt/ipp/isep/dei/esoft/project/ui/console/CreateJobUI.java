@@ -21,6 +21,7 @@ public class CreateJobUI implements Runnable {
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("\n\n--- Create Job ------------------------");
 
         try {
             System.out.print("Please enter the job name: ");
@@ -38,8 +39,6 @@ public class CreateJobUI implements Runnable {
             }
         } catch (Exception e) {
             System.out.println("An error occurred while creating the job: " + e.getMessage());
-        } finally {
-            scanner.nextLine();
         }
     }
 
