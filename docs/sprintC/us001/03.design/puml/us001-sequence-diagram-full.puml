@@ -11,65 +11,122 @@ participant ":CreateSkillUI" as UI
 participant ":CreateSkillController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "skillRepository\n:SkillRepository" as SkillRepository
-participant "teamMemberRepository\n:TeamMemberRepository" as TeamMemberRepository
-participant "skill\n:Skill" as Skill
+participant "AuthFacade\n:AuthenticationRepository" as AUTHREP
+participant "userSession\n:UserSession" as USER
+participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
+participant "organization\n:Organization" as ORG
+participant "Skill\n:Skill" as SKILL
 
 activate ADM
 
-    ADM -> UI : asks to create a new skill
-    activate UI
+        ADM -> UI : asks to create a new skill
+        activate UI
 
-    UI --> ADM : requests data (Name the skill))
+        UI --> ADM : requests data (Name the skill)
     deactivate UI
 
-    ADM -> UI : types requested data
+    ADM -> UI : types requested data (Skill name)
     activate UI
 
-    UI --> ADM : shows all data and requests confirmation
+        UI --> ADM : shows all data and requests confirmation
     deactivate UI
 
     ADM -> UI : confirms data
     activate UI
 
-    UI -> CTRL : createSkill(skillName)
-    activate CTRL
+        UI -> CTRL : createSkill(Skill name)
+        activate CTRL
 
-    CTRL -> Skill : new Skill(skillName)
-    activate Skill
-    CTRL <-- Skill : skill
-    deactivate Skill
+        CTRL -> CTRL : getUserFromSession()
 
-    CTRL -> RepositorySingleton : getInstance()
-    activate RepositorySingleton
-    CTRL <-- RepositorySingleton : Repositories
-    deactivate RepositorySingleton
+        CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+        CTRL <-- RepositorySingleton : Repositories
+        deactivate RepositorySingleton
 
-    CTRL -> PLAT : getSkillRepository()
-    activate PLAT
-    CTRL <-- PLAT : SkillRepository()
-    deactivate PLAT
+        CTRL -> PLAT : getAuthenticationRepository()
 
-    CTRL -> SkillRepository : addSkill(skill)
-    activate SkillRepository
-    CTRL <-- SkillRepository : success
-    deactivate SkillRepository
+        activate PLAT
+        CTRL <-- PLAT : AuthenticationRepository()
+        deactivate PLAT
 
-    CTRL -> PLAT : getTeamMemberRepository()
-    activate PLAT
-    CTRL <-- PLAT : TeamMemberRepository()
-    deactivate PLAT
 
-    CTRL -> TeamMemberRepository : addSkillToTeamMember(skill)
-    activate TeamMemberRepository
-    CTRL <-- TeamMemberRepository : success
-    deactivate TeamMemberRepository
 
-    CTRL --> UI : success
-    deactivate CTRL
+        CTRL -> AUTHREP : getCurrentUserSession()
 
-    UI --> ADM : displays operation success
-deactivate UI
+        activate AUTHREP
+
+
+
+
+        AUTHREP -> USER : isLoggedWithRule(HRM)
+
+        activate USER
+
+        AUTHREP <-- USER : "True/False"
+        AUTHREP --> USER : getUserId(email)
+        AUTHREP <-- USER : userId(email)
+        deactivate USER
+
+        CTRL <-- AUTHREP : userId(email)
+        deactivate AUTHREP
+
+        CTRL -> CTRL : getOrganizationByUserId(email)
+
+
+        CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+        CTRL <-- RepositorySingleton : Repositories
+        deactivate RepositorySingleton
+
+
+
+        CTRL -> PLAT : getOrganizationRepository()
+        activate PLAT
+        CTRL <-- PLAT : OrganizationRepository()
+        deactivate PLAT
+
+
+        CTRL -> OrganizationRepository :getOrganizationByUserId(email)
+        activate OrganizationRepository
+            loop for each organization
+            OrganizationRepository -> ORG : anyUserHasId(email)
+            activate ORG
+            OrganizationRepository <-- ORG : True/False
+            deactivate ORG
+            end loop
+
+        CTRL <-- OrganizationRepository : organitazion
+
+
+
+            CTRL -> ORG: createSkill(Skill name)
+            activate ORG
+
+                ORG -> SKILL**: create(skill)
+                note right of SKILL
+                  Skill constructor validates Skill name
+                endnote
+
+
+                activate ORG
+                    ORG -> ORG: addSkill(skill)
+                    ORG -> ORG: validateSkill(skill)
+
+                    deactivate ORG
+
+                    ORG --> ORG
+                    ORG --> ORG
+                deactivate ORG
+
+                ORG --> CTRL : skill
+
+            deactivate ORG
+
+            CTRL --> UI: skill
+            deactivate CTRL
+            UI --> ADM: displays operation success
+    deactivate UI
 
 deactivate ADM
 

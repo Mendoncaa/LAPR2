@@ -28,6 +28,24 @@ class Repositories {
     + getAuthenticationRepository(): AuthenticationRepository
 }
 
+class OrganizationRepository {
+    + getOrganizationByUserEmail(email)
+}
+
+class Organization {
+    - String name
+    - String vatNumber
+    - String phone
+    - String email
+    - Address postalAddress
+    - addSkill(skill)
+    - validateSkill(skill)
+    + Organization(name, vatNumber, webSite, phone, email, postalAddress)
+    + createSkill(skill)
+    - getUserByEmail(email)
+
+}
+
 class AuthenticationRepository {
     + getCurrentUserSession()
 }
@@ -39,16 +57,19 @@ class UserSession {
 
 class Employee {
     - String name
-    - String vatNumber
+    - Date birthdate
+    - Date admission date
+    - Address postalAddress
     - String phone
     - String email
-    - Address postalAddress
-    - addSkill(skill)
-    - validateSkill(skill)
-    + Employee(name, vatNumber, webSite, phone, email, postalAddress)
-    + createSkill(skill)
-    - getUserByEmail(email)
-
+    - String ID doc type
+    - String ID document number
+    - String Taxpayer ID
+    - Skill skill
+    + CompareTo(TaxPayerID)
+    + Clone()
+    + toString()
+    + hasThisEmail(mail)
 }
 
 class TeamMember {
@@ -64,9 +85,13 @@ class TeamMember {
     - getUserByEmail(email)
 }
 
+
 class EmployeeRepository {
-    + getEmployeeById(employeeId: String): Employee
-    + getEmployeeByUserEmail(email: String): Employee
+    - EmployeeRepository()
+    + addSkill(Skill skill)
+    + listEmployees()
+    + emailExists(mail)
+    + getEmployeeByUserEmail(email)
 }
 
 class SkillRepository {
@@ -83,6 +108,10 @@ class Skill {
 
 Repositories -> Repositories : instance
 AssignSkillUI .> AssignSkillController
+Repositories --> "1" OrganizationRepository
+OrganizationRepository --> "*" Organization : organizations
+Organization "1" --> "1" EmployeeRepository
+Organization  --> "*" Employee : employs
 AssignSkillController .> Repositories : repositories
 Repositories --> "1" AuthenticationRepository
 Repositories --> "1" EmployeeRepository

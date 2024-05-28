@@ -18,7 +18,7 @@ activate Employee
         System --> Employee : requests data (Name the skill)
     deactivate System
 
-    Employee -> System : types requested data
+    Employee -> System : types requested data (Skill name)
     activate System
 
     System --> Employee : shows all data and requests confirmation

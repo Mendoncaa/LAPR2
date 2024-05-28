@@ -34,8 +34,11 @@ class UserSession {
     + getUserId()
 }
 
+class OrganizationRepository {
+    + getOrganizationByUserEmail(email)
+}
 
-class Employee {
+class Organization {
     - String name
     - String vatNumber
     - String phone
@@ -43,15 +46,35 @@ class Employee {
     - Address postalAddress
     - addSkill(skill)
     - validateSkill(skill)
-    + Employee(name, vatNumber, webSite, phone, email, postalAddress)
+    + Organization(name, vatNumber, webSite, phone, email, postalAddress)
     + createSkill(skill)
     - getUserByEmail(email)
 
 }
 
-
 class EmployeeRepository {
+    - EmployeeRepository()
+    + addSkill(Skill skill)
+    + listEmployees()
+    + emailExists(mail)
     + getEmployeeByUserEmail(email)
+}
+
+class Employee {
+    - String name
+    - Date birthdate
+    - Date admission date
+    - Address postalAddress
+    - String phone
+    - String email
+    - String ID doc type
+    - String ID document number
+    - String Taxpayer ID
+    - Skill skill
+    + CompareTo(TaxPayerID)
+    + Clone()
+    + toString()
+    + hasThisEmail(mail)
 }
 
 
@@ -70,11 +93,16 @@ end note
 Repositories -> Repositories : instance
 CreateSkillUI .> CreateSkillController
 CreateSkillController .> Repositories : repositories
-Repositories --> "1" EmployeeRepository
-EmployeeRepository --> "*" Employee : employees
+Repositories --> "1" OrganizationRepository
+OrganizationRepository --> "*" Organization : organizations
 AuthenticationRepository -> "1" UserSession : usersession
 Repositories --> "1" AuthenticationRepository
-Employee "1" --> "*" Skill : create
+Employee "1" --> "*" Skill : creates
+Repositories "1" --> "1" EmployeeRepository
+Organization "1" --> "*" Employee : employs
+EmployeeRepository "1" --> "*" Employee : agreggates
+CreateSkillController .> AuthenticationRepository
+Organization "1" --> "1" EmployeeRepository
 
 
 
