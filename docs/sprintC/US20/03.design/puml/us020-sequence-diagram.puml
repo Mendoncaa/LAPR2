@@ -1,0 +1,90 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+actor "Green Space Manager" as GSM
+participant ":RegisterGreenSpaceUI" as UI
+participant ":RegisterGreenSpaceController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "GreenSpaceRepository:\nGreenSpaceRepository" as GSR
+participant "AuthFacade\n:AuthenticationRepository" as AUTHREP
+participant "userSession\n:UserSession" as USER
+participant "GreenSpace\n:GreenSpace" as GS
+
+activate GSM
+
+        GSM -> UI : requests to register a new green space
+        activate UI
+
+        UI --> GSM : requests data (Name, Size classification, Area, Address)
+    deactivate UI
+
+    GSM -> UI : types requested data (Name, Size classification, Area, Address)
+    activate UI
+
+    UI -> CTRL : registerGreenSpace(Name, Size classification, Area, Address)
+    activate CTRL
+
+        CTRL -> CTRL : getUserFromSession()
+
+        CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+        CTRL <-- RepositorySingleton : Repositories
+        deactivate RepositorySingleton
+
+        CTRL -> PLAT : getAuthenticationRepository()
+        activate PLAT
+        CTRL <-- PLAT : AuthenticationRepository()
+        deactivate PLAT
+
+        CTRL -> AUTHREP : getCurrentUserSession()
+        activate AUTHREP
+
+        AUTHREP -> USER : isLoggedWithRole(GSM)
+        activate USER
+
+        AUTHREP <-- USER : "True/False"
+        AUTHREP --> USER : getUserId(email)
+        AUTHREP <-- USER : userId(email)
+        deactivate USER
+
+        CTRL <-- AUTHREP : userId(email)
+        deactivate AUTHREP
+
+        CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+        CTRL <-- RepositorySingleton : Repositories
+        deactivate RepositorySingleton
+
+        CTRL -> PLAT : getGreenSpaceRepository()
+        activate PLAT
+        CTRL <-- PLAT : GreenSpaceRepository()
+        deactivate PLAT
+
+
+       
+    
+        CTRL -> GS : create(Name, Size classification, Area, Address)
+        activate GS
+        GS -> CTRL : GreenSpace instance
+        deactivate GS
+
+        CTRL -> GSR : save(GreenSpace instance)
+        activate GSR
+        GSR --> CTRL : success
+        deactivate GSR
+
+        CTRL --> UI : operation success
+        
+    deactivate CTRL
+
+    UI --> GSM : Display success message
+    deactivate UI
+
+deactivate GSM
+
+@enduml
