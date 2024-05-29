@@ -1,0 +1,17 @@
+@startuml
+
+hide methods
+hide circle
+hide empty attributes
+skinparam linetype polyline
+
+
+class GreenSpaces {
+  -type
+}
+
+GreenSpaces "*1..*"---"1...*" Garden : is a >
+GreenSpaces "*1..*"---"1...*" MediumSizedPark : is a >
+GreenSpaces "*1..*"---"1...*" LargeSizedPark : is a >
+
+@enduml
