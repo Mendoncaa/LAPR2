@@ -1,16 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 public class GreenSpace {
-    public enum SizeClassification {
-        GARDEN, MEDIUM_SIZED_PARK, LARGE_SIZED_PARK;
-    }
+
     private String name;
     private SizeClassification sizeClassification;
-    private float area;
+    private double area;
     private String address;
 
 
-    private GreenSpace(String name, SizeClassification sizeClassification, float area, String address) {
+    public GreenSpace(String name, SizeClassification sizeClassification, double area, String address) {
         this.name = name;
         this.sizeClassification = sizeClassification;
         this.area = area;
@@ -28,7 +26,7 @@ public class GreenSpace {
     }
 
 
-    public float getArea() {
+    public double getArea() {
         return area;
     }
 

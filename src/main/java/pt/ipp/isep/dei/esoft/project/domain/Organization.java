@@ -26,7 +26,7 @@ public class Organization {
         this.jobRepository = jobRepository;
     }
 
-    public Employee createEmployee(String name, LocalDate birthdate, LocalDate admissionDate, String street, String city, String zipCode, String phone, String email, String idDocType, String idDocNumber, String taxpayerId, String selectedJob) {
+    public Employee createEmployee(String name, LocalDate birthdate, LocalDate admissionDate, String street, String city, String zipCode, String phone, String email, String idDocType, String idDocNumber, String taxpayerId, Job selectedJob) {
         Job job = null;
 
         for (Job existingJob : jobRepository.listAllJobs()) {

@@ -28,7 +28,7 @@ import java.util.Scanner;
         private String idDocType;
         private String idDocNumber;
         private String taxpayerId;
-        private String selectedjob;
+        private Job selectedjob;
 
         public CreateEmployeeUI() { controller = new CreateEmployeeController();}
 
@@ -91,7 +91,7 @@ import java.util.Scanner;
                 return LocalDate.parse(dateString, formatter);
             }
 
-        private String displayAndSelectJob() {
+        private Job displayAndSelectJob() {
             // Display the list of Jobs
             List<Job> job = controller.listAllJobs();
 
@@ -106,7 +106,7 @@ import java.util.Scanner;
                 answer = input.nextInt();
             }
 
-            return job.get(answer - 1).getJobName();
+            return job.get(answer - 1);
         }
 
         private void displayJobOptions(List<Job> jobs) {

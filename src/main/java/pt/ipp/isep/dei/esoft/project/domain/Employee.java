@@ -50,7 +50,7 @@ public class Employee implements Comparable<Employee> {
         setIdDocType(idDocType);
         setIdDocNumber(idDocNumber);
         setTaxpayerId(taxpayerId);
-        Job selectedJob=job;
+        this.job = job;
     }
 
 
@@ -171,6 +171,11 @@ public class Employee implements Comparable<Employee> {
 
     public Job getJob() {
         return job;
+    }
+
+
+    public GreenSpace createGreenSpace(String name, SizeClassification sizeClassification, double area, String address) {
+        return new GreenSpace(name, sizeClassification, area, address);
     }
 
 

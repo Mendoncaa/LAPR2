@@ -48,4 +48,12 @@ public class Job implements Comparable<Job>{
     public int compareTo(Job other) {
         return this.jobName.compareTo(other.jobName);
     }
+
+
+    @Override
+    public String toString() {
+        return "Job{" +
+                "jobName='" + jobName + '\'' +
+                '}';
+    }
 }

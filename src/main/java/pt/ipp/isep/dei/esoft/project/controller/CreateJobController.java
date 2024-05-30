@@ -17,6 +17,7 @@ public class CreateJobController {
 
     private JobRepository jobRepository;
     private Organization organization;
+    private EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
 
     /**
      * Creates a new job if the user is logged in with the HRM role.
@@ -28,11 +29,12 @@ public class CreateJobController {
     public Optional<Job> createJob(String jobName) throws IllegalArgumentException {
         Repositories repositories = Repositories.getInstance();
         UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
-        
 
         if (userSession.isLoggedInWithRole("Hrm")) {
             String userEmail = userSession.getUserId().getEmail();
-            Optional<Organization> organizationOptional = repositories.getOrganizationRepository().getOrganizationByEmployeeEmail(userEmail);
+            Optional<Organization> organizationOptional = repositories.getOrganizationRepository().
+            getOrganizationByEmployeeEmail(userEmail);
+
 
             if (organizationOptional.isPresent()) {
                 Organization organization = organizationOptional.get();

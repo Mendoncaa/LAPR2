@@ -27,6 +27,7 @@ public class Bootstrap implements Runnable {
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();
         SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
         VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
+        GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
 
         Organization organization = new Organization("MusgoSublime", employeeRepository, jobRepository);
         Job job = new Job("Human Resources Manager");
@@ -45,9 +46,29 @@ public class Bootstrap implements Runnable {
                 "CC",
                 "12345678",
                 "123456789",
-                "Human Resources Manager");
+                job);
 
         employeeRepository.addEmployee(hrm);
+
+        Job job2 = new Job("Green Space Manager");
+        jobRepository.addJob(job2);
+
+        Employee gsm = organization.createEmployee(
+                "Zé",
+                LocalDate.of(1991, 1, 1),
+                LocalDate.of(2020, 12, 31),
+                "Rua da Morada 01",
+                "Porto",
+                "4000-050",
+                "987654322",
+                "gsm@this.app",
+                "CC",
+                "12345677",
+                "987654321",
+                job2);
+
+        employeeRepository.addEmployee(gsm);
+
         organizationRepository.add(organization);
 
         Skill skill1 = new Skill("Trolha");

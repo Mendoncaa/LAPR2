@@ -49,5 +49,14 @@ public class EmployeeRepository {
         }
         return false;
     }
+
+    public Employee getEmployeeById(String email) {
+        for (Employee employee : employees) {
+            if (employee.getEmail().equalsIgnoreCase(email)) {
+                return employee;
+            }
+        }
+        throw new IllegalArgumentException("Employee not found in this organization with the e-mail: " + email);
+    }
 }
 
