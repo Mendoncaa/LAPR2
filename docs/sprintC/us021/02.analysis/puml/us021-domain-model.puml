@@ -1,0 +1,34 @@
+@startuml
+
+hide methods
+hide circle
+hide empty attributes
+skinparam linetype polyline
+
+class Employee {
+}
+
+class GSM {
+}
+
+class Tasks {
+  - taskCategory 
+  - title
+  - description
+  - urgency
+  - status
+}
+
+
+class GreenSpaces {
+  -type
+  - name
+  - address
+}
+
+Employee "1"---"1..*" GSM : is a <
+Employee "1"---"0..*" Tasks: manages > 
+Tasks "1..*"---"1..*" GreenSpaces : relates to >
+Employee "1"---"1" GreenSpaces : manages >
+
+@enduml
