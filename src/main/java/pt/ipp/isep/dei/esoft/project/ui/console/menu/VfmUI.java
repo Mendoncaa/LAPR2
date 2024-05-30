@@ -11,12 +11,12 @@ import java.util.List;
  * VFMUI class represents the user interface for Vehicle and Equipment Fleet Management (VFM) system.
  * It provides a menu-driven interface to interact with different functionalities of the system.
  */
-public class VFMUI {
+public class VfmUI implements Runnable {
 
     /**
      * Constructs a new VFMUI object.
      */
-    public VFMUI() {
+    public VfmUI() {
     }
 
     /**
