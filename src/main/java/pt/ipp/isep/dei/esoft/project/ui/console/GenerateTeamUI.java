@@ -61,7 +61,6 @@ public class GenerateTeamUI implements Runnable {
 
 
             System.out.println(team);
-            System.out.println("hello");
             System.out.println("  1 - Accept Team");
             System.out.println("  2 - Reject Team");
 
