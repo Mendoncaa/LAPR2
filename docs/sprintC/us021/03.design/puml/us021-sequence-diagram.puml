@@ -11,6 +11,7 @@ participant ":ToDoListController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
 participant "TaskRepository:\nTaskRepository" as TASKREP
+participant "GreenSpaceRepository:\nGreenSpaceRepository" as GSR
 participant "AuthFacade\n:AuthenticationRepository" as AUTHREP
 participant "userSession\n:UserSession" as USER
 
@@ -18,19 +19,66 @@ participant "EmployeeRepository\n:EmployeeRepository" as EMPREP
 participant "Employee\n:Employee" as EMP
 participant "OrganizationRepository\n:OrganizationRepository" as ORGREP
 participant "Organization\n:Organization" as ORG
+participant "Task\n:Task" as TASK
 
 activate GSM
 
-        GSM -> UI : requests to add a new To-Do List entry
-        activate UI
-
-        UI --> GSM : requests data (Title, Description, Green Space, Degree of Urgency, Expected Duration)
-    deactivate UI
-
-    GSM -> UI : types requested data
+    GSM -> UI : requests to add a new To-Do List entry
     activate UI
 
-    UI -> CTRL : addNewTask(title, description, greenSpace, urgency, duration)
+    UI -> CTRL : getAvailableTasks()
+    activate CTRL
+
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
+    CTRL <-- RepositorySingleton : Repositories
+    deactivate RepositorySingleton
+
+    CTRL -> PLAT : getTaskRepository()
+    activate PLAT
+    CTRL <-- PLAT : TaskRepository()
+    deactivate PLAT
+
+    CTRL -> TASKREP : getAllTasks()
+    activate TASKREP
+    CTRL <-- TASKREP : taskList
+    deactivate TASKREP
+
+    UI <-- CTRL : display taskList for selection
+    deactivate CTRL
+
+    GSM -> UI : selects a task from taskList
+    activate UI
+
+    UI -> CTRL : getAvailableGreenSpaces()
+    activate CTRL
+
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
+    CTRL <-- RepositorySingleton : Repositories
+    deactivate RepositorySingleton
+
+    CTRL -> PLAT : getGreenSpaceRepository()
+    activate PLAT
+    CTRL <-- PLAT : GreenSpaceRepository()
+    deactivate PLAT
+
+    CTRL -> GSR : getAllGreenSpaces()
+    activate GSR
+    CTRL <-- GSR : greenSpaceList
+    deactivate GSR
+
+    UI <-- CTRL : display greenSpaceList for selection
+    deactivate CTRL
+
+    GSM -> UI : selects a green space from greenSpaceList
+    activate UI
+
+    UI -> GSM : display urgency options (High, Medium, Low)
+    GSM -> UI : selects urgency option
+    activate UI
+
+    UI -> CTRL : addNewToDoListEntry(selectedTask, selectedGreenSpace, selectedUrgency, duration)
     activate CTRL
 
         CTRL -> CTRL : getUserFromSession()
@@ -92,34 +140,34 @@ activate GSM
         end
         EMPREP --> CTRL : employee
 
-        CTRL -> EMP : createTask(title, description, greenSpace, urgency, duration)
+        CTRL -> EMP : createToDoListEntry(selectedTask, selectedGreenSpace, selectedUrgency, duration)
         activate EMP
-        EMP -> CTRL : Task instance
+        EMP -> CTRL : ToDoListEntry instance
         deactivate EMP
 
-        EMP -> TASK : create(Task instance)
-                note right of TASK
-                  Task constructor validates task data
-                endnote
+        EMP -> TASK : addToDoListEntry(ToDoListEntry instance)
+            note right of TASK
+              Task constructor validates task data
+            endnote
 
-                activate EMP
-                    EMP -> EMP : validateTask(Task)
+            activate EMP
+                EMP -> EMP : validateToDoListEntry(ToDoListEntry)
 
-                    deactivate EMP
+                deactivate EMP
 
-                EMP --> CTRL : Task
+            EMP --> CTRL : ToDoListEntry
 
-        CTRL -> TASKREP : save(Task instance)
+        CTRL -> TASKREP : save(ToDoListEntry instance)
         activate TASKREP
         TASKREP --> CTRL : success
         deactivate TASKREP
 
         CTRL --> UI : operation success
-        
-    deactivate CTRL
+    
+deactivate CTRL
 
-    UI --> GSM : Display success message
-    deactivate UI
+UI --> GSM : Display success message
+deactivate UI
 
 deactivate GSM
 

@@ -70,11 +70,11 @@ There is a dependency on:
 **Input Data:**
 
 * Typed data:
-  - Title of the task
   - Description of the task
   - Approximate expected duration (in hours or days)
 
 * Selected data:
+  - Title of the task
   - Green space
   - Degree of urgency (High, Medium, Low)
 
