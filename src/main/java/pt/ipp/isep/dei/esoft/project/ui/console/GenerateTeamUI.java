@@ -46,7 +46,13 @@ public class GenerateTeamUI implements Runnable {
 
             Team team = generateTeamController.getGenerateTeam(min, max, skills);
 
-            if (team.getTeamMembers().size() < min) {
+
+            if (team.getTeamMembers() == null) {
+
+                System.out.println("  No team has been generated!!!");
+                continue;
+
+            } else if (team.getTeamMembers().size() < min) {
 
                 System.out.println("  No employees available to join the team for now!!!");
                 continue;
@@ -55,7 +61,7 @@ public class GenerateTeamUI implements Runnable {
 
 
             System.out.println(team);
-
+            System.out.println("hello");
             System.out.println("  1 - Accept Team");
             System.out.println("  2 - Reject Team");
 

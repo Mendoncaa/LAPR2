@@ -1,10 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
-import pt.ipp.isep.dei.esoft.project.domain.Employee;
-import pt.ipp.isep.dei.esoft.project.domain.Job;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 import pt.ipp.isep.dei.esoft.project.controller.authorization.AuthenticationController;
-import pt.ipp.isep.dei.esoft.project.domain.Organization;
+import pt.ipp.isep.dei.esoft.project.ui.console.menu.VfmUI;
 
 import java.sql.ClientInfoStatus;
 import java.time.LocalDate;
@@ -26,6 +25,8 @@ public class Bootstrap implements Runnable {
         OrganizationRepository organizationRepository = Repositories.getInstance().getOrganizationRepository();
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();
+        SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
+        VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
 
         Organization organization = new Organization("MusgoSublime", employeeRepository, jobRepository);
         Job job = new Job("Human Resources Manager");
@@ -49,7 +50,22 @@ public class Bootstrap implements Runnable {
         employeeRepository.addEmployee(hrm);
         organizationRepository.add(organization);
 
+        Skill skill1 = new Skill("Trolha");
+        skillRepository.addSkill(skill1);
 
+        Vehicle vehicle1 = new Vehicle(
+                "ABC1234",
+                "Toyota",
+                "Corolla",
+                "Sedan",
+                1300,
+                1800,
+                50000,
+                "2020-05-20",
+                "2020-01-15",
+                10000
+        );
+        vehicleRepository.addVehicle(vehicle1);
     }
 
 
@@ -62,6 +78,7 @@ public class Bootstrap implements Runnable {
         authenticationRepository.addUserRole(AuthenticationController.ROLE_EMPLOYEE, AuthenticationController.ROLE_EMPLOYEE);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_HRM, AuthenticationController.ROLE_HRM);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_VFM, AuthenticationController.ROLE_VFM);
+        authenticationRepository.addUserRole(AuthenticationController.ROLE_GSM, AuthenticationController.ROLE_GSM);
 
         authenticationRepository.addUserWithRole("Main Administrator", "admin@this.app", "admin",
                 AuthenticationController.ROLE_ADMIN);
@@ -71,5 +88,7 @@ public class Bootstrap implements Runnable {
                 AuthenticationController.ROLE_HRM);
         authenticationRepository.addUserWithRole("Vfm", "vfm@this.app", "vfm",
                 AuthenticationController.ROLE_VFM);
+        authenticationRepository.addUserWithRole("Gsm", "gsm@this.app", "gsm",
+                AuthenticationController.ROLE_GSM);
     }
 }
