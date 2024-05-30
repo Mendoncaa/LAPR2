@@ -18,6 +18,7 @@ class AssignSkillController {
     - EmployeeRepository employeeRepository
     + AssignSkillController(skillRepository: SkillRepository, employeeRepository: EmployeeRepository)
     + assignSkillToTeamMember(employeeId: String, skillId: String): void
+    +listEmployee()
 }
 
 class Repositories {
@@ -41,7 +42,6 @@ class Organization {
     - addSkill(skill)
     - validateSkill(skill)
     + Organization(name, vatNumber, webSite, phone, email, postalAddress)
-    + createSkill(skill)
     - getUserByEmail(email)
 
 }
@@ -70,6 +70,8 @@ class Employee {
     + Clone()
     + toString()
     + hasThisEmail(mail)
+    + createSkill(skill)
+    + addTeamMemberSkill ()
 }
 
 class TeamMember {
@@ -99,6 +101,7 @@ class SkillRepository {
     + SkillRepository()
     + getSkillById(skillId: String): Skill
     + addSkill(skill: Skill): void
+    + getSkillList()
 }
 
 class Skill {
@@ -121,6 +124,7 @@ EmployeeRepository --> Employee : employees
 SkillRepository --> Skill
 Employee --> TeamMember : is a
 Skill --> TeamMember  : assigned to
+Organization "1" --> "1" SkillRepository
 
 
 @enduml

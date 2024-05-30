@@ -50,17 +50,10 @@ activate ADM
         CTRL <-- PLAT : AuthenticationRepository()
         deactivate PLAT
 
-
-
         CTRL -> AUTHREP : getCurrentUserSession()
-
         activate AUTHREP
 
-
-
-
         AUTHREP -> USER : isLoggedWithRule(HRM)
-
         activate USER
 
         AUTHREP <-- USER : "True/False"

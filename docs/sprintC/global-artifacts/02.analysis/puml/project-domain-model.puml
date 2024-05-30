@@ -52,7 +52,8 @@ class Teams {
 }
 
 class Tasks {
-  - taskCategory 
+  - taskCategory
+  - toDoList
 }
 
 class Agenda {

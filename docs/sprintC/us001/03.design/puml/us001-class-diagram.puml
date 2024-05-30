@@ -47,7 +47,6 @@ class Organization {
     - addSkill(skill)
     - validateSkill(skill)
     + Organization(name, vatNumber, webSite, phone, email, postalAddress)
-    + createSkill(skill)
     - getUserByEmail(email)
 
 }
@@ -75,6 +74,7 @@ class Employee {
     + Clone()
     + toString()
     + hasThisEmail(mail)
+    + createSkill(skill)
 }
 
 

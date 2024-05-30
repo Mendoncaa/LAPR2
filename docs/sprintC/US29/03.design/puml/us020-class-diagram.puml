@@ -1,0 +1,55 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+class AuthenticationRepository
+{
+    + getCurrentUserSession()
+}
+
+class GreenSpace {
+    - String name
+    - String sizeClassification
+    - float area
+    - String address
+    + GreenSpace(name, sizeClassification, area, address)
+}
+
+class GreenSpaceRepository {
+    + checkIfNameExists(name)
+    + save(GreenSpace)
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getGreenSpaceRepository()
+    + getAuthenticationRepository()
+}
+
+class RegisterGreenSpaceController {
+    + RegisterGreenSpaceController()
+    + registerGreenSpace(name, sizeClassification, area, address)
+}
+
+class RegisterGreenSpaceUI {
+}
+
+note left of RegisterGreenSpaceController
+    - userEmail and userRole is obtained
+    from the user session.
+end note
+
+Repositories -> Repositories : instance
+RegisterGreenSpaceUI .> RegisterGreenSpaceController
+RegisterGreenSpaceController .> Repositories : repositories
+Repositories --> "1" GreenSpaceRepository
+Repositories --> "1" AuthenticationRepository
+GreenSpaceRepository "1" --> "*" GreenSpace : stores
+
+@enduml

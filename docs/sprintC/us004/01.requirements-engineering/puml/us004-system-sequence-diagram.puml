@@ -21,7 +21,7 @@ activate Employee
     Employee -> System : Choose collaborator
     activate System
 
-        System --> Employee : Confirms collaborator choice and shows skills list, asks to select one or more
+        System --> Employee : Shows skills list, asks to select one or more
     deactivate System
 
     Employee -> System : Selects one or more skills
@@ -30,7 +30,7 @@ activate Employee
         System --> Employee : Shows all data and requests confirmation
     deactivate System
 
-    Employee -> System : Confirms data
+    Employee -> System : Confirms collaborator and skill assigned
     activate System
 
         System --> Employee : Displays operation success
