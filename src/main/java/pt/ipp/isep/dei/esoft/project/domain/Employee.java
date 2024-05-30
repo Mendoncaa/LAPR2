@@ -197,7 +197,7 @@ public class Employee implements Comparable<Employee> {
                 ", idDocType='" + idDocType + '\'' +
                 ", idDocNumber='" + idDocNumber + '\'' +
                 ", taxpayerId='" + taxpayerId + '\'' +
-                ", job=" + job +
+                ", " + job.toString() +
                 '}';
     }
 

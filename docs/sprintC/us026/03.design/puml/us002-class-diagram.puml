@@ -34,15 +34,17 @@ class Organization {
     - String phone
     - String email
     - Address postalAddress
+    - addJob(job)
+    - validateJob(job)
     + Organization(name, vatNumber, webSite, phone, email, postalAddress)
-    + getEmployeeByUserID(email)
-    + anyEmployeeHasThisUserId(email)
+    + createJob(job)
+    - getUserByEmail(email)
 
 }
 
 
 class OrganizationRepository {
-    + getOrganizationByUserID(email)
+    + getOrganizationByUserEmail(email)
 }
 
 class Repositories {
@@ -66,17 +68,13 @@ class Employee {
     + Clone()
     + toString()
     + hasThisEmail(mail)
-    + createJob(job)
-    + addJob(job)
-    + validateJob(job)
 }
 
 class EmployeeRepository{
-    - EmployeeRepository()
-    + addJob(Job job)
-    + listEmployees()
-    + getEmployeeByUserID(email)
-    + anyEmployeeHasThisUserId(email)
+    -EmployeeRepository()
+    +addJob(Job job)
+    +listEmployees()
+    +emailExists(mail)
 }
 
 class CreateJobController {

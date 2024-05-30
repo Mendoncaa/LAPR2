@@ -8,15 +8,15 @@
 | Interaction ID                             | Question: Which class is responsible for...                 | Answer              | Justification (with patterns)                                                                       |
 |:-------------------------------------------|:------------------------------------------------------------|:--------------------|:----------------------------------------------------------------------------------------------------|
 | Step 1 - ask to create a new Job 		  | ... interacting with the actor?                             | CreateJobUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the DM. |
-|                                            | ... coordinating the US?                                    | CreateJobController | Controller                                                                                          |
+|                                            | ... coordinating the US?                                    | CreateJobController | Pure Fabrication(System Interaction Controller)                                                     |
 | Step 2 - requests data                     | ... displaying form for actor input?                        | CreateJobUI         | Pure Fabrication(Interation with Actor)                                                             |
 | Step 3 - types requested data              | ... temporaly keeping input data?                           | CreateJobUI         | Pure Fabrication(Interation with Actor)                                                             | 
 | Step 4 - show data an request confirmation | ... displaying all the information before submitting?       | CreateJobUI         | Pure Fabrication(Interation with Actor)                                                             |
 | Step 5 - confirms data			          | ... knowing the user using the system?                      | UserSession         | IE: see Auth component documentation.                                                               |        
-| 	                                          | ... instantiating a new Job (Object)?                       | Employee            | Creator (Rule 1/2): in the DM Employee owns/create/uses Jobs list.                                  |
+| 	                                          | ... instantiating a new Job (Object)?                       | Organization        | Creator (Rule 1): in the DM Organization owns Jobs list.                                            |
 |   		                                  | ... validating all data (local validation,i.e.mandatory)?   | Job                 | IE: owns its data.                                                                                  |
-| 		                                      | ... validating all data (global validation,i.e.duplicates)? | Employee            | IE: knows all its jobs.                                                                             |
-| 			  		                          | ... saving the created job?                                 | Employee            | IE: owns all its jobs.                                                                              |
+| 		                                      | ... validating all data (global validation,i.e.duplicates)? | Organization        | IE: knows all its jobs.                                                                             |
+| 			  		                          | ... saving the created job?                                 | Organization        | IE: owns all its jobs.                                                                              |
 | 		                                      | ... saving the inputted data?                               | Job                 | IE: object created previously has its own data.                                                     |
 | Step 6 - dysplay operation sucess	  	  | ... information operation sucess?                           | CreateJobUI         | PureFabrication(Interation with Actor)                                                              |              
 
@@ -25,7 +25,7 @@
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
-* Employee
+* Organization
 * Job
 
 Other software classes (i.e. Pure Fabrication) identified: 

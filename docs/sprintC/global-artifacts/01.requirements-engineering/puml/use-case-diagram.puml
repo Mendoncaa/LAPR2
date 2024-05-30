@@ -3,6 +3,8 @@
 left to right direction
 actor "Human Resource Manager" as HR
 actor "Fleet Manager" as FM
+actor "Green Spaces Manager" as GSM
+
 rectangle "Sprint A" {
   usecase "UC01 - Register skills" as UC01
   usecase "UC02 - Register jobs" as UC02
@@ -14,6 +16,13 @@ rectangle "Sprint A" {
   usecase "UC08 - List vehicles with pending maintenances" as UC08
 }
 
+rectangle "Sprint C"{
+  usecase "UC26 - Assign one or more vehicles to an entry in the Agenda" as UC26
+  usecase "UC27 - List all green spaces managed by me" as UC27
+}
+
+
+
 HR --> UC01
 HR --> UC02
 HR --> UC03
@@ -22,5 +31,8 @@ HR --> UC05
 FM --> UC06
 FM --> UC07
 FM --> UC08
+
+GSM --> UC26
+GSM --> UC27
 
 @enduml

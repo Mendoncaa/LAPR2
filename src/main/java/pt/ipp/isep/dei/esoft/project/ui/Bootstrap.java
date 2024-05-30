@@ -32,6 +32,8 @@ public class Bootstrap implements Runnable {
         Organization organization = new Organization("MusgoSublime", employeeRepository, jobRepository);
         Job job = new Job("Human Resources Manager");
         jobRepository.addJob(job);
+        Job job2 = new Job("Green Space Manager");
+        jobRepository.addJob(job2);
 
 
         Employee hrm = organization.createEmployee(
@@ -50,8 +52,6 @@ public class Bootstrap implements Runnable {
 
         employeeRepository.addEmployee(hrm);
 
-        Job job2 = new Job("Green Space Manager");
-        jobRepository.addJob(job2);
 
         Employee gsm = organization.createEmployee(
                 "Zé",

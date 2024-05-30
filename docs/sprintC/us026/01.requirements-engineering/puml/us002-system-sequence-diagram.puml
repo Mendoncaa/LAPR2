@@ -1,0 +1,39 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US026 - As a GSM, I want to assign one or more vehicles\n to an entry in the Agenda.\nSystem Sequence Diagram (SSD)
+
+autonumber
+
+actor "Green Spaces\n Manager" as Employee
+participant ":System" as System
+
+activate Employee
+
+    Employee -> System : asks to assign vehicles to an entry in the Agenda.
+    activate System
+
+        System --> Employee : List tasks in the Agenda and ask to select one
+    deactivate System
+
+    Employee -> System : Selects task
+    activate System
+
+        System --> Employee : List all available vehicles that can be selected
+    deactivate System
+
+    Employee -> System : Selects vehicles
+        activate System
+
+        System --> Employee : Show data and request confirmation
+    deactivate System
+
+    Employee -> System : Confirms data
+        activate System
+
+            System --> Employee : displays operation success
+        deactivate System
+
+@enduml

@@ -27,16 +27,7 @@ public class Organization {
     }
 
     public Employee createEmployee(String name, LocalDate birthdate, LocalDate admissionDate, String street, String city, String zipCode, String phone, String email, String idDocType, String idDocNumber, String taxpayerId, Job selectedJob) {
-        Job job = null;
-
-        for (Job existingJob : jobRepository.listAllJobs()) {
-            if (existingJob.getJobName().equals(selectedJob)) {
-                job = existingJob;
-                break;
-            }
-        }
-
-        Employee employee = new Employee(name, birthdate, admissionDate, street, city, zipCode, phone, email, idDocType, idDocNumber, taxpayerId, job);
+        Employee employee = new Employee(name, birthdate, admissionDate, street, city, zipCode, phone, email, idDocType, idDocNumber, taxpayerId, selectedJob);
         return employee.clone();
     }
 

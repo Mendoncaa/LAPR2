@@ -132,7 +132,7 @@ import java.util.Scanner;
             System.out.println("ID Document Type: " + idDocType);
             System.out.println("ID Document Number: " + idDocNumber);
             System.out.println("Taxpayer ID: " + taxpayerId);
-            System.out.println("Job: " + selectedjob);
+            System.out.println(selectedjob.toString());
             System.out.print("\nIs the above information correct? (Y/N): ");
             String answer = input.nextLine().trim().toLowerCase();
             return answer.equals("y");

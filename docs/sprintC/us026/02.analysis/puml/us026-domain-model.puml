@@ -1,0 +1,37 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+left to right direction
+
+title "US026 - As a GSM, I want to assign one or more vehicles to an entry in the Agenda." Domain Model
+
+class GSM {
+}
+
+class Vehicles {
+  - NumberPlate
+}
+
+
+
+class Tasks {
+  - Name
+  - Agenda
+  - Team
+  - Vehicles
+}
+
+Tasks "1"---"0..*" Vehicles : are assigned <
+GSM "1"---"1..*" Tasks : manages >
+
+
+@enduml

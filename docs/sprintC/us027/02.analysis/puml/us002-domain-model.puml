@@ -1,0 +1,26 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+left to right direction
+
+title "US002 - Register a Job" Domain Model
+
+class HRM {
+}
+
+class Job {
+  - name
+}
+
+HRM "1"---"1..*" Job : creates >
+
+@enduml

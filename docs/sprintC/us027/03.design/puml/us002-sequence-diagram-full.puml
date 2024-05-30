@@ -16,11 +16,6 @@ participant "userSession\n:UserSession" as USER
 participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
 participant "organization\n:Organization" as ORG
 participant "Job\n:Job" as JOB
-participant "employeeRepository:\nEmployeeRepository" as EMPREP
-participant "employee\n:Employee" as EMP
-
-
-
 
 activate ADM
 
@@ -95,31 +90,13 @@ activate ADM
         CTRL -> OrganizationRepository :getOrganizationByUserId(email)
         activate OrganizationRepository
             loop for each organization
-            OrganizationRepository -> ORG : anyEmployeeHasThisUserId(email)
+            OrganizationRepository -> ORG : anyUserHasId(email)
             activate ORG
-
             OrganizationRepository <-- ORG : True/False
             deactivate ORG
             end loop
 
         CTRL <-- OrganizationRepository : organitazion
-
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
-                CTRL <-- RepositorySingleton : Repositories
-                deactivate RepositorySingleton
-
-        CTRL -> EMPREP :getEmployeeByUserId(email)
-                activate EMPREP
-                    loop for each employee
-                    EMPREP -> EMP : anyEmployeeHasThisUserId(email)
-                    activate EMP
-                    EMPREP <-- EMP : True/False
-                    deactivate EMP
-                    end loop
-
-                CTRL <-- EMPREP : employee
-                deactivate EMPREP
 
 
 

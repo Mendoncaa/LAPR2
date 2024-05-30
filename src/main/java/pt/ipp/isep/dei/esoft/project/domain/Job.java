@@ -52,8 +52,6 @@ public class Job implements Comparable<Job>{
 
     @Override
     public String toString() {
-        return "Job{" +
-                "jobName='" + jobName + '\'' +
-                '}';
+        return ("job=" + jobName);
     }
 }
