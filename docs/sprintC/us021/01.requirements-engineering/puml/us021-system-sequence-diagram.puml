@@ -18,7 +18,7 @@ activate GSM
         System --> GSM : requests data (Title, Description, Green Space, Degree of Urgency, Expected Duration)
     deactivate System
 
-    GSM -> System : types requested data (selects Green Space,degree of urgency, and Title from a list, types the rest of the data)
+    GSM -> System : types requested data (selects Green Space,degree of urgency, types the rest of the data)
     activate System
 
         System --> GSM : Show To-Do List entry data and request confirmation

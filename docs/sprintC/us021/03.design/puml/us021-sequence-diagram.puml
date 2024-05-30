@@ -19,35 +19,16 @@ participant "EmployeeRepository\n:EmployeeRepository" as EMPREP
 participant "Employee\n:Employee" as EMP
 participant "OrganizationRepository\n:OrganizationRepository" as ORGREP
 participant "Organization\n:Organization" as ORG
-participant "Task\n:Task" as TASK
 
 activate GSM
 
     GSM -> UI : requests to add a new To-Do List entry
     activate UI
 
-    UI -> CTRL : getAvailableTasks()
-    activate CTRL
+    UI --> GSM : requests data (Title, Description, Expected Duration)
+    deactivate UI
 
-    CTRL -> RepositorySingleton : getInstance()
-    activate RepositorySingleton
-    CTRL <-- RepositorySingleton : Repositories
-    deactivate RepositorySingleton
-
-    CTRL -> PLAT : getTaskRepository()
-    activate PLAT
-    CTRL <-- PLAT : TaskRepository()
-    deactivate PLAT
-
-    CTRL -> TASKREP : getAllTasks()
-    activate TASKREP
-    CTRL <-- TASKREP : taskList
-    deactivate TASKREP
-
-    UI <-- CTRL : display taskList for selection
-    deactivate CTRL
-
-    GSM -> UI : selects a task from taskList
+    GSM -> UI : types requested data (Title, Description, Expected Duration)
     activate UI
 
     UI -> CTRL : getAvailableGreenSpaces()
@@ -63,7 +44,7 @@ activate GSM
     CTRL <-- PLAT : GreenSpaceRepository()
     deactivate PLAT
 
-    CTRL -> GSR : getAllGreenSpaces()
+    CTRL -> GSR : getGreenSpacesManagedByMe()
     activate GSR
     CTRL <-- GSR : greenSpaceList
     deactivate GSR
@@ -71,14 +52,14 @@ activate GSM
     UI <-- CTRL : display greenSpaceList for selection
     deactivate CTRL
 
-    GSM -> UI : selects a green space from greenSpaceList
+    GSM -> UI : selects a green space (green spaces managed by me) from greenSpaceList
     activate UI
 
     UI -> GSM : display urgency options (High, Medium, Low)
     GSM -> UI : selects urgency option
     activate UI
 
-    UI -> CTRL : addNewToDoListEntry(selectedTask, selectedGreenSpace, selectedUrgency, duration)
+    UI -> CTRL : addNewTask(title, description, selectedGreenSpace, selectedUrgency, duration)
     activate CTRL
 
         CTRL -> CTRL : getUserFromSession()
@@ -140,24 +121,24 @@ activate GSM
         end
         EMPREP --> CTRL : employee
 
-        CTRL -> EMP : createToDoListEntry(selectedTask, selectedGreenSpace, selectedUrgency, duration)
+        CTRL -> EMP : createTask(title, description, selectedGreenSpace, selectedUrgency, duration)
         activate EMP
-        EMP -> CTRL : ToDoListEntry instance
+        EMP -> CTRL : Task instance
         deactivate EMP
 
-        EMP -> TASK : addToDoListEntry(ToDoListEntry instance)
+        EMP -> TASK : create(Task instance)
             note right of TASK
               Task constructor validates task data
             endnote
 
             activate EMP
-                EMP -> EMP : validateToDoListEntry(ToDoListEntry)
+                EMP -> EMP : validateTask(Task)
 
                 deactivate EMP
 
-            EMP --> CTRL : ToDoListEntry
+            EMP --> CTRL : Task
 
-        CTRL -> TASKREP : save(ToDoListEntry instance)
+        CTRL -> TASKREP : save(Task instance)
         activate TASKREP
         TASKREP --> CTRL : success
         deactivate TASKREP

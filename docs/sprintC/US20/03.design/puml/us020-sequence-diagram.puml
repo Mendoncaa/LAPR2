@@ -71,10 +71,6 @@ activate GSM
         PLAT-> CTRL : OrganizationRepository()
         deactivate PLAT
 
-        CTRL -> PLAT : getEmployeeRepository()
-        activate PLAT
-        CTRL <-- PLAT : EmployeeRepository()
-        deactivate PLAT
 
         CTRL -> ORGREP : getOrganizationByUserID(email)
         activate ORGREP
@@ -84,6 +80,11 @@ activate GSM
         deactivate ORGREP
         end
         ORGREP --> CTRL : organization
+
+        CTRL -> PLAT : getEmployeeRepository()
+        activate PLAT
+        CTRL <-- PLAT : EmployeeRepository()
+        deactivate PLAT
 
         CTRL -> EMPREP : getEmployeenByUserID(email)
         activate EMPREP
