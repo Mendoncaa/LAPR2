@@ -1,10 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
 
-import pt.ipp.isep.dei.esoft.project.ui.console.GenerateTeamUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.ShowTextUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.CreateEmployeeUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.CreateJobUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.*;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.ArrayList;
@@ -19,12 +16,14 @@ public class HrmUI implements Runnable {
     public void run() {
 
         List<MenuItem> options = new ArrayList<MenuItem>();
+        options.add(new MenuItem("Create Skill", new CreateSkillUI()));
         options.add(new MenuItem("Create Job", new CreateJobUI()));
         options.add(new MenuItem("Create Employee", new CreateEmployeeUI()));
+        options.add(new MenuItem("Assign skills to a collaborator", new AssignSkillUI()));
         options.add(new MenuItem("Generate Team", new GenerateTeamUI()));
-        options.add(new MenuItem("Option 4", new ShowTextUI("You have chosen Option 4.")));
 
-        int option = 0;
+
+        int option;
         do {
 
             option = Utils.showAndSelectIndex(options, "\n\n--- HRM MENU -------------------------");

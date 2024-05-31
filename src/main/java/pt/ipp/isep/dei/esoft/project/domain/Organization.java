@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
+import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -64,6 +65,12 @@ public class Organization {
         return new Job(jobName);
     }
 
+
+    public Skill createSkill(String skillName) throws IllegalArgumentException {
+        return new Skill(skillName);
+    }
+
+
     /**
      * Adds a job to the repository after checking for duplicates.
      *
@@ -79,6 +86,16 @@ public class Organization {
             }
         }
         jobRepository.addJob(job);
+    }
+
+    public void addSkill(Skill skill, SkillRepository skillRepository) throws IllegalArgumentException {
+
+        for (Skill existingskill : skillRepository.listAllSkills()) {
+            if (existingskill.compareTo(skill) == 0) {
+                throw new IllegalArgumentException("A skill with the same name already exists: " + skill.getName());
+            }
+        }
+        skillRepository.addSkill(skill);
     }
 
     //Clone organization

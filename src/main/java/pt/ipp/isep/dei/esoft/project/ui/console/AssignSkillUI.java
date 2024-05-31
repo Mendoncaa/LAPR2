@@ -5,16 +5,12 @@ import pt.ipp.isep.dei.esoft.project.controller.authorization.AssignSkillControl
 
 import java.util.Scanner;
 
-public class AssignSkillUI {
+public class AssignSkillUI implements Runnable {
     private AssignSkillController controller;
     private Scanner scanner;
 
-    public AssignSkillUI(AssignSkillController controller) {
-        this.controller = controller;
-        this.scanner = new Scanner(System.in);
-    }
 
-    public void start() {
+    public void run() {
         System.out.println("Please enter the collaborator ID:");
         String teamMemberId = scanner.nextLine();
 
@@ -28,5 +24,6 @@ public class AssignSkillUI {
         } else {
             System.out.println("Failed to assign the skill to the collaborator. Please try again.");
         }
+
     }
 }
