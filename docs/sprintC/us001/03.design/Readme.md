@@ -5,26 +5,28 @@
 ### 3.1. Rationale
 
 
-| Interaction ID                                           | Question: Which class is responsible for...                 | Answer                        | Justification (with patterns)                                                                                |
-|:---------------------------------------------------------|:------------------------------------------------------------|:------------------------------|:-------------------------------------------------------------------------------------------------------------|
-| Step 1 - HRM asks to create a new skill 	                | ... interacting with the actor?                             | CreateSkillUI                 | Pure Fabrication: Pure Fabrication: The UI class is created to interact with the user and get the necessary inputs.                                                                                           |
-|                                                          | ... coordinating the US?                                    | CreateSkillController         | Controller: The controller is responsible for handling the user request and coordinating the use case.       |
-| Step 2 - System requests data (Name the skill)           | ... displaying form for actor input?                        | CreateSkillUI                 | Pure Fabrication: The UI class is responsible for displaying the form and getting the input from the user.   |
-| Step 3 - HRM types requested data                        | ... temporaly keeping input data?                           | CreateSkillController         | IE: The controller has the necessary information and is responsible for temporarily storing the input data.  | 
-| Step 4 - System shows all data and requests confirmation | ... displaying all the information before submitting?       | CreateSkillUI                 | Pure Fabrication: The UI class is responsible for displaying all the information before submitting.          |
-| Step 5 - HRM confirms data			                    | ... knowing the user using the system?                      | CreateSkillUI                 | IE: The UI class interacts with the user and knows the user using the system.                                |        
-| 	                                                        | ... instantiating a new Skill (Object)?                     | Skill                         | Creator: The Skill class is responsible for creating a new Skill object as it has the necessary information. |
-| 		                                                    | ... validating all data (local validation,i.e.mandatory)?   | Skill                         | IE: The Skill class has the necessary information and is responsible for validating the data.                |
-| 		                                                    | ... validating all data (global validation,i.e.duplicates)? | SkillRepository               | IE: The SkillRepository class has the necessary information and is responsible for validating the data globally. |
-|                                                          | ... saving the created skill?                               | SkillRepository               | IE: The SkillRepository class has the necessary information and is responsible for saving the created skill. |
-| 		                                                    | ... saving the inputted data?                               | SkillRepository               | IE: The SkillRepository class has the necessary information and is responsible for saving the inputted data. |
-| Step 6 - System displays operation success	  	        | ... information operation sucess?                           | CreateSkillUI                 | Pure Fabrication: The UI class is responsible for displaying the operation success message.                  |              
+| Interaction ID                             | Question: Which class is responsible for...                 | Answer                | Justification (with patterns)                                                                       |
+|:-------------------------------------------|:------------------------------------------------------------|:----------------------|:----------------------------------------------------------------------------------------------------|
+| Step 1 - asks to create a new skill		  | ... interacting with the actor?                             | CreateSkillUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the DM. |
+|                                            | ... coordinating the US?                                    | CreateSkillController | Pure Fabrication(System Interaction Controller)                                                     |
+| Step 2 - requests data (Name the skill)    | ... displaying form for actor input?                        | CreateSkillUI         | Pure Fabrication(Interation with Actor)                                                             |
+| Step 3 - types requested data (Skill name) | ... temporaly keeping input data?                           | CreateSkillUI         | Pure Fabrication(Interation with Actor)                                                             | 
+| Step 4 - shows all data and requests confirmation | ... displaying all the information before submitting?       | CreateSkillUI         | Pure Fabrication(Interation with Actor)                                                             |
+| Step 5 - confirms data			          | ... knowing the user using the system?                      | UserSession           | IE: see Auth component documentation.                                                               |        
+| 	                                          | ... instantiating a new Skill (Object)?                     | Organization          | Creator (Rule 1): in the DM Organization owns Skills list.                                          |
+|   		                                  | ... validating all data (local validation,i.e.mandatory)?   | Skill                 | IE: owns its data.                                                                                  |
+| 		                                      | ... validating all data (global validation,i.e.duplicates)? | Organization          | IE: knows all its skills.                                                                           |
+| 			  		                          | ... saving the created skill?                               | Organization          | IE: owns all its skills.                                                                            |
+| 		                                      | ... saving the inputted data?                               | Skill                 | IE: object created previously has its own data.                                                     |
+| Step 6 - displays operation success	  	  | ... information operation sucess?                           | CreateSkillUI         | PureFabrication(Interation with Actor)                                                              |              
+
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
-* Team Member 
+* Organization
+* Employee
 * Skill
 
 Other software classes (i.e. Pure Fabrication) identified: 

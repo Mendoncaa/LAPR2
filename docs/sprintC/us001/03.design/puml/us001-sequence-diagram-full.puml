@@ -15,6 +15,8 @@ participant "AuthFacade\n:AuthenticationRepository" as AUTHREP
 participant "userSession\n:UserSession" as USER
 participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
 participant "organization\n:Organization" as ORG
+participant "employeeRepository:\nEmployeeRepository" as EMPREP
+participant "employee\n:Employee" as EMP
 participant "Skill\n:Skill" as SKILL
 
 activate ADM
@@ -91,28 +93,45 @@ activate ADM
 
         CTRL <-- OrganizationRepository : organitazion
 
+        CTRL -> RepositorySingleton : getInstance()
+             activate RepositorySingleton
+             CTRL <-- RepositorySingleton : Repositories
+              deactivate RepositorySingleton
+
+         CTRL -> EMPREP :getEmployeeByUserId(email)
+             activate EMPREP
+             loop for each employee
+             EMPREP -> EMP : anyEmployeeHasThisUserId(email)
+             activate EMP
+             EMPREP <-- EMP : True/False
+             deactivate EMP
+             end loop
+
+             CTRL <-- EMPREP : employee
+             deactivate EMPREP
 
 
-            CTRL -> ORG: createSkill(Skill name)
+
+        CTRL -> ORG: createSkill(Skill name)
             activate ORG
 
-                ORG -> SKILL**: create(skill)
-                note right of SKILL
-                  Skill constructor validates Skill name
-                endnote
+            ORG -> SKILL**: create(skill)
+            note right of SKILL
+            Skill constructor validates Skill name
+            endnote
 
 
-                activate ORG
-                    ORG -> ORG: addSkill(skill)
-                    ORG -> ORG: validateSkill(skill)
+        activate ORG
+            ORG -> ORG: addSkill(skill)
+            ORG -> ORG: validateSkill(skill)
 
-                    deactivate ORG
+            deactivate ORG
 
-                    ORG --> ORG
-                    ORG --> ORG
-                deactivate ORG
+            ORG --> ORG
+            ORG --> ORG
+            deactivate ORG
 
-                ORG --> CTRL : skill
+            ORG --> CTRL : skill
 
             deactivate ORG
 
