@@ -14,9 +14,10 @@ public class GreenSpaceRepository {
         this.greenSpaces = new ArrayList<>();
     }
 
-    public List<GreenSpace> getGreenSpaces() {
+    public List<GreenSpace> listGreenSpaces() {
         return greenSpaces;
     }
+
 
     public void addGreenSpace(GreenSpace greenSpace) {
         greenSpaces.add(greenSpace);
