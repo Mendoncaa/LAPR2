@@ -2,8 +2,11 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.domain.TeamMember;
+
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 public class TeamRepository {
@@ -15,13 +18,13 @@ public class TeamRepository {
     }
 
 
-    public Team createTeam(int minSize, int maxSize, List<Skill> skills, List<TeamMember> teamMembers) {
+    public Optional<Team> createTeam(int minSize, int maxSize, List<Skill> skills, List<TeamMember> teamMembers) {
 
         Team team = new Team(minSize, maxSize, skills, teamMembers);
 
         teams.add(team);
 
-        return team;
+        return Optional.of(team);
 
     }
 

@@ -1,17 +1,27 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.domain.Skill;
-import pt.ipp.isep.dei.esoft.project.domain.Team;
+import pt.ipp.isep.dei.esoft.project.controller.ToDoListController;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 import pt.ipp.isep.dei.esoft.project.controller.GenerateTeamController;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class GenerateTeamUI implements Runnable {
 
-    private static GenerateTeamController generateTeamController = new GenerateTeamController();
+    private final GenerateTeamController controller;
+
+    public GenerateTeamUI() {
+        controller = new GenerateTeamController();
+    }
+
+    private GenerateTeamController getController() {
+        return controller;
+    }
     private static SkillRepository skillRepository = new SkillRepository();
     private final Scanner scan = new Scanner(System.in);
 
@@ -34,28 +44,28 @@ public class GenerateTeamUI implements Runnable {
                 int option = Utils.showAndSelectIndex(skillRepository.getSkills(), "\n\n--- SKILLS -------------------------");
 
 
-                if (generateTeamController.getChooseSkill(option) == null) {
+                if (controller.getChooseSkill(option) == null) {
 
                     break;
 
                 }
 
-                skills.add(generateTeamController.getChooseSkill(option));
+                skills.add(controller.getChooseSkill(option));
 
             }
 
-            Team team = generateTeamController.getGenerateTeam(min, max, skills);
+            Team team = controller.getGenerateTeam(min, max, skills);
 
 
             if (team.getTeamMembers() == null) {
 
                 System.out.println("  No team has been generated!!!");
-                continue;
+                break;
 
             } else if (team.getTeamMembers().size() < min) {
 
                 System.out.println("  No employees available to join the team for now!!!");
-                continue;
+                break;
 
             }
 
@@ -77,11 +87,12 @@ public class GenerateTeamUI implements Runnable {
 
                 sucess = true;
 
-                generateTeamController.getTeamApproved(team);
+                controller.getTeamApproved(team);
 
             }
 
         } while (!sucess);
 
     }
+
 }

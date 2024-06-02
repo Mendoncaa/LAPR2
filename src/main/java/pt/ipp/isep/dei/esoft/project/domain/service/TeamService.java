@@ -10,6 +10,7 @@ import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class TeamService {
 
@@ -65,7 +66,19 @@ public class TeamService {
 
     public void teamApproved(Team team) {
 
-        teamRepository.createTeam(team.getMinSize(), team.getMaxSize(), team.getSkills(), team.getTeamMembers());
+        try {
+
+            Optional<Team> task = teamRepository.createTeam(team.getMinSize(), team.getMaxSize(), team.getSkills(), team.getTeamMembers());
+
+            if (task.isPresent()) {
+                System.out.println("\nA new team has been successfully created!");
+            } else {
+                System.out.println("\nTeam not created!");
+            }
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("An error occurred while creating the team: " + e.getMessage());
+        }
 
     }
 

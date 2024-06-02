@@ -46,7 +46,7 @@ public class ListVehiclesCheckupUI implements Runnable {
 
             }
 
-        } while (option != -1);
+        } while (option < 0 || option >= options.size());
 
     }
 

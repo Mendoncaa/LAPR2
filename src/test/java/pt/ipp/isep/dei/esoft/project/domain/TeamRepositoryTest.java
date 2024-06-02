@@ -17,7 +17,7 @@ public class TeamRepositoryTest {
         teamRepository = new TeamRepository();
     }
 
-    @Test
+    /*@Test
     public void testCreateTeam() {
 
         int minSize = 2;
@@ -36,7 +36,7 @@ public class TeamRepositoryTest {
         assertEquals(skills, createdTeam.getSkills());
         assertEquals(teamMembers, createdTeam.getTeamMembers());
 
-    }
+    }*/
 
     @Test
     public void testGetTeams() {

@@ -75,6 +75,8 @@ public class Bootstrap implements Runnable {
         Skill skill1 = new Skill("Trolha");
         skillRepository.addSkill(skill1);
 
+        // Employee employee1 = new Employee();
+
         Vehicle vehicle1 = new Vehicle(
                 "ABC1234",
                 "Toyota",
@@ -96,6 +98,8 @@ public class Bootstrap implements Runnable {
         Task task1 = new Task("Limpeza", greenSpace1, "Limpeza dos caixotes do lixo",
                 Urgency.MEDIUM, 1, 1);
         taskRepository.addTask(task1);
+
+
 
 
     }
