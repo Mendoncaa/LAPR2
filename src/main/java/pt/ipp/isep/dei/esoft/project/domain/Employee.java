@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 
+import java.time.Duration;
 import java.time.LocalDate;
 
 /**
@@ -174,8 +175,14 @@ public class Employee implements Comparable<Employee> {
     }
 
 
-    public GreenSpace createGreenSpace(String name, SizeClassification sizeClassification, double area, String address) {
-        return new GreenSpace(name, sizeClassification, area, address);
+    public GreenSpace createGreenSpace(String name, SizeClassification sizeClassification,
+                                       double area, String address, String email) {
+        return new GreenSpace(name, sizeClassification, area, address, email);
+    }
+
+
+    public Task createTask(String title, String description, GreenSpace greenSpace, Urgency urgency, int hours, int days) {
+        return new Task(title, greenSpace, description, urgency, hours, days);
     }
 
 

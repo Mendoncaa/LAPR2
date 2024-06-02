@@ -28,6 +28,7 @@ public class Bootstrap implements Runnable {
         SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
         VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
         GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
+        TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
 
         Organization organization = new Organization("MusgoSublime", employeeRepository, jobRepository);
         Job job = new Job("Human Resources Manager");
@@ -87,6 +88,16 @@ public class Bootstrap implements Runnable {
                 10000
         );
         vehicleRepository.addVehicle(vehicle1);
+
+        GreenSpace greenSpace1 = new GreenSpace("Parque da cidade", SizeClassification.LARGE_SIZED_PARK,
+                1000, "Estrada Interior da Circunvalação, 4100-083 Porto", "gsm@this.app");
+        greenSpaceRepository.addGreenSpace(greenSpace1);
+
+        Task task1 = new Task("Limpeza", greenSpace1, "Limpeza dos caixotes do lixo",
+                Urgency.MEDIUM, 1, 1);
+        taskRepository.addTask(task1);
+
+
     }
 
 

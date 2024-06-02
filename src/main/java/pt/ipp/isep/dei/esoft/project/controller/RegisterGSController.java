@@ -11,8 +11,8 @@ import java.util.Optional;
 public class RegisterGSController {
     private final AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
     private final GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
-    public GreenSpace RegisterGreenSpace(String name, SizeClassification sizeClassification,
-                                         double area, String address) {
+    public Optional<GreenSpace> RegisterGreenSpace(String name, SizeClassification sizeClassification,
+                                               double area, String address) {
 
         UserSession userSession = authenticationRepository.getCurrentUserSession();
 
@@ -30,8 +30,11 @@ public class RegisterGSController {
                 employeeRepository = Repositories.getInstance().getEmployeeRepository();
                 Employee employee = employeeRepository.getEmployeeById(userEmail);
 
-                return employee.createGreenSpace(name, sizeClassification, area, address);
+                GreenSpace greenSpace = employee.createGreenSpace(name, sizeClassification, area, address,
+                        userSession.getUserId().getEmail());
+                greenSpaceRepository.addGreenSpace(greenSpace);
 
+                return Optional.of(greenSpace);
             } else {
                 throw new IllegalArgumentException("Organization not found for user: " + userEmail);
             }

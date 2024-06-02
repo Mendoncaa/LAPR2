@@ -6,16 +6,15 @@ public class Task {
     private String description;
     private Status status;
     private Urgency urgency;
-    private String days;
-    private String hours;
+    private int days;
+    private int hours;
 
 
-    public Task (String title, GreenSpace greenSpace, String description, Status status,
-                 Urgency urgency, String days, String hours) {
+    public Task (String title, GreenSpace greenSpace, String description, Urgency urgency, int days, int hours) {
         this.title = title;
         this.greenSpace = greenSpace;
         this.description = description;
-        this.status = status;
+        this.status = Status.PLANNED;
         this.urgency = urgency;
         this.days = days;
         this.hours = hours;
@@ -44,12 +43,12 @@ public class Task {
         return urgency;
     }
 
-    public String getDays() {
+    public int getDays() {
         return days;
     }
 
 
-    public String getHours() {
+    public int getHours() {
         return hours;
     }
 

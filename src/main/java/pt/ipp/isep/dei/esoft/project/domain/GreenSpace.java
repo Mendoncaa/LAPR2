@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
+import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.isep.lei.esoft.auth.UserSession;
 import pt.isep.lei.esoft.auth.domain.model.Email;
@@ -14,15 +15,15 @@ public class GreenSpace {
     private SizeClassification sizeClassification;
     private double area;
     private String address;
-    private Email managedBy;
+    private String email;
 
 
-    public GreenSpace(String name, SizeClassification sizeClassification, double area, String address) {
+    public GreenSpace(String name, SizeClassification sizeClassification, double area, String address, String email) {
         this.name = name;
         this.sizeClassification = sizeClassification;
         this.area = area;
         this.address = address;
-        setManagedBy();
+        this.email = email;
     }
 
 
@@ -51,11 +52,12 @@ public class GreenSpace {
         UserSession userSession = authenticationRepository.getCurrentUserSession();
 
 
-        this.managedBy = userSession.getUserId();
+        this.email = userSession.getUserId().getEmail();
     }
 
-    public Email getManagedBy() {
-        return managedBy;
+
+    public String getEmail() {
+        return email;
     }
 
     @Override

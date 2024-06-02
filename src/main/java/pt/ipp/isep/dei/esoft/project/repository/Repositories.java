@@ -14,7 +14,7 @@ public class Repositories {
     private final TeamMemberRepository teamMemberRepository;
     private final EmployeeRepository employeeRepository;
     private final GreenSpaceRepository greenSpaceRepository;
-
+    private final TaskRepository taskRepository;
     /**
      *
      */
@@ -28,6 +28,7 @@ public class Repositories {
         teamRepository = new TeamRepository();
         teamMemberRepository = new TeamMemberRepository();
         greenSpaceRepository = new GreenSpaceRepository();
+        taskRepository = new TaskRepository();
     }
 
     public static Repositories getInstance() {
@@ -67,6 +68,10 @@ public class Repositories {
 
     public GreenSpaceRepository getGreenSpaceRepository() {
         return greenSpaceRepository;
+    }
+
+    public TaskRepository getTaskRepository() {
+        return taskRepository;
     }
 }
 

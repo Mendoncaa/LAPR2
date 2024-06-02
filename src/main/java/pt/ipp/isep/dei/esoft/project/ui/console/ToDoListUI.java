@@ -1,14 +1,17 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.controller.CreateJobController;
 import pt.ipp.isep.dei.esoft.project.controller.ToDoListController;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
+import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.domain.Urgency;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
 
 public class ToDoListUI implements Runnable {
-
+    private final Scanner scan = new Scanner(System.in);
     private final ToDoListController controller;
 
     public ToDoListUI() {
@@ -30,18 +33,64 @@ public class ToDoListUI implements Runnable {
         List<GreenSpace> options = controller.getAvailabreGreenSpaces();
         int option;
 
+        GreenSpace greenSpace = null;
+        
         do {
 
             option = Utils.showAndSelectIndex(options, "\n\n--- YOUR GREEN SPACES -------------------------");
-
+            
+            
             if ((option >= 0) && (option < options.size())) {
 
-                GreenSpace greenSpace = options.get(option-1);
+                 greenSpace = options.get(option);
 
             }
 
-        } while (option != -1);
+        } while (option < 0 || option > options.size());
 
+        Urgency urgency = null;
+
+        do {
+
+            System.out.println("  1 - Low");
+            System.out.println("  2 - Medium");
+            System.out.println("  3 - High");
+            option = scan.nextInt();
+
+            if (option > 0 && option < 4) {
+
+               urgency = Urgency.getByIndex(option-1);
+
+            }
+
+        } while (option < 0 || option > 4);
+
+        Task task = new Task(title, greenSpace, description, urgency, days, hours);
+
+        System.out.println(task);
+
+        String confirmation = Utils.readLineFromConsole("Are you sure you want to add this task to the To-Do List? (Y/N): ");
+
+        if (confirmation.equalsIgnoreCase("Y")) {
+            submitData(title, description, greenSpace, urgency, days, hours);
+        } else {
+            System.out.println("Operation canceled by the user.");
+        }
+
+    }
+
+    private void submitData(String title, String description, GreenSpace greenSpace,
+                            Urgency urgency, int days, int hours) {
+        try {
+            Optional<Task> task = getController().addNewTask(title, description, greenSpace, urgency, days, hours);
+            if (task.isPresent()) {
+                System.out.println("\nA new task has been successfully created!");
+            } else {
+                System.out.println("\nTask not created!");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("An error occurred while creating the job: " + e.getMessage());
+        }
     }
 
 }
