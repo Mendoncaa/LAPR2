@@ -6,12 +6,14 @@ hide empty attributes
 skinparam linetype polyline
 
 
-class GreenSpaces {
-  -type
+class Employee {
 }
 
-GreenSpaces "*1..*"---"1...*" Garden : is a >
-GreenSpaces "*1..*"---"1...*" MediumSizedPark : is a >
-GreenSpaces "*1..*"---"1...*" LargeSizedPark : is a >
+class Tasks {
+  - taskCategory
+  - toDoList
+}
+
+Employee "1"---"0..*" Tasks: manages >
 
 @enduml
