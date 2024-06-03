@@ -1,0 +1,38 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US028 - As a Collaborator, I wish to consult the tasks assigned to me between two dates\nSystem Sequence Diagram (SSD)
+
+autonumber
+
+actor "Collaborator" as Collaborator
+participant ":System" as System
+
+activate Collaborator
+
+    Collaborator -> System : requests to view tasks between two dates
+    activate System
+
+        System --> Collaborator : requests start date, end date, and task status
+    deactivate System
+
+    Collaborator -> System : provides start date, end date, and task status
+    activate System
+
+        alt Invalid dates or status
+            System --> Collaborator : displays error message and requests correct data
+            deactivate System
+
+            Collaborator -> System : provides corrected start date, end date, and task status
+            activate System
+        end
+
+        System --> Collaborator : displays list of tasks sorted by date and filtered by status
+    deactivate System
+
+deactivate Collaborator
+
+
+@enduml

@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative One
+title US04 - As an HRM, I want to assign one or more skills to a collaborator\nSystem Sequence Diagram (SSD)
 
 autonumber
 
@@ -12,28 +12,28 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : List for a collaborator available
+    Employee -> System : list for a collaborator available
     activate System
 
-        System --> Employee : Shows list of collaborators
+        System --> Employee : shows list of collaborators
     deactivate System
 
-    Employee -> System : Choose collaborator
+    Employee -> System : choose collaborator
     activate System
 
-        System --> Employee : Shows skills list, asks to select one or more
+        System --> Employee : shows skills list, asks to select one or more
     deactivate System
 
-    Employee -> System : Selects one or more skills
+    Employee -> System : selects one or more skills
     activate System
 
-        System --> Employee : Shows all data and requests confirmation
+        System --> Employee : shows all data and requests confirmation
     deactivate System
 
-    Employee -> System : Confirms collaborator and skill assigned
+    Employee -> System : confirms collaborator and skill assigned
     activate System
 
-        System --> Employee : Displays operation success
+        System --> Employee : displays operation success
     deactivate System
 
 @enduml

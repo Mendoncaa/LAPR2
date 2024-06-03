@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative One
+title US001 - As a Human Resources Manager (HRM), I want to register skills that a collaborator may have\nSystem Sequence Diagram (SSD)
 
 autonumber
 

@@ -8,17 +8,17 @@
 
 ### 1.1. User Story Description
 
-_As an HRM, I want to assign one or more skills to a collaborator._
+As an HRM, I want to assign one or more skills to a collaborator.
 
 ### 1.2. Customer Specifications and Clarifications 
 
 **From the specifications document:**
 
-_The skills must be clearly defined and described._
+The skills must be clearly defined and described.
 
-_When assigning competence/s to a worker._
+When assigning competence/s to a worker.
 
-_It must be possible assigning one or more skills to a collaborator each time._
+It must be possible assigning one or more skills to a collaborator each time.
 
 
 
@@ -38,27 +38,32 @@ _It must be possible assigning one or more skills to a collaborator each time._
 
 ### 1.3. Acceptance Criteria
 
-_AC1 - The system allows HRM to assign one or more skills to a collaborator._
+* **AC1** The system allows HRM to assign one or more skills to a collaborator.
 
-_AC2 - Must be a collaborator of the company._
+* **AC2** Must be a collaborator of the company.
 
-_AC3 - It must be impossible to assign skills to collaborator who are not in the company's database._ 
+* **AC3** It must be impossible to assign skills to collaborator who are not in the company's database. 
 
 ### 1.4. Found out Dependencies
 
-_US04 depends the US01._
+* US04 depends on "US01 - As a Human Resources Manager (HRM), I want to register skills that a collaborator may have."
 
 ### 1.5 Input and Output Data
 
-_Input: 
+**Input Data:**
 
-Typed data: Collaborator's name; 
+* Typed data: 
+  * Collaborator's name 
 
-Selected data: Worker's role; 
+* Selected data: 
+  * Worker's role 
 
-Selected: skills to be assigned._ 
+* Selected: 
+  * Skills to be assigned
 
-_Output - Updated record of collaborator skills._
+**Output Data:** 
+
+* Updated record of collaborator skills
 
 ### 1.6. System Sequence Diagram (SSD)
 
@@ -67,6 +72,6 @@ _Output - Updated record of collaborator skills._
 
 ### 1.7 Other Relevant Remarks
 
-_Give clear feedback on the outcome of the skills assignment.
- Deal with pre-existing employee skills during assignment._
+* Give clear feedback on the outcome of the skills assignment.
+* Deal with pre-existing employee skills during assignment.
 

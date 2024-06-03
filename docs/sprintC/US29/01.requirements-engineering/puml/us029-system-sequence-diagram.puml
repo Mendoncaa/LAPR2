@@ -1,0 +1,39 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US29 - As a Collaborator, I want to record the completion of a task\nSystem Sequence Diagram (SSD)
+
+autonumber
+
+actor "Collaborator" as User
+participant ":System" as System
+
+activate User
+
+    User -> System : requests to mark a task as completed
+    activate System
+
+        System --> User : requests task identification (Task ID)
+    deactivate System
+
+    User -> System : provides requested data (Task ID)
+    activate System
+
+    System --> User : confirms task identification and requests confirmation
+        deactivate System
+
+        User -> System : confirms task completion
+        activate System
+
+        alt Task ID is valid
+            System --> User : marks the task as completed and displays operation success
+        else Task ID is invalid
+            System --> User : displays error message (Invalid Task ID)
+        end
+    deactivate System
+
+
+
+@enduml

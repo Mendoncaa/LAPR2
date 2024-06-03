@@ -1,65 +1,88 @@
-# US020 - Register a Green Space
+# US29 - As a Collaborator, I want to record the completion of a task.
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As a Green Space Manager (GSM), I want to register a green space (garden, medium-sized park, or large-sized park) and its respective area.
+As a Collaborator, I want to record the completion of a task.
 
 ### 1.2. Customer Specifications and Clarifications 
 
 **From the specifications document:**
 
-> The responsibility for registering a green space relies on the GSM, who must introduce the name, size classification, area (in hectares), and address.
+Allows collaborators to mark assigned tasks as complete, ensuring accurate tracking of task progress and completion status.
 
 **From the client clarifications:**
 
-> **Question:** Good evening, in view of the description of GreenSpaces does it make sense to ask for optional mind for the different types this data?
+> **Question:** "Can an employee record more than one completed task at a time?"
 >
-> **Answer:** In the current version, it is sufficient to define a park using name, size classification, area (hectare), and address.
+> **Answer:** "It's a matter of UX/UI, each dev team can decide about it."
 
-> **Question:** Good afternoon, I would like to know between what ranges of hectares a green space is classified as garden, medium or large, or if it is possible to register 2 green spaces with the same area but in different typology, depending on the GSM it registers.
+> **Question:** "The collaborator can see what type of entrys? Like what status can he filter ? Can he see canceled Entry's?"
 >
-> **Answer:** The classification is not automatic, it's up to GSM decide about it.
+> **Answer:** "The ones assigned to him. He can filter by the different values the status of the status, like planned, executed, canceled ..."
 
-> **Question:** Can two green spaces have the same name?
+> **Question:** "The collaborator should be able to change the status of any task or only tasks assigned to him?"
 >
-> **Answer:** No.
+> **Answer:** "Yes."
 
-> **Question:** Our team is unsure about what the exact inputs for the Green Space, To-Do List Entry, and Agenda entry exactly are.
+> **Question:** "This "record" refers to the act of only changing the status of the task, or do we want to save a list of the completed tasks within each Collaborator?"
 >
-> **Answer:** Seems enough.
+> **Answer:** "It means to record that a task was completed (changing the status) with the finish time."
+
+> **Question:** "Do collaborators log in with a password (created by the respective manager when creating the collaborator), or with other information like the BI number or the TaxPayer?"
+>
+> **Answer:** "One can use email or taxpayer number."
+
+> **Question:** "When a collaborator records a task, it should be asked for any observations regarding the completed task?"
+>
+> **Answer:** "Maybe if optional, not mandatory."
 
 ### 1.3. Acceptance Criteria
 
-* **AC1** The name, size classification, area, and address of the green space need to be supplied by the GSM.
+* **AC1** The Collaborator must be able to select and mark a task as complete.
 
-* **AC2** Two green spaces cannot have the same name.
+* **AC2** The system must update the task status to "Completed" once marked.
 
-* **AC3** The system should store the green space details provided by the GSM.
+* **AC3** The system must provide a confirmation message indicating the task has been successfully marked as complete.
+
+* **AC4** Only tasks assigned to the collaborator can be marked as complete by that collaborator
+
 
 ### 1.4. Found out Dependencies
 
-There is a dependency on:
+* There is a dependency on:
 
-* None identified explicitly, but the module should integrate smoothly with the overall system managing green spaces.
+US28 depends on the following user stories:
+
+"US21 - As a GSM, I want to add a new entry to the To-Do List.";
+
+"US22 - As a GSM, I want to add a new entry in the Agenda.";
+
+"US24 - As a GSM, I want to Postpone an entry in the Agenda to a specific future date";
+
+"US25 - As a GSM, I want to Cancel an entry in the Agenda.";
+
+"US28 - As a Collaborator, I wish to consult the tasks assigned to me between two dates".
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-  - Name of the green space
-  - Area (in hectares)
-  - Address
-
-* Selected data:
-   - Size classification (garden, medium-sized park, large-sized park)
+  * Email or taxpayer number
+  * Task ID
+  * Completion Status
+ 
 
 **Output Data:**
 
-* Confirmation message indicating successful registration of the green space
-* Error message if the name already exists
+* Confirmation message indicating that the task completion was registered successfully
 
 ### 1.6. System Sequence Diagram (SSD)
 
+![US00-SSD](svg/us001-system-sequence-diagram.svg)
+
+### 1.7 Other Relevant Remarks
+
+* Recording task completion can contribute to individual performance evaluations or process efficiency analyses

@@ -1,4 +1,4 @@
-# US001 - Register skills that may be appointed to a collaborator
+# US001 - As a Human Resources Manager (HRM), I want to register skills that a collaborator may have
 
 
 
@@ -8,19 +8,19 @@
 
 ### 1.1. User Story Description
 
-_As a Human Resources Manager (HRM), I want to register skills that a collaborator may have_
+As a Human Resources Manager (HRM), I want to register skills that a collaborator may have.
 
 ### 1.2. Customer Specifications and Clarifications 
 
 **From the specifications document:**
 
-_The skills must be clearly defined and described._
+The skills must be clearly defined and described.
 
-_Options of add, edit and delete skills must be defined._
+Options of add, edit and delete skills must be defined.
 
-_It must be easy visualize the skills of each collaborator._
+It must be easy visualize the skills of each collaborator.
 
-_Skills must be linked to the individual profile of each employee._
+Skills must be linked to the individual profile of each employee.
 
 **From the client clarifications:**
 
@@ -35,25 +35,28 @@ _Skills must be linked to the individual profile of each employee._
 
 ### 1.3. Acceptance Criteria
 
-_AC1 - A skill name can’t have special characters or digits._
+* **AC1**  A skill name can’t have special characters or digits.
 
-_AC2 - Skills can be registered and appointed to collaborator by the HRM._
+* **AC2**  Skills can be registered and appointed to collaborator by the HRM.
 
-_AC3 - Every skills must be registered._
+* **AC3**  Every skills must be registered.
 
-_AC4 - Identify skills names._
+* **AC4**  Identify skills names.
 
 ### 1.4. Found out Dependencies
 
-_"US04 - As an HRM, I want to assign one or more skills to a collaborator." depends on this US01, because it is on this one that skills are registered._
+* "US04 - As an HRM, I want to assign one or more skills to a collaborator." depends on this US01, because it is on this one that skills are registered.
 
 ### 1.5 Input and Output Data
 
-Input:
+**Input Data:**
 
-Typed data: Skill.
+* Typed data: 
+  * Skill
 
-Output - List of collaborator's skills.
+**Output Data:**
+
+* List of collaborator's skills
 
 ### 1.6. System Sequence Diagram (SSD)
 
@@ -61,8 +64,8 @@ Output - List of collaborator's skills.
 
 ### 1.7 Other Relevant Remarks
 
-_Maintain skills up to date to ensure accuracy of workers' skills.
- The system must handle the introduction of input errors, and process as invalid data.
- Users must be given an adequate explanation of how the program works._
+* Maintain skills up to date to ensure accuracy of workers' skills.
+* The system must handle the introduction of input errors, and process as invalid data.
+* Users must be given an adequate explanation of how the program works.
 
 
