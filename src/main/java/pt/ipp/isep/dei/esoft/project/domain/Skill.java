@@ -45,6 +45,14 @@ public class Skill implements Comparable<Skill> {
     }
 
     @Override
+    public String toString() {
+        return "Skill{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    @Override
     public int compareTo(Skill skill) {
         return this.name.compareTo(skill.name);
     }

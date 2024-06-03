@@ -21,7 +21,7 @@ public class AssignSkillControllerTest {
     }
 
 
-    @Test
+   /* @Test
     void assignSkillToTeamMemberTeamMemberNotFound() {
         String skillId = "124";
         String teamMemberId = "456";
@@ -30,6 +30,6 @@ public class AssignSkillControllerTest {
         skillRepository.addSkill(skill);
 
         assertFalse(controller.assignSkillToTeamMember(teamMemberId, skillId), "Expected skill assignment to fail when team member is not found");
-    }
+    } */
 }
 

@@ -4,6 +4,8 @@ import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents an employee in an organization.
@@ -21,6 +23,7 @@ public class Employee implements Comparable<Employee> {
     private String idDocNumber;
     private String taxpayerId;
     private Job job;
+    private List<Skill> skills = new ArrayList<>();
 
     /**
      * Constructs an Employee object with the given details.
@@ -174,6 +177,28 @@ public class Employee implements Comparable<Employee> {
         return job;
     }
 
+    public void assignSkill(Skill skill) {
+        if (!hasSkill(skill)) {
+            skills.add(skill);
+        } else {
+            throw new IllegalArgumentException("The employee already has the skill: " + skill);
+        }
+    }
+
+    public boolean hasSkill(Skill skill) {
+        if (skills == null) {
+            return false;
+        }
+
+        for (Skill skillTest : skills) {
+            if (skillTest.getName().equals(skill.getName())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     public GreenSpace createGreenSpace(String name, SizeClassification sizeClassification,
                                        double area, String address, String email) {
@@ -190,8 +215,22 @@ public class Employee implements Comparable<Employee> {
         return new Employee(this.name, this.birthdate, this.admissionDate, this.street, this.city, this.zipCode, this.phone, this.email, this.idDocType, this.idDocNumber, this.taxpayerId, this.job);
     }
 
+    public List<Skill> getSkills() {
+        return skills;
+    }
+
     @Override
     public String toString() {
+        StringBuilder skillsString = new StringBuilder();
+        for (Skill skill : skills) {
+            skillsString.append(skill.toString()).append(", ");
+        }
+
+        // Remove the last comma and space if skillsString is not empty
+        if (skillsString.length() > 0) {
+            skillsString.setLength(skillsString.length() - 2);
+        }
+
         return "Employee{" +
                 "name='" + name + '\'' +
                 ", birthdate=" + birthdate +
@@ -204,7 +243,8 @@ public class Employee implements Comparable<Employee> {
                 ", idDocType='" + idDocType + '\'' +
                 ", idDocNumber='" + idDocNumber + '\'' +
                 ", taxpayerId='" + taxpayerId + '\'' +
-                ", " + job.toString() +
+                ", job=" + job +
+                ", skills=[" + skillsString.toString() + "]" +
                 '}';
     }
 
