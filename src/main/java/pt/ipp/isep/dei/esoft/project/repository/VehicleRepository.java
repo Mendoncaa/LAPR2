@@ -1,6 +1,6 @@
-// VehicleRepository.java
 package pt.ipp.isep.dei.esoft.project.repository;
 import pt.ipp.isep.dei.esoft.project.domain.CheckUp;
+import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
 import java.util.ArrayList;
@@ -18,7 +18,10 @@ public class VehicleRepository {
     }
 
     public Vehicle getVehicleByPlateId(String plateID) {
-        for (Vehicle vehicle : this.vehicles) {
+        if (vehicles == null) {
+            return null;
+        }
+        for (Vehicle vehicle : vehicles) {
             if (vehicle.getPlateID().equals(plateID)) {
                 return vehicle;
             }
@@ -27,7 +30,7 @@ public class VehicleRepository {
     }
 
     public void addVehicle(Vehicle vehicle) {
-        this.vehicles.add(vehicle);
+        vehicles.add(vehicle);
     }
 
     // Method to add check-up to a vehicle
@@ -39,4 +42,19 @@ public class VehicleRepository {
         }
         return false;
     }
+
+    public boolean plateIDExists(String plateID) {
+        if (vehicles == null) {
+            return false;
+        }
+
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.getPlateID().equalsIgnoreCase(plateID)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

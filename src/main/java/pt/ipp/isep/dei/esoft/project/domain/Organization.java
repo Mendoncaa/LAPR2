@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
-import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
-import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
+import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -13,8 +11,9 @@ public class Organization {
     private String website;
     private String phone;
     private String email;
-    private EmployeeRepository employeeRepository;
-    private JobRepository jobRepository;
+    private EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
+    private JobRepository jobRepository = Repositories.getInstance().getJobRepository();
+    private VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
     /**
      * This method is the constructor of the organization.
      *
@@ -45,6 +44,16 @@ public class Organization {
         }
 
         employeeRepository.addEmployee(employee);
+    }
+
+
+    public void addVehicle(Vehicle vehicle) {
+        // Check if the employee already exists in the repository
+        if (vehicleRepository.plateIDExists(vehicle.getPlateID())) {
+            throw new IllegalArgumentException("Vehicle with the same plate already exists");
+        }
+
+        vehicleRepository.addVehicle(vehicle);
     }
 
     public List<Employee> listAllEmployees() {

@@ -70,6 +70,23 @@ public class Bootstrap implements Runnable {
 
         employeeRepository.addEmployee(gsm);
 
+        Employee vfm = organization.createEmployee(
+                "Zé",
+                LocalDate.of(1991, 1, 1),
+                LocalDate.of(2020, 12, 31),
+                "Rua da Morada 01",
+                "Porto",
+                "4000-050",
+                "987654332",
+                "vfm@this.app",
+                "CC",
+                "12345678",
+                "987784321",
+                job2);
+
+        employeeRepository.addEmployee(vfm);
+
+
         organizationRepository.add(organization);
 
         Skill skill1 = new Skill("Trolha");
@@ -85,8 +102,8 @@ public class Bootstrap implements Runnable {
                 1300,
                 1800,
                 50000,
-                "2020-05-20",
-                "2020-01-15",
+                LocalDate.of(1991, 1, 1),
+                LocalDate.of(2020, 12, 31),
                 10000
         );
         vehicleRepository.addVehicle(vehicle1);

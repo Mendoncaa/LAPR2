@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 import java.util.UUID;
 
 public class Vehicle {
@@ -8,11 +11,11 @@ public class Vehicle {
     private String brand;
     private String model;
     private String type;
-    private int tare;
-    private int grossWeight;
+    private double tare;
+    private double grossWeight;
     private int currentKms;
-    private String registerString;
-    private String acquisitionString;
+    private LocalDate registerString;
+    private LocalDate acquisitionString;
     private int checkUpFrequencyInKms;
 
 
@@ -29,8 +32,8 @@ public class Vehicle {
      * @param acquisitionString           - Data de Aquisição
      * @param checkUpFrequencyInKms     - Frequência de km para revisão
      */
-    public Vehicle(String plateID, String brand, String model, String type, int tare, int grossWeight,
-                   int currentKms, String registerString,String acquisitionString, int checkUpFrequencyInKms){
+    public Vehicle(String plateID, String brand, String model, String type, double tare, double grossWeight,
+                   int currentKms, LocalDate registerString,LocalDate acquisitionString, int checkUpFrequencyInKms){
         this.plateID = plateID;
         this.brand = brand;
         this.model = model;
@@ -78,7 +81,7 @@ public class Vehicle {
         this.type = type;
     }
 
-    public int getTare() {
+    public double getTare() {
         return tare;
     }
 
@@ -86,7 +89,7 @@ public class Vehicle {
         this.tare = tare;
     }
 
-    public int getGrossWeight() {
+    public double getGrossWeight() {
         return grossWeight;
     }
 
@@ -102,23 +105,23 @@ public class Vehicle {
         this.currentKms = currentKms;
     }
 
-    public String getRegisterString() {
+    public LocalDate getRegisterString() {
         return registerString;
     }
 
-    public void setRegisterString(String registerString) {
+    public void setRegisterString(LocalDate registerString) {
         if (registerString == null ) {
             throw new IllegalArgumentException("Invalid Aquisition String");
         }
         this.registerString = registerString;
     }
 
-    public String getAcquisitionString() {
+    public LocalDate getAcquisitionString() {
 
         return acquisitionString;
     }
 
-    public void setAcquisitionString(String acquisitionString) {
+    public void setAcquisitionString(LocalDate acquisitionString) {
         if (acquisitionString == null ) {
             throw new IllegalArgumentException("Invalid Aquisition String");
         }
