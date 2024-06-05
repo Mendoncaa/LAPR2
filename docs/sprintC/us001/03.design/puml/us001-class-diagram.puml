@@ -98,7 +98,7 @@ OrganizationRepository --> "*" Organization : organizations
 AuthenticationRepository -> "1" UserSession : usersession
 Repositories --> "1" AuthenticationRepository
 Employee "1" --> "*" Skill : creates
-Repositories "1" --> "1" EmployeeRepository
+Repositories --> "1" EmployeeRepository
 Organization "1" --> "*" Employee : employs
 EmployeeRepository "1" --> "*" Employee : agreggates
 CreateSkillController .> AuthenticationRepository

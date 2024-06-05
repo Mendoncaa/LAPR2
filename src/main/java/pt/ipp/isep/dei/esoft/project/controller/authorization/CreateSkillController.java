@@ -9,12 +9,21 @@ import pt.isep.lei.esoft.auth.UserSession;
 
 import java.util.Optional;
 
+/**
+ * Controller class responsible for handling the creation of skills.
+ */
 public class CreateSkillController {
     private Organization organization;
 
     private AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
 
-
+/**
+ * Creates a new skill if the user has the appropriate role.
+ *
+ * @param skillName The name of the skill to be created.
+ * @return An Optional containing the created skill if successful.
+ * @throws IllegalArgumentException If the user is not authorized or the organization is not found.
+ */
 
 
     public Optional<Skill> createSkill(String skillName) throws IllegalArgumentException{
@@ -42,10 +51,9 @@ public class CreateSkillController {
             throw new IllegalArgumentException("User is not authorized to create a job.");
         }
     }
-
-
-
 }
+
+
 
 
 

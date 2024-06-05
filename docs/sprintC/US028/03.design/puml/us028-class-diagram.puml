@@ -1,0 +1,141 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+
+class TaskConsultationUI {
+    + displayTaskList(tasks: List<Task>)
+    + requestDateRange()
+    + requestTaskStatusFilter()
+}
+
+class TaskConsultationController {
+    + TaskConsultationController(employeeRepository, taskRepository, agendaRepository, userSession)
+    + consultTasks(startDate: Date, endDate: Date, status: TaskStatus): List<Task>
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getEmployeeRepository() : EmployeeRepository
+    + getTaskRepository() : TaskRepository
+    + getAgendaRepository() : AgendaRepository
+}
+
+class OrganizationRepository {
+    + getOrganizationByUserEmail(email)
+}
+
+class Organization {
+    - String name
+    - String vatNumber
+    - String phone
+    - String email
+    - Address postalAddress
+    - addSkill(skill)
+    - validateSkill(skill)
+    + Organization(name, vatNumber, webSite, phone, email, postalAddress)
+    - getUserByEmail(email)
+}
+
+class AuthenticationRepository {
+    + getCurrentUserSession()
+}
+
+class UserSession {
+    + isLoggedInWithRole()
+    + getUserId()
+}
+
+class EmployeeRepository {
+    - EmployeeRepository()
+    + addSkill(Skill skill)
+    + listEmployees()
+    + emailExists(mail)
+    + getEmployeeByUserEmail(email)
+}
+
+class Employee {
+    - String name
+    - Date birthdate
+    - Date admission date
+    - Address postalAddress
+    - String phone
+    - String email
+    - String ID doc type
+    - String ID document number
+    - String Taxpayer ID
+    - Skill skill
+    + CompareTo(TaxPayerID)
+    + Clone()
+    + toString()
+    + hasThisEmail(mail)
+    + createSkill(skill)
+    + addTeamMemberSkill ()
+}
+
+
+class TaskRepository {
+    - TaskRepository()
+    + findTasksByCollaboratorAndDateRange(collaborator: Collaborator, startDate: Date, endDate: Date): List<Task>
+    + findTasksByCollaboratorAndDateRangeAndStatus(collaborator: Collaborator, startDate: Date, endDate: Date, status: TaskStatus): List<Task>
+}
+
+class Task {
+    - taskId: String
+    - description: String
+    - startDate: Date
+    - endDate: Date
+    - status: TaskStatus
+    - assignedTo: Collaborator
+}
+
+enum TaskStatus {
+    + PENDING
+    + COMPLETED
+    + IN_PROGRESS
+}
+
+class AgendaRepository {
+    - AgendaRepository()
+    + findTasksByCollaboratorAndDateRange(collaborator: Collaborator, startDate: Date, endDate: Date): List<Task>
+    + findTasksByCollaboratorAndDateRangeAndStatus(collaborator: Collaborator, startDate: Date, endDate: Date, status: TaskStatus): List<Task>
+}
+
+class Agenda {
+    - agendaId: String
+    - name: String
+    - tasks: List<Task>
+}
+
+
+
+Repositories -> Repositories : instance
+TaskConsultationUI .> TaskConsultationController
+Repositories --> "1" OrganizationRepository
+OrganizationRepository --> "*" Organization : organizations
+Organization "1" --> "1" EmployeeRepository
+Organization  --> "*" Employee : employs
+Organization "1" --> "1" TaskRepository
+Organization "1" --> "1" AgendaRepository
+TaskConsultationController .> Repositories : repositories
+Repositories --> "1" AuthenticationRepository
+Repositories --> "1" EmployeeRepository
+Repositories --> "1" TaskRepository
+Repositories --> "1" AgendaRepository
+AuthenticationRepository -> "1" UserSession : usersession
+EmployeeRepository --> Employee : employees
+TaskRepository --> Task
+Task --> TaskStatus : has
+AgendaRepository --> Agenda
+Agenda --> Task : organizes
+Task --> Employee : assigned to
+
+@enduml

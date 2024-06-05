@@ -6,15 +6,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Repository class for managing organizations.
+ */
 public class OrganizationRepository {
 
     private final List<Organization> organizations;
 
+
+/**
+ * Constructor for OrganizationRepository.
+ * Initializes the list of organizations.
+ */
     public OrganizationRepository() {
         organizations = new ArrayList<>();
     }
 
-
+/**
+ * Retrieves an organization by the email of one of its employees.
+ *
+ * @param email The email of the employee.
+ * @return An Optional containing the organization if found, or an empty Optional if not.
+ */
     public Optional<Organization> getOrganizationByEmployeeEmail(String email) {
 
         Optional<Organization> returnOrganization = Optional.empty();
@@ -27,6 +40,13 @@ public class OrganizationRepository {
 
         return returnOrganization;
     }
+
+/**
+ * Adds a new organization to the repository if it passes validation.
+ *
+ * @param organization The organization to be added.
+ * @return An Optional containing the added organization if successful, or an empty Optional if not.
+ */
 
     public Optional<Organization> add(Organization organization) {
 
@@ -45,6 +65,14 @@ public class OrganizationRepository {
         return newOrganization;
 
     }
+
+
+/**
+ * Validates if the organization can be added to the repository.
+ *
+ * @param organization The organization to be validated.
+ * @return True if the organization is valid and can be added, false otherwise.
+ */
 
     private boolean validateOrganization(Organization organization) {
         boolean isValid = !organizations.contains(organization);

@@ -13,6 +13,10 @@ import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 import java.util.Optional;
 import java.util.Scanner;
 
+/**
+ * This class represents the User Interface for creating a skill.
+ * It implements the Runnable interface to allow it to be run in a separate thread if needed.
+ */
 public class CreateSkillUI implements Runnable {
 
     private CreateSkillController controller;
@@ -20,13 +24,27 @@ public class CreateSkillUI implements Runnable {
     private Scanner scan = new Scanner(System.in);
     private SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
 
+/**
+ * Constructor for CreateSkillUI.
+ * Initializes the controller.
+ */
     public CreateSkillUI() {
         controller = new CreateSkillController();
     }
+
+
+/**
+ * Returns the instance of the CreateSkillController.
+ * @return the instance of CreateSkillController.
+ */
     private CreateSkillController getController() {
         return controller;
     }
 
+/**
+ * The main method to run the CreateSkillUI.
+ * Prompts the user for the skill name and confirms the creation.
+ */
     public void run() {
 
         System.out.println("\n\n--- Create Skill -----------------------");
@@ -51,6 +69,11 @@ public class CreateSkillUI implements Runnable {
         }
 
     }
+
+/**
+ * Submits the skill data to be created.
+ * @param skillName The name of the skill to be created.
+ */
 
     private void submitData(String skillName) {
         try {

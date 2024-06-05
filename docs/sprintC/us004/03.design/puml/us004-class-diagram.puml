@@ -114,14 +114,14 @@ AssignSkillUI .> AssignSkillController
 Repositories --> "1" OrganizationRepository
 OrganizationRepository --> "*" Organization : organizations
 Organization "1" --> "1" EmployeeRepository
-Organization  --> "*" Employee : employs
+Organization "1" --> "*" Employee : employs
 AssignSkillController .> Repositories : repositories
 Repositories --> "1" AuthenticationRepository
 Repositories --> "1" EmployeeRepository
 Repositories --> "1" SkillRepository
-AuthenticationRepository --> UserSession
+AuthenticationRepository -> "1" UserSession : usersession
 EmployeeRepository --> Employee : employees
-SkillRepository --> Skill
+SkillRepository "1" --> "*" Skill : agreggate
 Employee --> TeamMember : is a
 Skill --> TeamMember  : assigned to
 Organization "1" --> "1" SkillRepository
