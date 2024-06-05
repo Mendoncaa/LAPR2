@@ -1,0 +1,33 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US027 - List Green Spaces Managed by Me\nSystem Sequence Diagram (SSD)
+
+autonumber
+
+actor "Green Spaces\n Manager" as Employee
+participant ":System" as System
+
+activate Employee
+
+    Employee -> System : asks to list Green Spaces
+    activate System
+
+        System --> Employee : list sorting algorithms and requests selection
+    deactivate System
+
+    Employee -> System : selects requested sorting algorithm
+    activate System
+
+        System --> Employee : show selection and request confirmation
+    deactivate System
+
+    Employee -> System : confirms
+        activate System
+
+            System --> Employee : list green spaces managed
+        deactivate System
+
+@enduml

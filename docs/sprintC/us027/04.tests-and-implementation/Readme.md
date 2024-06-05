@@ -1,23 +1,14 @@
-# US002 - As an HRM, I want to register a job.
+# US0027 - As a GSM, I need to list all green spaces managed by me.
 
 ## 4. Tests 
 
-**Test 1:** Check that it is not possible to create an instance of the Job class with null values. 
+**Test 1:** Check if the list of green spaces is sorted by size in descending order
 
 	@Test(expected = IllegalArgumentException.class)
 		public void ensureNullIsNotAllowed() {
 		Job instance = new Job(null);
 	}
 	
-
-**Test 2:** Check that it is not possible to create an instance of the Job class with a name containing special characteres or digits - AC1. 
-
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureNameMeetsAC1() {
-		Job instance = new Job("Ab1");
-	}
-
-_It is also recommended to organize this content by subsections._ 
 
 
 ## 5. Construction (Implementation)

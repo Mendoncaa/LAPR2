@@ -1,37 +1,36 @@
-# US002 - As an HRM, I want to register a job. 
+# US0027 - As a GSM, I need to list all green spaces managed by me. 
 
 ## 3. Design - User Story Realization 
 
 ### 3.1. Rationale
 
 
-| Interaction ID                             | Question: Which class is responsible for...                 | Answer              | Justification (with patterns)                                                                       |
-|:-------------------------------------------|:------------------------------------------------------------|:--------------------|:----------------------------------------------------------------------------------------------------|
-| Step 1 - ask to create a new Job 		  | ... interacting with the actor?                             | CreateJobUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the DM. |
-|                                            | ... coordinating the US?                                    | CreateJobController | Pure Fabrication(System Interaction Controller)                                                     |
-| Step 2 - requests data                     | ... displaying form for actor input?                        | CreateJobUI         | Pure Fabrication(Interation with Actor)                                                             |
-| Step 3 - types requested data              | ... temporaly keeping input data?                           | CreateJobUI         | Pure Fabrication(Interation with Actor)                                                             | 
-| Step 4 - show data an request confirmation | ... displaying all the information before submitting?       | CreateJobUI         | Pure Fabrication(Interation with Actor)                                                             |
-| Step 5 - confirms data			          | ... knowing the user using the system?                      | UserSession         | IE: see Auth component documentation.                                                               |        
-| 	                                          | ... instantiating a new Job (Object)?                       | Organization        | Creator (Rule 1): in the DM Organization owns Jobs list.                                            |
-|   		                                  | ... validating all data (local validation,i.e.mandatory)?   | Job                 | IE: owns its data.                                                                                  |
-| 		                                      | ... validating all data (global validation,i.e.duplicates)? | Organization        | IE: knows all its jobs.                                                                             |
-| 			  		                          | ... saving the created job?                                 | Organization        | IE: owns all its jobs.                                                                              |
-| 		                                      | ... saving the inputted data?                               | Job                 | IE: object created previously has its own data.                                                     |
-| Step 6 - dysplay operation sucess	  	  | ... information operation sucess?                           | CreateJobUI         | PureFabrication(Interation with Actor)                                                              |              
+| Interaction ID                                                    | Question: Which class is responsible for...           | Answer                      | Justification (with patterns)                                                                       |
+|:------------------------------------------------------------------|:------------------------------------------------------|:----------------------------|:----------------------------------------------------------------------------------------------------|
+| Step 1 - asks to list Green Spaces		                              | ... interacting with the actor?                       | ListGSManagedByMeUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the DM. |
+|                                                                   | ... coordinating the US?                              | ListGSManagedByMeController | Controller                                                                                          |
+|                                                                   | ... use configuration file                            | SortingGreenSpacesByManager | Pure Fabrication (Interface - External Module Adapter)                                              |
+| Step 2 - list available sorting algorithms and requests selection | ... displaying form for actor input?                  | ListGSManagedByMeUI         | Pure Fabrication(Interaction with Actor)                                                            |
+| Step 3 - selects requested sorting algorithm                      | ... temporally keeping input data?                     | ListGSManagedByMeUI         | Pure Fabrication(Interaction with Actor)                                                            | 
+| Step 4 - show selection and request confirmation                  | ... displaying all the information before submitting? | ListGSManagedByMeUI         | Pure Fabrication(Interaction with Actor)                                                            |
+| Step 5 - confirms 			                                             | ... knowing the user using the system?                | UserSession                 | IE: see Auth component documentation.                                                               |        
+|                                                                   | ... who knows all GreenSpaces                         | Organization                | IE: knows all its GreenSpaces.                                                                      |
+|                                                                   | ... who knows is manager?                             | GreenSpace                  | IE: knows all its data.                                                                             |
+| Step 6 - list green spaces managed	  	                            | ... show information?                                 | ListGSManagedByMeUI         | PureFabrication(Interaction with Actor)                                                             |              
 
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
+* GreenSpace
 * Organization
-* Job
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
-* CreateJobUI  
-* CreateJobController
+* ListGSManagedByMeUI  
+* ListGSManagedByMeController
+* SortingGreenSpacesByManager
 
 
 ## 3.2. Sequence Diagram (SD)
@@ -42,9 +41,9 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us002-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us027-sequence-diagram-full.svg)
 
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us002-class-diagram.svg)
+![Class Diagram](svg/us027-class-diagram.svg)

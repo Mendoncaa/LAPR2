@@ -139,6 +139,7 @@ Agenda "1"---"1..*" Tasks : organizes >
 
 GSM "1"---"1" Portal : manages >
 GSM "1"---"1" Agenda : manages >
+GSM "1"---"1..*" GreenSpaces : manages >
 
 VFM "1..*"---"1..*" Vehicles : manages >
 VFM "1..*"---"1..*" Machines : manages >

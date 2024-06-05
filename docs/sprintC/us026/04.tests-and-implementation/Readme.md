@@ -1,23 +1,23 @@
-# US002 - As an HRM, I want to register a job.
+# US026 - As a GSM, I want to assign one or more vehicles to an entry in the Agenda.
 
 ## 4. Tests 
 
-**Test 1:** Check that it is not possible to create an instance of the Job class with null values. 
+**Test 1:** Check that vehicles can´t be assigned in two tasks at same time
 
 	@Test(expected = IllegalArgumentException.class)
 		public void ensureNullIsNotAllowed() {
 		Job instance = new Job(null);
 	}
-	
+	**AC1** - Vehicles selected must be available in the date and time of execution scheduled.
 
-**Test 2:** Check that it is not possible to create an instance of the Job class with a name containing special characteres or digits - AC1. 
+
+**Test 2:** Check that only Gsm of that park can assign vehicles. 
 
 	@Test(expected = IllegalArgumentException.class)
 		public void ensureNameMeetsAC1() {
 		Job instance = new Job("Ab1");
 	}
 
-_It is also recommended to organize this content by subsections._ 
 
 
 ## 5. Construction (Implementation)

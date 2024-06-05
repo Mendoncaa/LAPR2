@@ -8,7 +8,7 @@
 | Interaction ID                                            | Question: Which class is responsible for...                    | Answer                      | Justification (with patterns)                                                                       |
 |:----------------------------------------------------------|:---------------------------------------------------------------|:----------------------------|:----------------------------------------------------------------------------------------------------|
 | Step 1 - ask to assign vehicles to an entry in the Agenda | ... interacting with the actor?                                | AddVehiclesToTaskUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the DM. |
-|                                                           | ... coordinating the US?                                       | AddVehiclesToTaskController | Pure Fabrication(System Interaction Controller)                                                     |
+|                                                           | ... coordinating the US?                                       | AddVehiclesToTaskController | Controller                                                                                          |
 | Step 2 - List tasks in the Agenda and ask to select one.  | ... knowing the user using the system?                         | UserSession                 | IE: see Auth component documentation.                                                               |
 |                                                           | ... knowing the tasks to show?                                 | Employee                    | IE: knows all tasks.                                                                                |
 |                                                           | ... displaying list for actor input selection?                 | AddVehiclesToTaskUI         | Pure Fabrication(Interation with Actor)                                                             |
@@ -19,7 +19,7 @@
 | Step 7 - confirms data		                             | ... validating global data (global validation,i.e.duplicates)? | Employee                    | IE: knows all its tasks.                                                                            |
 | 			  		                                         | ... validating local data (Bussiness rules)                    | Task                        | IE: knows is own data.                                                                              |
 | 		                                                     | ... saving the inputted data?                                  | Task                        | IE: object created previously has its own data.                                                     |
-| Step 8 - display operation sucess	  	                 | ... information operation sucess?                              | CreateJobUI                 | PureFabrication(Interation with Actor)                                                              |              
+| Step 8 - display operation sucess	  	                 | ... information operation sucess?                              | AddVehiclesToTaskUI         | PureFabrication(Interation with Actor)                                                              |              
 
 
 ### Systematization ##
