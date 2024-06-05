@@ -82,7 +82,7 @@ class Employee {
 }
 
 
-class TaskRepository {
+class Tasks {
     - TaskRepository()
     + findTasksByCollaboratorAndDateRange(collaborator: Collaborator, startDate: Date, endDate: Date): List<Task>
     + findTasksByCollaboratorAndDateRangeAndStatus(collaborator: Collaborator, startDate: Date, endDate: Date, status: TaskStatus): List<Task>
@@ -103,39 +103,20 @@ enum TaskStatus {
     + IN_PROGRESS
 }
 
-class AgendaRepository {
-    - AgendaRepository()
-    + findTasksByCollaboratorAndDateRange(collaborator: Collaborator, startDate: Date, endDate: Date): List<Task>
-    + findTasksByCollaboratorAndDateRangeAndStatus(collaborator: Collaborator, startDate: Date, endDate: Date, status: TaskStatus): List<Task>
-}
-
-class Agenda {
-    - agendaId: String
-    - name: String
-    - tasks: List<Task>
-}
-
-
-
 Repositories -> Repositories : instance
 TaskConsultationUI .> TaskConsultationController
 Repositories --> "1" OrganizationRepository
 OrganizationRepository --> "*" Organization : organizations
 Organization "1" --> "1" EmployeeRepository
 Organization  --> "*" Employee : employs
-Organization "1" --> "1" TaskRepository
-Organization "1" --> "1" AgendaRepository
 TaskConsultationController .> Repositories : repositories
 Repositories --> "1" AuthenticationRepository
 Repositories --> "1" EmployeeRepository
-Repositories --> "1" TaskRepository
-Repositories --> "1" AgendaRepository
+Repositories --> "1" Tasks
 AuthenticationRepository -> "1" UserSession : usersession
 EmployeeRepository --> Employee : employees
-TaskRepository --> Task
+Tasks --> Task
 Task --> TaskStatus : has
-AgendaRepository --> Agenda
-Agenda --> Task : organizes
-Employee --> Task : record the completion
+Employee --> Tasks
 
 @enduml

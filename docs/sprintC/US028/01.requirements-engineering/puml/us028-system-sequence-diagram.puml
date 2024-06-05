@@ -21,13 +21,13 @@ activate Collaborator
     Collaborator -> System : provides start date, end date, and task status
     activate System
 
-        alt Invalid dates or status
-            System --> Collaborator : displays error message and requests correct data
-            deactivate System
 
-            Collaborator -> System : provides corrected start date, end date, and task status
-            activate System
-        end
+         System --> Collaborator : shows start date, end date, and task status
+    deactivate System
+
+    Collaborator -> System : confirm data (start date, end date, and task status)
+    activate System
+
 
         System --> Collaborator : displays list of tasks sorted by date and filtered by status
     deactivate System

@@ -1,33 +1,46 @@
 @startuml
+@startuml
 skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
+
 autonumber
 
-actor "Green Space Manager" as GSM
-participant ":RegisterGreenSpaceUI" as UI
-participant ":RegisterGreenSpaceController" as CTRL
+actor "Collaborator" as COL
+participant ":ConsultTasksUI" as UI
+participant ":ConsultTasksController" as CTRL
 participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "GreenSpaceRepository:\nGreenSpaceRepository" as GSR
 participant "AuthFacade\n:AuthenticationRepository" as AUTHREP
 participant "userSession\n:UserSession" as USER
-participant "GreenSpace\n:GreenSpace" as GS
+participant "employeeRepository\n:EmployeeRepository" as EMPREP
+participant "taskRepository\n:TaskRepository" as TASKREP
+participant "tasksFilter\n:TasksFilter" as FILTER
+participant "employee\n:Employee" as EMP
+participant "Task\n:Task" as TASK
 
-activate GSM
+activate COL
 
-        GSM -> UI : requests to register a new green space
-        activate UI
-
-        UI --> GSM : requests data (Name, Size classification, Area, Address)
-    deactivate UI
-
-    GSM -> UI : types requested data (Name, Size classification, Area, Address)
+    COL -> UI : request to consult tasks
     activate UI
 
-    UI -> CTRL : registerGreenSpace(Name, Size classification, Area, Address)
-    activate CTRL
+        UI --> COL : request start date, end date, and task status
+    deactivate UI
+
+    COL -> UI : provide start date, end date, and task status
+    activate UI
+
+        UI -> CTRL : consultTasks(startDate, endDate, status)
+        activate CTRL
+
+        CTRL -> COL : show start date, end date, and task status
+    deactivate CTRL
+
+    COL -> UI : confirm data (start date, end date, task status)
+    activate UI
+
+        UI -> CTRL : confirmConsultTasks(startDate, endDate, status)
+        activate CTRL
 
         CTRL -> CTRL : getUserFromSession()
 
@@ -36,18 +49,18 @@ activate GSM
         CTRL <-- RepositorySingleton : Repositories
         deactivate RepositorySingleton
 
-        CTRL -> PLAT : getAuthenticationRepository()
-        activate PLAT
-        CTRL <-- PLAT : AuthenticationRepository()
-        deactivate PLAT
+        CTRL -> RepositorySingleton : getAuthenticationRepository()
+        activate RepositorySingleton
+        CTRL <-- RepositorySingleton : AuthenticationRepository
+        deactivate RepositorySingleton
 
         CTRL -> AUTHREP : getCurrentUserSession()
         activate AUTHREP
 
-        AUTHREP -> USER : isLoggedWithRole(GSM)
+        AUTHREP -> USER : isLoggedInWithRole(Collaborator)
         activate USER
 
-        AUTHREP <-- USER : "True/False"
+        AUTHREP <-- USER : True/False
         AUTHREP --> USER : getUserId(email)
         AUTHREP <-- USER : userId(email)
         deactivate USER
@@ -60,31 +73,71 @@ activate GSM
         CTRL <-- RepositorySingleton : Repositories
         deactivate RepositorySingleton
 
-        CTRL -> PLAT : getGreenSpaceRepository()
-        activate PLAT
-        CTRL <-- PLAT : GreenSpaceRepository()
-        deactivate PLAT
+        CTRL -> RepositorySingleton : getEmployeeRepository()
+        activate RepositorySingleton
+        CTRL <-- RepositorySingleton : EmployeeRepository
+        deactivate RepositorySingleton
 
+        CTRL -> EMPREP : getEmployeeByUserId(email)
+        activate EMPREP
 
-       
-    
-        CTRL -> GS : create(Name, Size classification, Area, Address)
-        activate GS
-        GS -> CTRL : GreenSpace instance
-        deactivate GS
+            EMPREP -> EMP : anyEmployeeHasThisUserId(email)
+            activate EMP
+            EMPREP <-- EMP : True/False
+            deactivate EMP
 
-        CTRL -> GSR : save(GreenSpace instance)
-        activate GSR
-        GSR --> CTRL : success
-        deactivate GSR
+            loop for each employee with userId(email)
+            EMPREP -> EMP : findEmployeeByUserId(email)
+            activate EMP
+            EMPREP <-- EMP : employee
+            deactivate EMP
+            end loop
 
-        CTRL --> UI : operation success
-        
-    deactivate CTRL
+        CTRL <-- EMPREP : employee
+        deactivate EMPREP
 
-    UI --> GSM : Display success message
+        CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+        CTRL <-- RepositorySingleton : Repositories
+        deactivate RepositorySingleton
+
+        CTRL -> RepositorySingleton : getTaskRepository()
+        activate RepositorySingleton
+        CTRL <-- RepositorySingleton : TaskRepository
+        deactivate RepositorySingleton
+
+        CTRL -> TASKREP : findTasksByCollaboratorAndDateRange(employee, startDate, endDate)
+        activate TASKREP
+            loop for each task in the specified date range
+            TASKREP -> TASK : findTaskByEmployeeAndDateRange(employee, startDate, endDate)
+            activate TASK
+            TASKREP <-- TASK : task
+            deactivate TASK
+            end loop
+
+        TASKREP --> CTRL : tasks
+        deactivate TASKREP
+
+        'Apply date range filter
+        CTRL -> FILTER : filterTasksByDateRange(tasks, startDate, endDate)
+        activate FILTER
+        FILTER --> CTRL : filteredTasksByDate
+        deactivate FILTER
+
+        'Apply status filter
+        CTRL -> FILTER : filterTasksByStatus(filteredTasksByDate, status)
+        activate FILTER
+        FILTER --> CTRL : sortedTasks
+        deactivate FILTER
+
+        CTRL --> UI : sortedTasks
+        deactivate CTRL
+        UI --> COL : display sorted tasks with filters
     deactivate UI
 
-deactivate GSM
+deactivate COL
+@enduml
+
+
 
 @enduml

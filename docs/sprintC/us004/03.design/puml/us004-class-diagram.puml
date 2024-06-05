@@ -124,7 +124,7 @@ EmployeeRepository --> Employee : employees
 SkillRepository "1" --> "*" Skill : agreggate
 Employee --> TeamMember : is a
 Skill --> TeamMember  : assigned to
-Organization "1" --> "1" SkillRepository
+Employee --> SkillRepository
 
 
 @enduml
