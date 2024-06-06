@@ -26,9 +26,9 @@ As a Green Space Manager (GSM), I want to register a green space (garden, medium
 >
 > **Answer:** No.
 
-> **Question:** Our team is unsure about what the exact inputs for the Green Space, To-Do List Entry, and Agenda entry exactly are.
+> **Question:** And when it comes to To-Do List entries, we identified a state (planned, postponed, completed, canceled), a green space, a title, and a description as inputs for a To-Do List entry. But are there any more?
 >
-> **Answer:** Seems enough.
+> **Answer:** In the text you can find: the degree of urgency (High, Medium,and Low), and the approximate expected duration.**
 
 ### 1.3. Acceptance Criteria
 
@@ -36,13 +36,13 @@ As a Green Space Manager (GSM), I want to register a green space (garden, medium
 
 * **AC2** Two green spaces cannot have the same name.
 
-* **AC3** The system should store the green space details provided by the GSM.
-
+* **AC3** The size classification of the green space is not automatic and is defined by the GSM.
+ 
 ### 1.4. Found out Dependencies
 
 There is a dependency on:
 
-* None identified explicitly, but the module should integrate smoothly with the overall system managing green spaces.
+[N/A]
 
 ### 1.5 Input and Output Data
 
@@ -58,8 +58,8 @@ There is a dependency on:
 
 **Output Data:**
 
-* Confirmation message indicating successful registration of the green space
-* Error message if the name already exists
+* Confirmation message of the successful registration of the green space.
+
 
 ### 1.6. System Sequence Diagram (SSD)
 

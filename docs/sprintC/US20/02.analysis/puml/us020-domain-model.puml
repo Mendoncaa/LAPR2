@@ -5,6 +5,8 @@ hide circle
 hide empty attributes
 skinparam linetype polyline
 
+class GSM {
+}
 
 class GreenSpaces {
   -type
@@ -13,5 +15,7 @@ class GreenSpaces {
 GreenSpaces "*1..*"---"1...*" Garden : is a >
 GreenSpaces "*1..*"---"1...*" MediumSizedPark : is a >
 GreenSpaces "*1..*"---"1...*" LargeSizedPark : is a >
+
+GSM "1"---"1..*" GreenSpaces : manages >
 
 @enduml
