@@ -1,0 +1,38 @@
+@startuml
+
+hide methods
+hide circle
+hide empty attributes
+skinparam linetype polyline
+
+class Employee {
+}
+
+class GSM {
+}
+
+class Tasks {
+  - toDoList
+  -taskCategory
+}
+
+class Agenda {
+  -date
+  -time
+  -location
+}
+
+
+class GreenSpaces {
+  -type
+  - name
+  - address
+}
+
+GSM "1"---"1..*" GreenSpaces : manages
+Employee "1"---"1..*" GSM : is a <
+Tasks "1..*"---"1..*" GreenSpaces : relates to >
+Employee "1"---"0..*" Tasks: manages >
+GSM "1"---"1" Agenda : manages >
+Agenda "1"---"1..*" Tasks : organizes >
+@enduml
