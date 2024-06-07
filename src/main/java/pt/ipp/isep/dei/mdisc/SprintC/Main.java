@@ -36,12 +36,16 @@ public class Main {
         System.out.println("2. Escolher um sinal específico");
 
         int choice = scanner.nextInt();
-        scanner.nextLine();  // Consume newline
+        scanner.nextLine();
 
-        System.out.println("Digite o caminho para o CSV da matriz:");
-        String matrixPath = scanner.nextLine();
-        System.out.println("Digite o caminho para o CSV dos pontos:");
-        String pointsPath = scanner.nextLine();
+        System.out.println("Digite o nome do ficheiro CSV da matriz:");
+
+        String matrixFileName = scanner.nextLine();
+        String matrixPath = "src/main/java/pt/ipp/isep/dei/mdisc/SprintC/input/" + matrixFileName;
+        System.out.println("Digite o nome do ficheiro para o CSV dos pontos:");
+
+        String pointsFileName = scanner.nextLine();
+        String pointsPath = "src/main/java/pt/ipp/isep/dei/mdisc/SprintC/input/" + pointsFileName;
 
         try {
             int[][] weights = CSVReader.readMatrixFromCSV(matrixPath);
