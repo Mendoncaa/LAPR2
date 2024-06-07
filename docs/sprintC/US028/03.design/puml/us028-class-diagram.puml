@@ -17,7 +17,7 @@ class TaskConsultationUI {
 }
 
 class TaskConsultationController {
-    + TaskConsultationController(employeeRepository, taskRepository, agendaRepository, userSession)
+    + TaskConsultationController(employeeRepository, taskRepository, userSession)
     + consultTasks(startDate: Date, endDate: Date, status: TaskStatus): List<Task>
 }
 
@@ -25,8 +25,6 @@ class Repositories {
     - Repositories()
     + getInstance() : Repositories
     + getEmployeeRepository() : EmployeeRepository
-    + getTaskRepository() : TaskRepository
-    + getAgendaRepository() : AgendaRepository
 }
 
 class OrganizationRepository {
@@ -39,8 +37,6 @@ class Organization {
     - String phone
     - String email
     - Address postalAddress
-    - addSkill(skill)
-    - validateSkill(skill)
     + Organization(name, vatNumber, webSite, phone, email, postalAddress)
     - getUserByEmail(email)
 }
@@ -56,7 +52,6 @@ class UserSession {
 
 class EmployeeRepository {
     - EmployeeRepository()
-    + addSkill(Skill skill)
     + listEmployees()
     + emailExists(mail)
     + getEmployeeByUserEmail(email)
@@ -72,13 +67,9 @@ class Employee {
     - String ID doc type
     - String ID document number
     - String Taxpayer ID
-    - Skill skill
     + CompareTo(TaxPayerID)
     + Clone()
     + toString()
-    + hasThisEmail(mail)
-    + createSkill(skill)
-    + addTeamMemberSkill ()
 }
 
 
@@ -89,18 +80,31 @@ class Tasks {
 }
 
 class Task {
-    - taskId: String
-    - description: String
-    - startDate: Date
-    - endDate: Date
-    - status: TaskStatus
-    - assignedTo: Collaborator
+    + title: String
+    + greenSpace: GreenSpace
+    + description: String
+    + status: Status
+    + urgency: Urgency
+    + days: int
+    + hours: int
+    + getTitle(): String
+    + getGreenSpace(): GreenSpace
+    + getDescription(): String
+    + getStatus(): Status
+    + getUrgency(): Urgency
+    + getDays(): int
+    + getHours(): int
+    + toString(): String
+    + findTasksByCollaboratorAndDateRange(collaboratorId: String, startDate: Date, endDate: Date): List<Task>
+    + compareTo(otherTask: Task): int
 }
 
-enum TaskStatus {
-    + PENDING
-    + COMPLETED
-    + IN_PROGRESS
+
+enum Status {
+    PLANNED
+    POSTPONED
+    CANCELED
+    DONE
 }
 
 
@@ -120,7 +124,7 @@ Repositories --> "1" Tasks
 AuthenticationRepository -> "1" UserSession : usersession
 EmployeeRepository --> Employee : employees
 Tasks--> Task
-Task --> TaskStatus : has
+Task --> Status : has
 Employee --> Tasks
 
 @enduml
