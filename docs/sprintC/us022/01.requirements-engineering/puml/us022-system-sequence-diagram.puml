@@ -1,0 +1,48 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US022 - Add a New Entry in the Agenda\nSystem Sequence Diagram (SSD)
+
+autonumber
+
+actor "Green Space Manager" as GSM
+participant ":System" as System
+
+activate GSM
+
+    GSM -> System : Requests to add a new Agenda entry
+    activate System
+
+    System --> GSM : display green spaces managed by GSM for selection
+        deactivate System
+
+        GSM -> System : selects a green space from greenSpaceList
+        activate System
+
+        System --> GSM : display pending tasks for selection
+    deactivate System
+
+    GSM -> System : selects a pending task from the To-do list
+    activate System
+
+
+
+        System --> GSM : requests starting date
+    deactivate System
+
+    GSM -> System : types starting date
+    activate System
+
+        System --> GSM : Show Agenda entry data and request confirmation
+        deactivate System
+
+        GSM -> System : confirms data
+        activate System
+
+        System --> GSM : displays operation success
+        
+    deactivate System
+
+@enduml
