@@ -12,11 +12,8 @@ class GSM {
 }
 
 class Tasks {
-  - taskCategory 
-  - title
-  - description
-  - urgency
-  - status
+  - toDoList
+  -taskCategory
 }
 
 
@@ -26,9 +23,8 @@ class GreenSpaces {
   - address
 }
 
+GSM "1"---"1..*" GreenSpaces : manages
 Employee "1"---"1..*" GSM : is a <
-Employee "1"---"0..*" Tasks: manages > 
 Tasks "1..*"---"1..*" GreenSpaces : relates to >
-Employee "1"---"1" GreenSpaces : manages >
-
+Employee "1"---"0..*" Tasks: manages > 
 @enduml

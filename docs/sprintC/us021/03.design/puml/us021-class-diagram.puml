@@ -1,116 +1,114 @@
 @startuml
-skinparam classAttributeIconSize 0
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
 
 class GreenSpace {
-    + name: String
-    + sizeClassification: String
-    + area: double
-    + address: String
+    - String name
+    - String type
+    - String location
 }
 
 class Task {
-    + title: String
-    + greenSpace: GreenSpace
-    + description: String
-    + status: Status
-    + urgency: Urgency
-    + days: int
-    + hours: int
-    + getTitle(): String
-    + getGreenSpace(): GreenSpace
-    + getDescription(): String
-    + getStatus(): Status
-    + getUrgency(): Urgency
-    + getDays(): int
-    + getHours(): int
-    + toString(): String
+    - String title
+    - GreenSpace greenSpace
+    - String description
+    - Status status
+    - Urgency urgency
+    - int days
+    - int hours
+    + Task(String title, GreenSpace greenSpace, String description, Urgency urgency, int days, int hours)
+    + void validateTask()
+    + String getTitle()
+    + GreenSpace getGreenSpace()
+    + String getDescription()
+    + Status getStatus()
+    + Urgency getUrgency()
+    + int getDays()
+    + int getHours()
+    + String toString()
 }
 
-enum Urgency {
-    High
-    Medium
-    Low
-}
-
-enum Status {
-    PLANNED
-    POSTPONED
-    CANCELED
-    DONE
-}
-
-class ToDoListEntry {
-    + task: Task
-    + status: String = "Pending"
+class Employee {
+    + Task createTask(String title, String description, GreenSpace greenSpace, Urgency urgency, int days, int hours)
 }
 
 class ToDoListController {
-    + addNewTask(title: String, description: String, selectedGreenSpace: GreenSpace, selectedUrgency: Urgency, days: int, hours: int)
+    - TaskRepository taskRepository
+    - GreenSpaceRepository greenSpaceRepository
+    - AuthenticationRepository authenticationRepository
+    - EmployeeRepository employeeRepository
+    - OrganizationRepository organizationRepository
+    + List<GreenSpace> getAvailableGreenSpaces(String userId)
+    + void addNewTask(String title, String description, String greenSpaceId, Urgency urgency, int days, int hours)
 }
 
-class ToDoListUI {
-    + displayGreenSpaceList()
-    + displayUrgencyOptions()
+class TaskRepository {
+    + void save(Task task)
+}
+
+class GreenSpaceRepository {
+    + List<GreenSpace> getGreenSpacesManagedBy(String userId)
+}
+
+class AuthenticationRepository {
+    + UserSession getCurrentUserSession()
+}
+
+class UserSession {
+    + boolean isLoggedWithRole(String role)
+    + String getUserId()
+}
+
+class EmployeeRepository {
+    + Employee getEmployeeByUserID(String email)
+}
+
+class OrganizationRepository {
+    + Organization getOrganizationByUserID(String email)
+}
+
+class Organization {
+    + boolean anyUserHasId(String email)
+}
+
+enum Status {
+    PENDING,
+    PLANNED,
+    COMPLETED,
+    CANCELED
 }
 
 class Repositories {
     - Repositories()
-    + getInstance(): Repositories
-    + getGreenSpaceRepository(): GreenSpaceRepository
-    + getTaskRepository(): TaskRepository
-    + getAuthenticationRepository(): AuthenticationRepository
-    + getOrganizationRepository(): OrganizationRepository
-    + getEmployeeRepository(): EmployeeRepository
+    + getInstance() : Repositories
+    + getGreenSpaceRepository()
+    + getAuthenticationRepository()
+    + getEmployeeRepository()
+    + getOrganizationRepository()
+    + getTaskRepository()
+    
 }
 
-class GreenSpaceRepository {
-    + getGreenSpacesManagedBy(employeeId: String): List<GreenSpace>
+enum Urgency {
+    HIGH,
+    MEDIUM,
+    LOW
 }
 
-class TaskRepository {
-    + save(task: Task)
-}
-
-class AuthenticationRepository {
-    + getCurrentUserSession(): UserSession
-}
-
-class UserSession {
-    + isLoggedWithRole(role: String): boolean
-    + getUserId(): String
-}
-
-class EmployeeRepository {
-    + getEmployeeByUserID(userId: String): Employee
-}
-
-class OrganizationRepository {
-    + getOrganizationByUserID(userId: String): Organization
-}
-
-class Employee {
-    + createTask(title: String, description: String, greenSpace: GreenSpace, urgency: Urgency, days: int, hours: int): Task
-}
-
-class Organization {
-    + anyUserHasId(userId: String): boolean
-}
-
-Repositories "1" -- "1" Repositories : getInstance >
-ToDoListController "1" *-- "1" Repositories
-Repositories "1" *-- "1" GreenSpaceRepository
-Repositories "1" *-- "1" TaskRepository
-Repositories "1" *-- "1" AuthenticationRepository
-Repositories "1" *-- "1" OrganizationRepository
-Repositories "1" *-- "1" EmployeeRepository
-ToDoListController "1" *-- "1" ToDoListUI
-ToDoListController "1" *-- "1" Task
-ToDoListController "1" *-- "1" ToDoListEntry
-GreenSpaceRepository "1" *-- "1" GreenSpace
-TaskRepository "1" *-- "1" Task
-AuthenticationRepository "1" *-- "1" UserSession
-EmployeeRepository "1" *-- "1" Employee
-OrganizationRepository "1" *-- "1" Organization
-Task "1" *-- "1" GreenSpace
+Repositories -> Repositories: instance
+ToDoListController --> Repositories
+Repositories --> TaskRepository
+Repositories --> GreenSpaceRepository
+Repositories --> AuthenticationRepository
+Repositories --> EmployeeRepository
+Repositories --> OrganizationRepository
+AuthenticationRepository --> UserSession
+TaskRepository --> Task
+GreenSpaceRepository --> GreenSpace
+UserSession --> Employee
+OrganizationRepository --> Organization
+EmployeeRepository --> Employee
+Organization --> Employee
 
 @enduml
