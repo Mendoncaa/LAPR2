@@ -1,0 +1,161 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+actor "Green Space Manager" as GSM
+participant ":AgendaUI" as UI
+participant ":AgendaController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "TaskRepository:\nTaskRepository" as TASKREP
+participant "GreenSpaceRepository:\nGreenSpaceRepository" as GSR
+participant "AuthFacade\n:AuthenticationRepository" as AUTHREP
+participant "userSession\n:UserSession" as USER
+
+participant "EmployeeRepository\n:EmployeeRepository" as EMPREP
+participant "Employee\n:Employee" as EMP
+participant "OrganizationRepository\n:OrganizationRepository" as ORGREP
+participant "Organization\n:Organization" as ORG
+
+activate GSM
+
+    GSM -> UI : requests to add a new Agenda entry
+    activate UI
+
+    UI -> CTRL : getPendingTasks()
+    activate CTRL
+
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
+    CTRL <-- RepositorySingleton : Repositories
+    deactivate RepositorySingleton
+
+    CTRL -> PLAT : getTaskRepository()
+    activate PLAT
+    CTRL <-- PLAT : TaskRepository()
+    deactivate PLAT
+
+    CTRL -> TASKREP : getPendingTasks()
+    activate TASKREP
+    TASKREP --> CTRL : pendingTaskList
+    deactivate TASKREP
+
+    UI <-- CTRL : display pendingTaskList for selection
+    deactivate CTRL
+
+    GSM -> UI : selects a task from pendingTaskList
+    activate UI
+
+    UI -> CTRL : getAvailableGreenSpaces()
+    activate CTRL
+
+    CTRL -> RepositorySingleton : getInstance()
+    activate RepositorySingleton
+    CTRL <-- RepositorySingleton : Repositories
+    deactivate RepositorySingleton
+
+    CTRL -> PLAT : getGreenSpaceRepository()
+    activate PLAT
+    CTRL <-- PLAT : GreenSpaceRepository()
+    deactivate PLAT
+
+    CTRL -> GSR : getGreenSpacesManagedByMe()
+    activate GSR
+    CTRL <-- GSR : greenSpaceList
+    deactivate GSR
+
+    UI <-- CTRL : display greenSpaceList for selection
+    deactivate CTRL
+
+    GSM -> UI : selects a green space (green spaces managed by me) from greenSpaceList
+    activate UI
+
+    UI -> GSM : requests starting date
+    GSM -> UI : types starting date
+    activate UI
+
+    UI -> CTRL : addNewAgendaEntry(selectedTask, selectedGreenSpace, startDate)
+    activate CTRL
+
+        CTRL -> CTRL : getUserFromSession()
+
+        CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+        CTRL <-- RepositorySingleton : Repositories
+        deactivate RepositorySingleton
+
+        CTRL -> PLAT : getAuthenticationRepository()
+        activate PLAT
+        CTRL <-- PLAT : AuthenticationRepository()
+        deactivate PLAT
+
+        CTRL -> AUTHREP : getCurrentUserSession()
+        activate AUTHREP
+
+        AUTHREP -> USER : isLoggedWithRole(GSM)
+        activate USER
+
+        AUTHREP <-- USER : "True/False"
+        AUTHREP --> USER : getUserId(email)
+        AUTHREP <-- USER : userId(email)
+        deactivate USER
+
+        CTRL <-- AUTHREP : userId(email)
+        deactivate AUTHREP
+
+        CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+        CTRL <-- RepositorySingleton : Repositories
+        deactivate RepositorySingleton
+
+        CTRL -> PLAT : getOrganizationRepository()
+        activate PLAT
+        CTRL <-- PLAT : OrganizationRepository()
+        deactivate PLAT
+
+        CTRL -> ORGREP : getOrganizationByUserID(email)
+        activate ORGREP
+        loop
+            ORGREP -> ORG : anyUserHasId(email)
+            ORG --> ORGREP : True/False
+        deactivate ORGREP
+        end
+        ORGREP --> CTRL : organization
+
+        CTRL -> PLAT : getEmployeeRepository()
+        activate PLAT
+        CTRL <-- PLAT : EmployeeRepository()
+        deactivate PLAT
+
+        CTRL -> EMPREP : getEmployeeByUserID(email)
+        activate EMPREP
+        loop
+            EMPREP -> EMP : anyUserHasId(email)
+            EMP --> EMPREP : True/False
+        deactivate EMPREP
+        end
+        EMPREP --> CTRL : employee
+
+        CTRL -> EMP : planTaskInAgenda(selectedTask, startDate)
+        activate EMP
+        EMP -> selectedTask : planTaskInAgenda(startDate)
+        deactivate EMP
+
+        CTRL -> TASKREP : save(selectedTask)
+        activate TASKREP
+        TASKREP --> CTRL : success
+        deactivate TASKREP
+
+        CTRL --> UI : operation success
+    
+deactivate CTRL
+
+UI --> GSM : Display success message
+deactivate UI
+
+deactivate GSM
+
+@enduml

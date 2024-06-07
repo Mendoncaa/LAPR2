@@ -1,0 +1,107 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+class GreenSpace {
+    - String name
+    - String type
+    - String location
+}
+class AgendaUI {
+
+}
+
+class Task {
+    - String title
+    - GreenSpace greenSpace
+    - String description
+    - Status status
+    - Urgency urgency
+    - int days
+    - int hours
+    - LocalDate startDate
+    + Task(String title, GreenSpace greenSpace, String description, Urgency urgency, int days, int hours)
+    + void planTaskInAgenda(LocalDate startDate)
+    + String getTitle()
+    + GreenSpace getGreenSpace()
+    + String getDescription()
+    + Status getStatus()
+    + Urgency getUrgency()
+    + int getDays()
+    + int getHours()
+    + LocalDate getStartDate()
+    + String toString()
+}
+
+class Employee {
+    + void planTaskInAgenda(Task task, LocalDate startDate)
+}
+
+class AgendaController {
+    - TaskRepository taskRepository
+    - GreenSpaceRepository greenSpaceRepository
+    - AuthenticationRepository authenticationRepository
+    - EmployeeRepository employeeRepository
+    - OrganizationRepository organizationRepository
+    + List<Task> getPendingTasks()
+    + List<GreenSpace> getGreenSpacesManagedByMe(String userId)
+    + void addNewAgendaEntry(String taskId, String greenSpaceId, LocalDate startDate)
+}
+
+class TaskRepository {
+    + List<Task> getPendingTasks()
+    + Task getTaskById(String taskId)
+    + void save(Task task)
+}
+
+class GreenSpaceRepository {
+    + List<GreenSpace> getGreenSpacesManagedBy(String userId)
+    + GreenSpace getGreenSpaceById(String greenSpaceId)
+}
+
+class AuthenticationRepository {
+    + UserSession getCurrentUserSession()
+}
+
+class UserSession {
+    + boolean isLoggedWithRole(String role)
+    + String getUserId()
+}
+
+class EmployeeRepository {
+    + Employee getEmployeeByUserID(String email)
+}
+
+class OrganizationRepository {
+    + Organization getOrganizationByUserID(String email)
+}
+
+class Organization {
+    + boolean anyUserHasId(String email)
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getGreenSpaceRepository()
+    + getAuthenticationRepository()
+}
+
+Repositories -> Repositories : instance
+AgendaUI->AgendaController
+AgendaController -> Repositories
+Repositories --> TaskRepository
+Repositories --> GreenSpaceRepository
+Repositories --> AuthenticationRepository
+Repositories --> EmployeeRepository
+Repositories --> OrganizationRepository
+AuthenticationRepository --> UserSession
+TaskRepository --> Task
+GreenSpaceRepository --> GreenSpace
+UserSession --> Employee
+OrganizationRepository --> Organization
+EmployeeRepository --> Employee
+Organization --> Employee
+
+@enduml
