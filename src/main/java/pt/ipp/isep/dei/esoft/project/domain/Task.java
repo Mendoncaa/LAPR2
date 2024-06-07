@@ -14,7 +14,7 @@ public class Task {
         this.title = title;
         this.greenSpace = greenSpace;
         this.description = description;
-        this.status = Status.PLANNED;
+        this.status = Status.PENDING;
         this.urgency = urgency;
         this.days = days;
         this.hours = hours;
