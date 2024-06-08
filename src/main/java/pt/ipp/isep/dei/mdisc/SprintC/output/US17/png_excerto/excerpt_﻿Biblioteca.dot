@@ -1,0 +1,5 @@
+digraph G {
+  "﻿Biblioteca" [label="﻿Biblioteca"];
+  "AP" [label="AP"];
+  "﻿Biblioteca" -> "AP" [label="10", color=red, penwidth=2.0];
+}

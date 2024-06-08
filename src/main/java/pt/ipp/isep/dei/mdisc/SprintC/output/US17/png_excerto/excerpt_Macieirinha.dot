@@ -1,0 +1,9 @@
+digraph G {
+  "Macieirinha" [label="Macieirinha"];
+  "ParqueInfantil" [label="ParqueInfantil"];
+  "Topo" [label="Topo"];
+  "AP" [label="AP"];
+  "Macieirinha" -> "ParqueInfantil" [label="10", color=red, penwidth=2.0];
+  "ParqueInfantil" -> "Topo" [label="7", color=red, penwidth=2.0];
+  "Topo" -> "AP" [label="9", color=red, penwidth=2.0];
+}

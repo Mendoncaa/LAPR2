@@ -1,0 +1,5 @@
+digraph G {
+  "Escadas1" [label="Escadas1"];
+  "AP" [label="AP"];
+  "Escadas1" -> "AP" [label="10", color=red, penwidth=2.0];
+}

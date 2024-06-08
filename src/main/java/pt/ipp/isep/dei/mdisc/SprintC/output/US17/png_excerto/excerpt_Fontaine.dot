@@ -1,0 +1,9 @@
+digraph G {
+  "Fontaine" [label="Fontaine"];
+  "Miradouro" [label="Miradouro"];
+  "Topo" [label="Topo"];
+  "AP" [label="AP"];
+  "Fontaine" -> "Miradouro" [label="8", color=red, penwidth=2.0];
+  "Miradouro" -> "Topo" [label="3", color=red, penwidth=2.0];
+  "Topo" -> "AP" [label="9", color=red, penwidth=2.0];
+}
