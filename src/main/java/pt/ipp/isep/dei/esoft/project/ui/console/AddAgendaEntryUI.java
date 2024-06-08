@@ -1,15 +1,20 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.controller.authorization.AddAgendaEntryController;
+import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
+import pt.ipp.isep.dei.esoft.project.domain.Status;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.domain.Urgency;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.TaskRepository;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class AddAgendaEntryUI implements Runnable {
@@ -56,7 +61,19 @@ public class AddAgendaEntryUI implements Runnable {
 
         LocalDate startDate = readDateFromConsole(formatter);
 
-        controller.addNewAgendaEntry(task, startDate);
+
+
+
+        System.out.println(task);
+        System.out.println(startDate);
+
+        String confirmation = Utils.readLineFromConsole("Are you sure you want to add this task to the Agenda? (Y/N): ");
+
+        if (confirmation.equalsIgnoreCase("Y")) {
+            submitData(task, startDate);
+        } else {
+            System.out.println("Operation canceled by the user.");
+        }
     }
 
     private static LocalDate readDateFromConsole(DateTimeFormatter formatter) {
@@ -77,6 +94,19 @@ public class AddAgendaEntryUI implements Runnable {
             }
         }
         return date;
+    }
+
+    private void submitData(Task task, LocalDate startDate) {
+        try {
+            getController().addNewAgendaEntry(task, startDate);
+            if (task.getStatus().equals(Status.PLANNED)) {
+                System.out.println("\nA new task has been successfully added to the agenda!");
+            } else {
+                System.out.println("\nTask not added to the agenda!");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("An error occurred while adding the task to the agenda: " + e.getMessage());
+        }
     }
 
 }

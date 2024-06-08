@@ -100,7 +100,7 @@ public class ToDoListUI implements Runnable {
                 System.out.println("\nTask not created!");
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("An error occurred while creating the job: " + e.getMessage());
+            System.out.println("An error occurred while creating the task: " + e.getMessage());
         }
     }
 
