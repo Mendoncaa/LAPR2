@@ -1,9 +1,9 @@
 @startuml
-@startuml
 skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
+title US028 - As a Collaborator, I wish to consult the tasks assigned to me between two dates\nSystem Sequence Diagram (SSD)
 
 autonumber
 
@@ -11,133 +11,154 @@ actor "Collaborator" as COL
 participant ":ConsultTasksUI" as UI
 participant ":ConsultTasksController" as CTRL
 participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
 participant "AuthFacade\n:AuthenticationRepository" as AUTHREP
 participant "userSession\n:UserSession" as USER
+participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
+participant "organization\n:Organization" as ORG
 participant "employeeRepository\n:EmployeeRepository" as EMPREP
-participant "taskRepository\n:TaskRepository" as TASKREP
-participant "tasksFilter\n:TasksFilter" as FILTER
-participant "employee\n:Employee" as EMP
-participant "Task\n:Task" as TASK
+participant "tasks:\nTasks" as TASKS
+participant "task:\nTask" as TASK
 
 activate COL
 
-    COL -> UI : request to consult tasks
+    COL -> UI: requests to view tasks between two dates
     activate UI
 
-        UI --> COL : request start date, end date, and task status
+        UI --> COL: request start date, end date, and task status
     deactivate UI
 
-    COL -> UI : provide start date, end date, and task status
+    COL -> UI: provide start date, end date, and task status
     activate UI
 
-        UI -> CTRL : consultTasks(startDate, endDate, status)
+        UI -> CTRL: consultTasks(startDate, endDate, status)
         activate CTRL
 
-        CTRL -> COL : show start date, end date, and task status
+        CTRL -> COL: show start date, end date, and task status
     deactivate CTRL
 
-    COL -> UI : confirm data (start date, end date, task status)
+    COL -> UI: confirm data (start date, end date, task status)
     activate UI
 
-        UI -> CTRL : confirmConsultTasks(startDate, endDate, status)
+        UI -> CTRL: confirmConsultTasks(startDate, endDate, status)
         activate CTRL
 
-        CTRL -> CTRL : getUserFromSession()
+        CTRL -> CTRL: getUserFromSession()
 
-        CTRL -> RepositorySingleton : getInstance()
+        CTRL -> RepositorySingleton: getInstance()
         activate RepositorySingleton
-        CTRL <-- RepositorySingleton : Repositories
+        CTRL <-- RepositorySingleton: Repositories
         deactivate RepositorySingleton
 
-        CTRL -> RepositorySingleton : getAuthenticationRepository()
-        activate RepositorySingleton
-        CTRL <-- RepositorySingleton : AuthenticationRepository
-        deactivate RepositorySingleton
+        CTRL -> PLAT: getAuthenticationRepository()
+        activate PLAT
+        CTRL <-- PLAT: AuthenticationRepository
+        deactivate PLAT
 
-        CTRL -> AUTHREP : getCurrentUserSession()
+        CTRL -> AUTHREP: getCurrentUserSession()
         activate AUTHREP
 
-        AUTHREP -> USER : isLoggedInWithRole(Collaborator)
+        AUTHREP -> USER: isLoggedInWithRole(Collaborator)
         activate USER
 
-        AUTHREP <-- USER : True/False
-        AUTHREP --> USER : getUserId(email)
-        AUTHREP <-- USER : userId(email)
+        USER --> AUTHREP: True/False
+        AUTHREP --> USER: getUserId(email)
+        AUTHREP <-- USER: userId(email)
         deactivate USER
 
-        CTRL <-- AUTHREP : userId(email)
+        CTRL <-- AUTHREP: userId(email)
         deactivate AUTHREP
 
-        CTRL -> RepositorySingleton : getInstance()
+        CTRL -> RepositorySingleton: getInstance()
         activate RepositorySingleton
-        CTRL <-- RepositorySingleton : Repositories
+        CTRL <-- RepositorySingleton: Repositories
         deactivate RepositorySingleton
 
-        CTRL -> RepositorySingleton : getEmployeeRepository()
+        CTRL -> PLAT: getOrganizationRepository()
+        activate PLAT
+        CTRL <-- PLAT: OrganizationRepository
+        deactivate PLAT
+
+        CTRL -> OrganizationRepository: getOrganizationByUserEmail(userId)
+        activate OrganizationRepository
+
+            OrganizationRepository -> ORG: anyEmployeeHasThisUserId(email)
+            activate ORG
+            OrganizationRepository <-- ORG: True/False
+            deactivate ORG
+
+        CTRL <-- OrganizationRepository: Organization
+        deactivate OrganizationRepository
+
+        CTRL -> RepositorySingleton: getInstance()
         activate RepositorySingleton
-        CTRL <-- RepositorySingleton : EmployeeRepository
+        CTRL <-- RepositorySingleton: Repositories
         deactivate RepositorySingleton
 
-        CTRL -> EMPREP : getEmployeeByUserId(email)
+        CTRL -> PLAT: getEmployeeRepository()
+        activate PLAT
+        CTRL <-- PLAT: EmployeeRepository
+        deactivate PLAT
+
+        CTRL -> EMPREP: getEmployeeByUserEmail(userId)
         activate EMPREP
 
-            EMPREP -> EMP : anyEmployeeHasThisUserId(email)
+            EMPREP -> EMP: anyEmployeeHasThisUserId(email)
             activate EMP
-            EMPREP <-- EMP : True/False
+            EMPREP <-- EMP: True/False
             deactivate EMP
 
             loop for each employee with userId(email)
-            EMPREP -> EMP : findEmployeeByUserId(email)
+            EMPREP -> EMP: findEmployeeByUserId(email)
             activate EMP
-            EMPREP <-- EMP : employee
+            EMPREP <-- EMP: employee
             deactivate EMP
             end loop
 
-        CTRL <-- EMPREP : employee
+        CTRL <-- EMPREP: employee
         deactivate EMPREP
 
-        CTRL -> RepositorySingleton : getInstance()
+        CTRL -> RepositorySingleton: getInstance()
         activate RepositorySingleton
-        CTRL <-- RepositorySingleton : Repositories
+        CTRL <-- RepositorySingleton: Repositories
         deactivate RepositorySingleton
 
-        CTRL -> RepositorySingleton : getTaskRepository()
-        activate RepositorySingleton
-        CTRL <-- RepositorySingleton : TaskRepository
-        deactivate RepositorySingleton
+        CTRL -> PLAT: getTaskRepository()
+        activate PLAT
+        CTRL <-- PLAT: TaskRepository
+        deactivate PLAT
 
-        CTRL -> TASKREP : findTasksByCollaboratorAndDateRange(employee, startDate, endDate)
-        activate TASKREP
+        CTRL -> TASKS: findTasksByCollaboratorAndDateRange(employee, startDate, endDate)
+        activate TASKS
+
             loop for each task in the specified date range
-            TASKREP -> TASK : findTaskByEmployeeAndDateRange(employee, startDate, endDate)
+            TASKS -> TASK: findTaskByEmployeeAndDateRange(employee, startDate, endDate)
             activate TASK
-            TASKREP <-- TASK : task
+            TASKS <-- TASK: task
             deactivate TASK
             end loop
 
-        TASKREP --> CTRL : tasks
-        deactivate TASKREP
+        TASKS --> CTRL: tasks
+        deactivate TASKS
 
         'Apply date range filter
-        CTRL -> FILTER : filterTasksByDateRange(tasks, startDate, endDate)
-        activate FILTER
-        FILTER --> CTRL : filteredTasksByDate
-        deactivate FILTER
+        CTRL -> TASKS: filterTasksByDateRange(tasks, startDate, endDate)
+        activate TASKS
+        TASKS --> CTRL: filteredTasksByDate
+        deactivate TASKS
 
         'Apply status filter
-        CTRL -> FILTER : filterTasksByStatus(filteredTasksByDate, status)
-        activate FILTER
-        FILTER --> CTRL : sortedTasks
-        deactivate FILTER
+        CTRL -> TASKS: filterTasksByStatus(filteredTasksByDate, status)
+        activate TASKS
+        TASKS --> CTRL: sortedTasks
+        deactivate TASKS
 
-        CTRL --> UI : sortedTasks
+        CTRL --> UI: sortedTasks
         deactivate CTRL
-        UI --> COL : display sorted tasks with filters
+
+        UI --> COL: display sorted tasks with filters
     deactivate UI
 
 deactivate COL
-@enduml
-
-
 
 @enduml

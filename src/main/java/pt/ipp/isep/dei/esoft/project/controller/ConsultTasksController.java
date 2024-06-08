@@ -28,14 +28,13 @@ public class ConsultTasksController {
 
 
             if (organizationOptional.isPresent()) {
-
-                EmployeeRepository employeeRepository = repositories.getEmployeeRepository();;
-                Employee employee = employeeRepository.getEmployeeById(userEmail);
-
                 TaskRepository taskRepository = repositories.getTaskRepository();
 
+                List<Task> tasks = taskRepository.getTasksManagedByMe(userSession.getUserId().getEmail());
+                tasks = taskRepository.getTasksByStatus(tasks, status);
+                tasks = taskRepository.getTasksByDates(tasks, startDate, endDate);
 
-                return null;
+                return tasks;
 
             } else {
 

@@ -76,9 +76,11 @@ public class ToDoListUI implements Runnable {
 
         } while (option < 0 || option > 4);
 
-        Task task = new Task(title, greenSpace, description, urgency, duration);
-
-        System.out.println(task);
+        System.out.println("Title: " + title);
+        System.out.println("Description: " + description);
+        System.out.println("Green space: " + greenSpace);
+        System.out.println("Urgency: " + urgency);
+        System.out.println("Duration: " + duration);
 
         String confirmation = Utils.readLineFromConsole("Are you sure you want to add this task to the To-Do List? (Y/N): ");
 

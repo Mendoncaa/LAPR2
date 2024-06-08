@@ -114,10 +114,13 @@ public class Bootstrap implements Runnable {
         greenSpaceRepository.addGreenSpace(greenSpace1);
 
         Task task1 = new Task("Limpeza", greenSpace1, "Limpeza dos caixotes do lixo",
-                Urgency.MEDIUM, Duration.ofDays(1).plusHours(2));
+                Urgency.MEDIUM, Duration.ofDays(1).plusHours(2), "gsm@this.app");
         taskRepository.addTask(task1);
 
-
+        Task task2 = new Task(" Limpeza1", greenSpace1, "Limpeza dos caixotes do lixo1",
+                Urgency.MEDIUM, Duration.ofDays(1).plusHours(3), "gsm@this.app");
+        task2.planTaskInAgenda(LocalDate.of(2026, 12, 31));
+        taskRepository.addTask(task2);
 
 
     }

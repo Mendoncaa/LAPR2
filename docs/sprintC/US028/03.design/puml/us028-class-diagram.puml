@@ -74,9 +74,7 @@ class Employee {
 
 
 class Tasks {
-    - TaskRepository()
-    + findTasksByCollaboratorAndDateRange(collaborator: Collaborator, startDate: Date, endDate: Date): List<Task>
-    + findTasksByCollaboratorAndDateRangeAndStatus(collaborator: Collaborator, startDate: Date, endDate: Date, status: TaskStatus): List<Task>
+    +filterThisGsmTasksInAgenda(userEmail):List<Tasks>
 }
 
 class Task {
@@ -113,18 +111,18 @@ enum Status {
 
 Repositories -> Repositories : instance
 TaskConsultationUI .> TaskConsultationController
+TaskConsultationController.> AuthenticationRepository
 Repositories --> "1" OrganizationRepository
 OrganizationRepository --> "*" Organization : organizations
 Organization "1" --> "1" EmployeeRepository
-Organization  --> "*" Employee : employs
+Organization "1" --> "*" Employee : employs
 TaskConsultationController .> Repositories : repositories
 Repositories --> "1" AuthenticationRepository
 Repositories --> "1" EmployeeRepository
-Repositories --> "1" Tasks
 AuthenticationRepository -> "1" UserSession : usersession
-EmployeeRepository --> Employee : employees
-Tasks--> Task
+EmployeeRepository "1" --> "*" Employee : aggregates
+Tasks "1" -> "*" Task
 Task --> Status : has
-Employee --> Tasks
+Employee "1" -> "1" Tasks
 
 @enduml

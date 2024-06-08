@@ -1,7 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.repository.TaskRepository;
+import pt.isep.lei.esoft.auth.UserSession;
+import pt.isep.lei.esoft.auth.domain.model.User;
+
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Task implements Comparable<Task> {
     private String title;
@@ -11,15 +18,17 @@ public class Task implements Comparable<Task> {
     private Urgency urgency;
     private LocalDate startDate;
     private Duration duration;
+    private String email;
 
 
-    public Task (String title, GreenSpace greenSpace, String description, Urgency urgency, Duration duration) {
+    public Task (String title, GreenSpace greenSpace, String description, Urgency urgency, Duration duration, String email) {
         this.title = title;
         this.greenSpace = greenSpace;
         this.description = description;
         this.status = Status.PENDING;
         this.urgency = urgency;
         this.duration = duration;
+        this.email = email;
     }
 
     public String getTitle() {
@@ -56,6 +65,15 @@ public class Task implements Comparable<Task> {
         }
         this.startDate = startDate;
         this.status = Status.PLANNED;
+    }
+
+    public void completeTask() {
+        this.status = Status.DONE;
+    }
+
+
+    public String getEmail() {
+        return email;
     }
 
     @Override

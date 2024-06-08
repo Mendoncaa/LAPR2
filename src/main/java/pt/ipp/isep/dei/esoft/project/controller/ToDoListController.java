@@ -29,7 +29,8 @@ public class ToDoListController {
                 Employee employee = employeeRepository.getEmployeeById(userEmail);
 
                 TaskRepository taskRepository = repositories.getTaskRepository();
-                Task task = employee.createTask(title, description, greenSpace, urgency, duration);
+                Task task = employee.createTask(title, description, greenSpace, urgency, duration,
+                        userSession.getUserId().getEmail());
                 taskRepository.addTask(task);
 
                 return Optional.of(task);

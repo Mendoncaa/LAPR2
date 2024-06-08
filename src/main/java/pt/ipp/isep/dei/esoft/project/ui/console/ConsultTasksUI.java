@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.controller.ConsultTasksController;
-import pt.ipp.isep.dei.esoft.project.controller.ToDoListController;
-import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Status;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
@@ -60,7 +58,7 @@ public class ConsultTasksUI implements Runnable {
         String confirmation = Utils.readLineFromConsole("Proceed? (Y/N): ");
 
         if (confirmation.equalsIgnoreCase("Y")) {
-            submitData(startDate, endDate, status);
+            printTasks(startDate, endDate, status);
         } else {
             System.out.println("Operation canceled by the user.");
         }
@@ -83,12 +81,15 @@ public class ConsultTasksUI implements Runnable {
     }
 
 
-    private void submitData(LocalDate startDate, LocalDate endDate, Status status) {
-        try {
-            List<Task> tasks = getController().consultTasks(startDate, endDate, status);
+    private void printTasks(LocalDate startDate, LocalDate endDate, Status status) {
+        List<Task> tasks = getController().consultTasks(startDate, endDate, status);
 
-        } catch (IllegalArgumentException e) {
-            System.out.println("An error occurred while creating the job: " + e.getMessage());
+        if (tasks == null) {
+            throw new IllegalArgumentException("There are no tasks matching those conditions!!");
+        }
+
+        for (Task task : tasks) {
+            System.out.println(task);
         }
     }
 }
