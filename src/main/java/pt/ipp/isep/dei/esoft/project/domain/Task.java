@@ -3,7 +3,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import java.time.Duration;
 import java.time.LocalDate;
 
-public class Task {
+public class Task implements Comparable<Task> {
     private String title;
     private GreenSpace greenSpace;
     private String description;
@@ -69,5 +69,10 @@ public class Task {
                 ", startDate=" + startDate +
                 ", duration=" + duration +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Task o) {
+        return this.startDate.compareTo(o.startDate);
     }
 }
