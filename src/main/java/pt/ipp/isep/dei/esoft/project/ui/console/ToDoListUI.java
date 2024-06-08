@@ -41,7 +41,10 @@ public class ToDoListUI implements Runnable {
         do {
 
             option = Utils.showAndSelectIndex(options, "\n\n--- YOUR GREEN SPACES -------------------------");
-            
+
+            if (option == -1) {
+                return;
+            }
             
             if ((option >= 0) && (option < options.size())) {
 
@@ -58,9 +61,14 @@ public class ToDoListUI implements Runnable {
             System.out.println("  1 - Low");
             System.out.println("  2 - Medium");
             System.out.println("  3 - High");
+            System.out.println("  0 - Cancel");
             option = scan.nextInt();
 
-            if (option > 0 && option < 4) {
+            if (option == -1) {
+                return;
+            }
+
+            if (option >= 0 && option < 4) {
 
                urgency = Urgency.getByIndex(option-1);
 

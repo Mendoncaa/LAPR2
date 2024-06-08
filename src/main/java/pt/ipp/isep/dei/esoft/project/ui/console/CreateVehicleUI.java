@@ -90,7 +90,7 @@ public class CreateVehicleUI implements Runnable {
                 date = LocalDate.parse(dateString, formatter);
 
                 if (date.isAfter(LocalDate.now())) {
-                    throw new IllegalArgumentException("Invalid data input. The day cannot be in the future.");
+                    throw new IllegalArgumentException("Invalid data input. The day must be in the future.");
                 }
 
             } catch (DateTimeParseException e) {

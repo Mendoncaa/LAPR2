@@ -57,9 +57,7 @@ public class AddAgendaEntryController {
                 EmployeeRepository employeeRepository = repositories.getEmployeeRepository();;
                 Employee employee = employeeRepository.getEmployeeById(userEmail);
 
-                TaskRepository taskRepository = repositories.getTaskRepository();
                 employee.planTaskInAgenda(task, startDate);
-                taskRepository.addTask(task);
 
             } else {
 

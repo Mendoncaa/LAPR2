@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.controller.ToDoListController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 import pt.ipp.isep.dei.esoft.project.controller.GenerateTeamController;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
@@ -22,7 +23,7 @@ public class GenerateTeamUI implements Runnable {
     private GenerateTeamController getController() {
         return controller;
     }
-    private static SkillRepository skillRepository = new SkillRepository();
+    private SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
     private final Scanner scan = new Scanner(System.in);
 
 

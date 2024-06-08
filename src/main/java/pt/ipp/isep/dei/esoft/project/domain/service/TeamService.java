@@ -14,9 +14,9 @@ import java.util.Optional;
 
 public class TeamService {
 
-    private final SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
-    private final TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
-    private final TeamMemberRepository teamMemberRepository = Repositories.getInstance().getTeamMemberRepository();
+    private SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
+    private TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
+    private TeamMemberRepository teamMemberRepository = Repositories.getInstance().getTeamMemberRepository();
 
     public Team generateTeam(int minSize, int maxSize, List<Skill> skills) {
 
@@ -47,13 +47,7 @@ public class TeamService {
 
             if ((skillSelected >= 0) && (skillSelected < skills.size())) {
 
-                if (skillSelected == 0) {
-
-                    return null;
-
-                }
-
-                return skills.get(skillSelected - 1);
+                return skills.get(skillSelected);
 
             }
 

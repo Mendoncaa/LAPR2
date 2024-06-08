@@ -38,6 +38,9 @@ public class AssignSkillUI implements Runnable {
 
             optionEmployee = Utils.showAndSelectIndex(optionsEmployee, "\n\n--- YOUR EMPLOYEES -------------------------");
 
+            if (optionEmployee == -1) {
+                return;
+            }
 
             if ((optionEmployee >= 0) && (optionEmployee < optionsEmployee.size())) {
 
@@ -55,6 +58,9 @@ public class AssignSkillUI implements Runnable {
 
             optionSkill = Utils.showAndSelectIndex(optionsSkills, "\n\n--- YOUR EMPLOYEES -------------------------");
 
+            if (optionSkill == -1) {
+                return;
+            }
 
             if ((optionSkill >= 0) && (optionSkill < optionsSkills.size())) {
 

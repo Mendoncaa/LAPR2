@@ -41,6 +41,9 @@ public class AddAgendaEntryUI implements Runnable {
 
             option = Utils.showAndSelectIndex(options, "\n\n--- PENDING TASKS -------------------------");
 
+            if (option == -1) {
+                return;
+            }
 
             if ((option >= 0) && (option < options.size())) {
 
@@ -66,7 +69,7 @@ public class AddAgendaEntryUI implements Runnable {
                 date = LocalDate.parse(dateString, formatter);
 
                 if (date.isBefore(LocalDate.now())) {
-                    throw new IllegalArgumentException("Invalid data input. The day cannot be in the future.");
+                    throw new IllegalArgumentException("Invalid data input. The day must be in the future.");
                 }
 
             } catch (DateTimeParseException e) {
