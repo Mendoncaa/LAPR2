@@ -31,14 +31,11 @@ activate COL
     COL -> UI: provide start date, end date, and task status
     activate UI
 
-        UI -> CTRL: consultTasks(startDate, endDate, status)
-        activate CTRL
-
-        CTRL -> COL: show start date, end date, and task status
+        UI -> COL: show start date, end date, and task status
     deactivate CTRL
 
     COL -> UI: confirm data (start date, end date, task status)
-    activate UI
+
 
         UI -> CTRL: confirmConsultTasks(startDate, endDate, status)
         activate CTRL
@@ -123,10 +120,6 @@ activate COL
         CTRL <-- RepositorySingleton: Repositories
         deactivate RepositorySingleton
 
-        CTRL -> PLAT: getTaskRepository()
-        activate PLAT
-        CTRL <-- PLAT: TaskRepository
-        deactivate PLAT
 
         CTRL -> TASKS: findTasksByCollaboratorAndDateRange(employee, startDate, endDate)
         activate TASKS
@@ -141,11 +134,6 @@ activate COL
         TASKS --> CTRL: tasks
         deactivate TASKS
 
-        'Apply date range filter
-        CTRL -> TASKS: filterTasksByDateRange(tasks, startDate, endDate)
-        activate TASKS
-        TASKS --> CTRL: filteredTasksByDate
-        deactivate TASKS
 
         'Apply status filter
         CTRL -> TASKS: filterTasksByStatus(filteredTasksByDate, status)

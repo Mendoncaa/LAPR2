@@ -10,14 +10,14 @@ skinparam classAttributeIconSize 0
 'left to right direction
 
 
-class TaskConsultationUI {
+class ConsultTasksUI {
     + displayTaskList(tasks: List<Task>)
     + requestDateRange()
     + requestTaskStatusFilter()
 }
 
-class TaskConsultationController {
-    + TaskConsultationController(employeeRepository, taskRepository, userSession)
+class ConsultTasksController {
+    + ConsultTasksController(employeeRepository, taskRepository, userSession)
     + consultTasks(startDate: Date, endDate: Date, status: TaskStatus): List<Task>
 }
 
@@ -74,7 +74,9 @@ class Employee {
 
 
 class Tasks {
-    +filterThisGsmTasksInAgenda(userEmail):List<Tasks>
+    +filterThiCollaratorTasks(userEmail):List<Tasks>
+    +filterByDate(Start Date, End Date) :List<Tasks>
+    +filterByStatus(Status) :List<Tasks>
 }
 
 class Task {
@@ -105,24 +107,31 @@ enum Status {
     DONE
 }
 
+enum Urgency {
+    HIGH,
+    MEDIUM,
+    LOW
+}
+
 
 
 
 
 Repositories -> Repositories : instance
-TaskConsultationUI .> TaskConsultationController
-TaskConsultationController.> AuthenticationRepository
+ConsultTasksUI .> ConsultTasksController
+ConsultTasksController.> AuthenticationRepository
 Repositories --> "1" OrganizationRepository
 OrganizationRepository --> "*" Organization : organizations
 Organization "1" --> "1" EmployeeRepository
 Organization "1" --> "*" Employee : employs
-TaskConsultationController .> Repositories : repositories
+ConsultTasksController .> Repositories : repositories
 Repositories --> "1" AuthenticationRepository
 Repositories --> "1" EmployeeRepository
 AuthenticationRepository -> "1" UserSession : usersession
 EmployeeRepository "1" --> "*" Employee : aggregates
 Tasks "1" -> "*" Task
 Task --> Status : has
+Task --> Urgency : has
 Employee "1" -> "1" Tasks
 
 @enduml

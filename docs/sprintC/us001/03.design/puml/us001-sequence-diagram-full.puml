@@ -121,18 +121,15 @@ activate ADM
             endnote
 
 
-        activate ORG
+
+
             ORG -> ORG: addSkill(skill)
+
             ORG -> ORG: validateSkill(skill)
 
-            deactivate ORG
 
-            ORG --> ORG
-            ORG --> ORG
-            deactivate ORG
 
             ORG --> CTRL : skill
-
             deactivate ORG
 
             CTRL --> UI: skill

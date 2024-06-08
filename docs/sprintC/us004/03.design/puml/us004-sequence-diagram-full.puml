@@ -129,10 +129,7 @@ activate ADM
         Employee -> Employee: addTeamMember(TeamMember)
         Employee -> Employee: validateTeamMember(TeamMember)
 
-        deactivate Employee
 
-        Employee --> Employee
-        Employee --> Employee
         deactivate Employee
 
         Employee --> CTRL : TeamMember
@@ -145,16 +142,7 @@ activate ADM
         deactivate UI
 
 
-
-
 deactivate ADM
-
-
-
-
-
-
-
 
 
 @enduml

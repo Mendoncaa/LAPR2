@@ -26,7 +26,7 @@ activate ADM
 ADM -> UI : requests to mark a task as completed
     activate UI
 
-UI -> CTRL : getThisGsmTasksInAgenda()
+UI -> CTRL : getThisCollaboratorTasksInAgenda()
     activate CTRL
 CTRL -> CTRL : getUserFromSession()
         CTRL -> RepositorySingleton : getInstance()
@@ -39,7 +39,7 @@ CTRL -> CTRL : getUserFromSession()
         deactivate PLAT
         CTRL -> AUTHREP : getCurrentUserSession()
         activate AUTHREP
-            AUTHREP -> USER : isLoggedWithRule(GSM)
+            AUTHREP -> USER : isLoggedWithRule(Collaborator)
             activate USER
             AUTHREP <-- USER : "True/False"
             AUTHREP --> USER : getUserId(email)
@@ -77,16 +77,16 @@ CTRL -> CTRL : getUserFromSession()
                 activate PLAT
                 CTRL <-- PLAT : EmployeeRepository
                 deactivate PLAT
-                CTRL -> EMPREP : listThisGsmTasksInAgenda(userEmail)
+                CTRL -> EMPREP : listThisCollaboratorTasksInAgenda(userEmail)
                 activate EMPREP
                 CTRL <-- EMPREP : Employee
                 deactivate EMPREP
-                CTRL -> EMP : listThisGsmTasksInAgenda(userEmail)
+                CTRL -> EMP : listThisCollaboratorTasksInAgenda(userEmail)
                 activate EMP
-                    EMP -> TASKS : filterThisGsmTasksInAgenda(userEmail))
+                    EMP -> TASKS : filterThisCollaboratorTasksInAgenda(userEmail))
                     activate TASKS
                         loop for each Task
-                                    TASKS -> TASK : getThisGsmTasksInAgenda(email)
+                                    TASKS -> TASK : getThisCollaboratorTasksInAgenda(email)
                                     activate TASK
                                     TASKS <-- TASK : Task
                                     deactivate TASK
@@ -95,7 +95,7 @@ CTRL -> CTRL : getUserFromSession()
                     deactivate TASKS
                 CTRL <-- EMP : List<Task>
                 deactivate EMP
-            UI <-- CTRL : listThisGsmTasksInAgenda
+            UI <-- CTRL : listThisCollaboratorTasksInAgenda
             deactivate CTRL
         ADM <-- UI : list collaborator tasks in schedule
         deactivate UI
@@ -106,11 +106,7 @@ activate UI
 UI -> CTRL: selectTask(task)
 activate CTRL
 
-CTRL -> TASK: getTaskDetails(task)
-activate TASK
 
-TASK --> CTRL: TaskDetails
-deactivate TASK
 
 CTRL -> UI: displayTaskDetails(TaskDetails) and request confirmation
 deactivate CTRL
@@ -124,11 +120,17 @@ activate UI
 UI -> CTRL: confirmTaskCompletion(task)
 activate CTRL
 
-CTRL -> TASK: markAsCompleted(task)
+CTRL -> EMP: markAsCompleted(task)
+activate EMP
+
+EMP -> TASK: setStatus (Done)
 activate TASK
 
-TASK --> CTRL: task marked as completed
-deactivate TASK
+TASK -> EMP: status set to Done
+
+
+EMP  --> CTRL: task marked as completed
+deactivate EMP
 
 CTRL -> UI: success in recording task completion
 deactivate CTRL

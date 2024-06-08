@@ -71,11 +71,12 @@ class Employee {
     + CompareTo(TaxPayerID)
     + Clone()
     + toString()
+    + changeStatus (Status)
 }
 
 
 class Tasks {
-    +filterThisGsmTasksInAgenda(userEmail):List<Tasks>
+    +filterThisCollaboratorTasksInAgenda(userEmail):List<Tasks>
 }
 
 class Task {
@@ -90,6 +91,7 @@ class Task {
     + getGreenSpace(): GreenSpace
     + getDescription(): String
     + getStatus(): Status
+    +setStatus(): Status
     + getUrgency(): Urgency
     + getDays(): int
     + getHours(): int
@@ -105,7 +107,6 @@ enum Status {
     CANCELED
     DONE
 }
-
 
 
 

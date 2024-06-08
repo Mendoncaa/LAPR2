@@ -14,13 +14,25 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+/**
+ * This class represents the UI for assigning skills to team members.
+ * It implements the Runnable interface to allow the operation to be run on a separate thread.
+ */
 public class AssignSkillUI implements Runnable {
     private final AssignSkillController controller;
 
+/**
+* Initializes a new AssignSkillUI with a new AssignSkillController.
+ */
     public AssignSkillUI() {
         controller = new AssignSkillController();
     }
 
+/**
+* Gets the AssignSkillController.
+*
+* @return the controller
+ */
     private AssignSkillController getController() {
         return controller;
     }
@@ -29,6 +41,10 @@ public class AssignSkillUI implements Runnable {
     private EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
     private SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
 
+/**
+ * Runs the UI to assign a skill to a team member.
+ * Lists employees and skills, allows user to select one of each, and assigns the selected skill to the selected employee.
+ */
     public void run() {
         List<Employee> optionsEmployee = employeeRepository.listEmployees();
         Employee employee = null;
@@ -82,6 +98,12 @@ public class AssignSkillUI implements Runnable {
 
     }
 
+/**
+ * Submits the selected data to the controller to assign the skill to the employee.
+*
+* @param employee the employee to whom the skill is to be assigned
+* @param skill the skill to be assigned to the employee
+ */
     private void submitData(Employee employee, Skill skill) {
         try {
             controller.assignSkillToTeamMember(employee, skill);
