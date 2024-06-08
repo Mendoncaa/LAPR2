@@ -29,7 +29,7 @@ Client clarification, just a Job Name insertion is needed.
 
 ### 1.4. Found out Dependencies
 
-None.
+This User Story needs created GreenSpaces (US020 - "Register a Green Space")
 
 ### 1.5 Input and Output Data
 

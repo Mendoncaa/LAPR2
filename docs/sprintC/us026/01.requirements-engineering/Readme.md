@@ -31,6 +31,7 @@ Client clarification, vehicle must be available in that task period to be assign
 ### 1.4. Found out Dependencies
 
 This user story requires tasks in the To-Do list to be scheduled first (US22 - "As a GSM, I want to add a new entry in the Agenda").
+This user story requires vehicles to be created first (US06 - "Register a vehicle")
 
 ### 1.5 Input and Output Data
 

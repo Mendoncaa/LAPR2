@@ -20,28 +20,31 @@ class UserSession
     + getUserId()
 }
 
-class Organization {
-    - String name
-    - String vatNumber
-    - String phone
-    - String email
-    - Address postalAddress
-    + Organization(name, vatNumber, webSite, phone, email, postalAddress)
-    - getUserByEmail(email)
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getAuthenticationRepository()
+    + getVehiclesRepository()
 }
 
 class OrganizationRepository {
     + getOrganizationByUserEmail(email)
 }
 
-class Repositories {
-    - Repositories()
-    + getInstance() : Repositories
-    + getOrganizationRepository()
-    + getAuthenticationRepository()
-    + getVehiclesRepository()
-    + getTaskRepository()
+class Organization {
+    - String name
+    - String vatNumber
+    - String phone
+    - String email
+    - Address postalAddress
+    - addSkill(skill)
+    - validateSkill(skill)
+    + Organization(name, vatNumber, webSite, phone, email, postalAddress)
+    - getUserByEmail(email)
+
 }
+
 class Employee {
     - String name
     - Date birthdate
@@ -70,22 +73,22 @@ class EmployeeRepository{
 
 class VehicleRepository{
     -VehicleRepository()
-    +filterVehiclesNotAssignedByDateOfTasks()
+    +listVehicles()
+
 }
 
 class Task{}
 
+class Tasks{
+    +filterThisGsmTasksInAgenda(userEmail):List<Tasks>
+    +filterVehiclesNotAssignedByDateOfTask(task, vehicles):List<Tasks>
+}
 
-
-class TaskRepository{
-    -TaskRepository()
-    +getThisGsmTasksInAgenda()
- }
 
 
 class AddVehiclesToTaskController {
-    - AddVehiclesToTaskController(organizationRepository,AuthenticationRepository)
-    + getThisGsmTasksInAgenda()
+    - AddVehiclesToTaskController(AuthenticationRepository, OrganizationRepository, EmployeeRepository, VehicleRepository)
+    + listThisGsmTasksInAgenda()
     + listVehiclesNotAssignedByDateOfTasks()
     + updateTaskVehicles(task, vehicles)
 }
@@ -105,24 +108,25 @@ AddVehiclesToTaskController .> Repositories : repositories
 AddVehiclesToTaskController.> AuthenticationRepository
 
 Repositories -> Repositories : instance
-Repositories --> "1" OrganizationRepository
 Repositories --> "1" AuthenticationRepository
 Repositories --> "1" EmployeeRepository
+Repositories --> "1" VehicleRepository
+Repositories --> "1" OrganizationRepository
+OrganizationRepository --> "*" Organization : organizations
+Organization "1" --> "1" EmployeeRepository
+Organization "1" --> "*" Employee : employs
 
 AuthenticationRepository -> "1" UserSession : usersession
 
-OrganizationRepository --> "*" Organization : organizations
-
-EmployeeRepository "1" --> "*" Employee : agreggates
-
-Organization "1" --> "*" Employee : employs
-Organization "1" --> "1" EmployeeRepository
-Organization "1" --> "1" VehicleRepository
-Organization "1" --> "1" TaskRepository
 
 
-Employee "1" -> "*" Task : manages
-TaskRepository "1" -> "*" Task : agreggates
+EmployeeRepository "1" --> "*" Employee : aggregates
+
+Employee "1" --> "1" VehicleRepository
+
+Employee "1" -> "1" Tasks
+Tasks "1" -> "*" Task
+
 
 
 

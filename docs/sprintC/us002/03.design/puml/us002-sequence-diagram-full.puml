@@ -83,9 +83,6 @@ activate ADM
         activate RepositorySingleton
         CTRL <-- RepositorySingleton : Repositories
         deactivate RepositorySingleton
-
-
-
         CTRL -> PLAT : getOrganizationRepository()
         activate PLAT
         CTRL <-- PLAT : OrganizationRepository()

@@ -1,0 +1,168 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "GSM" as ADM
+participant ":ListGSManagedByMeUI" as UI
+participant ":ListGSManagedByMeController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "AuthFacade\n:AuthenticationRepository" as AUTHREP
+participant "userSession\n:UserSession" as USER
+participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
+participant "organization\n:Organization" as ORG
+participant "employeeRepository\n:EmployeeRepository" as EMPREP
+participant "employee\n:Employee" as EMP
+participant "greenSpaces:\nGreenSpaces" as GSS
+participant "greenSpace:\nGreenSpace" as GS
+participant "interface:\nSortingAlgorithms" as ISA
+participant "sortingConfigAdapter\n:SortingConfigAdapter" as SORTING_ADAPTER
+participant "configManager\n:ConfigManager" as CONFIG_MANAGER
+participant "file:\nconfig.properties" as FILE
+
+activate ADM
+
+    ADM -> UI : asks to list Green Spaces
+    activate UI
+
+        UI -> CTRL : listThisGsmGreenSpaces()
+        activate CTRL
+
+            CTRL -> CTRL : getUserFromSession()
+            CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+            CTRL <-- RepositorySingleton : Repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getAuthenticationRepository()
+            activate PLAT
+            CTRL <-- PLAT : AuthenticationRepository()
+            deactivate PLAT
+
+            CTRL -> AUTHREP : getCurrentUserSession()
+            activate AUTHREP
+                AUTHREP -> USER : isLoggedWithRule(GSM)
+                activate USER
+                AUTHREP <-- USER : "True/False"
+                AUTHREP -> USER : getUserId(email)
+                AUTHREP <-- USER : userId(email)
+                deactivate USER
+            CTRL <-- AUTHREP : userId(email)
+            deactivate AUTHREP
+
+            CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+            CTRL <-- RepositorySingleton : Repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getOrganizationRepository()
+            activate PLAT
+            CTRL <-- PLAT : OrganizationRepository()
+            deactivate PLAT
+
+            CTRL -> OrganizationRepository : getOrganizationByUserId(email)
+            activate OrganizationRepository
+                loop for each organization
+                    OrganizationRepository -> ORG : anyEmployeeHasThisUserId(email)
+                    activate ORG
+                    OrganizationRepository <-- ORG : True/False
+                    deactivate ORG
+                end loop
+            CTRL <-- OrganizationRepository : organization
+            deactivate OrganizationRepository
+
+            CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+            CTRL <-- RepositorySingleton : Repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getEmployeeRepository()
+            activate PLAT
+            CTRL <-- PLAT : EmployeeRepository
+            deactivate PLAT
+
+            CTRL -> EMPREP : listThisGsmGreenSpaces(userEmail)
+            activate EMPREP
+            CTRL <-- EMPREP : Employee
+            deactivate EMPREP
+
+            CTRL -> EMP : listThisGsmGreenSpaces(userEmail)
+            activate EMP
+                EMP -> GSS : filterGreenSpacesByUser(email)
+                activate GSS
+                    loop for each GreenSpace
+                        GSS -> GS : getThisGsmGreenSpaces(email)
+                        activate GS
+                        GSS <-- GS : GreenSpace
+                        deactivate GS
+                    end loop
+                EMP <-- GSS : List<GreenSpace>
+                deactivate GSS
+            CTRL <-- EMP : List<GreenSpace>
+            deactivate EMP
+
+            CTRL -> EMP : getSortingAlgorithms()
+            activate EMP
+
+                EMP -> GSS : getSortingAlgorithms()
+                activate GSS
+                    GSS -> ISA : getSortingAlgorithms()
+                    activate ISA
+                        ISA -> SORTING_ADAPTER : getSortingAlgorithms()
+                        activate SORTING_ADAPTER
+                            SORTING_ADAPTER -> CONFIG_MANAGER : readSortingConfig()
+                            activate CONFIG_MANAGER
+                                CONFIG_MANAGER -> FILE : read()
+                                activate FILE
+                                CONFIG_MANAGER <-- FILE : sortingAlgorithms
+                                deactivate FILE
+                            SORTING_ADAPTER <-- CONFIG_MANAGER : sortingAlgorithms
+                            deactivate CONFIG_MANAGER
+                        ISA <-- SORTING_ADAPTER : sortingAlgorithms
+                        deactivate SORTING_ADAPTER
+                    GSS <-- ISA : sortingAlgorithms
+                    deactivate ISA
+                EMP <-- GSS : sortingAlgorithms
+                deactivate GSS
+
+            CTRL <-- EMP : sortingAlgorithms
+            deactivate EMP
+
+        UI <-- CTRL : list available sorting algorithms
+        deactivate CTRL
+
+    ADM <-- UI : list available sorting algorithms and requests selection
+    deactivate UI
+
+    ADM -> UI : selects sorting algorithm
+    activate UI
+        UI -> ADM : show selection and request confirmation
+        deactivate UI
+    ADM -> UI : confirms
+    activate UI
+
+        UI -> CTRL : sortGreenSpaces(selection)
+        activate CTRL
+
+            CTRL -> EMP : sortGreenSpaces(List<GreenSpace>, method)
+            activate EMP
+
+                EMP -> GSS : sortGreenSpaces(List<GreenSpace>, method)
+                activate GSS
+                    GSS <-- EMP : List<GreenSpace>
+                deactivate GSS
+
+            CTRL <-- EMP : List<GreenSpace>
+            deactivate EMP
+
+        UI <-- CTRL : List sorted green spaces managed by me.
+        deactivate CTRL
+    ADM <-- UI : List green spaces managed by me.
+    deactivate UI
+
+deactivate ADM
+@enduml

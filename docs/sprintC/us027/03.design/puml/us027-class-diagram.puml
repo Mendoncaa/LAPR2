@@ -1,0 +1,133 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class AuthenticationRepository {
+    + getCurrentUserSession() : UserSession
+}
+
+class UserSession {
+    + isLoggedInWithRole(role: String) : Boolean
+    + getUserId(email: String) : String
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getAuthenticationRepository() : AuthenticationRepository
+    + getOrganizationRepository() : OrganizationRepository
+    + getEmployeeRepository() : EmployeeRepository
+}
+
+class OrganizationRepository {
+    + getOrganizationByUserId(email)
+}
+
+class Organization {
+    - String name
+    - String vatNumber
+    - String phone
+    - String email
+    - Address postalAddress
+    + Organization(name, vatNumber, webSite, phone, email, postalAddress)
+    + anyEmployeeHasThisUserId(email)
+}
+
+class Employee {
+    - String name
+    - Date birthdate
+    - Date admissionDate
+    - Address postalAddress
+    - String phone
+    - String email
+    - String idDocType
+    - String idDocumentNumber
+    - String taxpayerId
+    - Job job
+    + CompareTo(taxpayerId)
+    + Clone()
+    + toString()
+    + hasThisEmail(email)
+    + listThisGsmGreenSpaces(userEmail)
+    + getSortingAlgorithms()
+    + sortGreenSpaces(greenSpaces: List<GreenSpace>, method)
+}
+
+class EmployeeRepository {
+    - EmployeeRepository()
+    + addJob(job: Job)
+    + listEmployees()
+    + emailExists(email)
+}
+
+class GreenSpace {}
+
+interface SortingAlgorithms {
+    + getSortingAlgorithms()
+}
+
+class SortingConfigAdapter {
+    + getSortingAlgorithms()
+}
+
+SortingAlgorithms <|.. SortingConfigAdapter
+
+class ConfigManager {
+    + readSortingConfig()
+}
+
+class GreenSpaces {
+    + filterGreenSpacesByUser(email)
+    + sortGreenSpaces(greenSpaces, method)
+}
+
+class ListGSManagedByMeController {
+    - ListGSManagedByMeController(AuthenticationRepository,OrganizationRepository,EmployeeRepository)
+    + listThisGsmGreenSpaces()
+    + getSortingAlgorithms()
+    + sortGreenSpaces(greenSpaces, method)
+}
+
+note left of ListGSManagedByMeController
+    - userEmail and userRole are obtained
+    from the user session.
+end note
+
+class ListGSManagedByMeUI {
+    + listThisGsmGreenSpaces()
+    + sortGreenSpaces(method)
+}
+
+ListGSManagedByMeUI .> ListGSManagedByMeController : uses
+
+ListGSManagedByMeController .> Repositories : repositories
+ListGSManagedByMeController.> AuthenticationRepository
+ListGSManagedByMeController.> OrganizationRepository
+ListGSManagedByMeController.> EmployeeRepository
+
+Repositories -> Repositories : instance
+Repositories --> "1" AuthenticationRepository
+Repositories --> "1" EmployeeRepository
+Repositories --> "1" OrganizationRepository
+
+OrganizationRepository --> "*" Organization : organizations
+Organization "1" --> "1" EmployeeRepository
+Organization "1" --> "*" Employee : employs
+
+AuthenticationRepository -> "1" UserSession : usersession
+
+EmployeeRepository "1" --> "*" Employee : aggregates
+
+Employee "1" -> "1" GreenSpaces : manages
+GreenSpaces "1" -> "*" GreenSpace : contains
+
+GreenSpaces "1" --> "1" SortingAlgorithms : uses
+SortingConfigAdapter "1" --> "1" ConfigManager : uses
+@enduml
