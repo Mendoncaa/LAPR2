@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.domain.Urgency;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -30,7 +31,9 @@ public class ToDoListUI implements Runnable {
         int days = Utils.readIntegerFromConsole("  -> Days: ");
         int hours = Utils.readIntegerFromConsole("  -> Hours: ");
 
-        List<GreenSpace> options = controller.getAvailabreGreenSpaces();
+        Duration duration = Duration.ofDays(days).plusHours(hours);
+
+        List<GreenSpace> options = controller.getAvailableGreenSpaces();
         int option;
 
         GreenSpace greenSpace = null;
@@ -65,14 +68,14 @@ public class ToDoListUI implements Runnable {
 
         } while (option < 0 || option > 4);
 
-        Task task = new Task(title, greenSpace, description, urgency, days, hours);
+        Task task = new Task(title, greenSpace, description, urgency, duration);
 
         System.out.println(task);
 
         String confirmation = Utils.readLineFromConsole("Are you sure you want to add this task to the To-Do List? (Y/N): ");
 
         if (confirmation.equalsIgnoreCase("Y")) {
-            submitData(title, description, greenSpace, urgency, days, hours);
+            submitData(title, description, greenSpace, urgency, duration);
         } else {
             System.out.println("Operation canceled by the user.");
         }
@@ -80,9 +83,9 @@ public class ToDoListUI implements Runnable {
     }
 
     private void submitData(String title, String description, GreenSpace greenSpace,
-                            Urgency urgency, int days, int hours) {
+                            Urgency urgency, Duration duration) {
         try {
-            Optional<Task> task = getController().addNewTask(title, description, greenSpace, urgency, days, hours);
+            Optional<Task> task = getController().addNewTask(title, description, greenSpace, urgency, duration);
             if (task.isPresent()) {
                 System.out.println("\nA new task has been successfully created!");
             } else {

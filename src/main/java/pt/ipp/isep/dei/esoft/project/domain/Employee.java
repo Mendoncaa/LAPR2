@@ -206,8 +206,8 @@ public class Employee implements Comparable<Employee> {
     }
 
 
-    public Task createTask(String title, String description, GreenSpace greenSpace, Urgency urgency, int hours, int days) {
-        return new Task(title, greenSpace, description, urgency, hours, days);
+    public Task createTask(String title, String description, GreenSpace greenSpace, Urgency urgency, Duration duration) {
+        return new Task(title, greenSpace, description, urgency, duration);
     }
 
 
@@ -217,6 +217,11 @@ public class Employee implements Comparable<Employee> {
 
     public List<Skill> getSkills() {
         return skills;
+    }
+
+
+    public void planTaskInAgenda(Task task, LocalDate startDate) {
+        task.planTaskInAgenda(startDate);
     }
 
     @Override

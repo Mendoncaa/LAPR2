@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
+import pt.ipp.isep.dei.esoft.project.ui.console.AddAgendaEntryUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.ListVehiclesCheckupUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.RegisterGSUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.ToDoListUI;
@@ -18,6 +19,7 @@ public class GsmUI implements Runnable {
         List<MenuItem> options = new ArrayList<MenuItem>();
         options.add(new MenuItem("Register a green space", new RegisterGSUI()));
         options.add(new MenuItem("Add an entry to the To-Do-List", new ToDoListUI()));
+        options.add(new MenuItem("Add an entry to the Agenda", new AddAgendaEntryUI()));
 
         int option = 0;
 

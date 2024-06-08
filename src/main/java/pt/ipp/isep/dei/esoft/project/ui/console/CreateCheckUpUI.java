@@ -22,7 +22,7 @@ public class CreateCheckUpUI {
         String scheduleDate = scanner.nextLine();
         System.out.print("Current Kms: ");
         int currentKms = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
+        scanner.nextLine();
 
         boolean success = controller.createCheckUp(plateID, scheduleDate, currentKms);
 

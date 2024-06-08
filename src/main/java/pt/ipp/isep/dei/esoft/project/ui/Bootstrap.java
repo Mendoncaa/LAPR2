@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.esoft.project.controller.authorization.AuthenticationCont
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.VfmUI;
 
 import java.sql.ClientInfoStatus;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -113,7 +114,7 @@ public class Bootstrap implements Runnable {
         greenSpaceRepository.addGreenSpace(greenSpace1);
 
         Task task1 = new Task("Limpeza", greenSpace1, "Limpeza dos caixotes do lixo",
-                Urgency.MEDIUM, 1, 1);
+                Urgency.MEDIUM, Duration.ofDays(1).plusHours(2));
         taskRepository.addTask(task1);
 
 

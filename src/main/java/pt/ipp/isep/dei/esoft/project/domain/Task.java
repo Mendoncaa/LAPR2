@@ -1,39 +1,38 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.time.Duration;
+import java.time.LocalDate;
+
 public class Task {
     private String title;
     private GreenSpace greenSpace;
     private String description;
     private Status status;
     private Urgency urgency;
-    private int days;
-    private int hours;
+    private LocalDate startDate;
+    private Duration duration;
 
 
-    public Task (String title, GreenSpace greenSpace, String description, Urgency urgency, int days, int hours) {
+    public Task (String title, GreenSpace greenSpace, String description, Urgency urgency, Duration duration) {
         this.title = title;
         this.greenSpace = greenSpace;
         this.description = description;
         this.status = Status.PENDING;
         this.urgency = urgency;
-        this.days = days;
-        this.hours = hours;
+        this.duration = duration;
     }
 
     public String getTitle() {
         return title;
     }
 
-
     public GreenSpace getGreenSpace() {
         return greenSpace;
     }
 
-
     public String getDescription() {
         return description;
     }
-
 
     public Status getStatus() {
         return status;
@@ -43,15 +42,21 @@ public class Task {
         return urgency;
     }
 
-    public int getDays() {
-        return days;
+    public Duration getDuration() {
+        return duration;
     }
 
-
-    public int getHours() {
-        return hours;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
+    public void planTaskInAgenda(LocalDate startDate) {
+        if (startDate == null) {
+            throw new IllegalArgumentException("Start date must be provided");
+        }
+        this.startDate = startDate;
+        this.status = Status.PLANNED;
+    }
 
     @Override
     public String toString() {
@@ -59,10 +64,10 @@ public class Task {
                 "title='" + title + '\'' +
                 ", greenSpace=" + greenSpace +
                 ", description='" + description + '\'' +
-                ", state='" + status + '\'' +
-                ", urgency='" + urgency + '\'' +
-                ", days='" + days + '\'' +
-                ", hours='" + hours + '\'' +
+                ", status=" + status +
+                ", urgency=" + urgency +
+                ", startDate=" + startDate +
+                ", duration=" + duration +
                 '}';
     }
 }
