@@ -1,114 +1,79 @@
 @startuml
-skinparam monochrome true
+'skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
+'skinparam linetype orto
 
-class GreenSpace {
-    - String name
-    - String type
-    - String location
-}
+skinparam classAttributeIconSize 0
 
-class Task {
-    - String title
-    - GreenSpace greenSpace
-    - String description
-    - Status status
-    - Urgency urgency
-    - int days
-    - int hours
-    + Task(String title, GreenSpace greenSpace, String description, Urgency urgency, int days, int hours)
-    + void validateTask()
-    + String getTitle()
-    + GreenSpace getGreenSpace()
-    + String getDescription()
-    + Status getStatus()
-    + Urgency getUrgency()
-    + int getDays()
-    + int getHours()
-    + String toString()
-}
-
-class Employee {
-    + Task createTask(String title, String description, GreenSpace greenSpace, Urgency urgency, int days, int hours)
-}
-
-class ToDoListController {
-    - TaskRepository taskRepository
-    - GreenSpaceRepository greenSpaceRepository
-    - AuthenticationRepository authenticationRepository
-    - EmployeeRepository employeeRepository
-    - OrganizationRepository organizationRepository
-    + List<GreenSpace> getAvailableGreenSpaces(String userId)
-    + void addNewTask(String title, String description, String greenSpaceId, Urgency urgency, int days, int hours)
-}
-
-class TaskRepository {
-    + void save(Task task)
-}
-
-class GreenSpaceRepository {
-    + List<GreenSpace> getGreenSpacesManagedBy(String userId)
+class UserSession {
+    + isLoggedWithRole(role)
+    + getUserId()
 }
 
 class AuthenticationRepository {
-    + UserSession getCurrentUserSession()
+    + getCurrentUserSession()
 }
 
-class UserSession {
-    + boolean isLoggedWithRole(String role)
-    + String getUserId()
+class Employee {
+    + getGreenSpacesManagedByMe()
+    + createTask(title, description, selectedGreenSpace, selectedUrgency, duration)
+    + validateTask(Task)
+    + addTask(Task)
 }
 
 class EmployeeRepository {
-    + Employee getEmployeeByUserID(String email)
-}
-
-class OrganizationRepository {
-    + Organization getOrganizationByUserID(String email)
+    + getEmployeeByUserID(userID)
 }
 
 class Organization {
-    + boolean anyUserHasId(String email)
+    + anyUserHasId(userID)
 }
 
-enum Status {
-    PENDING,
-    PLANNED,
-    COMPLETED,
-    CANCELED
+class OrganizationRepository {
+    + getOrganizationByUserID(userID)
 }
 
 class Repositories {
     - Repositories()
     + getInstance() : Repositories
-    + getGreenSpaceRepository()
     + getAuthenticationRepository()
     + getEmployeeRepository()
     + getOrganizationRepository()
-    + getTaskRepository()
-    
 }
 
-enum Urgency {
-    HIGH,
-    MEDIUM,
-    LOW
+class ToDoListController {
+    + ToDoListController()
+    + getUserFromSession()
+    + getAvailableGreenSpaces()
+    + addNewTask(title, description, selectedGreenSpace, selectedUrgency, duration)
 }
 
-Repositories -> Repositories: instance
-ToDoListController --> Repositories
-Repositories --> TaskRepository
-Repositories --> GreenSpaceRepository
-Repositories --> AuthenticationRepository
-Repositories --> EmployeeRepository
-Repositories --> OrganizationRepository
-AuthenticationRepository --> UserSession
-TaskRepository --> Task
-GreenSpaceRepository --> GreenSpace
-UserSession --> Employee
-OrganizationRepository --> Organization
-EmployeeRepository --> Employee
-Organization --> Employee
+class ToDoListUI {
+}
+
+class GreenSpaces {
+    + getGreenSpacesManagedByMe()
+}
+
+class Task {
+    + create(Task instance)
+}
+
+note left of ToDoListController
+    - userEmail and userRole is obtained
+    from the user session.
+end note
+
+Repositories -> Repositories : instance
+ToDoListUI .> ToDoListController
+ToDoListController .> Repositories : repositories
+Repositories --> "1" AuthenticationRepository
+Repositories --> "1" EmployeeRepository
+Repositories --> "1" OrganizationRepository
+EmployeeRepository "1" --> "*" Employee : stores
+OrganizationRepository "1" --> "*" Organization : stores
+Employee --> "1" GreenSpaces : manages
+Employee --> "*" Task : has
 
 @enduml

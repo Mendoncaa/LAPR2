@@ -18,6 +18,7 @@ participant "Employee\n:Employee" as EMP
 participant "OrganizationRepository\n:OrganizationRepository" as ORGREP
 participant "Organization\n:Organization" as ORG
 
+
 activate GSM
 
         GSM -> UI : requests to register a new green space
