@@ -2,39 +2,50 @@
 'skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
-skinparam linetype polyline
 'skinparam linetype orto
 
 skinparam classAttributeIconSize 0
 
-class AuthenticationRepository
-{
+class UserSession {
+    + isLoggedWithRole(role)
+    + getUserId()
+}
+
+class AuthenticationRepository {
     + getCurrentUserSession()
 }
 
-class GreenSpace {
-    - String name
-    - String sizeClassification
-    - float area
-    - String address
-    + GreenSpace(name, sizeClassification, area, address)
+class Employee {
+    + create(name, sizeClassification, area, address)
+    + addGreenSpace(GreenSpace)
+    + validateGreenSpace(GreenSpace)
 }
 
-class GreenSpaceRepository {
-    + checkIfNameExists(name)
-    + save(GreenSpace)
+class EmployeeRepository {
+    + getEmployeeByUserID(userID)
+}
+
+class Organization {
+    + anyUserHasId(userID)
+}
+
+class OrganizationRepository {
+    + getOrganizationByUserID(userID)
 }
 
 class Repositories {
     - Repositories()
     + getInstance() : Repositories
-    + getGreenSpaceRepository()
     + getAuthenticationRepository()
+    + getEmployeeRepository()
+    + getOrganizationRepository()
 }
 
 class RegisterGreenSpaceController {
     + RegisterGreenSpaceController()
     + registerGreenSpace(name, sizeClassification, area, address)
+    + getUserFromSession()
+    + getOrganizationByID(userID)
 }
 
 class RegisterGreenSpaceUI {
@@ -48,8 +59,10 @@ end note
 Repositories -> Repositories : instance
 RegisterGreenSpaceUI .> RegisterGreenSpaceController
 RegisterGreenSpaceController .> Repositories : repositories
-Repositories --> "1" GreenSpaceRepository
 Repositories --> "1" AuthenticationRepository
-GreenSpaceRepository "1" --> "*" GreenSpace : stores
+Repositories --> "1" EmployeeRepository
+Repositories --> "1" OrganizationRepository
+EmployeeRepository "1" --> "*" Employee : stores
+OrganizationRepository "1" --> "*" Organization : stores
 
 @enduml

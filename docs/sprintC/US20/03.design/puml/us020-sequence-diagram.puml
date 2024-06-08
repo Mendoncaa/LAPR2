@@ -10,7 +10,6 @@ participant ":RegisterGreenSpaceUI" as UI
 participant ":RegisterGreenSpaceController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "GreenSpaceRepository:\nGreenSpaceRepository" as GSR
 participant "AuthFacade\n:AuthenticationRepository" as AUTHREP
 participant "userSession\n:UserSession" as USER
 
@@ -76,10 +75,12 @@ activate GSM
         activate ORGREP
         loop
             ORGREP -> ORG : anyUserHasId(email)
+            activate ORG
             ORG --> ORGREP : True/False
-        deactivate ORGREP
+            deactivate ORG
         end
         ORGREP --> CTRL : organization
+        deactivate ORGREP
 
         CTRL -> PLAT : getEmployeeRepository()
         activate PLAT
@@ -90,7 +91,9 @@ activate GSM
         activate EMPREP
         loop
             EMPREP -> ORG : anyUserHasId(email)
+            activate ORG
             ORG --> EMPREP : True/False
+            deactivate ORG
         deactivate EMPREP
         end
         EMPREP --> CTRL : employee
@@ -98,36 +101,24 @@ activate GSM
 
         CTRL -> EMP : create(Name, Size classification, Area, Address)
         activate EMP
-        EMP -> CTRL : GreenSpace instance
+        EMP -> GreenSpace**: create(GreenSpace)
+        activate GreenSpace
+
+        GreenSpace --> EMP : GreenSpace instance
+        deactivate GreenSpace
+
+
+
+        EMP -> EMP : addGreenSpace(GreenSpace)
+
+
+        EMP -> EMP : validateGreenSpace(GreenSpace)
+
+        EMP -> CTRL: Green Space
         deactivate EMP
 
-        EMP -> GreenSpace**: create(GreenSpace)
-                note right of GreenSpace
-                  GreenSpace constructor validates GreenSpace name
-                endnote
-
-
-                activate EMP
-                    EMP -> EMP: validateGreenSpace(GreenSpace)
-
-                    deactivate EMP
-
-                
-                deactivate EMP
-
-                EMP --> CTRL : GreenSpace
-
-        CTRL -> GSM : save(GreenSpace instance)
-        activate GSM
-        GSM --> CTRL : success
-        deactivate GSM
 
         CTRL --> UI : operation success
-        
-    deactivate CTRL
-
-    UI --> GSM : Display success message
-    deactivate UI
 
 deactivate GSM
 
