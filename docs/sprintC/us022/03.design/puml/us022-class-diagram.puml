@@ -1,107 +1,79 @@
 @startuml
-skinparam monochrome true
+'skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
+'skinparam linetype orto
 
-class GreenSpace {
-    - String name
-    - String type
-    - String location
-}
-class AgendaUI {
+skinparam classAttributeIconSize 0
 
-}
 
-class Task {
-    - String title
-    - GreenSpace greenSpace
-    - String description
-    - Status status
-    - Urgency urgency
-    - int days
-    - int hours
-    - LocalDate startDate
-    + Task(String title, GreenSpace greenSpace, String description, Urgency urgency, int days, int hours)
-    + void planTaskInAgenda(LocalDate startDate)
-    + String getTitle()
-    + GreenSpace getGreenSpace()
-    + String getDescription()
-    + Status getStatus()
-    + Urgency getUrgency()
-    + int getDays()
-    + int getHours()
-    + LocalDate getStartDate()
-    + String toString()
+class AuthenticationRepository {
+    + getCurrentUserSession()
 }
 
 class Employee {
-    + void planTaskInAgenda(Task task, LocalDate startDate)
-}
-
-class AgendaController {
-    - TaskRepository taskRepository
-    - GreenSpaceRepository greenSpaceRepository
-    - AuthenticationRepository authenticationRepository
-    - EmployeeRepository employeeRepository
-    - OrganizationRepository organizationRepository
-    + List<Task> getPendingTasks()
-    + List<GreenSpace> getGreenSpacesManagedByMe(String userId)
-    + void addNewAgendaEntry(String taskId, String greenSpaceId, LocalDate startDate)
-}
-
-class TaskRepository {
-    + List<Task> getPendingTasks()
-    + Task getTaskById(String taskId)
-    + void save(Task task)
-}
-
-class GreenSpaceRepository {
-    + List<GreenSpace> getGreenSpacesManagedBy(String userId)
-    + GreenSpace getGreenSpaceById(String greenSpaceId)
-}
-
-class AuthenticationRepository {
-    + UserSession getCurrentUserSession()
-}
-
-class UserSession {
-    + boolean isLoggedWithRole(String role)
-    + String getUserId()
+    + getGreenSpacesManagedByMe()
+    + getPendingTasks()
+    + planTaskInAgenda(selectedTask, startDate)
+    + addNewAgendaEntry(Task)
+    + validateAgendaEntry(Task)
 }
 
 class EmployeeRepository {
-    + Employee getEmployeeByUserID(String email)
-}
-
-class OrganizationRepository {
-    + Organization getOrganizationByUserID(String email)
+    + getEmployeeByUserID(userID)
 }
 
 class Organization {
-    + boolean anyUserHasId(String email)
+    + anyUserHasId(userID)
+}
+
+class OrganizationRepository {
+    + getOrganizationByUserID(userID)
 }
 
 class Repositories {
     - Repositories()
     + getInstance() : Repositories
-    + getGreenSpaceRepository()
     + getAuthenticationRepository()
+    + getEmployeeRepository()
+    + getOrganizationRepository()
 }
 
+class AgendaController {
+    + AgendaController()
+    + getUserFromSession()
+    + getOrganizationByID(userID)
+    + getGreenSpacesManagedByMe()
+    + getPendingTasks()
+    + addNewAgendaEntry(selectedTask, selectedGreenSpace, startDate)
+}
+
+class AgendaUI {
+}
+
+class GreenSpaces {
+    + getGreenSpacesManagedByMe()
+}
+
+class Tasks {
+    + getPendingTasks()
+    + planTaskInAgenda(startDate)
+}
+
+note left of AgendaController
+    - userEmail and userRole is obtained
+    from the user session.
+end note
+
 Repositories -> Repositories : instance
-AgendaUI->AgendaController
-AgendaController -> Repositories
-Repositories --> TaskRepository
-Repositories --> GreenSpaceRepository
-Repositories --> AuthenticationRepository
-Repositories --> EmployeeRepository
-Repositories --> OrganizationRepository
-AuthenticationRepository --> UserSession
-TaskRepository --> Task
-GreenSpaceRepository --> GreenSpace
-UserSession --> Employee
-OrganizationRepository --> Organization
-EmployeeRepository --> Employee
-Organization --> Employee
+AgendaUI .> AgendaController
+AgendaController .> Repositories : repositories
+Repositories --> "1" AuthenticationRepository
+Repositories --> "1" EmployeeRepository
+Repositories --> "1" OrganizationRepository
+EmployeeRepository "1" --> "*" Employee : stores
+OrganizationRepository "1" --> "*" Organization : stores
+Employee --> "1" GreenSpaces : manages
+Employee --> "*" Tasks : has
 
 @enduml

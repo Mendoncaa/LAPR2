@@ -10,8 +10,6 @@ participant ":ToDoListUI" as UI
 participant ":ToDoListController" as CTRL
 participant ":Repositories" as RepositorySingleton
 participant "repositories\n:Repositories" as PLAT
-participant "TaskRepository:\nTaskRepository" as TASKREP
-participant "GreenSpaceRepository:\nGreenSpaceRepository" as GSR
 participant "AuthFacade\n:AuthenticationRepository" as AUTHREP
 participant "userSession\n:UserSession" as USER
 
@@ -19,6 +17,7 @@ participant "EmployeeRepository\n:EmployeeRepository" as EMPREP
 participant "Employee\n:Employee" as EMP
 participant "OrganizationRepository\n:OrganizationRepository" as ORGREP
 participant "Organization\n:Organization" as ORG
+participant "GreenSpaces\n:GreenSpaces" as GSR
 
 activate GSM
 
@@ -32,25 +31,98 @@ activate GSM
     activate UI
 
     UI -> CTRL : getAvailableGreenSpaces()
+
+    CTRL -> CTRL : getUserFromSession()
+
+            CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+            CTRL <-- RepositorySingleton : Repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getAuthenticationRepository()
+            activate PLAT
+            CTRL <-- PLAT : AuthenticationRepository()
+            deactivate PLAT
+
+            CTRL -> AUTHREP : getCurrentUserSession()
+            activate AUTHREP
+
+            AUTHREP -> USER : isLoggedWithRole(GSM)
+            activate USER
+
+            AUTHREP <-- USER : "True/False"
+            AUTHREP --> USER : getUserId(email)
+            AUTHREP <-- USER : userId(email)
+            deactivate USER
+
+            CTRL <-- AUTHREP : userId(email)
+            deactivate AUTHREP
+
+            CTRL -> RepositorySingleton : getInstance()
+            activate RepositorySingleton
+            CTRL <-- RepositorySingleton : Repositories
+            deactivate RepositorySingleton
+
+            CTRL -> PLAT : getOrganizationRepository()
+            activate PLAT
+            CTRL <-- PLAT : OrganizationRepository()
+            deactivate PLAT
+
+            CTRL -> ORGREP : getOrganizationByUserID(email)
+            activate ORGREP
+            loop
+                ORGREP -> ORG : anyUserHasId(email)
+                activate ORG
+                ORG --> ORGREP : True/False
+                deactivate ORG
+            end
+            ORGREP --> CTRL : organization
+            deactivate ORGREP
+
+
+
+            CTRL -> PLAT : getEmployeeRepository()
+            activate PLAT
+            CTRL <-- PLAT : EmployeeRepository()
+            deactivate PLAT
+
+            CTRL -> EMPREP : getEmployeeByUserID(email)
+            activate EMPREP
+            loop
+                EMPREP -> EMP : anyUserHasId(email)
+                activate EMP
+                EMP --> EMPREP : True/False
+                deactivate EMP
+            end
+            EMPREP --> CTRL : employee
+            deactivate EMPREP
+
+
     activate CTRL
 
-    CTRL -> RepositorySingleton : getInstance()
-    activate RepositorySingleton
-    CTRL <-- RepositorySingleton : Repositories
-    deactivate RepositorySingleton
 
-    CTRL -> PLAT : getGreenSpaceRepository()
-    activate PLAT
-    CTRL <-- PLAT : GreenSpaceRepository()
-    deactivate PLAT
+    CTRL -> EMP : getGreenSpacesManagedByMe()
+    activate EMP
+    EMP -> GSR: getGreenSpacesManagedByMe()
 
-    CTRL -> GSR : getGreenSpacesManagedByMe()
+
     activate GSR
-    CTRL <-- GSR : greenSpaceList
+    GSR --> EMP : List <GreenSpace>
     deactivate GSR
 
-    UI <-- CTRL : display greenSpaceList for selection
-    deactivate CTRL
+
+    EMP -> CTRL: List <GreenSpace>
+    deactivate EMP
+
+    CTRL --> UI : List <GreenSpace>
+
+    UI --> GSM: Green Spaces managed by the GSM
+
+
+
+
+
+
 
     GSM -> UI : selects a green space (green spaces managed by me) from greenSpaceList
     activate UI
@@ -62,88 +134,32 @@ activate GSM
     UI -> CTRL : addNewTask(title, description, selectedGreenSpace, selectedUrgency, duration)
     activate CTRL
 
-        CTRL -> CTRL : getUserFromSession()
 
-        CTRL -> RepositorySingleton : getInstance()
-        activate RepositorySingleton
-        CTRL <-- RepositorySingleton : Repositories
-        deactivate RepositorySingleton
-
-        CTRL -> PLAT : getAuthenticationRepository()
-        activate PLAT
-        CTRL <-- PLAT : AuthenticationRepository()
-        deactivate PLAT
-
-        CTRL -> AUTHREP : getCurrentUserSession()
-        activate AUTHREP
-
-        AUTHREP -> USER : isLoggedWithRole(GSM)
-        activate USER
-
-        AUTHREP <-- USER : "True/False"
-        AUTHREP --> USER : getUserId(email)
-        AUTHREP <-- USER : userId(email)
-        deactivate USER
-
-        CTRL <-- AUTHREP : userId(email)
-        deactivate AUTHREP
-
-        CTRL -> RepositorySingleton : getInstance()
-        activate RepositorySingleton
-        CTRL <-- RepositorySingleton : Repositories
-        deactivate RepositorySingleton
-
-        CTRL -> PLAT : getOrganizationRepository()
-        activate PLAT
-        CTRL <-- PLAT : OrganizationRepository()
-        deactivate PLAT
-
-        CTRL -> ORGREP : getOrganizationByUserID(email)
-        activate ORGREP
-        loop
-            ORGREP -> ORG : anyUserHasId(email)
-            ORG --> ORGREP : True/False
-        deactivate ORGREP
-        end
-        ORGREP --> CTRL : organization
-
-        CTRL -> PLAT : getEmployeeRepository()
-        activate PLAT
-        CTRL <-- PLAT : EmployeeRepository()
-        deactivate PLAT
-
-        CTRL -> EMPREP : getEmployeeByUserID(email)
-        activate EMPREP
-        loop
-            EMPREP -> EMP : anyUserHasId(email)
-            EMP --> EMPREP : True/False
-        deactivate EMPREP
-        end
-        EMPREP --> CTRL : employee
 
         CTRL -> EMP : createTask(title, description, selectedGreenSpace, selectedUrgency, duration)
         activate EMP
-        EMP -> CTRL : Task instance
-        deactivate EMP
 
-        EMP -> TASK : create(Task instance)
+
+        EMP -> TASK** : create(Task instance)
             note right of TASK
               Task constructor validates task data
             endnote
-
-            activate EMP
+        activate TASK
+        TASK -> EMP : Task Instance
+        deactivate TASK
                 EMP -> EMP : validateTask(Task)
+
+                EMP-> EMP: addTask(Task)
+
+                EMP --> CTRL : Task
 
                 deactivate EMP
 
-            EMP --> CTRL : Task
 
-        CTRL -> TASKREP : save(Task instance)
-        activate TASKREP
-        TASKREP --> CTRL : success
-        deactivate TASKREP
 
-        CTRL --> UI : operation success
+
+
+        CTRL --> UI : Task
     
 deactivate CTRL
 
