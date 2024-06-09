@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 public enum SizeClassification {
-    GARDEN, MEDIUM_SIZED_PARK, LARGE_SIZED_PARK;
+    GARDEN, MEDIUM_SIZED_PARK, LARGE_SIZED_PARK, MEDIUM;
 
     public static SizeClassification getByIndex(int index) {
         // Values method returns an array of all enum constants

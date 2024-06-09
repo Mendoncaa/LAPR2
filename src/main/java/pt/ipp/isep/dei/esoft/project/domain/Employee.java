@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -84,6 +82,9 @@ public class Employee implements Comparable<Employee> {
     public void setAdmissionDate(LocalDate admissionDate) {
         if (admissionDate == null || admissionDate.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("Invalid admission date");
+        }
+        if (birthdate != null && admissionDate.isBefore(birthdate.plusYears(15))) {
+            throw new IllegalArgumentException("Admission date must be at least 15 years after birthdate");
         }
         this.admissionDate = admissionDate;
     }
@@ -226,6 +227,47 @@ public class Employee implements Comparable<Employee> {
 
     public void completeTask(Task task) {
         task.completeTask();
+    }
+
+    /**
+     * Updates the task with the given list of vehicles.
+     *
+     * @param task     The task to be updated.
+     * @param vehicles The list of vehicles to be assigned to the task.
+     * @return
+     * @throws IllegalArgumentException If the task or vehicles are invalid.
+     */
+    public Boolean addUpdatedTaskVehicles(Task task, List<Vehicle> vehicles) {
+
+        validateTask(task, vehicles);
+
+        return task.setVehicles(vehicles);
+    }
+
+    /**
+     * Validates the task and the list of vehicles.
+     *
+     * @param task     The task to be validated.
+     * @param vehicles The list of vehicles to be validated.
+     * @throws IllegalArgumentException If the task or vehicles are invalid.
+     */
+    public void validateTask(Task task, List<Vehicle> vehicles) {
+        if (task == null) {
+            throw new IllegalArgumentException("Task cannot be null");
+        }
+        if (vehicles == null || vehicles.isEmpty()) {
+            throw new IllegalArgumentException("Vehicle list cannot be null or empty");
+        }
+
+    }
+    public List<Task> listThisGsmTasksInAgenda(String userEmail) {
+        Tasks taskManager = new Tasks();
+        return taskManager.filterThisGsmTasksInAgenda(userEmail);
+    }
+
+    public List<Vehicle> filterVehiclesNotAssignedByDateOfTasks(Task task, List<Vehicle> vehicles) {
+        Tasks taskManager = new Tasks();
+        return taskManager.filterVehiclesNotAssignedByDateOfTask(task, vehicles);
     }
 
     @Override

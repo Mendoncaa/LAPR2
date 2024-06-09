@@ -1,10 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.TaskRepository;
-import pt.isep.lei.esoft.auth.UserSession;
-import pt.isep.lei.esoft.auth.domain.model.User;
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,6 +14,8 @@ public class Task implements Comparable<Task> {
     private LocalDate startDate;
     private Duration duration;
     private String email;
+    private List<Vehicle> vehicles = new ArrayList<>();
+
 
 
     public Task (String title, GreenSpace greenSpace, String description, Urgency urgency, Duration duration, String email) {
@@ -76,6 +73,18 @@ public class Task implements Comparable<Task> {
         return email;
     }
 
+    public List<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public Boolean setVehicles(List<Vehicle> vehicles) {
+        if (vehicles == null || vehicles.isEmpty()) {
+            throw new IllegalArgumentException("Vehicle list cannot be null or empty");
+        }
+        this.vehicles = vehicles;
+        return true;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
@@ -93,4 +102,5 @@ public class Task implements Comparable<Task> {
     public int compareTo(Task o) {
         return this.startDate.compareTo(o.startDate);
     }
+
 }

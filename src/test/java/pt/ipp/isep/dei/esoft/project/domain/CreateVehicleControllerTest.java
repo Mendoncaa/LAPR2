@@ -8,6 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
 import pt.ipp.isep.dei.esoft.project.controller.authorization.CreateVehicleController;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 public class CreateVehicleControllerTest {
 
         @Test
@@ -16,14 +19,15 @@ public class CreateVehicleControllerTest {
             VehicleRepository repository = new VehicleRepository();
 
             // Criar um controlador com o repositório simulado
-            CreateVehicleController controller = new CreateVehicleController(repository);
+            CreateVehicleController controller = new CreateVehicleController();
 
             // Chamar o método createVehicle no controlador
-            boolean result = controller.createVehicle("AB123CD", "Toyota", "Corolla", "Sedan", 1200, 1500,
-                    50000, "2022-01-01", "2022-01-01", 10000);
+            Optional<Vehicle> result = controller.createVehicle(new Vehicle("AB123CD", "Toyota", "Corolla", "Sedan", 1200, 1500,
+                    50000, LocalDate.of(2022, 1, 1), LocalDate.of(2022, 1, 1), 10000));
+
 
             // Verificar se o resultado é verdadeiro
-            assertTrue(result);
+            assertTrue(result.isPresent());
 
             // Verificar se o método addVehicle foi chamado no repositório
             assertEquals(1, repository.getVehicles().size());
