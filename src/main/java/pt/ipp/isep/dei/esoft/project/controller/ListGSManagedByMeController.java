@@ -17,7 +17,7 @@ public class ListGSManagedByMeController {
      * @return The list of tasks.
      * @throws IllegalArgumentException If the user is not authorized or if the organization is not found.
      */
-    public List<Task> listThisGsmTasksInAgenda() throws IllegalArgumentException {
+    public List<GreenSpace> listThisGsmGreenSpaces() throws IllegalArgumentException {
         Repositories repositories = Repositories.getInstance();
         UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
 
@@ -37,7 +37,7 @@ public class ListGSManagedByMeController {
         }
     }
 
-    public ListGSManagedByMeController(SortingConfigAdapter sortingAdapter) {
+    public ListGSManagedByMeController() {
         this.sortingAdapter = sortingAdapter;
     }
 
@@ -45,8 +45,8 @@ public class ListGSManagedByMeController {
         return sortingAdapter.getAllSortingAlgorithmsNames();
     }
 
-    public List<GreenSpace> sortGreenSpaces(String algorithmName, List<GreenSpace> greenSpaces) {
-        // Logic to sort green spaces using the specified algorithm
+    public List<GreenSpace> sortGreenSpaces(String algorithmName) {
+        List<GreenSpace> greenSpaces = listThisGsmGreenSpaces();
         return sortingAdapter.getSortedGreenSpaces(algorithmName, greenSpaces);
     }
 }

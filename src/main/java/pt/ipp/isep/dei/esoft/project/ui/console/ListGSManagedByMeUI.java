@@ -1,7 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
+import pt.ipp.isep.dei.esoft.project.controller.AddVehiclesToTaskController;
 import pt.ipp.isep.dei.esoft.project.controller.ListGSManagedByMeController;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
+import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 
 import java.util.List;
 import java.util.Scanner;
@@ -12,14 +15,13 @@ import java.util.Scanner;
  */
 public class ListGSManagedByMeUI implements Runnable {
     private final ListGSManagedByMeController controller;
-    private final List<GreenSpace> greenSpaces;
+
 
     /**
      * Constructs the UI with the corresponding controller and green spaces.
      */
-    public ListGSManagedByMeUI(ListGSManagedByMeController controller, List<GreenSpace> greenSpaces) {
-        this.controller = controller;
-        this.greenSpaces = greenSpaces;
+    public ListGSManagedByMeUI() {
+        this.controller = new ListGSManagedByMeController();
     }
 
     /**
@@ -27,6 +29,8 @@ public class ListGSManagedByMeUI implements Runnable {
      */
     @Override
     public void run() {
+        System.out.println("\n\n--- List GreenSpaces Managed sorted by area ------------------------");
+
         Scanner scanner = new Scanner(System.in);
 
         // Display available sorting algorithms
@@ -49,7 +53,7 @@ public class ListGSManagedByMeUI implements Runnable {
         String algorithmName = availableAlgorithms.get(algorithmIndex - 1);
 
         // Logic to list and sort the green spaces
-        List<GreenSpace> sortedGreenSpaces = controller.sortGreenSpaces(algorithmName, greenSpaces);
+        List<GreenSpace> sortedGreenSpaces = controller.sortGreenSpaces(algorithmName);
 
         // List the sorted green spaces
         System.out.println("\nSorted Green Spaces:");
