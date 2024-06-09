@@ -81,7 +81,7 @@ US28 depends on the following user stories:
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US00-SSD](svg/us001-system-sequence-diagram.svg)
+![US00-SSD](svg/us029-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 

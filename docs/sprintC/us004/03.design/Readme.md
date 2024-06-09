@@ -7,7 +7,7 @@
 
 | Interaction ID                                         | Question: Which class is responsible for...                  | Answer                | Justification (with patterns)                                                                                    |
 |:-------------------------------------------------------|:-------------------------------------------------------------|:----------------------|:-----------------------------------------------------------------------------------------------------------------|
-| Step 1 - List for a collaborator available	            | ... interacting with the actor?                              | AssignSkillUI         | Pure Fabrication: The UI class is created to interact with the user and get the necessary inputs.                |
+| Step 1 - List for a collaborator available	            | ... interacting with the actor?                              | AssignSkillUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the DM.                |
 |                                                        | ... coordinating the US?                                     | AssignSkillController | Controller: The controller is responsible for handling the user request and coordinating the use case.           |
 | Step 2 - Shows list of collaborators                   | ... displaying form for actor input?                         | AssignSkillUI         | Pure Fabrication(Interation with Actor)                                                                          |
 | Step 3 - Choose collaborator                           | ... temporaly keeping input data?                            | AssignSkillController | IE: The controller has the necessary information and is responsible for temporarily storing the input data.      | 
@@ -23,6 +23,7 @@
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
+* Organization 
 * Team Member
 * Skill
 
