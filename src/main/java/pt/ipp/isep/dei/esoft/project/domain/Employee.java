@@ -17,6 +17,7 @@ import java.util.List;
  * Represents an employee in an organization.
  */
 public class Employee implements Comparable<Employee>, Serializable {
+    private static final long serialVersionUID = -6497430675401438213L;
     private String name;
     private LocalDate birthdate;
     private LocalDate admissionDate;

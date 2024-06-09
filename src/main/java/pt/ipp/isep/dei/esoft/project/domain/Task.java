@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Task implements Comparable<Task>, Serializable {
+    private static final long serialVersionUID = -654553853400108120L;
     private String title;
     private GreenSpace greenSpace;
     private String description;
