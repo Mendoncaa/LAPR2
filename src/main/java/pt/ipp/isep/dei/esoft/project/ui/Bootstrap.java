@@ -32,6 +32,7 @@ public class Bootstrap implements Runnable {
         TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
 
         Organization organization = new Organization("MusgoSublime", employeeRepository, jobRepository);
+        organizationRepository.add(organization);
         Job job = new Job("Human Resources Manager");
         jobRepository.addJob(job);
         Job job2 = new Job("Green Space Manager");
@@ -87,8 +88,23 @@ public class Bootstrap implements Runnable {
 
         employeeRepository.addEmployee(vfm);
 
+        Employee collaborator1 = organization.createEmployee(
+                "Zé",
+                LocalDate.of(1992, 2, 2),
+                LocalDate.of(2021, 11, 30),
+                "Rua da Morada 02",
+                "Porto",
+                "4000-051",
+                "987654336",
+                "collaborator@this.app",
+                "CC",
+                "12345678",
+                "987784321",
+                job2);
 
-        organizationRepository.add(organization);
+        employeeRepository.addEmployee(vfm);
+
+
 
         Skill skill1 = new Skill("Trolha");
         skillRepository.addSkill(skill1);
@@ -123,6 +139,7 @@ public class Bootstrap implements Runnable {
         taskRepository.addTask(task2);
 
 
+
     }
 
 
@@ -136,6 +153,7 @@ public class Bootstrap implements Runnable {
         authenticationRepository.addUserRole(AuthenticationController.ROLE_HRM, AuthenticationController.ROLE_HRM);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_VFM, AuthenticationController.ROLE_VFM);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_GSM, AuthenticationController.ROLE_GSM);
+        authenticationRepository.addUserRole(AuthenticationController.ROLE_COLLAB, AuthenticationController.ROLE_COLLAB);
 
         authenticationRepository.addUserWithRole("Main Administrator", "admin@this.app", "admin",
                 AuthenticationController.ROLE_ADMIN);
@@ -147,5 +165,7 @@ public class Bootstrap implements Runnable {
                 AuthenticationController.ROLE_VFM);
         authenticationRepository.addUserWithRole("Gsm", "gsm@this.app", "gsm",
                 AuthenticationController.ROLE_GSM);
+        authenticationRepository.addUserWithRole("Collab", "collab1@this.app", "collab1",
+                AuthenticationController.ROLE_COLLAB);
     }
 }
