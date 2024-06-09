@@ -6,18 +6,18 @@ hide empty attributes
 skinparam linetype polyline
 
 
-
-
-class GSM {
+class Employee {
 }
 
+class Tasks {
+  - taskCategory
+  - toDoList
+}
 
 class Agenda {
-
 }
 
-
-GSM "1"---"1" Agenda : manages >
-
+Employee "1"---"0..*" Tasks: manages >
+Agenda "1"---"1..*" Tasks : organizes >
 
 @enduml
