@@ -8,18 +8,32 @@ import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.List;
-
+/**
+ * This class represents the UI for adding a team to an agenda entry.
+ * It implements the Runnable interface to allow its instances to be executed by a thread.
+ */
 public class AddTeamToAgendaEntryUI implements Runnable {
     private final AddTeamToAgendaEntryController controller;
 
+    /**
+     * Constructs an instance of AddTeamToAgendaEntryUI and initializes the controller.
+     */
     public AddTeamToAgendaEntryUI() {
         controller = new AddTeamToAgendaEntryController();
     }
 
+    /**
+     * Gets the controller.
+     *
+     * @return the controller
+     */
     private AddTeamToAgendaEntryController getController() {
         return controller;
     }
-
+    /**
+     * Runs the UI process to add a team to an agenda entry.
+     * It interacts with the user to select a team and a task and confirms the operation.
+     */
     @Override
     public void run() {
 
@@ -80,7 +94,12 @@ public class AddTeamToAgendaEntryUI implements Runnable {
             System.out.println("Operation canceled by the user.");
         }
     }
-
+    /**
+     * Submits the selected team and task to be added to the agenda entry.
+     *
+     * @param team the team to be added to the agenda entry
+     * @param task the task to which the team will be added
+     */
     private void submitData(Team team, Task task) {
         try {
             getController().addTeamToEntry(team, task);
