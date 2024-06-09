@@ -7,18 +7,30 @@ import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.List;
-
+/**
+ * This class represents the UI for postponing a task.
+ * It implements the Runnable interface to allow its instances to be executed by a thread.
+ */
 public class PostponeUI implements Runnable {
     private final PostponeController controller;
-
+    /**
+     * Constructs an instance of PostponeUI and initializes the controller.
+     */
     public PostponeUI() {
         controller = new PostponeController();
     }
-
+    /**
+     * Gets the controller.
+     *
+     * @return the controller
+     */
     private PostponeController getController() {
         return controller;
     }
-
+    /**
+     * Runs the UI process to postpone a task.
+     * It interacts with the user to select a task and confirm the postponement.
+     */
     @Override
     public void run() {
 
@@ -60,7 +72,11 @@ public class PostponeUI implements Runnable {
 
     }
 
-
+    /**
+     * Submits the task data for postponement.
+     *
+     * @param task the task to be postponed
+     */
     private void submitData(Task task) {
         try {
             getController().postponeTask(task);
