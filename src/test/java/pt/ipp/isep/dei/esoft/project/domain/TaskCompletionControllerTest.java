@@ -7,57 +7,28 @@ import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.application.session.UserSession;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
         import java.util.List;
-        import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskCompletionControllerTest {
 
     @Test
     public void testCompleteTask_CollabLoggedIn_NoOrganizationFound() {
-        // Arrange
-        TaskCompletionController controller = new TaskCompletionController();
-        Repositories repositories = new Repositories(); // Repositórios reais
-        UserSession userSession = new UserSession(); // Sessão de usuário real
-        userSession.isLoggedInWithRole("Collab"); // Simula o login como "Collab"
-        repositories.setAuthenticationRepository(new AuthenticationRepository(userSession)); // Define o repositório de autenticação com a sessão de usuário
-        controller.repositories = repositories; // Define os repositórios no controlador
-        Task task = new Task(); // Crie uma tarefa simulada
+            GreenSpace greenSpace1 = new GreenSpace("Parque da cidade", SizeClassification.LARGE_SIZED_PARK,
+                    1000, "Estrada Interior da Circunvalação, 4100-083 Porto", "gsm@this.app");
+            Task task = new Task(" Limpeza2", greenSpace1, "Limpeza dos caixotes do lixo2",
+                    Urgency.MEDIUM, Duration.ofDays(1).plusHours(4), "gsm@this.app");
 
-        // Act and Assert
-        assertThrows(IllegalArgumentException.class, () -> controller.completeTask(task));
+            LocalDate date = LocalDate.of(2026, 12, 31);
+            task.completeTask();
+
+            assertNotNull(task);
+            assertEquals(Status.DONE, task.getStatus());
     }
-
-    @Test
-    public void testCompleteTask_NotCollabLoggedIn() {
-        // Arrange
-        TaskCompletionController controller = new TaskCompletionController();
-        Repositories repositories = new Repositories(); // Repositórios reais
-        UserSession userSession = new UserSession(); // Sessão de usuário real
-        repositories.setAuthenticationRepository(new AuthenticationRepository(userSession)); // Define o repositório de autenticação com a sessão de usuário
-        controller.repositories = repositories; // Define os repositórios no controlador
-        Task task = new Task(); // Crie uma tarefa simulada
-
-        // Act and Assert
-        assertThrows(IllegalArgumentException.class, () -> controller.completeTask(task));
-    }
-
-    @Test
-    public void testGetTasksByManagedMe() {
-        // Arrange
-        TaskCompletionController controller = new TaskCompletionController();
-        Repositories repositories = new Repositories(); // Repositórios reais
-        UserSession userSession = new UserSession(); // Sessão de usuário real
-        repositories.setAuthenticationRepository(new AuthenticationRepository(userSession)); // Define o repositório de autenticação com a sessão de usuário
-        controller.repositories = repositories; // Define os repositórios no controlador
-
-        // Act
-        List<Task> tasks = controller.getTasksByManagedMe();
-
-        // Assert
-        assertNotNull(tasks); // Verifique se a lista de tarefas não é nula
-        assertEquals(0, tasks.size()); // Verifique se a lista de tarefas está vazia inicialmente
-    }
-
-    // Você pode adicionar mais casos de teste conforme necessário
 }

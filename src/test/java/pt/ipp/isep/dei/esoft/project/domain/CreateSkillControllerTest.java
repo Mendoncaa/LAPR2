@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -9,9 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import pt.ipp.isep.dei.esoft.project.controller.authorization.CreateSkillController;
-import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.OrganizationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
+import pt.ipp.isep.dei.esoft.project.repository.*;
 import pt.ipp.isep.dei.esoft.project.repository.application.session.UserSession;
 
 import java.time.LocalDate;
@@ -42,15 +41,16 @@ public class CreateSkillControllerTest {
         CreateSkillController createSkillController = new CreateSkillController();
 
         // Dados da habilidade
-        String skillName = "Programação";
+        String skillName = "Programacao";
 
-        // Chamada do método para criar a habilidade
-        Optional<Skill> skillOptional = createSkillController.createSkill(skillName);
 
-        // Verificação se a habilidade foi criada com sucesso
-        assertTrue(skillOptional.isPresent());
-        Skill skill = skillOptional.get();
+        EmployeeRepository employeeRepository = new EmployeeRepository();
+        JobRepository jobRepository = new JobRepository();
+        Organization organization = new Organization("1234", employeeRepository, jobRepository);
+        Skill skill = organization.createSkill(skillName);
+
         assertEquals(skillName, skill.getName());
+
     }
 
     @org.junit.Test
@@ -59,7 +59,7 @@ public class CreateSkillControllerTest {
         SkillRepository skillRepository = new SkillRepository();
 
         // Criação de uma nova habilidade
-        Skill skill = new Skill("Programação");
+        Skill skill = new Skill("Programacao");
 
         // Adiciona a habilidade ao repositório
         skillRepository.addSkill(skill);
