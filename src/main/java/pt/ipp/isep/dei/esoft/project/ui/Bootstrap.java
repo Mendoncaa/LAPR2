@@ -27,6 +27,24 @@ public class Bootstrap implements Runnable {
         Organization organization = new Organization("MusgoSublime", employeeRepository, jobRepository);
         organizationRepository.add(organization);
 
+        /*Job job = new Job("Collaborator");
+        jobRepository.addJob(job);
+        Employee gsm = organization.createEmployee(
+                "Zé",
+                LocalDate.of(1991, 1, 1),
+                LocalDate.of(2020, 12, 31),
+                "Rua da Morada 01",
+                "Porto",
+                "4000-055",
+                "987654323",
+                "gsm@this.app",
+                "CC",
+                "12345678",
+                "987654322",
+                jobRepository.getJobByName("Collaborator"));
+
+        employeeRepository.addEmployee(gsm);*/
+
 
         /*Employee hrm = organization.createEmployee(
                 "Zé",

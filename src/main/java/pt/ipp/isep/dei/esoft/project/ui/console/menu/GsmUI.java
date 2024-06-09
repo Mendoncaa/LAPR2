@@ -18,6 +18,7 @@ public class GsmUI implements Runnable {
         options.add(new MenuItem("Add an entry to the To-Do-List", new ToDoListUI()));
         options.add(new MenuItem("Add an entry to the Agenda", new AddAgendaEntryUI()));
         options.add(new MenuItem("Add vehicles to an Agenda Task", new AddVehiclesToTaskUI()));
+        options.add(new MenuItem("Postpone an entry in the Agenda", new PostponeUI()));
 
         int option = 0;
 

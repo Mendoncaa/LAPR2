@@ -6,9 +6,11 @@ import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.isep.lei.esoft.auth.UserSession;
 
 import java.io.Serializable;
+import java.security.SecureRandom;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -23,6 +25,7 @@ public class Employee implements Comparable<Employee>, Serializable {
     private String zipCode;
     private String phone;
     private String email;
+    //private String password;
     private String idDocType;
     private String idDocNumber;
     private String taxpayerId;
@@ -55,6 +58,7 @@ public class Employee implements Comparable<Employee>, Serializable {
         setZipCode(zipCode);
         setPhone(phone);
         setEmail(email);
+        //this.password = generatePassword();
         setIdDocType(idDocType);
         setIdDocNumber(idDocNumber);
         setTaxpayerId(taxpayerId);
@@ -314,6 +318,51 @@ public class Employee implements Comparable<Employee>, Serializable {
     }
 
 
+    /*private String generatePassword() {
+
+        String UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
+        String DIGITS = "0123456789";
+
+        SecureRandom random = new SecureRandom();
+
+        StringBuilder password = new StringBuilder();
+
+
+        for (int i = 0; i < 3; i++) {
+            int index = random.nextInt(UPPERCASE.length());
+            password.append(UPPERCASE.charAt(index));
+        }
+
+
+        for (int i = 0; i < 2; i++) {
+            int index = random.nextInt(DIGITS.length());
+            password.append(DIGITS.charAt(index));
+        }
+
+
+        for (int i = 0; i < 2; i++) {
+            int index = random.nextInt(LOWERCASE.length());
+            password.append(LOWERCASE.charAt(index));
+        }
+
+
+        List<Character> passwordChars = new ArrayList<>();
+        for (char c : password.toString().toCharArray()) {
+            passwordChars.add(c);
+        }
+        Collections.shuffle(passwordChars);
+
+
+        StringBuilder shuffledPassword = new StringBuilder();
+        for (char c : passwordChars) {
+            shuffledPassword.append(c);
+        }
+
+        return shuffledPassword.toString();
+    }*/
+
+
     @Override
     public String toString() {
         StringBuilder skillsString = new StringBuilder();
@@ -335,6 +384,7 @@ public class Employee implements Comparable<Employee>, Serializable {
                 ", zipCode='" + zipCode + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
+                //", password='" + password + '\'' +
                 ", idDocType='" + idDocType + '\'' +
                 ", idDocNumber='" + idDocNumber + '\'' +
                 ", taxpayerId='" + taxpayerId + '\'' +
