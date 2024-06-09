@@ -76,16 +76,16 @@ activate COL
         CTRL <-- PLAT: OrganizationRepository
         deactivate PLAT
 
-        CTRL -> OrganizationRepository: getOrganizationByUserEmail(userId)
-        activate OrganizationRepository
-
-            OrganizationRepository -> ORG: anyEmployeeHasThisUserId(email)
-            activate ORG
-            OrganizationRepository <-- ORG: True/False
-            deactivate ORG
-
-        CTRL <-- OrganizationRepository: Organization
-        deactivate OrganizationRepository
+       CTRL -> OrganizationRepository :getOrganizationByUserId(email)
+       activate OrganizationRepository
+               loop for each organization
+               OrganizationRepository -> ORG : anyEmployeeHasThisUserId(email)
+               activate ORG
+               OrganizationRepository <-- ORG : True/False
+               deactivate ORG
+               end loop
+       CTRL <-- OrganizationRepository : organization
+       deactivate OrganizationRepository
 
         CTRL -> RepositorySingleton: getInstance()
         activate RepositorySingleton

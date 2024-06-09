@@ -120,13 +120,12 @@ activate ADM
             Skill constructor validates Skill name
             endnote
 
-
-
-
             ORG -> ORG: addSkill(skill)
-
             ORG -> ORG: validateSkill(skill)
 
+            ORG --> ORG
+            ORG --> ORG
+            deactivate ORG
 
 
             ORG --> CTRL : skill

@@ -44,7 +44,6 @@ class Organization {
     - String phone
     - String email
     - Address postalAddress
-    - addSkill(skill)
     - validateSkill(skill)
     + Organization(name, vatNumber, webSite, phone, email, postalAddress)
     - getUserByEmail(email)
@@ -57,6 +56,7 @@ class EmployeeRepository {
     + listEmployees()
     + emailExists(mail)
     + getEmployeeByUserEmail(email)
+
 }
 
 class Employee {
@@ -75,6 +75,7 @@ class Employee {
     + toString()
     + hasThisEmail(mail)
     + createSkill(skill)
+    + addSkill(skill)
 }
 
 
