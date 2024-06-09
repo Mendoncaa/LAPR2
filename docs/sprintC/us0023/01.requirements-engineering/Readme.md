@@ -29,7 +29,8 @@ As a GSM, I want to Postpone an entry in the Agenda to a specific future date
 
 * **AC1:** Allows the GSM to postpone an entry in the agenda.
 * **AC2:** The entry date must be later than the current date.
-* 
+
+
 [//]: # (* **AC3:**)
 
 ### 1.4. Found out Dependencies

@@ -7,7 +7,7 @@ autonumber
 
 title System Sequence Diagram (SSD) - US006
 
-actor "VFM" as VFM
+actor "GSM" as GSM
 
 participant ":CreateVehicleUI\n" as UI
 participant ":CreateVehicleController\n" as CTRL
@@ -15,61 +15,73 @@ participant ":Repositories\n" as SR
 participant ":repositories:\nRepositories" as RR
 participant "AuthFacade\n:AuthenticationRepository" as AUTHREP
 participant "userSession\n:UserSession" as USER
+participant "organizationRepository:\nOrganizationRepository" as OR
+participant "organization\n:Organization" as ORG
 participant ":EmployeeRepository\n" as ER
 participant ":Employee\n" as E
-participant ":Vehicle\n" as V
+participant ":TaskRepository" as TR
+participant "tasks:\nTasks" as TASKS
+participant "task:\nTask" as TASK
 
-activate VFM
 
-    VFM -> UI : asks to register a new vehicle
+activate GSM
 
+'1
+    GSM -> UI : asks to postpone a Task
     activate UI
-        UI --> VFM : requests data
+'2
+        UI --> GSM : requests TaskId
     deactivate UI
-
-    VFM -> UI : types requested data
+'3
+    GSM -> UI : types requested data
     activate UI
-        UI --> VFM : shows all data and requests confirmation
+'4
+        UI --> GSM : shows all data and requests confirmation
     deactivate UI
-
-    VFM -> UI : confirms data
+'5
+    GSM -> UI : confirms data
     activate UI
+'6
         UI -> CTRL : createVehicle(vehicleId)
         activate CTRL
 
 
-
+'7
         CTRL -> CTRL : getUserFromSession()
-
+'8
         CTRL -> SR : getInstance()
         activate SR
+'9
         CTRL <-- SR : Repositories
         deactivate SR
-
+'10
         CTRL -> RR : getAuthenticationRepository()
 
         activate RR
+'11
         CTRL <-- RR : AuthenticationRepository()
         deactivate RR
 
 
-
+'12
         CTRL -> AUTHREP : getCurrentUserSession()
 
         activate AUTHREP
 
 
 
-
-        AUTHREP -> USER : isLoggedWithRule(VFM)
+'13
+        AUTHREP -> USER : isLoggedWithRule(GSM)
 
         activate USER
-
+'14
         AUTHREP <-- USER : "True/False"
+
         AUTHREP --> USER : getUserId(email)
+'16
         AUTHREP <-- USER : userId(email)
         deactivate USER
-
+'17
         CTRL <-- AUTHREP : userId(email)
         deactivate AUTHREP
 
@@ -79,41 +91,99 @@ activate VFM
             activate SR
                 SR --> CTRL : repositories
             deactivate SR
-            CTRL -> RR : getEmployeeRepository()
+            CTRL -> RR : getOrganizationRepository()
             activate RR
-                RR --> CTRL : employeeRepository()
+                RR --> CTRL : OrganizationRepository()
             deactivate RR
-            CTRL -> ER : getEmployeeByUserEmail(email)
-            activate ER
-                loop for each employee
-                    ER -> E : anyUserHasId(email)
-                    activate E
-                        E --> ER : True/False
-                    deactivate E
+'22
+            CTRL -> OR : getOrganizationByUserId(email)
+            activate OR
+                loop for each organization
+                    OR -> ORG : anyUserHasId(email)
+                    activate ORG
+'24
+                        ORG --> OR : True/False
+                    deactivate ORG
                 end loop
-                ER --> CTRL : employee
+'25
+                OR --> CTRL : organization
+            deactivate OR
+
+'26
+           CTRL -> SR : getEmployeeRepository()
+            activate SR
+'27
+            CTRL <-- SR : EmployeeRepository()
+            deactivate SR
+'28
+            CTRL -> ER : getEmployeeByUserID(email)
+            activate ER
+            loop
+                ER -> E : anyUserHasId(email)
+                activate E
+                E --> ER : True/False
+                deactivate E
+            end
+'31
+            ER --> CTRL : employees
             deactivate ER
-            CTRL -> E : createVehicle(vehicleId)
+'32
+            CTRL -> SR : getTaskRepository()
+            activate SR
+                SR --> CTRL : TaskRepository()
+            deactivate SR
+            CTRL -> TR : getTaskByTaskId(title)
+            activate TR
+                TR --> CTRL : task
+            deactivate TR
+
+            CTRL -> E : getEmployeeByUserID(userEmail)
             activate E
-                E -> V : createVehicle(vehicleId)
-                activate V
-                V --> E: vehicle
-                deactivate V
-            E--> CTRL : vehicle
+                E -> TASKS : getTasksInAgendaByEmployee(userEmail)
+                activate TASKS
+                    loop for each task
+                    TASKS -> TASK : getTaskInAgenda(TaskID)
+
+                    activate TASK
+                        TASK --> TASKS : task
+
+                    deactivate TASK
+                    end loop
+'40
+                    TASKS --> E : Task
+                deactivate TASKS
+                E --> CTRL : Task
             deactivate E
 
+            CTRL -> E : PostponeTask(taskId)
+            activate E
+                E -> TASK : PostponeTask(newDate)
+                activate TASK
+                    TASK -->E : task
+                deactivate TASK
+                activate E
+                    E -> TASK : setStatus(Postponed)
+                    activate TASK
+                        TASK --> E: status set to postponed
+                    deactivate TASK
+                    E --> CTRL: task postponed
+                deactivate E
+            deactivate E
 
-            CTRL --> UI : vehicle
-        deactivate CTRL
-        UI --> VFM : displays operation success
-    deactivate UI
+            CTRL --> UI : displays operation success
 
-deactivate VFM
+
+
+
+
+
+
+deactivate GSM
 
 
 '
 ''hide footbox
-''actor "Organization Employee" as VFM
+''actor "Organization Employee" as GSM
 'participant ":CreateTaskUI" as UI
 'participant ":CreateTaskController" as CTRL
 'participant ":Repositories" as RepositorySingleton
@@ -126,13 +196,13 @@ deactivate VFM
 'participant "organization\n:Organization" as ORG
 'participant "task\n:Task" as TAREFA
 '
-'activate VFM
+'activate GSM
 '
-'        VFM -> UI : asks to create a new task
+'        GSM -> UI : asks to create a new task
 '
 '        activate UI
 '
-''            UI --> VFM : requests data (reference, description,  informal \n description, technical description, duration, cost)
+''            UI --> GSM : requests data (reference, description,  informal \n description, technical description, duration, cost)
 '            'create CTRL
 '            UI -> CTRL** : create
 '
@@ -160,22 +230,22 @@ deactivate VFM
 '                CTRL --> UI : taskCategoryList
 '            deactivate CTRL
 '
-'            UI --> VFM : shows task category list\n and asks to sleect one
+'            UI --> GSM : shows task category list\n and asks to sleect one
 '        deactivate UI
 '
-'    VFM -> UI : selects a task category
+'    GSM -> UI : selects a task category
 '    activate UI
 '
-'        UI --> VFM : requests data
+'        UI --> GSM : requests data
 '    deactivate UI
 '
-'    VFM -> UI : types requested data (reference, description, \ninformal description, technical description,\nduration, cost)
+'    GSM -> UI : types requested data (reference, description, \ninformal description, technical description,\nduration, cost)
 '    activate UI
 '
-'        UI --> VFM : shows selected category and requested data
+'        UI --> GSM : shows selected category and requested data
 '    deactivate UI
 '
-'    VFM -> UI : submits data
+'    GSM -> UI : submits data
 '    activate UI
 '
 '        UI -> CTRL : createTask(reference,\ndescription,\ninformalDescription,\ntechnicalDescription,\nduration, cost,\ntaskCategoryDescription)
@@ -279,9 +349,9 @@ deactivate VFM
 '
 '            CTRL --> UI: task
 '            deactivate CTRL
-'            UI --> VFM: displays operation success
+'            UI --> GSM: displays operation success
 '    deactivate UI
 '
-'deactivate VFM
+'deactivate GSM
 
 @enduml

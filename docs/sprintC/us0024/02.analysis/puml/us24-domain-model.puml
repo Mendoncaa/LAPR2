@@ -2,22 +2,22 @@
 
 hide methods
 hide circle
+hide empty attributes
+skinparam linetype polyline
 
-class VFM {
+
+
+
+class GSM {
 }
 
-class Vehicles {
-  - brand
-  - model
-  - type
-  - tareWeight
-  - grossWeight
-  - currentKms
-  - registrationDate
-  - acquisitionDate
-  - maintenanceFrequency
+
+class Agenda {
+
 }
 
-VFM -- Vehicles : manages >
+
+GSM "1"---"1" Agenda : manages >
+
 
 @enduml

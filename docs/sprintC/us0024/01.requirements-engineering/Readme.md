@@ -29,18 +29,18 @@ As a GSM, I want to Postpone an entry in the Agenda to a specific future date
 
 * **AC1:** Allows the GSM to postpone an entry in the agenda.
 * **AC2:** The entry date must be later than the current date.
-* 
+* **AC3:** 
 [//]: # (* **AC3:**)
 
 ### 1.4. Found out Dependencies
 
 * US24 depends on the US05, first we must create a team in order to assign to the agenda.
-
+  
 ### 1.5 Input and Output Data
 
 **Input Data:**
 * Selected data
-  * Entry 
+  * Task ID
 * Typed data
   * Date
 

@@ -1,0 +1,124 @@
+@startuml
+class PostponeTaskUI {
+}
+
+class PostponeTaskController {
+  +postponeTaskController(employeeRepository, userSession)
+}
+
+
+
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getEmployeeRepository() : EmployeeRepository
+    + getTaskRepository() : TaskRepository
+    + getOrganizationRepository(): OrganizationRepository
+    + getAuthenticationRepository(): AuthenticationRepository
+}
+
+class AuthenticationRepository {
+    + getCurrentUserSession()
+}
+
+class UserSession {
+    + isLoggedInWithRole()
+    + getUserId()
+}
+
+class TaskRepository {
+  +TaskExistsByTitle(Title)
+}
+
+class Tasks {
+  -tasks: List<Task>
+  +getTasks(): List<Task>
+}
+
+class Task {
+    + title: String
+    + greenSpace: GreenSpace
+    + description: String
+    + status: Status
+    + urgency: Urgency
+    + days: int
+    + hours: int
+    + getTitle(): String
+    + getGreenSpace(): GreenSpace
+    + getDescription(): String
+    + getStatus(): Status
+    + setStatus(): Status
+    + getUrgency(): Urgency
+    + getDays(): int
+    + getHours(): int
+    + toString(): String
+    + findTasksByDateRange(startDate: Date, endDate: Date): List<Task>
+    + compareTo(otherTask: Task): int
+}
+
+class EmployeeRepository {
+    - EmployeeRepository()
+    + listEmployees()
+    + emailExists(mail)
+    + getEmployeeByUserEmail(email)
+}
+
+class Employee {
+    - String name
+    - Date birthdate
+    - Date admission date
+    - Address postalAddress
+    - String phone
+    - String email
+    - String ID doc type
+    - String ID document number
+    - String Taxpayer ID
+    + CompareTo(TaxPayerID)
+    + Clone()
+    + toString()
+    + changeStatus (Status)
+}
+
+class OrganizationRepository {
+    + getOrganizationByUserEmail(email)
+}
+
+class Organization {
+    - String name
+    - String vatNumber
+    - String phone
+    - String email
+    - Address postalAddress
+    + Organization(name, vatNumber, webSite, phone, email, postalAddress)
+    - getUserByEmail(email)
+}
+
+enum Status {
+    PLANNED
+    POSTPONED
+    CANCELED
+    DONE
+}
+
+
+' Relationships
+
+Repositories -> Repositories : instance
+PostponeTaskUI -- PostponeTaskController : Uses
+PostponeTaskController -- Repositories : Controls
+Repositories *-r-- "1" OrganizationRepository : Contains
+Repositories *-- "1" EmployeeRepository : Contains
+Repositories *-- "1" TaskRepository : Contains
+TaskRepository -- Tasks : Contains
+Tasks *-- Task : Contains
+EmployeeRepository -- Employee : Contains
+Employee -- Task : Performs
+OrganizationRepository -- "*" Organization : Contains
+Organization "1" *-- "*" Employee : employs
+Organization "1" *-- "1" EmployeeRepository
+Task --> Status : has
+Repositories -l--> "1" AuthenticationRepository
+AuthenticationRepository -l-> "1" UserSession: userSession
+
+@enduml

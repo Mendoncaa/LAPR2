@@ -88,7 +88,52 @@
 
 ## 5. Construction (Implementation)
 
-### Class CreateTaskController 
+### Class CreateVehicleController
+
+```java
+
+public class CreateVehicleController {
+
+    private Organization organization;
+
+    private AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
+
+
+    public Optional<Vehicle> createVehicle(Vehicle vehicle) throws IllegalArgumentException{
+        Repositories repositories = Repositories.getInstance();
+        UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
+
+        if (userSession.isLoggedInWithRole("Vfm")) {
+            String userEmail = userSession.getUserId().getEmail();
+            Optional<Organization> organizationOptional = repositories.getOrganizationRepository().
+                    getOrganizationByEmployeeEmail(userEmail);
+
+
+            if (organizationOptional.isPresent()) {
+                Organization organization = organizationOptional.get();
+                organization.addVehicle(vehicle);
+
+                return Optional.of(vehicle);
+
+            } else {
+                throw new IllegalArgumentException("Organization not found for user: " + userEmail);
+            }
+        } else {
+            throw new IllegalArgumentException("User is not authorized to create a vehicle.");
+        }
+    }
+}
+
+```
+
+
+
+
+### Class Vehicle
+```java
+
+```
+
 
 [//]: # (```java)
 
@@ -116,30 +161,39 @@
 
 [//]: # (```)
 
-### Class Organization
 
-[//]: # ()
+
+
 [//]: # (```java)
 
+[//]: # ()
 [//]: # (public Optional<Task> createTask&#40;String reference, String description, String informalDescription,)
 
+[//]: # ()
 [//]: # (                                 String technicalDescription, Integer duration, Double cost, TaskCategory taskCategory,)
 
+[//]: # ()
 [//]: # (                                 Employee employee&#41; {)
 
+[//]: # ()
 [//]: # (    )
 [//]: # (    Task task = new Task&#40;reference, description, informalDescription, technicalDescription, duration, cost,)
 
+[//]: # ()
 [//]: # (                         taskCategory, employee&#41;;)
 
 [//]: # ()
+[//]: # ()
 [//]: # (    addTask&#40;task&#41;;)
 
+[//]: # ()
 [//]: # (        )
 [//]: # (    return task;)
 
+[//]: # ()
 [//]: # (})
 
+[//]: # ()
 [//]: # (```)
 
 
