@@ -10,13 +10,12 @@ public class Main {
         Deserialization deserialization = new Deserialization();
         deserialization.greenSpaceDeserialization();
         deserialization.jobDeserialization();
-        /*deserialization.employeeDeserialization();
+        deserialization.employeeDeserialization();
         deserialization.skillDeserialization();
         deserialization.teamDeserialization();
         deserialization.taskDeserialization();
-        deserialization.teamMemberDeserialization();
-        deserialization.organizationDeserialization();
-        deserialization.vehicleDeserialization();*/
+
+        deserialization.vehicleDeserialization();
 
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.run();
@@ -31,12 +30,10 @@ public class Main {
         Serialization serialization = new Serialization();
         serialization.greenSpaceSerialization();
         serialization.jobSerialization();
-        /*serialization.employeeSerialization();
+        serialization.employeeSerialization();
         serialization.skillSerialization();
         serialization.teamSerialization();
         serialization.taskSerialization();
-        serialization.teamMemberSerialization();
-        serialization.organizationSerialization();
-        serialization.vehicleSerialization();*/
+        serialization.vehicleSerialization();
     }
 }

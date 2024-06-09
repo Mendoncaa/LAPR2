@@ -1,12 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class Vehicle {
+public class Vehicle implements Serializable {
     private String plateID;
     private String brand;
     private String model;

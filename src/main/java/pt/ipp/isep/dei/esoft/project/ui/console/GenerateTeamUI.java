@@ -53,6 +53,14 @@ public class GenerateTeamUI implements Runnable {
 
                 skills.add(controller.getChooseSkill(option));
 
+
+
+            }
+
+            int i = 1;
+            for(Skill skill : skills) {
+                i += 1;
+                System.out.println("Skill" + i + ":" + skill);
             }
 
             Team team = controller.getGenerateTeam(min, max, skills);

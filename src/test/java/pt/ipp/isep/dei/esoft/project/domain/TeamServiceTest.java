@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.esoft.project.domain.service.TeamService;
 import pt.ipp.isep.dei.esoft.project.repository.TeamMemberRepository;
 import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,19 +18,25 @@ public class TeamServiceTest {
         TeamService teamService = new TeamService();
         TeamRepository teamRepository = new TeamRepository();
 
-        TeamMember member1 = new TeamMember("John");
-        TeamMember member2 = new TeamMember("Alice");
+        Employee employee1 = new Employee("John", LocalDate.of(1990, 2, 10),
+                LocalDate.of(2020, 2, 10), "Rua da Rua", "London", "4470-045",
+                "910145644", "john@this.app", "cc", "14563482", "123456789"
+                , new Job("Trolha"));
+        Employee employee2 = new Employee("Johnny", LocalDate.of(1990, 2, 10),
+                LocalDate.of(2020, 2, 10), "Rua da Rua", "London", "4470-046",
+                "910143644", "john@this.app", "cc", "14763482", "123456689"
+                , new Job("Trolha"));
 
-        member1.addSkill(new Skill("Python"));
-        member2.addSkill(new Skill("Java"));
+        employee1.addSkill(new Skill("Python"));
+        employee2.addSkill(new Skill("Java"));
 
         List<Skill> skills = new ArrayList<>();
         skills.add(new Skill("Python"));
         skills.add(new Skill("Java"));
 
-        List<TeamMember> teamMembers = new ArrayList<>();
-        teamMembers.add(member1);
-        teamMembers.add(member2);
+        List<Employee> teamMembers = new ArrayList<>();
+        teamMembers.add(employee1);
+        teamMembers.add(employee2);
 
         teamService.teamApproved(new Team(2, 4, skills, teamMembers));
 
@@ -40,9 +47,12 @@ public class TeamServiceTest {
     @Test
     public void testIsInAnyTeam_ReturnsTrueWhenMemberIsInTeam() {
 
-        List<TeamMember> members = new ArrayList<>();
-        TeamMember teamMember = new TeamMember("John");
-        members.add(teamMember);
+        List<Employee> members = new ArrayList<>();
+        Employee employee = new Employee("John", LocalDate.of(1990, 2, 10),
+                LocalDate.of(2020, 2, 10), "Rua da Rua", "London", "4470-045",
+                "910145644", "john@this.app", "cc", "14563482", "123456789"
+                , new Job("Trolha"));
+        members.add(employee);
         Team team = new Team(3, 5, new ArrayList<>(), members);
 
 
@@ -51,7 +61,7 @@ public class TeamServiceTest {
 
 
         TeamMemberRepository teamMemberRepository = new TeamMemberRepository();
-        boolean isInTeam = teamMemberRepository.isInAnyTeam(teamMember);
+        boolean isInTeam = teamMemberRepository.isInAnyTeam(employee);
 
 
         assertTrue(isInTeam);

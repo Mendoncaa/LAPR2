@@ -67,7 +67,7 @@ public class Deserialization {
     }
 
 
-    /*public void employeeDeserialization() {
+    public void employeeDeserialization() {
         EmployeeRepository employeeRepository = repositories.getEmployeeRepository();
 
         for (Employee employee : employeeRepository.listEmployees()) {
@@ -191,67 +191,7 @@ public class Deserialization {
         }
     }
 
-    public void teamMemberDeserialization() {
-        TeamMemberRepository teamMemberRepository = repositories.getTeamMemberRepository();
 
-        for (TeamMember teamMember : teamMemberRepository.getTeamMembers()) {
-            System.out.println(teamMember);
-        }
-
-        try (FileInputStream fileIn = new FileInputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\teamMember.ser");
-             ObjectInputStream in = new ObjectInputStream(fileIn)) {
-
-            while (true) {
-                try {
-                    TeamMember teamMember = (TeamMember) in.readObject();
-                    teamMemberRepository.addTeamMember(teamMember);
-                } catch (EOFException e) {
-                    break;
-                }
-            }
-
-            System.out.println("Team Members were deserialized and added to the repository");
-            System.out.println(teamMemberRepository);
-
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        for (TeamMember teamMember : teamMemberRepository.getTeamMembers()) {
-            System.out.println(teamMember);
-        }
-    }
-
-    public void organizationDeserialization() {
-        OrganizationRepository organizationRepository = repositories.getOrganizationRepository();
-
-        for (Organization organization : organizationRepository.getOrganizations()) {
-            System.out.println(organization);
-        }
-
-        try (FileInputStream fileIn = new FileInputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\organization.ser");
-             ObjectInputStream in = new ObjectInputStream(fileIn)) {
-
-            while (true) {
-                try {
-                    Organization organization = (Organization) in.readObject();
-                    organizationRepository.add(organization);
-                } catch (EOFException e) {
-                    break;
-                }
-            }
-
-            System.out.println("Organizations were deserialized and added to the repository");
-            System.out.println(organizationRepository);
-
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        for (Organization organization : organizationRepository.getOrganizations()) {
-            System.out.println(organization);
-        }
-    }
 
     public void vehicleDeserialization() {
         VehicleRepository vehicleRepository = repositories.getVehicleRepository();
@@ -282,7 +222,7 @@ public class Deserialization {
         for (Vehicle vehicle : vehicleRepository.getVehicles()) {
             System.out.println(vehicle);
         }
-    }*/
+    }
 
 
 
