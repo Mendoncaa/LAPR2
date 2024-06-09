@@ -120,11 +120,11 @@ Repositories --> "1" AuthenticationRepository
 Repositories --> "1" EmployeeRepository
 Repositories --> "1" SkillRepository
 AuthenticationRepository -> "1" UserSession : usersession
-EmployeeRepository --> Employee : employees
+EmployeeRepository "1" --> "*" Employee : agreggates
 SkillRepository "1" --> "*" Skill : agreggate
-Employee --> TeamMember : is a
-Skill --> TeamMember  : assigned to
-Employee --> SkillRepository
+Employee "1"--> "1"TeamMember : is a
+Skill "1...*"--> "1" TeamMember  : assigned to
+Employee "1" --> "1" SkillRepository
 
 
 @enduml

@@ -1,14 +1,22 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
-import pt.ipp.isep.dei.esoft.project.domain.Employee;
-import pt.ipp.isep.dei.esoft.project.domain.Job;
-import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
-import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MainMenuUI;
 
 public class Main {
 
     public static void main(String[] args) {
+
+        Deserialization deserialization = new Deserialization();
+        deserialization.greenSpaceDeserialization();
+        deserialization.jobDeserialization();
+        deserialization.employeeDeserialization();
+        deserialization.skillDeserialization();
+        deserialization.teamDeserialization();
+        deserialization.taskDeserialization();
+
+        deserialization.vehicleDeserialization();
+
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.run();
         
@@ -18,5 +26,14 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Serialization serialization = new Serialization();
+        serialization.greenSpaceSerialization();
+        serialization.jobSerialization();
+        serialization.employeeSerialization();
+        serialization.skillSerialization();
+        serialization.teamSerialization();
+        serialization.taskSerialization();
+        serialization.vehicleSerialization();
     }
 }

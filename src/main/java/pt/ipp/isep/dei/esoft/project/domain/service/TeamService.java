@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain.service;
 
+import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.domain.TeamMember;
@@ -20,11 +21,11 @@ public class TeamService {
 
     public Team generateTeam(int minSize, int maxSize, List<Skill> skills) {
 
-        ArrayList<TeamMember> team = new ArrayList<>();
+        ArrayList<Employee> team = new ArrayList<>();
 
         for (Skill skill : skills) {
 
-            TeamMember addition = teamMemberRepository.findTeamMemberWithSkill(skill, team);
+            Employee addition = teamMemberRepository.findTeamMemberWithSkill(skill, team);
 
             if (addition != null) {
 
@@ -43,17 +44,8 @@ public class TeamService {
 
         List<Skill> skills = skillRepository.getSkills();
 
-        do {
-
-            if ((skillSelected >= 0) && (skillSelected < skills.size())) {
-
-                return skills.get(skillSelected);
-
-            }
-
-        } while (skillSelected != -1);
-
-        return null;
+        System.out.println(skills.get(skillSelected));
+        return skills.get(skillSelected);
 
     }
 

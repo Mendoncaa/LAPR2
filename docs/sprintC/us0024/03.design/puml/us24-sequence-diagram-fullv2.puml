@@ -9,8 +9,8 @@ title System Sequence Diagram (SSD) - US006
 
 actor "GSM" as GSM
 
-participant ":CreateVehicleUI\n" as UI
-participant ":CreateVehicleController\n" as CTRL
+participant ":PostponeTaskUI\n" as UI
+participant ":PostPoneTaskController\n" as CTRL
 participant ":Repositories\n" as SR
 participant ":repositories:\nRepositories" as RR
 participant "AuthFacade\n:AuthenticationRepository" as AUTHREP

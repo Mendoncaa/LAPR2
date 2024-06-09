@@ -21,13 +21,9 @@ public class RegisterGSController {
             Optional<Organization> organizationOptional = Repositories.getInstance().getOrganizationRepository()
                     .getOrganizationByEmployeeEmail(userEmail);
             EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
-            for (Employee employee : employeeRepository.listEmployees()) {
-                System.out.println(employee);
-            }
 
 
             if (organizationOptional.isPresent()) {
-                employeeRepository = Repositories.getInstance().getEmployeeRepository();
                 Employee employee = employeeRepository.getEmployeeById(userEmail);
 
                 GreenSpace greenSpace = employee.createGreenSpace(name, sizeClassification, area, address,

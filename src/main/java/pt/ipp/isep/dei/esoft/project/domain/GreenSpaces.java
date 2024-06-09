@@ -10,14 +10,12 @@ import java.util.List;
 
 public class GreenSpaces {
     Repositories repositories = Repositories.getInstance();
-    public List<GreenSpace> getGreenSpacesManagedByMe() {
+    public List<GreenSpace> getGreenSpacesManagedByMe(String email) {
         GreenSpaceRepository greenSpaceRepository = repositories.getGreenSpaceRepository();
-        AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
-        UserSession userSession = authenticationRepository.getCurrentUserSession();
         List<GreenSpace> spacesManagedByMe = new ArrayList<>();
 
         for (GreenSpace greenSpace : greenSpaceRepository.listGreenSpaces()) {
-            if (greenSpace.getEmail().equals(userSession.getUserId().getEmail())) {
+            if (greenSpace.getEmail().equals(email)) {
                 spacesManagedByMe.add(greenSpace);
             }
         }

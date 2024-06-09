@@ -37,7 +37,11 @@
 <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-media</artifactId>
+<<<<<<< HEAD
       <version>21</version>
+=======
+      <version>21.0.2</version>
+>>>>>>> FC
     </dependency><dependency>
       <groupId>org.controlsfx</groupId>
       <artifactId>controlsfx</artifactId>

@@ -61,7 +61,7 @@ public class RegisterGSUI implements Runnable {
         System.out.println("Area: " + area);
         System.out.println("Address: " + address);
 
-        String confirmation = Utils.readLineFromConsole("Are you sure you want to add this task to the To-Do List? (Y/N): ");
+        String confirmation = Utils.readLineFromConsole("Are you sure you want to register this green space? (Y/N): ");
 
         if (confirmation.equalsIgnoreCase("Y")) {
             submitData(name, sizeClassification, area, address);

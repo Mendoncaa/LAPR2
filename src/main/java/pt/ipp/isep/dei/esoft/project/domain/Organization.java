@@ -107,6 +107,14 @@ public class Organization {
         skillRepository.addSkill(skill);
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getVatNumber() {
+        return vatNumber;
+    }
+
     //Clone organization
     public Organization clone() {
         Organization clone = new Organization(this.vatNumber,this.employeeRepository,this.jobRepository);

@@ -22,6 +22,7 @@ public class AuthenticationRepository {
         return authenticationFacade.getCurrentUserSession();
     }
 
+
     public boolean addUserRole(String id, String description) {
         return authenticationFacade.addUserRole(id, description);
     }

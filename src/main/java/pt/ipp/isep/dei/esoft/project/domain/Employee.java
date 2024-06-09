@@ -1,5 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
+import pt.ipp.isep.dei.esoft.project.repository.GreenSpaceRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.isep.lei.esoft.auth.UserSession;
+
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,7 +14,7 @@ import java.util.List;
 /**
  * Represents an employee in an organization.
  */
-public class Employee implements Comparable<Employee> {
+public class Employee implements Comparable<Employee>, Serializable {
     private String name;
     private LocalDate birthdate;
     private LocalDate admissionDate;
@@ -274,7 +280,37 @@ public class Employee implements Comparable<Employee> {
     public List<GreenSpace> getGreenSpacesManagedByMe() {
         GreenSpaces greenSpaces = new GreenSpaces();
 
-        return greenSpaces.getGreenSpacesManagedByMe();
+        AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
+        UserSession userSession = authenticationRepository.getCurrentUserSession();
+
+        return greenSpaces.getGreenSpacesManagedByMe(userSession.getUserId().getEmail());
+    }
+    /**
+     * Sorts the given list of green spaces managed by me by areas using the specified algorithm name.
+     *
+     * @param algorithmName The name of the sorting algorithm to be used.
+     * @return The sorted list of green spaces.
+     */
+    public List<GreenSpace> sortGreenSpaces(String algorithmName)  {
+        List<GreenSpace> greenSpaces = getGreenSpacesManagedByMe();
+        SortingConfigAdapter sortingConfigAdapter = new SortingConfigAdapter();
+        List<GreenSpace> sortedGreenSpaces = sortingConfigAdapter.getSortedGreenSpaces(algorithmName,greenSpaces);
+
+        return sortedGreenSpaces;
+    }
+    /**
+     * Retrieves the names of all available sorting algorithms.
+     *
+     * @return The list of available sorting algorithm names.
+     */
+    public List<String> getAvailableSortingAlgorithms() {
+        SortingConfigAdapter sortingConfigAdapter = new SortingConfigAdapter();
+        return sortingConfigAdapter.getAllSortingAlgorithmsNames();
+    }
+
+
+    public void addSkill(Skill skill) {
+        this.skills.add(skill);
     }
 
 
