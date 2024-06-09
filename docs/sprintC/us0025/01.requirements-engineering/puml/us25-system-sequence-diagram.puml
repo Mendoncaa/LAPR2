@@ -3,7 +3,7 @@ skinparam monochrome false
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - US24
+title System Sequence Diagram (SSD) - US25
 
 autonumber
 
@@ -12,10 +12,10 @@ participant ":System" as System
 
 activate GSM
 
-    GSM -> System : asks to postpone an entry
+    GSM -> System : list GSM tasks
     activate System
 
-        System --> GSM : requests data (i.e. entry, i.e. data)
+        System --> GSM : list task, ask to select task to be cancelled
     deactivate System
 
     GSM -> System : types requested data

@@ -1,0 +1,185 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+title System Sequence Diagram (SSD) - US0024
+
+actor "GSM" as GSM
+
+participant ":PostponeTaskUI\n" as UI
+participant ":PostPoneTaskController\n" as CTRL
+participant ":Repositories\n" as SR
+participant ":repositories:\nRepositories" as RR
+participant "AuthFacade\n:AuthenticationRepository" as AUTHREP
+participant "userSession\n:UserSession" as USER
+participant "organizationRepository:\nOrganizationRepository" as OR
+participant "organization\n:Organization" as ORG
+participant ":EmployeeRepository\n" as ER
+participant ":Employee\n" as E
+participant ":TaskRepository" as TR
+participant "tasks:\nTasks" as TASKS
+participant "task:\nTask" as TASK
+
+
+activate GSM
+
+'1
+    GSM -> UI : list GSM tasks
+    activate UI
+
+'6
+        UI -> CTRL : postponeTask(task)
+        activate CTRL
+
+
+'7
+        CTRL -> CTRL : getUserFromSession()
+'8
+        CTRL -> SR : getInstance()
+        activate SR
+'9
+        CTRL <-- SR : Repositories
+        deactivate SR
+'10
+        CTRL -> RR : getAuthenticationRepository()
+
+        activate RR
+'11
+        CTRL <-- RR : AuthenticationRepository()
+        deactivate RR
+
+
+'12
+        CTRL -> AUTHREP : getCurrentUserSession()
+
+        activate AUTHREP
+
+
+
+'13
+        AUTHREP -> USER : isLoggedWithRule(GSM)
+
+        activate USER
+'14
+        AUTHREP <-- USER : "True/False"
+
+        AUTHREP --> USER : getUserId(email)
+'16
+        AUTHREP <-- USER : userId(email)
+        deactivate USER
+'17
+        CTRL <-- AUTHREP : userId(email)
+        deactivate AUTHREP
+
+
+'18
+            CTRL -> SR : getInstance()
+            activate SR
+'19
+                SR --> CTRL : repositories
+'20
+            deactivate SR
+            CTRL -> RR : getOrganizationRepository()
+            activate RR
+'21
+                RR --> CTRL : OrganizationRepository()
+            deactivate RR
+'22
+            CTRL -> OR : getOrganizationByUserId(email)
+            activate OR
+                loop for each organization
+                    OR -> ORG : anyUserHasId(email)
+                    activate ORG
+'24
+                        ORG --> OR : True/False
+                    deactivate ORG
+                end loop
+'25
+                OR --> CTRL : organization
+            deactivate OR
+
+        CTRL -> SR : getInstance()
+        activate SR
+        CTRL <-- SR : repositories
+        deactivate SR
+        CTRL -> RR : gettasksRepository()
+        activate RR
+        CTRL <-- RR : tasksRepository
+        deactivate RR
+        CTRL->TR : ListAlltasks()
+        activate TR
+        CTRL<-- TR : List<Vehicle>
+        deactivate TR
+
+
+
+'26
+           CTRL -> SR : getEmployeeRepository()
+            activate SR
+'27
+            CTRL <-- SR : EmployeeRepository()
+            deactivate SR
+
+
+
+
+
+        CTRL -> ER : listThisGsmTasksInAgenda(userEmail)
+        activate ER
+        CTRL <-- ER : Employee
+        deactivate ER
+        CTRL -> E : listThisGsmTasksInAgenda(userEmail)
+        activate E
+            E -> TASKS : filterThisGsmTasksInAgenda(userEmail))
+            activate TASKS
+                loop for each Task
+                            TASKS -> TASK : getThisGsmTasksInAgenda(email)
+                            activate TASK
+                            TASKS <-- TASK : Task
+                            deactivate TASK
+                            end loop
+            E<-- TASKS : List<Task>
+            deactivate TASKS
+        CTRL <-- E : List<Task>
+        deactivate E
+    UI <-- CTRL : listThisGsmTasksInAgenda
+    deactivate CTRL
+        UI --> GSM : list task and ask to select task and define postponed date
+
+    deactivate UI
+'3
+    GSM -> UI : types requested data
+    activate UI
+'4
+        UI --> GSM : shows all data and requests confirmation
+    deactivate UI
+'5
+    GSM -> UI : confirms data
+    activate UI
+
+            UI -> CTRL : PostponeTask(task)
+            activate CTRL
+                CTRL -> E : postponeTask(task,newdate)
+                activate E
+                    E -> TASK : PostponeTask(task,newDate)
+                    activate TASK
+                        TASK -->E : task
+                    deactivate TASK
+                    activate E
+                        E -> TASK : setStatus(Postponed)
+                        activate TASK
+                            TASK --> E: status set to postponed
+                        deactivate TASK
+                        E --> CTRL: task postponed
+                    deactivate E
+                deactivate E
+                CTRL --> UI : task postponed
+            deactivate CTRL
+            UI --> GSM : display operation success
+    deactivate UI
+deactivate GSM
+
+@enduml

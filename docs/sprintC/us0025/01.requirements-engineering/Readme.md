@@ -26,13 +26,15 @@ As a GSM, I want to Cancel an entry in the Agenda.
 
 ### 1.4. Found out Dependencies
 
-* US25 depends on the US05, first we must create a team in order to assign to the agenda.
+
+* US25 depends on US05; first, we must create a team in order to assign it to the agenda
+* US25 depends on US22, which creates a task
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 * Selected data
-  * TaskId
+  * Task
 
 **Output Data:**
 * (In)Success of the operation

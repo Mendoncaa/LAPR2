@@ -42,7 +42,7 @@ activate GSM
     GSM -> UI : confirms data
     activate UI
 '6
-        UI -> CTRL : createVehicle(vehicleId)
+        UI -> CTRL : postponeTask(task)
         activate CTRL
 
 

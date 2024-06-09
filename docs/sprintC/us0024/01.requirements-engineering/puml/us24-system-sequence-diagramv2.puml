@@ -12,10 +12,10 @@ participant ":System" as System
 
 activate GSM
 
-    GSM -> System : asks to postpone an entry
+    GSM -> System : list GSM tasks
     activate System
 
-        System --> GSM : requests data (i.e. TaskId and postponed date)
+        System --> GSM : list task, ask to select task and define postponed date
     deactivate System
 
     GSM -> System : types requested data
@@ -29,5 +29,6 @@ activate GSM
 
         System --> GSM : displays operation success
     deactivate System
+
 
 @enduml

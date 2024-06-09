@@ -1,4 +1,4 @@
-# US006 - Register a vehicle 
+# US0025 - Cancel an entry in the Agenda
 
 ## 4. Tests 
 

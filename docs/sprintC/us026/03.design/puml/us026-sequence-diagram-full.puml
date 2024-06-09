@@ -92,6 +92,8 @@ activate ADM
         activate PLAT
         CTRL <-- PLAT : EmployeeRepository
         deactivate PLAT
+
+
         CTRL -> EMPREP : listThisGsmTasksInAgenda(userEmail)
         activate EMPREP
         CTRL <-- EMPREP : Employee
