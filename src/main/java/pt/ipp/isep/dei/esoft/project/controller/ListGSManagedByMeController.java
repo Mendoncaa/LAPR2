@@ -28,7 +28,7 @@ public class ListGSManagedByMeController {
             if (organizationOptional.isPresent()) {
                 EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
                 Employee employee = employeeRepository.getEmployeeById(userEmail);
-                return employee.getGreenSpacesManagedByMe(userEmail);
+                return employee.getGreenSpacesManagedByMe();
             } else {
                 throw new IllegalArgumentException("Organization not found for user: " + userEmail);
             }
@@ -37,9 +37,7 @@ public class ListGSManagedByMeController {
         }
     }
 
-    public ListGSManagedByMeController() {
-        this.sortingAdapter = sortingAdapter;
-    }
+
 
     public List<String> getAvailableSortingAlgorithms() {
         return sortingAdapter.getAllSortingAlgorithmsNames();
