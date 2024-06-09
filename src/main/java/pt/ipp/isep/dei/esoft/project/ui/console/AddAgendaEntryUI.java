@@ -18,13 +18,24 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+/**
+ * Represents the user interface for adding a task to the agenda.
+ */
 public class AddAgendaEntryUI implements Runnable, ReadDate {
     private final AddAgendaEntryController controller;
 
+    /**
+     * Constructs an AddAgendaEntryUI object.
+     */
     public AddAgendaEntryUI() {
         controller = new AddAgendaEntryController();
     }
 
+    /**
+     * Retrieves the AddAgendaEntryController.
+     *
+     * @return the AddAgendaEntryController.
+     */
     private AddAgendaEntryController getController() {
         return controller;
     }
@@ -35,6 +46,9 @@ public class AddAgendaEntryUI implements Runnable, ReadDate {
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
+    /**
+     * Runs the agenda entry user interface.
+     */
     @Override
     public void run() {
 
@@ -77,7 +91,12 @@ public class AddAgendaEntryUI implements Runnable, ReadDate {
         }
     }
 
-
+    /**
+     * Submits the task and start date for adding to the agenda.
+     *
+     * @param task      the task to be added to the agenda.
+     * @param startDate the start date for the task.
+     */
     private void submitData(Task task, LocalDate startDate) {
         try {
             getController().addNewAgendaEntry(task, startDate);
@@ -91,6 +110,14 @@ public class AddAgendaEntryUI implements Runnable, ReadDate {
         }
     }
 
+    /**
+     * Reads a date from the console.
+     *
+     * @param scanner   the scanner to read input.
+     * @param formatter the date formatter.
+     * @param prompt    the prompt message to display.
+     * @return the entered date.
+     */
     @Override
     public LocalDate readDateFromConsole(Scanner scanner, DateTimeFormatter formatter, String prompt) {
         LocalDate date = null;

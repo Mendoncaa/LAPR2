@@ -12,6 +12,9 @@ import pt.isep.lei.esoft.auth.UserSession;
 import java.util.Optional;
 import java.util.Scanner;
 
+/**
+ * Represents the user interface for registering a green space.
+ */
 public class RegisterGSUI implements Runnable {
     private static GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
     private static EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
@@ -19,10 +22,19 @@ public class RegisterGSUI implements Runnable {
 
     private final RegisterGSController controller;
 
+    /**
+     * Constructs a RegisterGSUI object.
+     */
     public RegisterGSUI() {
         controller = new RegisterGSController();
     }
 
+
+    /**
+     * Retrieves the RegisterGSController.
+     *
+     * @return the RegisterGSController.
+     */
     private RegisterGSController getController() {
         return controller;
     }
@@ -30,6 +42,9 @@ public class RegisterGSUI implements Runnable {
 
     private final Scanner scan = new Scanner(System.in);
 
+    /**
+     * Runs the green space registration user interface.
+     */
     public void run() {
 
         String name = Utils.readLineFromConsole("Name: ");
@@ -70,6 +85,14 @@ public class RegisterGSUI implements Runnable {
         }
     }
 
+    /**
+     * Submits the green space registration data.
+     *
+     * @param name              the name of the green space.
+     * @param sizeClassification the size classification of the green space.
+     * @param area              the area of the green space.
+     * @param address           the address of the green space.
+     */
     private void submitData(String name, SizeClassification sizeClassification, double area, String address) {
         try {
             Optional<GreenSpace> greenSpace = getController().RegisterGreenSpace(name, sizeClassification, area, address);;

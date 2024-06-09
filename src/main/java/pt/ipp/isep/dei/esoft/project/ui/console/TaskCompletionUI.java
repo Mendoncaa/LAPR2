@@ -9,18 +9,33 @@ import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Represents the user interface for completing tasks.
+ */
 public class TaskCompletionUI implements Runnable {
 
     private final TaskCompletionController controller;
 
+    /**
+     * Constructs a TaskCompletionUI object.
+     */
     public TaskCompletionUI() {
         controller = new TaskCompletionController();
     }
 
+    /**
+     * Retrieves the TaskCompletionController.
+     *
+     * @return the TaskCompletionController.
+     */
     private TaskCompletionController getController() {
         return controller;
     }
 
+
+    /**
+     * Runs the task completion user interface.
+     */
     @Override
     public void run() {
 

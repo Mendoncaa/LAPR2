@@ -12,11 +12,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controls the addition of tasks to the agenda.
+ */
 public class AddAgendaEntryController {
 
     Repositories repositories = Repositories.getInstance();
 
 
+    /**
+     * Retrieves the list of pending tasks.
+     *
+     * @return the list of pending tasks.
+     */
     public List<Task> getPendingTasks() {
 
         TaskRepository taskRepository = repositories.getTaskRepository();
@@ -26,7 +34,13 @@ public class AddAgendaEntryController {
         return list;
     }
 
-
+    /**
+     * Adds a new agenda entry for the given task and start date.
+     *
+     * @param task      the task to be added to the agenda.
+     * @param startDate the start date for the task.
+     * @throws IllegalArgumentException if the user is not authorized or if the organization is not found.
+     */
     public void addNewAgendaEntry(Task task, LocalDate startDate) {
 
         UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
