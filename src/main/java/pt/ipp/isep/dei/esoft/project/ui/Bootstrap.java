@@ -128,6 +128,9 @@ public class Bootstrap implements Runnable {
         GreenSpace greenSpace1 = new GreenSpace("Parque da cidade", SizeClassification.LARGE_SIZED_PARK,
                 1000, "Estrada Interior da Circunvalação, 4100-083 Porto", "gsm@this.app");
         greenSpaceRepository.addGreenSpace(greenSpace1);
+        GreenSpace greenSpace2 = new GreenSpace("Parque da city", SizeClassification.MEDIUM_SIZED_PARK,
+                1000, "Estrada Interior da Circunvalação, 4100-083 Porto", "other@this.app");
+        greenSpaceRepository.addGreenSpace(greenSpace2);
 
         Task task1 = new Task("Limpeza", greenSpace1, "Limpeza dos caixotes do lixo",
                 Urgency.MEDIUM, Duration.ofDays(1).plusHours(2), "gsm@this.app");

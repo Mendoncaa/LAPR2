@@ -33,7 +33,7 @@ public class ToDoListUI implements Runnable {
 
         Duration duration = Duration.ofDays(days).plusHours(hours);
 
-        List<GreenSpace> options = controller.getAvailableGreenSpaces();
+        List<GreenSpace> options = controller.getGreenSpacesManagedByMe();
         int option;
 
         GreenSpace greenSpace = null;

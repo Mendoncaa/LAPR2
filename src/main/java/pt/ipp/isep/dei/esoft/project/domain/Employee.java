@@ -1,5 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
+import pt.ipp.isep.dei.esoft.project.repository.GreenSpaceRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.isep.lei.esoft.auth.UserSession;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -274,7 +279,10 @@ public class Employee implements Comparable<Employee> {
     public List<GreenSpace> getGreenSpacesManagedByMe() {
         GreenSpaces greenSpaces = new GreenSpaces();
 
-        return greenSpaces.getGreenSpacesManagedByMe();
+        AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
+        UserSession userSession = authenticationRepository.getCurrentUserSession();
+
+        return greenSpaces.getGreenSpacesManagedByMe(userSession.getUserId().getEmail());
     }
 
 

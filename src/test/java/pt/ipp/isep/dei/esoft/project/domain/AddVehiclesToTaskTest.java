@@ -45,7 +45,7 @@ class AddVehiclesToTaskTest {
         employeeRepository.addEmployee(gsm);*/
 
 
-        GreenSpace greenSpace = new GreenSpace("Park", SizeClassification.MEDIUM, 100.0, "Park Street", "gsm@this.app");
+        GreenSpace greenSpace = new GreenSpace("Park", SizeClassification.MEDIUM_SIZED_PARK, 100.0, "Park Street", "gsm@this.app");
         Task task = new Task("Task 1", greenSpace, "Task description", Urgency.HIGH, java.time.Duration.ofHours(2), "gsm@this.app");
         Vehicle vehicle1 = new Vehicle("AB123CD", "Toyota", "Corolla", "Sedan", 1200, 1500, 50000, LocalDate.of(2022, 1, 1), LocalDate.of(2022, 1, 1), 10000);
         Vehicle vehicle2 = new Vehicle("EF456GH", "Honda", "Civic", "Sedan", 1100, 1400, 45000, LocalDate.of(2023, 1, 1), LocalDate.of(2023, 1, 1), 9000);
@@ -68,7 +68,7 @@ class AddVehiclesToTaskTest {
     @Test
     void updateTaskVehicles_ValidTaskAndVehicles_ReturnsTrue() {
         // Arrange
-        GreenSpace greenSpace = new GreenSpace("Park", SizeClassification.MEDIUM, 100.0, "Park Street", "gsm@this.app");
+        GreenSpace greenSpace = new GreenSpace("Park", SizeClassification.MEDIUM_SIZED_PARK, 100.0, "Park Street", "gsm@this.app");
         Task task = new Task("Task 1", greenSpace, "Task description", Urgency.HIGH, java.time.Duration.ofHours(2), "gsm@this.app");
         List<Vehicle> vehicles = new ArrayList<>();
         vehicles.add(new Vehicle("AB123CD", "Toyota", "Corolla", "Sedan", 1200, 1500, 50000, LocalDate.of(2022, 1, 1), LocalDate.of(2022, 1, 1), 10000));
@@ -102,7 +102,7 @@ class AddVehiclesToTaskTest {
     @Test
     void updateTaskVehicles_NullVehicles_ThrowsIllegalArgumentException() {
         // Arrange
-        GreenSpace greenSpace = new GreenSpace("Park", SizeClassification.MEDIUM, 100.0, "Park Street", "gsm@this.app");
+        GreenSpace greenSpace = new GreenSpace("Park", SizeClassification.MEDIUM_SIZED_PARK, 100.0, "Park Street", "gsm@this.app");
         Task task = new Task("Task 1", greenSpace, "Task description", Urgency.HIGH, java.time.Duration.ofHours(2), "gsm@this.app");
         AddVehiclesToTaskController controller = new AddVehiclesToTaskController();
 
