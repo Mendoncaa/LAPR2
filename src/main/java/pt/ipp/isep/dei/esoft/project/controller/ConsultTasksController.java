@@ -12,17 +12,32 @@ import pt.isep.lei.esoft.auth.UserSession;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * This class is responsible for querying tasks based on specific criteria, such as start date, end date, and status.
+ */
 public class ConsultTasksController {
 
     Repositories repositories = Repositories.getInstance();
 
+    /**
+     * Queries tasks based on the provided start date, end date, and status.
+     *
+     * @param startDate the start date to filter tasks
+     * @param endDate the end date to filter tasks
+     * @param status the status of tasks to be queried
+     * @return a list of tasks that meet the query criteria
+     * @throws IllegalArgumentException if the user is not authorized to query the agenda or if the organization is not found for the logged-in user
+     */
     public List<Task> consultTasks(LocalDate startDate, LocalDate endDate, Status status) {
 
+        // Retrieves the current user session
         UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
 
+        // Checks if the user is logged in with the "Collab" role
         if (userSession.isLoggedInWithRole("Collab")) {
             String userEmail = userSession.getUserId().getEmail();
+
+            // Retrieves the organization associated with the logged-in employee's email
             Optional<Organization> organizationOptional = repositories.getOrganizationRepository().
                     getOrganizationByEmployeeEmail(userEmail);
 
