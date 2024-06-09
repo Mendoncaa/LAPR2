@@ -244,6 +244,10 @@ public class Employee implements Comparable<Employee>, Serializable {
         task.postponeTask();
     }
 
+    public void cancelTask(Task task) {
+        task.cancelTask();
+    }
+
     /**
      * Updates the task with the given list of vehicles.
      *

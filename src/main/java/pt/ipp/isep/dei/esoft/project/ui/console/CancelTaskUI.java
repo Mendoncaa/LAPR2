@@ -1,21 +1,22 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
+import pt.ipp.isep.dei.esoft.project.controller.CancelTaskController;
 import pt.ipp.isep.dei.esoft.project.controller.PostponeController;
-import pt.ipp.isep.dei.esoft.project.controller.TaskCompletionController;
 import pt.ipp.isep.dei.esoft.project.domain.Status;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.List;
 
-public class PostponeUI implements Runnable {
-    private final PostponeController controller;
+public class CancelTaskUI implements Runnable {
 
-    public PostponeUI() {
-        controller = new PostponeController();
+    private final CancelTaskController controller;
+
+    public CancelTaskUI() {
+        controller = new CancelTaskController();
     }
 
-    private PostponeController getController() {
+    private CancelTaskController getController() {
         return controller;
     }
 
@@ -63,14 +64,14 @@ public class PostponeUI implements Runnable {
 
     private void submitData(Task task) {
         try {
-            getController().postponeTask(task);
-            if (task.getStatus().equals(Status.POSTPONED)) {
-                System.out.println("\nThe task has been successfully postponed!");
+            getController().cancelTask(task);
+            if (task.getStatus().equals(Status.CANCELED)) {
+                System.out.println("\nThe task has been successfully cancelled!");
             } else {
-                System.out.println("\nTask not postponed!");
+                System.out.println("\nTask not canceled!");
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("An error occurred while postponing the task: " + e.getMessage());
+            System.out.println("An error occurred while cancelling the task: " + e.getMessage());
         }
     }
 }

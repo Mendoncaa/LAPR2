@@ -75,7 +75,9 @@ public class Task implements Comparable<Task>, Serializable {
         this.status = Status.POSTPONED;
     }
 
-
+    public void cancelTask() {
+        this.status = Status.CANCELED;
+    }
     public String getEmail() {
         return email;
     }
