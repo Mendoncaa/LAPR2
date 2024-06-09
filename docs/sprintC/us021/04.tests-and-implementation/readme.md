@@ -11,25 +11,7 @@ public void ensureNullIsNotAllowed() {
 }
 ```
 
-### Test 2: Ensure that it is not possible to create a To-Do List entry with an empty title
-
-```java
-@Test(expected = IllegalArgumentException.class)
-public void ensureEmptyTitleIsNotAllowed() {
-    ToDoListEntry entry = new ToDoListEntry("", "High", "GreenSpace1", 2);
-}
-```
-
-### Test 3: Ensure that it is not possible to create a To-Do List entry with a null urgency
-
-```java
-@Test(expected = IllegalArgumentException.class)
-public void ensureNullUrgencyIsNotAllowed() {
-    ToDoListEntry entry = new ToDoListEntry("Task1", null, "GreenSpace1", 2);
-}
-```
-
-### Test 4: Ensure that it is not possible to create a To-Do List entry with an invalid duration
+### Test 2: Ensure that it is not possible to create a To-Do List entry with an invalid duration
 
 ```java
 @Test(expected = IllegalArgumentException.class)
@@ -38,31 +20,8 @@ public void ensureInvalidDurationIsNotAllowed() {
 }
 ```
 
-### Test 5: Ensure that valid To-Do List entry is saved correctly
 
-```java
-@Test
-public void ensureValidToDoListEntryIsSaved() {
-    ToDoListEntryRepository repo = new ToDoListEntryRepository();
-    ToDoListEntry entry = new ToDoListEntry("Task1", "High", "GreenSpace1", 2);
-    repo.save(entry);
-    assertTrue(repo.existsByTitle("Task1"));
-}
-```
-
-### Test 6: Ensure that selecting a task from the repository works correctly
-
-```java
-@Test
-public void ensureTaskSelectionFromRepositoryWorks() {
-    TaskRepository taskRepo = new TaskRepository();
-    Task task = new Task("Task1", "Description1");
-    taskRepo.save(task);
-    assertNotNull(taskRepo.getTaskByTitle("Task1"));
-}
-```
-
-### Test 7: Ensure that selecting a GreenSpace from the repository works correctly
+### Test 3: Ensure that selecting a GreenSpace from the repository works correctly
 
 ```java
 @Test
@@ -76,130 +35,158 @@ public void ensureGreenSpaceSelectionFromRepositoryWorks() {
 
 ## 5. Construction (Implementation)
 
-### Class ToDoListController 
+
+### Class TodoListController
 
 ```java
 public class ToDoListController {
 
-    private TaskRepository taskRepository;
-    private GreenSpaceRepository greenSpaceRepository;
-    private AuthenticationRepository authenticationRepository;
-    private ToDoListEntryRepository toDoListEntryRepository;
+    Repositories repositories = Repositories.getInstance();
 
-    public ToDoListController() {
-        this.taskRepository = Repositories.getInstance().getTaskRepository();
-        this.greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
-        this.authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
-        this.toDoListEntryRepository = Repositories.getInstance().getToDoListEntryRepository();
+    public Optional<Task> addNewTask(String title, String description, GreenSpace greenSpace, Urgency urgency, Duration duration) {
+
+        UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
+
+        if (userSession.isLoggedInWithRole("Gsm")) {
+            String userEmail = userSession.getUserId().getEmail();
+            Optional<Organization> organizationOptional = repositories.getOrganizationRepository().
+                    getOrganizationByEmployeeEmail(userEmail);
+
+
+            if (organizationOptional.isPresent()) {
+
+                EmployeeRepository employeeRepository = repositories.getEmployeeRepository();;
+                Employee employee = employeeRepository.getEmployeeById(userEmail);
+
+                TaskRepository taskRepository = repositories.getTaskRepository();
+                Task task = employee.createTask(title, description, greenSpace, urgency, duration,
+                        userSession.getUserId().getEmail());
+                taskRepository.addTask(task);
+
+                return Optional.of(task);
+
+            } else {
+
+                throw new IllegalArgumentException("Organization not found for user: " + userEmail);
+
+            }
+
+        } else {
+
+            throw new IllegalArgumentException("User is not authorized to create a job.");
+
+        }
     }
 
-    public ToDoListController(TaskRepository taskRepository,
-                              GreenSpaceRepository greenSpaceRepository,
-                              AuthenticationRepository authenticationRepository,
-                              ToDoListEntryRepository toDoListEntryRepository) {
-        this.taskRepository = taskRepository;
-        this.greenSpaceRepository = greenSpaceRepository;
-        this.authenticationRepository = authenticationRepository;
-        this.toDoListEntryRepository = toDoListEntryRepository;
-    }
 
-    public void addNewToDoListEntry(String taskTitle, String urgency, String greenSpaceName, int duration) {
-        if (taskTitle == null || taskTitle.isEmpty() || urgency == null || greenSpaceName == null || greenSpaceName.isEmpty() || duration <= 0) {
-            throw new IllegalArgumentException("All fields must be provided and valid.");
+    public List<GreenSpace> getAvailableGreenSpaces() {
+        GreenSpaceRepository greenSpaceRepository = repositories.getGreenSpaceRepository();
+        AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
+        UserSession userSession = authenticationRepository.getCurrentUserSession();
+        List<GreenSpace> spacesManagedByMe = new ArrayList<>();
+
+        for (GreenSpace greenSpace : greenSpaceRepository.listGreenSpaces()) {
+            if (greenSpace.getEmail().equals(userSession.getUserId().getEmail())) {
+                spacesManagedByMe.add(greenSpace);
+            }
         }
 
-        Task task = taskRepository.getTaskByTitle(taskTitle);
-        GreenSpace greenSpace = greenSpaceRepository.getGreenSpaceByName(greenSpaceName);
-
-        if (task == null) {
-            throw new IllegalArgumentException("Task does not exist.");
-        }
-        if (greenSpace == null) {
-            throw new IllegalArgumentException("GreenSpace does not exist.");
-        }
-
-        ToDoListEntry entry = new ToDoListEntry(taskTitle, urgency, greenSpaceName, duration);
-        toDoListEntryRepository.save(entry);
+        return spacesManagedByMe;
     }
 }
 ```
 
-### Class ToDoListEntry
+### Class Task
 
 ```java
-public class ToDoListEntry {
+public class Task implements Comparable<Task> {
     private String title;
-    private String urgency;
-    private String greenSpace;
-    private int duration;
+    private GreenSpace greenSpace;
+    private String description;
+    private Status status;
+    private Urgency urgency;
+    private LocalDate startDate;
+    private Duration duration;
+    private String email;
 
-    public ToDoListEntry(String title, String urgency, String greenSpace, int duration) {
-        if (title == null || title.isEmpty() || urgency == null || greenSpace == null || greenSpace.isEmpty() || duration <= 0) {
-            throw new IllegalArgumentException("All fields must be provided and valid.");
-        }
+
+    public Task (String title, GreenSpace greenSpace, String description, Urgency urgency, Duration duration, String email) {
         this.title = title;
-        this.urgency = urgency;
         this.greenSpace = greenSpace;
+        this.description = description;
+        this.status = Status.PENDING;
+        this.urgency = urgency;
         this.duration = duration;
+        this.email = email;
     }
 
-    // Getters and setters
-}
-```
-
-### Class TaskRepository
-
-```java
-public class TaskRepository {
-    private Map<String, Task> taskDatabase = new HashMap<>();
-
-    public void save(Task task) {
-        taskDatabase.put(task.getTitle(), task);
+    public String getTitle() {
+        return title;
     }
 
-    public Task getTaskByTitle(String title) {
-        return taskDatabase.get(title);
-    }
-}
-```
-
-### Class GreenSpaceRepository
-
-```java
-public class GreenSpaceRepository {
-    private Map<String, GreenSpace> database = new HashMap<>();
-
-    public void save(GreenSpace greenSpace) {
-        database.put(greenSpace.getName(), greenSpace);
+    public GreenSpace getGreenSpace() {
+        return greenSpace;
     }
 
-    public GreenSpace getGreenSpaceByName(String name) {
-        return database.get(name);
-    }
-}
-```
-
-### Class ToDoListEntryRepository
-
-```java
-public class ToDoListEntryRepository {
-    private Map<String, ToDoListEntry> database = new HashMap<>();
-
-    public void save(ToDoListEntry entry) {
-        database.put(entry.getTitle(), entry);
+    public String getDescription() {
+        return description;
     }
 
-    public boolean existsByTitle(String title) {
-        return database.containsKey(title);
+    public Status getStatus() {
+        return status;
+    }
+
+    public Urgency getUrgency() {
+        return urgency;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void planTaskInAgenda(LocalDate startDate) {
+        if (startDate == null) {
+            throw new IllegalArgumentException("Start date must be provided");
+        }
+        this.startDate = startDate;
+        this.status = Status.PLANNED;
+    }
+
+    public void completeTask() {
+        this.status = Status.DONE;
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "title='" + title + '\'' +
+                ", greenSpace=" + greenSpace +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                ", urgency=" + urgency +
+                ", startDate=" + startDate +
+                ", duration=" + duration +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Task o) {
+        return this.startDate.compareTo(o.startDate);
     }
 }
 ```
 
 ## 6. Integration and Demo 
 
-* A new option on the To-Do List menu options was added.
-
-* For demo purposes some To-Do List entries are bootstrapped while system starts.
 
 ## 7. Observations
 

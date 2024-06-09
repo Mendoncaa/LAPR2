@@ -121,6 +121,8 @@ activate GSM
 
         CTRL --> UI : operation success
 
+        UI -> GSM: operation success
+
 deactivate GSM
 
 @enduml

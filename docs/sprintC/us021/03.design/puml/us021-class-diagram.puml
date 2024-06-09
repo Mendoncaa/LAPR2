@@ -6,10 +6,7 @@ skinparam shadowing false
 
 skinparam classAttributeIconSize 0
 
-class UserSession {
-    + isLoggedWithRole(role)
-    + getUserId()
-}
+
 
 class AuthenticationRepository {
     + getCurrentUserSession()

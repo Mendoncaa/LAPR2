@@ -72,7 +72,8 @@ There is a dependency on:
 
 **Output Data:**
 
-* The new entry in the Agenda
+* (in)success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
 
+![US022-SSD](svg/us022-system-sequence-diagram.svg)

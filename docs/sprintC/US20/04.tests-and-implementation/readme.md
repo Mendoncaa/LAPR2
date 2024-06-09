@@ -11,16 +11,8 @@ public void ensureNullIsNotAllowed() {
 }
 ```
 
-### Test 2: Ensure that it is not possible to create a GreenSpace instance with an empty name
 
-```java
-@Test(expected = IllegalArgumentException.class)
-public void ensureEmptyNameIsNotAllowed() {
-    GreenSpace instance = new GreenSpace("", "Garden", 1.5, "123 Green Street");
-}
-```
-
-### Test 3: Ensure that the system does not allow duplicate GreenSpace names
+### Test 2: Ensure that the system does not allow duplicate GreenSpace names
 
 ```java
 @Test(expected = DuplicateGreenSpaceException.class)
@@ -33,17 +25,7 @@ public void ensureDuplicateNameIsNotAllowed() {
 }
 ```
 
-### Test 4: Ensure that valid GreenSpace data is saved correctly
 
-```java
-@Test
-public void ensureValidGreenSpaceIsSaved() {
-    GreenSpaceRepository repo = new GreenSpaceRepository();
-    GreenSpace gs = new GreenSpace("Liberty Park", "Medium-sized park", 15.0, "Third Street");
-    repo.save(gs);
-    assertTrue(repo.existsByName("Liberty Park"));
-}
-```
 
 ## 5. Construction (Implementation)
 
@@ -84,48 +66,108 @@ public class RegisterGreenSpaceController {
 }
 ```
 
+### Class RegisterGreenSpaceController
+
+```java
+public class RegisterGSController {
+    private final AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
+    private final GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
+    public Optional<GreenSpace> RegisterGreenSpace(String name, SizeClassification sizeClassification,
+                                               double area, String address) {
+
+        UserSession userSession = authenticationRepository.getCurrentUserSession();
+
+        if (userSession.isLoggedInWithRole("Gsm")) {
+            String userEmail = userSession.getUserId().getEmail();
+            Optional<Organization> organizationOptional = Repositories.getInstance().getOrganizationRepository()
+                    .getOrganizationByEmployeeEmail(userEmail);
+            EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
+            for (Employee employee : employeeRepository.listEmployees()) {
+                System.out.println(employee);
+            }
+
+
+            if (organizationOptional.isPresent()) {
+                employeeRepository = Repositories.getInstance().getEmployeeRepository();
+                Employee employee = employeeRepository.getEmployeeById(userEmail);
+
+                GreenSpace greenSpace = employee.createGreenSpace(name, sizeClassification, area, address,
+                        userSession.getUserId().getEmail());
+                greenSpaceRepository.addGreenSpace(greenSpace);
+
+                return Optional.of(greenSpace);
+            } else {
+                throw new IllegalArgumentException("Organization not found for user: " + userEmail);
+            }
+        } else {
+            throw new IllegalArgumentException("User is not authorized to create a job.");
+        }
+
+    }
+```
+
 ### Class GreenSpace
 
 ```java
 public class GreenSpace {
+
     private String name;
-    private String sizeClassification;
+    private SizeClassification sizeClassification;
     private double area;
     private String address;
+    private String email;
 
-    public GreenSpace(String name, String sizeClassification, double area, String address) {
-        if (name == null || name.isEmpty() || sizeClassification == null || area <= 0 || address == null || address.isEmpty()) {
-            throw new IllegalArgumentException("All fields must be provided and valid.");
-        }
+
+    public GreenSpace(String name, SizeClassification sizeClassification, double area, String address, String email) {
         this.name = name;
         this.sizeClassification = sizeClassification;
         this.area = area;
         this.address = address;
+        this.email = email;
     }
 
-    
-}
-```
 
-### Class GreenSpaceRepository
-
-```java
-public class GreenSpaceRepository {
-    private Map<String, GreenSpace> database = new HashMap<>();
-
-    public boolean checkIfNameExists(String name) {
-        return database.containsKey(name);
+    public String getName() {
+        return name;
     }
 
-    public void save(GreenSpace greenSpace) {
-        if (checkIfNameExists(greenSpace.getName())) {
-            throw new DuplicateGreenSpaceException("A green space with this name already exists.");
-        }
-        database.put(greenSpace.getName(), greenSpace);
+
+    public SizeClassification getSizeClassification() {
+        return sizeClassification;
     }
 
-    public boolean existsByName(String name) {
-        return database.containsKey(name);
+
+    public double getArea() {
+        return area;
+    }
+
+
+    public String getAddress() {
+        return address;
+    }
+
+
+    private void setManagedBy() {
+        AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
+        UserSession userSession = authenticationRepository.getCurrentUserSession();
+
+
+        this.email = userSession.getUserId().getEmail();
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public String toString() {
+        return "GreenSpace{" +
+                "name='" + name + '\'' +
+                ", sizeClassification=" + sizeClassification +
+                ", area=" + area +
+                ", address='" + address + '\'' +
+                '}';
     }
 }
 ```
@@ -135,4 +177,4 @@ public class GreenSpaceRepository {
 
 ## 7. Observations
 
-n/a
+[n/a]

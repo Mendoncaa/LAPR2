@@ -58,6 +58,7 @@ As a Green Space Manager (GSM), I want to add a new entry to the To-Do List.
 
 * **AC1** The new entry must be associated with a green space managed by the GSM.
 * **AC2** The green space for the new entry should be chosen from a list presented to the GSM.
+* **AC3** The default state of the new entry must be "Pending".
 
 ### 1.4. Found out Dependencies
 
@@ -70,18 +71,18 @@ There is a dependency on:
 **Input Data:**
 
 * Typed data:
+  - Title of the task
   - Description of the task
   - Approximate expected duration (in hours or days)
 
 * Selected data:
-  - Title of the task
   - Green space
   - Degree of urgency (High, Medium, Low)
 
 **Output Data:**
 
-* Confirmation message indicating successful addition of the task to the To-Do List
-* Error message if required fields are missing or invalid
+* (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
 
+![US021-SSD](svg/us021-system-sequence-diagram.svg)

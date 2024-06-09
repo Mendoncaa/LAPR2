@@ -34,7 +34,7 @@ public void ensureTaskCannotBePlannedWithoutStartDate() {
 
 ```
 
-### Test 4: Ensure that it is not possible to create a To-Do List entry with an invalid duration
+### Test 3: Ensure that it is not possible to create a To-Do List entry with an invalid duration
 
 ```java
 @Test(expected = IllegalArgumentException.class)
@@ -51,15 +51,77 @@ public void ensureTaskCannotBePlannedWithPastStartDate() {
 
 ## 5. Construction (Implementation)
 
+```java
+
+public class AddAgendaEntryController {
+
+    Repositories repositories = Repositories.getInstance();
+
+
+    public List<Task> getPendingTasks() {
+
+        TaskRepository taskRepository = repositories.getTaskRepository();
+
+        List<Task> list = taskRepository.getPendingTasks();
+
+        return list;
+    }
+
+    public List<GreenSpace> getAvailableGreenSpaces() {
+        GreenSpaceRepository greenSpaceRepository = repositories.getGreenSpaceRepository();
+        AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
+        UserSession userSession = authenticationRepository.getCurrentUserSession();
+        List<GreenSpace> spacesManagedByMe = new ArrayList<>();
+
+        for (GreenSpace greenSpace : greenSpaceRepository.listGreenSpaces()) {
+            if (greenSpace.getEmail().equals(userSession.getUserId().getEmail())) {
+                spacesManagedByMe.add(greenSpace);
+            }
+        }
+
+
+        return spacesManagedByMe;
+    }
+
+    public void addNewAgendaEntry(Task task, LocalDate startDate) {
+
+        UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
+
+        if (userSession.isLoggedInWithRole("Gsm")) {
+            String userEmail = userSession.getUserId().getEmail();
+            Optional<Organization> organizationOptional = repositories.getOrganizationRepository().
+                    getOrganizationByEmployeeEmail(userEmail);
+
+
+            if (organizationOptional.isPresent()) {
+
+                EmployeeRepository employeeRepository = repositories.getEmployeeRepository();;
+                Employee employee = employeeRepository.getEmployeeById(userEmail);
+
+                employee.planTaskInAgenda(task, startDate);
+
+            } else {
+
+                throw new IllegalArgumentException("Organization not found for user: " + userEmail);
+
+            }
+
+        } else {
+
+            throw new IllegalArgumentException("User is not authorized to create a job.");
+
+        }
+
+    }
+}
+````
 
 
 
 
 ## 6. Integration and Demo
 
-* A new option on the To-Do List menu options was added.
 
-* For demo purposes some To-Do List entries are bootstrapped while system starts.
 
 ## 7. Observations
 

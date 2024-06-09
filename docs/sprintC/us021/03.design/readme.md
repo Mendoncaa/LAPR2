@@ -12,10 +12,9 @@
 | Step 2 - requests data                     | ... displaying form for actor input?                        | ToDoListUI               | Pure Fabrication (Interaction with Actor)                                                             |
 | Step 3 - types requested data              | ... temporally keeping input data?                          | ToDoListUI               | Pure Fabrication (Interaction with Actor)                                                             | 
 | Step 4 - show To-Do List entry data and request confirmation | ... displaying all the information before submitting?       | ToDoListUI               | Pure Fabrication (Interaction with Actor)                                                             |
-| Step 5 - confirms data                     | ... instantiating a new Task (Object)?                      | Task                     | Creator (Rule 1): in the DM Task owns its data.                                                     |
+| Step 5 - confirms data                     | ... instantiating a new Task (Object)?                      | Employee                     | Creator (Rule 1):  data.                                                     |
 |                                            | ... validating all data (local validation,e.g. mandatory)?  | Task                     | IE: owns its data.                                                                                  |
-|                                            | ... validating all data (global validation, e.g., duplicates)?| TaskRepository           | IE: knows all Tasks.                                                                               |
-|                                            | ... saving the To-Do List entry?                            | TaskRepository           | IE: owns all Tasks.                                                                                |
+|                                            | ... validating all data (global validation, e.g., duplicates)?| Employee          | IE: knows all Tasks.                                                                               |                                                                       |
 | Step 6 - display operation success         | ... informing operation success?                            | ToDoListUI               | Pure Fabrication (Interaction with Actor)                                                           |              
 
 ### Systematization
@@ -23,12 +22,18 @@
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
 * Task
+* GreenSpaces
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
 * ToDoListUI  
 * ToDoListController
-* UserSession
-* TaskRepository
+
 
 ## 3.2. Sequence Diagram (SD)
+
+![SD](svg/us021-sequence-diagram.svg)
+
+## 3.3. Class Diagram (CD)
+
+![CD](svg/us021-class-diagram.svg)

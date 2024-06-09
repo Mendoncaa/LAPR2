@@ -32,7 +32,15 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 * RegisterGreenSpaceUI  
 * RegisterGreenSpaceController
-* UserSession
 * GreenSpaceRepository
 
 
+## 3.2. Sequence Diagram (SD)
+
+
+![Sequence Diagram - Full](svg/us020-sequence-diagram.svg)
+
+
+## 3.3. Class Diagram (CD)
+
+![Class Diagram](svg/us020-class-diagram.svg)

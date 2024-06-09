@@ -18,7 +18,7 @@ activate GSM
         System --> GSM : requests data (types Name, select Size classification, type Area, type Address)
     deactivate System
 
-    GSM -> System : types requested data
+    GSM -> System : types/ selects requested data
     activate System
 
         System --> GSM : Show green space data and request confirmation

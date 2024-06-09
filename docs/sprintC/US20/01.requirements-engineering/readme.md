@@ -58,8 +58,9 @@ There is a dependency on:
 
 **Output Data:**
 
-* Confirmation message of the successful registration of the green space.
+* (In)Success Operation
 
 
 ### 1.6. System Sequence Diagram (SSD)
 
+![US020-SSD](svg/us020-system-sequence-diagram.svg)

@@ -15,34 +15,20 @@ activate GSM
     GSM -> System : Requests to add a new Agenda entry
     activate System
 
-    System --> GSM : display green spaces managed by GSM for selection
-        deactivate System
-
-        GSM -> System : selects a green space from greenSpaceList
-        activate System
-
-        System --> GSM : display pending tasks for selection
+    System --> GSM : display green spaces, pending tasks, and request for starting date
     deactivate System
 
-    GSM -> System : selects a pending task from the To-do list
+    GSM -> System : selects a green space, a pending task, and types starting date
     activate System
 
-
-
-        System --> GSM : requests starting date
+    System --> GSM : Show Agenda entry data and request confirmation
     deactivate System
 
-    GSM -> System : types starting date
+    GSM -> System : confirms data
     activate System
 
-        System --> GSM : Show Agenda entry data and request confirmation
-        deactivate System
+    System --> GSM : displays operation success
 
-        GSM -> System : confirms data
-        activate System
-
-        System --> GSM : displays operation success
-        
-    deactivate System
+deactivate System
 
 @enduml
