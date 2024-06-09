@@ -62,7 +62,6 @@ public class AddVehiclesToTaskController {
     public List<Vehicle> listVehiclesNotAssignedByDateOfTasks(Task task) throws IllegalArgumentException {
         Repositories repositories = Repositories.getInstance();
         EmployeeRepository employeeRepository = repositories.getEmployeeRepository();
-
         Employee employee = employeeRepository.getEmployeeById(task.getEmail());
         return employee.filterVehiclesNotAssignedByDateOfTasks(task, listAllVehicles());
     }

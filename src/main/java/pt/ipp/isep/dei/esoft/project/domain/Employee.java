@@ -276,6 +276,28 @@ public class Employee implements Comparable<Employee> {
 
         return greenSpaces.getGreenSpacesManagedByMe();
     }
+    /**
+     * Sorts the given list of green spaces managed by me by areas using the specified algorithm name.
+     *
+     * @param algorithmName The name of the sorting algorithm to be used.
+     * @return The sorted list of green spaces.
+     */
+    public List<GreenSpace> sortGreenSpaces(String algorithmName)  {
+        List<GreenSpace> greenSpaces = getGreenSpacesManagedByMe();
+        SortingConfigAdapter sortingConfigAdapter = new SortingConfigAdapter();
+        List<GreenSpace> sortedGreenSpaces = sortingConfigAdapter.getSortedGreenSpaces(algorithmName,greenSpaces);
+
+        return sortedGreenSpaces;
+    }
+    /**
+     * Retrieves the names of all available sorting algorithms.
+     *
+     * @return The list of available sorting algorithm names.
+     */
+    public List<String> getAvailableSortingAlgorithms() {
+        SortingConfigAdapter sortingConfigAdapter = new SortingConfigAdapter();
+        return sortingConfigAdapter.getAllSortingAlgorithmsNames();
+    }
 
 
     @Override
