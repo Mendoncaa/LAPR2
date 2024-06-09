@@ -5,9 +5,14 @@ import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * This class represents the UI for the GSM menu.
+ * It implements the Runnable interface to allow its instances to be executed by a thread.
+ */
 public class GsmUI implements Runnable {
-
+    /**
+     * Constructs an instance of GsmUI.
+     */
     public GsmUI() {
     }
 

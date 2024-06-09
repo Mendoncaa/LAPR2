@@ -11,11 +11,18 @@ import pt.isep.lei.esoft.auth.UserSession;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * This class represents the controller for postponing a task.
+ */
 public class PostponeController {
 
     Repositories repositories = Repositories.getInstance();
-
+    /**
+     * Gets the list of tasks that can be postponed.
+     *
+     * @return the list of tasks
+     * @throws IllegalArgumentException if the user is not authorized or the organization is not found
+     */
     public List<Task> getTasks() {
         UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
 
@@ -46,7 +53,11 @@ public class PostponeController {
 
         }
     }
-
+    /**
+     * Postpones the specified task.
+     *
+     * @param task the task to be postponed
+     */
     public void postponeTask(Task task) {
 
         UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
