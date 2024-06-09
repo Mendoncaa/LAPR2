@@ -3,18 +3,19 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
-public class Team {
+public class Team implements Serializable {
     private String id;
     private int minSize;
     private int maxSize;
     private List<Skill> skills;
-    private List<TeamMember> teamMembers;
+    private List<Employee> teamMembers;
 
 
-    public Team(int minSize, int maxSize, List<Skill> skills, List<TeamMember> teamMembers) {
+    public Team(int minSize, int maxSize, List<Skill> skills, List<Employee> teamMembers) {
         this.id = UUID.randomUUID().toString();
         validateInput(minSize);
         this.minSize = minSize;
@@ -72,19 +73,19 @@ public class Team {
     }
 
 
-    public List<TeamMember> getTeamMembers() {
+    public List<Employee> getTeamMembers() {
         return teamMembers;
     }
 
 
-    public void setTeamMembers(List<TeamMember> teamMembers) {
+    public void setTeamMembers(List<Employee> teamMembers) {
         this.teamMembers = teamMembers;
     }
 
 
-    public void assignTeamMember(TeamMember teamMember) {
+    public void assignTeamMember(Employee employee) {
 
-        teamMembers.add(teamMember);
+        teamMembers.add(employee);
 
     }
 
@@ -96,7 +97,7 @@ public class Team {
 
         stringBuilder.append("### Team Members ###\n");
 
-        for (TeamMember teamMember : teamMembers) {
+        for (Employee teamMember : teamMembers) {
 
             stringBuilder.append(teamMember.toString()).append("\n");
 

@@ -1,12 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
  * Class representing a skill with a unique ID and a name.
  * Implements Comparable to allow comparison based on the skill name.
  */
-public class Skill implements Comparable<Skill> {
+public class Skill implements Comparable<Skill>, Serializable {
     private String id;
     private String name;
 

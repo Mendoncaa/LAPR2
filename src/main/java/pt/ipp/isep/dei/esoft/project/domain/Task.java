@@ -1,11 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Task implements Comparable<Task> {
+public class Task implements Comparable<Task>, Serializable {
     private String title;
     private GreenSpace greenSpace;
     private String description;

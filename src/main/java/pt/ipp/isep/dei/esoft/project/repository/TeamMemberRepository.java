@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.domain.TeamMember;
@@ -73,14 +74,14 @@ public class TeamMemberRepository {
  * @param team The list of team members to search in.
  * @return The first team member with the specified skill, or null if no such team member exists.
  */
-    public TeamMember findTeamMemberWithSkill(Skill skill, List<TeamMember> team) {
+    public Employee findTeamMemberWithSkill(Skill skill, List<Employee> team) {
 
 
-        for (TeamMember teamMember : team) {
+        for (Employee employee : team) {
 
-            if (teamMember.getSkills().contains(skill) || !isInAnyTeam(teamMember)) {
+            if (employee.getSkills().contains(skill) || !isInAnyTeam(employee)) {
 
-                return teamMember;
+                return employee;
 
             }
 
@@ -93,17 +94,17 @@ public class TeamMemberRepository {
 /**
  * Checks if a team member is part of any team.
  *
- * @param teamMember The team member to check.
+ * @param employee The team member to check.
  * @return True if the team member is in any team, false otherwise.
  */
-    public boolean isInAnyTeam(TeamMember teamMember) {
+    public boolean isInAnyTeam(Employee employee) {
 
         TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
 
 
         for (Team team : teamRepository.getTeams()) {
 
-            if (team.getTeamMembers().contains(teamMember)) {
+            if (team.getTeamMembers().contains(employee)) {
 
                 return true;
 

@@ -32,6 +32,15 @@ public class JobRepository {
     public List<Job> listAllJobs() {
         return new ArrayList<>(jobs);
     }
+
+    public Job getJobByName(String name) {
+        for (Job job : jobs) {
+            if (job.getJobName().equals(name)) {
+                return job;
+            }
+        }
+        throw new IllegalArgumentException("No job with the typed name!!");
+    }
 }
 
 

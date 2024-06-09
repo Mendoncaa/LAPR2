@@ -49,7 +49,7 @@ public class Serialization {
     }
 
 
-    /*public void employeeSerialization() {
+    public void employeeSerialization() {
         EmployeeRepository employeeRepository = repositories.getEmployeeRepository();
 
         for (Employee employee : employeeRepository.listEmployees()) {
@@ -129,45 +129,6 @@ public class Serialization {
     }
 
 
-    public void teamMemberSerialization() {
-        TeamMemberRepository teamMemberRepository = repositories.getTeamMemberRepository();
-
-        for (TeamMember teamMember : teamMemberRepository.getTeamMembers()) {
-            System.out.println(teamMember);
-        }
-
-        try (FileOutputStream fileOut = new FileOutputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\teammember.ser");
-             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-            for (TeamMember teamMember : teamMemberRepository.getTeamMembers()) {
-                out.writeObject(teamMember);
-            }
-            //out.writeObject(null);
-            System.out.println("Team Members serialized");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void organizationSerialization() {
-        OrganizationRepository organizationRepository = repositories.getOrganizationRepository();
-
-        for (Organization organization : organizationRepository.getOrganizations()) {
-            System.out.println(organization);
-        }
-
-        try (FileOutputStream fileOut = new FileOutputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\organization.ser");
-             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-            for (Organization organization : organizationRepository.getOrganizations()) {
-                out.writeObject(organization);
-            }
-            System.out.println("Organizations serialized");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public void vehicleSerialization() {
         VehicleRepository vehicleRepository = repositories.getVehicleRepository();
 
@@ -184,7 +145,7 @@ public class Serialization {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
 
 

@@ -21,25 +21,14 @@ public class Bootstrap implements Runnable {
 
 
     private void addOrganization() {
-        //TODO: add organizations bootstrap here
-        //get organization repository
         OrganizationRepository organizationRepository = Repositories.getInstance().getOrganizationRepository();
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();
-        SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
-        VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
-        GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
-        TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
-
         Organization organization = new Organization("MusgoSublime", employeeRepository, jobRepository);
         organizationRepository.add(organization);
-        Job job = new Job("Human Resources Manager");
-        jobRepository.addJob(job);
-        Job job2 = new Job("Green Space Manager");
-        jobRepository.addJob(job2);
 
 
-        Employee hrm = organization.createEmployee(
+        /*Employee hrm = organization.createEmployee(
                 "Zé",
                 LocalDate.of(1991, 1, 1),
                 LocalDate.of(2020, 12, 31),
@@ -51,7 +40,7 @@ public class Bootstrap implements Runnable {
                 "CC",
                 "12345678",
                 "123456789",
-                job);
+                jobRepository.getJobByName("Human Resources Manager"));
 
         employeeRepository.addEmployee(hrm);
 
@@ -68,7 +57,7 @@ public class Bootstrap implements Runnable {
                 "CC",
                 "12345677",
                 "987654321",
-                job2);
+                jobRepository.getJobByName("Green Space Manager"));
 
         employeeRepository.addEmployee(gsm);
 
@@ -84,9 +73,24 @@ public class Bootstrap implements Runnable {
                 "CC",
                 "12345678",
                 "987784321",
-                job2);
+                jobRepository.getJobByName("Vehicle and Equipment Fleet Manager"));
 
-        employeeRepository.addEmployee(vfm);
+        employeeRepository.addEmployee(vfm);*/
+
+
+        //TODO: add organizations bootstrap here
+
+        /*
+        SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
+        VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
+        GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
+        TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
+
+
+
+
+
+
 
         Employee collaborator1 = organization.createEmployee(
                 "Zé",
@@ -125,14 +129,14 @@ public class Bootstrap implements Runnable {
         );
         vehicleRepository.addVehicle(vehicle1);
 
-        /*GreenSpace greenSpace1 = new GreenSpace("Parque da cidade", SizeClassification.LARGE_SIZED_PARK,
+        GreenSpace greenSpace1 = new GreenSpace("Parque da cidade", SizeClassification.LARGE_SIZED_PARK,
                 1000, "Estrada Interior da Circunvalação, 4100-083 Porto", "gsm@this.app");
         greenSpaceRepository.addGreenSpace(greenSpace1);
         GreenSpace greenSpace2 = new GreenSpace("Parque da city", SizeClassification.MEDIUM_SIZED_PARK,
                 1000, "Estrada Interior da Circunvalação, 4100-083 Porto", "other@this.app");
-        greenSpaceRepository.addGreenSpace(greenSpace2);*/
+        greenSpaceRepository.addGreenSpace(greenSpace2);
 
-        /*Task task1 = new Task("Limpeza", greenSpace1, "Limpeza dos caixotes do lixo",
+        Task task1 = new Task("Limpeza", greenSpace1, "Limpeza dos caixotes do lixo",
                 Urgency.MEDIUM, Duration.ofDays(1).plusHours(2), "gsm@this.app");
         taskRepository.addTask(task1);
 
