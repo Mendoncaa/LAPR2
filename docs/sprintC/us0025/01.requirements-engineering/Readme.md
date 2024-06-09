@@ -32,10 +32,7 @@ As a GSM, I want to Cancel an entry in the Agenda.
 
 **Input Data:**
 * Selected data
-  * Entry 
-* Typed  data
-  * Date
-
+  * TaskId
 
 **Output Data:**
 * (In)Success of the operation

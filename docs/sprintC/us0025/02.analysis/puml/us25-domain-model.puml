@@ -2,22 +2,22 @@
 
 hide methods
 hide circle
+hide empty attributes
+skinparam linetype polyline
 
-class VFM {
+
+class Employee {
 }
 
-class Vehicles {
-  - brand
-  - model
-  - type
-  - tareWeight
-  - grossWeight
-  - currentKms
-  - registrationDate
-  - acquisitionDate
-  - maintenanceFrequency
+class Tasks {
+  - taskCategory
+  - toDoList
 }
 
-VFM -- Vehicles : manages >
+class Agenda {
+}
+
+Employee "1"---"0..*" Tasks: manages >
+Agenda "1"---"1..*" Tasks : organizes >
 
 @enduml
