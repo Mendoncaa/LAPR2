@@ -11,18 +11,34 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+/**
+ * This class represents the User Interface for managing a To-Do List.
+ * It allows the user to create and add tasks to the To-Do List.
+ */
 public class ToDoListUI implements Runnable {
     private final Scanner scan = new Scanner(System.in);
     private final ToDoListController controller;
 
+    /**
+     * Constructor for the ToDoListUI class.
+     * Initializes the controller.
+     */
     public ToDoListUI() {
         controller = new ToDoListController();
     }
 
+    /**
+     * Gets the ToDoListController instance.
+     * @return the ToDoListController instance
+     */
     private ToDoListController getController() {
         return controller;
     }
 
+    /**
+     * Runs the To-Do List User Interface.
+     * This method collects user inputs to create a new task and adds it to the To-Do List.
+     */
     @Override
     public void run() {
         String title = Utils.readLineFromConsole("Task title: ");
@@ -92,6 +108,15 @@ public class ToDoListUI implements Runnable {
 
     }
 
+    /**
+     * Submits the collected data to create a new task.
+     *
+     * @param title the title of the task
+     * @param description the description of the task
+     * @param greenSpace the green space associated with the task
+     * @param urgency the urgency level of the task
+     * @param duration the expected duration of the task
+     */
     private void submitData(String title, String description, GreenSpace greenSpace,
                             Urgency urgency, Duration duration) {
         try {
