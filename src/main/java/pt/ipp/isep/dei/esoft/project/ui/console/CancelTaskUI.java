@@ -7,11 +7,16 @@ import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.List;
-
+/**
+ * This class represents the UI for cancelling a task.
+ * It implements the Runnable interface to allow its instances to be executed by a thread.
+ */
 public class CancelTaskUI implements Runnable {
 
     private final CancelTaskController controller;
-
+    /**
+     * Constructs an instance of CancelTaskUI and initializes the controller.
+     */
     public CancelTaskUI() {
         controller = new CancelTaskController();
     }
@@ -20,6 +25,10 @@ public class CancelTaskUI implements Runnable {
         return controller;
     }
 
+    /**
+     * Runs the UI process to cancel a task.
+     * It interacts with the user to select a task and confirm the cancellation.
+     */
     @Override
     public void run() {
 
@@ -61,7 +70,11 @@ public class CancelTaskUI implements Runnable {
 
     }
 
-
+    /**
+     * Submits the selected task for cancellation.
+     *
+     * @param task the task to be cancelled
+     */
     private void submitData(Task task) {
         try {
             getController().cancelTask(task);

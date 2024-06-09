@@ -11,10 +11,17 @@ import pt.isep.lei.esoft.auth.UserSession;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * This class represents the controller for canceling the completion of a task.
+ */
 public class CancelTaskController {
     Repositories repositories = Repositories.getInstance();
-
+    /**
+     * Gets the list of tasks that can be canceled.
+     *
+     * @return the list of tasks
+     * @throws IllegalArgumentException if the user is not authorized or the organization is not found
+     */
     public List<Task> getTasks() {
         UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
 
@@ -43,7 +50,11 @@ public class CancelTaskController {
 
         }
     }
-
+    /**
+     * Cancels the completion of the specified task.
+     *
+     * @param task the task to cancel
+     */
     public void cancelTask(Task task) {
 
         UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
