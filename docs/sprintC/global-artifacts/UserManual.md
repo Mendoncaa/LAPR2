@@ -132,3 +132,58 @@ communities.
 | **12**     | **Import "csv" file**                       | Data import from a file that contains water points connections and associated distance                                    | Green Spaces Manager(GSM)       |
 | **13**     | **Create water route**                      | Functionality that returns the routes to be opened and pipes needed to be laid with a minimum accumulated cost             | Green Spaces Manager(GSM)       |
 | **14**     | **Execution time tests**                    | This action runs a series of tests to see how inputs affects execution times in a algorithm                                | Quality Assurance Manager (QAM) |
+
+
+# Troubleshooting
+
+1. Problem: The user cannot register a new skill.
+* Possible Cause: Mandatory fields not filled in correctly or lack of access permissions.
+* Possible Solution: Check if all mandatory fields are filled in correctly. Ensure that the user has the appropriate permissions to access this functionality.
+
+2. Problem: When trying to create a new job, the system displays an error message.
+* Possible Cause: Data entered outside acceptable parameters or conflict with other existing jobs.
+* Possible Solution: Check if the entered data is correct. Make sure there are no conflicts with other existing jobs in the system.
+
+3. Problem: The collaborator cannot be registered in the system.
+* Possible Cause: Mandatory fields not filled in or collaborator not assigned to an existing job.
+* Possible Solution: Ensure that all mandatory fields are filled in. Make sure the collaborator has been assigned to an existing job.
+
+4. Problem: Assigning skills to a collaborator is not working.
+* Possible Cause: Collaborator not correctly registered or skills unavailable for assignment.
+* Possible Solution: Check if the collaborator is correctly registered in the system. Make sure the selected skills are available for assignment.
+
+5. Problem: When generating a team automatically, the system crashes.
+* Possible Cause: Parameters entered incorrectly or data conflicts.
+* Possible Solution: Check if the parameters for automatic team generation are correct. Make sure there are no data conflicts that could cause the system to crash.
+
+6. Problem: Vehicle registration is not completed.
+* Possible Cause: Mandatory fields not filled in correctly or duplication of records.
+* Possible Solution: Check if all mandatory fields are filled in correctly. Make sure there is no duplication of records for the same vehicle.
+
+7. Problem: The list of vehicles needing maintenance is not displayed correctly.
+* Possible Cause: Maintenance data not updated correctly or an issue with the listing functionality.
+* Possible Solution: Correctly update the maintenance data of the vehicles in the system. Check if the listing functionality is working correctly.
+
+8. Problem: When calculating water consumption costs, the results are incorrect.
+* Possible Cause: Incorrect water consumption data or erroneous calculations.
+* Possible Solution: Check if the water consumption data is correct. Make sure the calculations follow the correct formulas and parameters.
+
+9. Problem: The generation of a graph showing park usage by age is not done correctly.
+* Possible Cause: Incorrect park user data or erroneous graph configuration parameters.
+* Possible Solution: Check if the park user data is correctly entered in the system. Ensure that the parameters for generating the graph are correctly configured.
+
+# FAQs
+
+* a) Question: I can't log in the system.
+
+* Answer: Check if you are using the correct credentials. If you forgot your password, use the password recovery option provided on the login page. Also, make sure you are entering your username and password correctly, paying attention to uppercase and lowercase letters.
+
+
+* b) Question: I can't exit the software.
+
+* Answer: Look for the exit button or option in the software interface. It's usually located in configuration menus or under a profile icon. If you can't find it, you can close the software by clicking the "X" button in the top right corner of the window.
+
+
+* c) Question: How can I download the software?
+
+* Answer: The download process may vary depending on the operating system and the source of the software. Typically, you can find a download link on the official product website. Click on the download link and follow the provided instructions to complete the installation process.

@@ -14,109 +14,62 @@ import pt.ipp.isep.dei.esoft.project.repository.OrganizationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 import pt.ipp.isep.dei.esoft.project.repository.application.session.UserSession;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
-/**
- * Testes para a classe CreateSkillController, garantindo cobertura completa e qualidade dos testes.
- */
 public class CreateSkillControllerTest {
 
-    @Mock
-    private AuthenticationRepository authenticationRepository;
+    @org.junit.Test
+    public void createSkillTest() {
 
-    @Mock
-    private OrganizationRepository organizationRepository;
+        // Setup do ambiente de teste
+        Employee employee = new Employee(
+                "Zé",
+                LocalDate.of(1992, 2, 2),
+                LocalDate.of(2021, 11, 30),
+                "Rua da Morada 02",
+                "Porto",
+                "4000-051",
+                "987654336",
+                "collaborator@this.app",
+                "CC",
+                "12345678",
+                "987784321",
+                new Job("Gardener"));
 
-    @Mock
-    private SkillRepository skillRepository;
+        // Criação do controller
+        CreateSkillController createSkillController = new CreateSkillController();
 
-    @InjectMocks
-    private CreateSkillController createSkillController;
+        // Dados da habilidade
+        String skillName = "Programação";
 
-    /**
-     * Configuração inicial para cada teste.
-     */
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        // Chamada do método para criar a habilidade
+        Optional<Skill> skillOptional = createSkillController.createSkill(skillName);
+
+        // Verificação se a habilidade foi criada com sucesso
+        assertTrue(skillOptional.isPresent());
+        Skill skill = skillOptional.get();
+        assertEquals(skillName, skill.getName());
     }
 
-    /**
-     * Testa a criação de uma habilidade com um usuário e organização válidos.
-     */
-    /*
-    @Test
-    public void testCreateSkillWithValidUserAndOrganization() {
-        // Mock user session
-        UserSession userSession = mock(UserSession.class);
-        when(authenticationRepository.getCurrentUserSession()).thenReturn(userSession);
-        when(userSession.isLoggedInWithRole("Hrm")).thenReturn(true);
-        when(userSession.getUserId().getEmail()).thenReturn("user@example.com");
+    @org.junit.Test
+    public void addSkillTest() {
+        // Setup do ambiente de teste
+        SkillRepository skillRepository = new SkillRepository();
 
-        // Mock organization
-        Organization organization = mock(Organization.class);
-        when(organizationRepository.getOrganizationByEmployeeEmail(anyString())).thenReturn(Optional.of(organization));
+        // Criação de uma nova habilidade
+        Skill skill = new Skill("Programação");
 
-        // Mock skill creation
-        Skill skill = new Skill("Test Skill");
-        when(organization.createSkill("Test Skill")).thenReturn(skill);
+        // Adiciona a habilidade ao repositório
+        skillRepository.addSkill(skill);
 
-        // Perform the test
-        Optional<Skill> createdSkill = createSkillController.createSkill("Test Skill");
-
-        // Verify the result
-        assertTrue(createdSkill.isPresent());
-        assertEquals(skill, createdSkill.get());
-    }*/
-
-    /**
-     * Testa a criação de uma habilidade com um usuário inválido.
-     */
-
-    /*
-    @Test
-    public void testCreateSkillWithInvalidUser() {
-        // Mock user session
-        UserSession userSession = mock(UserSession.class);
-        when(authenticationRepository.getCurrentUserSession()).thenReturn(userSession);
-        when(userSession.isLoggedInWithRole("Hrm")).thenReturn(false);
-
-        // Perform the test
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            createSkillController.createSkill("Test Skill");
-        });
-
-        // Verify the exception message
-        assertEquals("User is not authorized to create a job.", exception.getMessage());
-    }*/
-
-    /**
-     * Testa a criação de uma habilidade com uma organização inválida.
-     */
-
-    /*
-    @Test
-    public void testCreateSkillWithInvalidOrganization() {
-        // Mock user session
-        UserSession userSession = mock(UserSession.class);
-        when(authenticationRepository.getCurrentUserSession()).thenReturn(userSession);
-        when(userSession.isLoggedInWithRole("Hrm")).thenReturn(true);
-        when(userSession.getUserId().getEmail()).thenReturn("user@example.com");
-
-        // Mock organization repository returning empty optional
-        when(organizationRepository.getOrganizationByEmployeeEmail(anyString())).thenReturn(Optional.empty());
-
-        // Perform the test
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            createSkillController.createSkill("Test Skill");
-        });
-
-        // Verify the exception message
-        assertEquals("Organization not found for user: user@example.com", exception.getMessage());
-    }*/
+        // Lista as habilidades e verifica se a habilidade foi adicionada corretamente
+        List<Skill> skills = skillRepository.listAllSkills();
+        assertEquals(1, skills.size());
+        assertEquals(skill, skills.get(0));
+    }
 
 }
-
-
 
 

@@ -70,9 +70,8 @@ US28 depends on the following user stories:
 **Input Data:**
 
 * Typed data:
-  * Email or taxpayer number
-  * Task ID
-  * Completion Status
+  * Task name
+ 
  
 
 **Output Data:**

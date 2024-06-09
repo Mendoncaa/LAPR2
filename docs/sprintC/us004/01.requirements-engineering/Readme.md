@@ -58,7 +58,7 @@ It must be possible assigning one or more skills to a collaborator each time.
 * Selected data: 
   * Worker's role 
 
-* Selected: 
+* Selected data: 
   * Skills to be assigned
 
 **Output Data:** 

@@ -71,11 +71,11 @@ US28 depends on the following user stories:
   * Start Date
   * End Date
   * Task Status
-  * Email or taxpayer number
+  * Email 
 
 **Output Data:**
 
-* Task List
+* Tasks sorted by date and filtered by status
 
 
 ### 1.6. System Sequence Diagram (SSD)

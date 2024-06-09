@@ -52,7 +52,7 @@ Skills must be linked to the individual profile of each employee.
 **Input Data:**
 
 * Typed data: 
-  * Skill
+  * Skill name
 
 **Output Data:**
 

@@ -15,17 +15,17 @@ activate Collaborator
     Collaborator -> System : requests to view tasks between two dates
     activate System
 
-        System --> Collaborator : requests start date, end date, and task status
+        System --> Collaborator : requests email, start date, end date and task status
     deactivate System
 
-    Collaborator -> System : provides start date, end date, and task status
+    Collaborator -> System : provides email, start date, end date and task status
     activate System
 
 
-         System --> Collaborator : shows start date, end date, and task status
+         System --> Collaborator : shows email, start date, end date and task status
     deactivate System
 
-    Collaborator -> System : confirm data (start date, end date, and task status)
+    Collaborator -> System : confirm data (email, start date, end date and task status)
     activate System
 
 
