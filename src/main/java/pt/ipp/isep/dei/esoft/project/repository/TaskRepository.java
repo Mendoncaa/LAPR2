@@ -30,7 +30,7 @@ public class TaskRepository {
             }
         }
 
-        return tasks;
+        return list;
     }
 
     public List<Task> getTasksManagedByMe(String email) {

@@ -12,10 +12,11 @@ import java.util.Optional;
 public class ToDoListController {
 
     Repositories repositories = Repositories.getInstance();
+    UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
 
     public Optional<Task> addNewTask(String title, String description, GreenSpace greenSpace, Urgency urgency, Duration duration) {
 
-        UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
+
 
         if (userSession.isLoggedInWithRole("Gsm")) {
             String userEmail = userSession.getUserId().getEmail();
@@ -43,24 +44,38 @@ public class ToDoListController {
 
         } else {
 
-            throw new IllegalArgumentException("User is not authorized to create a job.");
+            throw new IllegalArgumentException("User is not authorized to create a task.");
 
         }
     }
 
 
     public List<GreenSpace> getAvailableGreenSpaces() {
-        GreenSpaceRepository greenSpaceRepository = repositories.getGreenSpaceRepository();
-        AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
-        UserSession userSession = authenticationRepository.getCurrentUserSession();
-        List<GreenSpace> spacesManagedByMe = new ArrayList<>();
 
-        for (GreenSpace greenSpace : greenSpaceRepository.listGreenSpaces()) {
-            if (greenSpace.getEmail().equals(userSession.getUserId().getEmail())) {
-                spacesManagedByMe.add(greenSpace);
+        if (userSession.isLoggedInWithRole("Gsm")) {
+            String userEmail = userSession.getUserId().getEmail();
+            Optional<Organization> organizationOptional = repositories.getOrganizationRepository().
+                    getOrganizationByEmployeeEmail(userEmail);
+
+
+            if (organizationOptional.isPresent()) {
+
+                EmployeeRepository employeeRepository = repositories.getEmployeeRepository();;
+                Employee employee = employeeRepository.getEmployeeById(userEmail);
+
+                return employee.getGreenSpacesManagedByMe();
+
+            } else {
+
+                throw new IllegalArgumentException("Organization not found for user: " + userEmail);
+
             }
-        }
 
-        return spacesManagedByMe;
+            } else {
+
+                throw new IllegalArgumentException("User is not authorized to create a task.");
+
+            }
+
     }
 }

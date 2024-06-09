@@ -2,6 +2,9 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import org.junit.jupiter.api.Test;
 import pt.ipp.isep.dei.esoft.project.controller.AddVehiclesToTaskController;
+import pt.ipp.isep.dei.esoft.project.controller.authorization.AuthenticationController;
+import pt.ipp.isep.dei.esoft.project.repository.*;
+import pt.ipp.isep.dei.esoft.project.ui.Bootstrap;
 
 
 import java.time.LocalDate;
@@ -15,7 +18,33 @@ class AddVehiclesToTaskTest {
 
     @Test
     void listVehiclesNotAssignedByDateOfTasks_ValidTaskAndVehicles_ReturnsFilteredVehicles() {
-        // Arrange
+
+        Bootstrap bootstrap = new Bootstrap();
+        bootstrap.run();
+
+        EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
+        JobRepository jobRepository = Repositories.getInstance().getJobRepository();
+        OrganizationRepository organizationRepository = Repositories.getInstance().getOrganizationRepository();
+        AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
+        Job job1 = new Job("Green Space Manager");
+        jobRepository.addJob(job1);
+        /*Employee gsm = organization.createEmployee(
+                "Zé",
+                LocalDate.of(1991, 1, 1),
+                LocalDate.of(2020, 12, 31),
+                "Rua da Morada 01",
+                "Porto",
+                "4000-050",
+                "987654322",
+                "gsm@this.app",
+                "CC",
+                "12345677",
+                "987654321",
+                job1 );
+
+        employeeRepository.addEmployee(gsm);*/
+
+
         GreenSpace greenSpace = new GreenSpace("Park", SizeClassification.MEDIUM, 100.0, "Park Street", "gsm@this.app");
         Task task = new Task("Task 1", greenSpace, "Task description", Urgency.HIGH, java.time.Duration.ofHours(2), "gsm@this.app");
         Vehicle vehicle1 = new Vehicle("AB123CD", "Toyota", "Corolla", "Sedan", 1200, 1500, 50000, LocalDate.of(2022, 1, 1), LocalDate.of(2022, 1, 1), 10000);

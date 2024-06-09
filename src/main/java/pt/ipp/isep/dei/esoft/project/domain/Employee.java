@@ -270,6 +270,14 @@ public class Employee implements Comparable<Employee> {
         return taskManager.filterVehiclesNotAssignedByDateOfTask(task, vehicles);
     }
 
+
+    public List<GreenSpace> getGreenSpacesManagedByMe() {
+        GreenSpaces greenSpaces = new GreenSpaces();
+
+        return greenSpaces.getGreenSpacesManagedByMe();
+    }
+
+
     @Override
     public String toString() {
         StringBuilder skillsString = new StringBuilder();

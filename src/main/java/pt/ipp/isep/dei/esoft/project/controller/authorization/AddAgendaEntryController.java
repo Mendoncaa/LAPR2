@@ -26,21 +26,6 @@ public class AddAgendaEntryController {
         return list;
     }
 
-    /*public List<GreenSpace> getAvailableGreenSpaces() {
-        GreenSpaceRepository greenSpaceRepository = repositories.getGreenSpaceRepository();
-        AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
-        UserSession userSession = authenticationRepository.getCurrentUserSession();
-        List<GreenSpace> spacesManagedByMe = new ArrayList<>();
-
-        for (GreenSpace greenSpace : greenSpaceRepository.listGreenSpaces()) {
-            if (greenSpace.getEmail().equals(userSession.getUserId().getEmail())) {
-                spacesManagedByMe.add(greenSpace);
-            }
-        }
-
-
-        return spacesManagedByMe;
-    }*/
 
     public void addNewAgendaEntry(Task task, LocalDate startDate) {
 
