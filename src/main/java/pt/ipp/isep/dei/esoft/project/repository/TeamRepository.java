@@ -22,12 +22,15 @@ public class TeamRepository {
 
         Team team = new Team(minSize, maxSize, skills, teamMembers);
 
-        teams.add(team);
+        addTeam(team);
 
         return Optional.of(team);
 
     }
 
+    public void addTeam(Team team) {
+        teams.add(team);
+    }
 
     public List<Team> getTeams() {
         return teams;

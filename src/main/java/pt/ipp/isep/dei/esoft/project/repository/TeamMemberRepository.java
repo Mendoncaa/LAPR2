@@ -44,8 +44,13 @@ public class TeamMemberRepository {
  */
     public TeamMember createTeamMember(String name) {
         TeamMember teamMember = new TeamMember(name);
-        teamMembers.add(teamMember);
+        addTeamMember(teamMember);
         return teamMember;
+    }
+
+
+    public void addTeamMember(TeamMember teamMember) {
+        teamMembers.add(teamMember);
     }
 
 /**
@@ -110,4 +115,7 @@ public class TeamMemberRepository {
     }
 
 
+    public List<TeamMember> getTeamMembers() {
+        return teamMembers;
+    }
 }

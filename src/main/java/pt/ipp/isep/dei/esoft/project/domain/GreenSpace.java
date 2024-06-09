@@ -6,10 +6,11 @@ import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.isep.lei.esoft.auth.UserSession;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GreenSpace {
+public class GreenSpace implements Serializable {
 
     private String name;
     private SizeClassification sizeClassification;

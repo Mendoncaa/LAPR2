@@ -1,9 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
+
 /**
  * Class that represents a job.
  */
-public class Job implements Comparable<Job>{
+public class Job implements Comparable<Job>, Serializable {
     private String jobName;
 
     /**

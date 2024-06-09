@@ -41,6 +41,16 @@ public class OrganizationRepository {
         return returnOrganization;
     }
 
+    public Organization getOrganizationByVat(String vat) {
+        for (Organization organization : organizations) {
+            if (organization.getVatNumber().equals(vat)) {
+                return organization;
+            }
+        }
+        throw new IllegalArgumentException("No organization with that Vat Number!!");
+    }
+
+
 /**
  * Adds a new organization to the repository if it passes validation.
  *
@@ -78,5 +88,10 @@ public class OrganizationRepository {
         boolean isValid = !organizations.contains(organization);
 
         return isValid;
+    }
+
+
+    public List<Organization> getOrganizations() {
+        return organizations;
     }
 }

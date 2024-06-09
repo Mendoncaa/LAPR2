@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository.application.session;
 
+import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
 
 import java.util.List;
@@ -35,4 +36,5 @@ public class UserSession {
     public boolean isLoggedInWithRole(String roleId) {
         return this.userSession.isLoggedInWithRole(roleId);
     }
+
 }

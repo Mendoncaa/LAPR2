@@ -48,7 +48,6 @@ Later, that To-do List entry will originate an Entry in the Agenda with a starti
 
 * **AC2** The Collaborator should be able to filter the results by the status of the task.
 
-* **AC3** 
 
 ### 1.4. Found out Dependencies
 
@@ -81,7 +80,7 @@ US28 depends on the following user stories:
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US00-SSD](svg/us001-system-sequence-diagram.svg)
+![US00-SSD](svg/us028-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 
