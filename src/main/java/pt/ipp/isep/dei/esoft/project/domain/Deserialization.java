@@ -16,7 +16,7 @@ public class Deserialization {
         }
 
         try (
-            FileInputStream fileIn = new FileInputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\greenspace.ser");
+            FileInputStream fileIn = new FileInputStream("src/main/resources/greenspace.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn)) {
             GreenSpace greenSpace;
             try {
@@ -40,13 +40,10 @@ public class Deserialization {
     public void jobDeserialization() {
         JobRepository jobRepository = repositories.getJobRepository();
 
-        for (Job job : jobRepository.listAllJobs()) {
-            System.out.println(job);
-        }
 
         try (
-            FileInputStream fileIn = new FileInputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\job.ser");
-            ObjectInputStream in = new ObjectInputStream(fileIn)) {
+                FileInputStream fileIn = new FileInputStream("src/main/resources/job.ser");
+                ObjectInputStream in = new ObjectInputStream(fileIn)) {
             Job job;
             try {
                 while ((job = (Job) in.readObject()) != null) {
@@ -55,15 +52,12 @@ public class Deserialization {
             } catch (EOFException e) {
 
             }
-            System.out.println("Jobs were deserialized and added to the repository");
+            System.out.println("Green Spaces were deserialized and added to the repository");
             System.out.println(jobRepository);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
-        for (Job job : jobRepository.listAllJobs()) {
-            System.out.println(job);
-        }
     }
 
 
@@ -75,7 +69,7 @@ public class Deserialization {
         }
 
         try (
-                FileInputStream fileIn = new FileInputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\employee.ser");
+                FileInputStream fileIn = new FileInputStream("src/main/resources/employee.ser");
                 ObjectInputStream in = new ObjectInputStream(fileIn)) {
             Employee employee;
             try {
@@ -104,7 +98,7 @@ public class Deserialization {
             System.out.println(skill);
         }
 
-        try (FileInputStream fileIn = new FileInputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\skill.ser");
+        try (FileInputStream fileIn = new FileInputStream("src/main/resources/skill.ser");
              ObjectInputStream in = new ObjectInputStream(fileIn)) {
 
             while (true) {
@@ -136,7 +130,7 @@ public class Deserialization {
             System.out.println(team);
         }
 
-        try (FileInputStream fileIn = new FileInputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\team.ser");
+        try (FileInputStream fileIn = new FileInputStream("src/main/resources/team.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn)) {
 
             while (true) {
@@ -167,7 +161,7 @@ public class Deserialization {
             System.out.println(task);
         }
 
-        try (FileInputStream fileIn = new FileInputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\task.ser");
+        try (FileInputStream fileIn = new FileInputStream("src/main/resources/task.ser");
              ObjectInputStream in = new ObjectInputStream(fileIn)) {
 
             while (true) {
@@ -200,7 +194,7 @@ public class Deserialization {
             System.out.println(vehicle);
         }
 
-        try (FileInputStream fileIn = new FileInputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\vehicle.ser");
+        try (FileInputStream fileIn = new FileInputStream("src/main/resources/vehicle.ser");
              ObjectInputStream in = new ObjectInputStream(fileIn)) {
 
             while (true) {

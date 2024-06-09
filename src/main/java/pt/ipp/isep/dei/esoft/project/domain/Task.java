@@ -70,6 +70,11 @@ public class Task implements Comparable<Task>, Serializable {
     }
 
 
+    public void postponeTask() {
+        this.status = Status.POSTPONED;
+    }
+
+
     public String getEmail() {
         return email;
     }

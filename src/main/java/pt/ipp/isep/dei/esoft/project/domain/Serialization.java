@@ -16,7 +16,7 @@ public class Serialization {
             System.out.println(greenSpace);
         }
 
-        try (FileOutputStream fileOut = new FileOutputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\greenspace.ser");
+        try (FileOutputStream fileOut = new FileOutputStream("src/main/resources/greenspace.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             for (GreenSpace greenSpace : greenSpaceRepository.listGreenSpaces()) {
                 out.writeObject(greenSpace);
@@ -36,7 +36,7 @@ public class Serialization {
             System.out.println(job);
         }
 
-        try (FileOutputStream fileOut = new FileOutputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\job.ser");
+        try (FileOutputStream fileOut = new FileOutputStream("src/main/resources/job.ser");
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             for (Job job : jobRepository.listAllJobs()) {
                 out.writeObject(job);
@@ -56,7 +56,7 @@ public class Serialization {
             System.out.println(employee);
         }
 
-        try (FileOutputStream fileOut = new FileOutputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\employee.ser");
+        try (FileOutputStream fileOut = new FileOutputStream("src/main/resources/employee.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             for (Employee employee : employeeRepository.listEmployees()) {
                 out.writeObject(employee);
@@ -76,7 +76,7 @@ public class Serialization {
             System.out.println(skill);
         }
 
-        try (FileOutputStream fileOut = new FileOutputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\skill.ser");
+        try (FileOutputStream fileOut = new FileOutputStream("src/main/resources/skill.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             for (Skill skill : skillRepository.listAllSkills()) {
                 out.writeObject(skill);
@@ -96,7 +96,7 @@ public class Serialization {
             System.out.println(team);
         }
 
-        try (FileOutputStream fileOut = new FileOutputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\team.ser");
+        try (FileOutputStream fileOut = new FileOutputStream("src/main/resources/team.ser");
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             for (Team team : teamRepository.getTeams()) {
                 out.writeObject(team);
@@ -116,7 +116,7 @@ public class Serialization {
             System.out.println(task);
         }
 
-        try (FileOutputStream fileOut = new FileOutputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\task.ser");
+        try (FileOutputStream fileOut = new FileOutputStream("src/main/resources/task.ser");
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             for (Task task : taskRepository.getTasks()) {
                 out.writeObject(task);
@@ -136,7 +136,7 @@ public class Serialization {
             System.out.println(vehicle);
         }
 
-        try (FileOutputStream fileOut = new FileOutputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\vehicle.ser");
+        try (FileOutputStream fileOut = new FileOutputStream("src/main/resources/vehicle.ser");
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             for (Vehicle vehicle : vehicleRepository.getVehicles()) {
                 out.writeObject(vehicle);

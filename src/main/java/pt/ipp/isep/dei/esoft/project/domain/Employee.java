@@ -239,6 +239,10 @@ public class Employee implements Comparable<Employee>, Serializable {
         task.completeTask();
     }
 
+    public void postponeTask(Task task) {
+        task.postponeTask();
+    }
+
     /**
      * Updates the task with the given list of vehicles.
      *
