@@ -21,7 +21,7 @@ public class Serialization {
             for (GreenSpace greenSpace : greenSpaceRepository.listGreenSpaces()) {
                 out.writeObject(greenSpace);
             }
-            //out.writeObject(null);
+            out.writeObject(null);
             System.out.println("Green Spaces serialized");
         } catch (IOException i) {
             i.printStackTrace();
@@ -41,7 +41,7 @@ public class Serialization {
             for (Job job : jobRepository.listAllJobs()) {
                 out.writeObject(job);
             }
-            //out.writeObject(null);
+            // out.writeObject(null);
             System.out.println("Jobs serialized");
         } catch (IOException i) {
             i.printStackTrace();
@@ -49,7 +49,7 @@ public class Serialization {
     }
 
 
-    public void employeeSerialization() {
+    /*public void employeeSerialization() {
         EmployeeRepository employeeRepository = repositories.getEmployeeRepository();
 
         for (Employee employee : employeeRepository.listEmployees()) {
@@ -61,7 +61,7 @@ public class Serialization {
             for (Employee employee : employeeRepository.listEmployees()) {
                 out.writeObject(employee);
             }
-            //out.writeObject(null);
+            out.writeObject(null);
             System.out.println("Employees serialized");
         } catch (IOException i) {
             i.printStackTrace();
@@ -184,7 +184,7 @@ public class Serialization {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 
 

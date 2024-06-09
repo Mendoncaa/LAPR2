@@ -45,8 +45,8 @@ public class Deserialization {
         }
 
         try (
-                FileInputStream fileIn = new FileInputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\job.ser");
-                ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            FileInputStream fileIn = new FileInputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\job.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn)) {
             Job job;
             try {
                 while ((job = (Job) in.readObject()) != null) {
@@ -67,7 +67,7 @@ public class Deserialization {
     }
 
 
-    public void employeeDeserialization() {
+    /*public void employeeDeserialization() {
         EmployeeRepository employeeRepository = repositories.getEmployeeRepository();
 
         for (Employee employee : employeeRepository.listEmployees()) {
@@ -137,12 +137,12 @@ public class Deserialization {
         }
 
         try (FileInputStream fileIn = new FileInputStream("C:\\Users\\franc\\Desktop\\working_project\\working_project\\src\\main\\resources\\team.ser");
-             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            ObjectInputStream in = new ObjectInputStream(fileIn)) {
 
             while (true) {
                 try {
                     Team team = (Team) in.readObject();
-                    teamRepository.getTeams(team);
+                    teamRepository.addTeam(team);
                 } catch (EOFException e) {
                     break;
                 }
@@ -282,7 +282,7 @@ public class Deserialization {
         for (Vehicle vehicle : vehicleRepository.getVehicles()) {
             System.out.println(vehicle);
         }
-    }
+    }*/
 
 
 
