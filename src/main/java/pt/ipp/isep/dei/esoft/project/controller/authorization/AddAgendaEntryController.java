@@ -26,7 +26,7 @@ public class AddAgendaEntryController {
         return list;
     }
 
-    public List<GreenSpace> getAvailableGreenSpaces() {
+    /*public List<GreenSpace> getAvailableGreenSpaces() {
         GreenSpaceRepository greenSpaceRepository = repositories.getGreenSpaceRepository();
         AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
         UserSession userSession = authenticationRepository.getCurrentUserSession();
@@ -40,7 +40,7 @@ public class AddAgendaEntryController {
 
 
         return spacesManagedByMe;
-    }
+    }*/
 
     public void addNewAgendaEntry(Task task, LocalDate startDate) {
 

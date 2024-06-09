@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.domain.Urgency;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.TaskRepository;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.ReadDate;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.time.Duration;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class AddAgendaEntryUI implements Runnable {
+public class AddAgendaEntryUI implements Runnable, ReadDate {
     private final AddAgendaEntryController controller;
 
     public AddAgendaEntryUI() {
@@ -59,7 +60,7 @@ public class AddAgendaEntryUI implements Runnable {
         } while (option < 0 || option > options.size());
 
 
-        LocalDate startDate = readDateFromConsole(formatter);
+        LocalDate startDate = readDateFromConsole(scan, formatter, "Start date (DD-MM-YYYY): ");
 
 
 
@@ -76,25 +77,6 @@ public class AddAgendaEntryUI implements Runnable {
         }
     }
 
-    private static LocalDate readDateFromConsole(DateTimeFormatter formatter) {
-        Scanner scanner = new Scanner(System.in);
-        LocalDate date = null;
-        while (date == null) {
-            System.out.print("Start date (DD-MM-YYYY): ");
-            String dateString = scanner.nextLine();
-            try {
-                date = LocalDate.parse(dateString, formatter);
-
-                if (date.isBefore(LocalDate.now())) {
-                    throw new IllegalArgumentException("Invalid data input. The day must be in the future.");
-                }
-
-            } catch (DateTimeParseException e) {
-                System.out.println("Invalid date format. Please enter the date in DD-MM-YYYY format.");
-            }
-        }
-        return date;
-    }
 
     private void submitData(Task task, LocalDate startDate) {
         try {
@@ -109,4 +91,23 @@ public class AddAgendaEntryUI implements Runnable {
         }
     }
 
+    @Override
+    public LocalDate readDateFromConsole(Scanner scanner, DateTimeFormatter formatter, String prompt) {
+        LocalDate date = null;
+        while (date == null) {
+            System.out.print(prompt);
+            String dateString = scanner.nextLine();
+            try {
+                date = LocalDate.parse(dateString, formatter);
+
+                if (date.isBefore(LocalDate.now())) {
+                    throw new IllegalArgumentException("Invalid data input. The day must be in the future.");
+                }
+
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please enter the date in DD-MM-YYYY format.");
+            }
+        }
+        return date;
+    }
 }

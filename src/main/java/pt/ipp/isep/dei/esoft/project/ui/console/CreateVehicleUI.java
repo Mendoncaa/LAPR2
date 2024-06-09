@@ -1,13 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 
-import pt.ipp.isep.dei.esoft.project.controller.authorization.CreateSkillController;
 import pt.ipp.isep.dei.esoft.project.controller.authorization.CreateVehicleController;
-import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Vehicle;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 import pt.ipp.isep.dei.esoft.project.repository.VehicleRepository;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.ReadDate;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.time.LocalDate;
@@ -16,7 +14,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class CreateVehicleUI implements Runnable {
+public class CreateVehicleUI implements Runnable, ReadDate {
     private CreateVehicleController controller;
     private String name;
     private Scanner scan = new Scanner(System.in);
@@ -81,7 +79,9 @@ public class CreateVehicleUI implements Runnable {
         }
     }
 
-    private static LocalDate readDateFromConsole(Scanner scanner, DateTimeFormatter formatter, String prompt) {
+
+    @Override
+    public LocalDate readDateFromConsole(Scanner scanner, DateTimeFormatter formatter, String prompt) {
         LocalDate date = null;
         while (date == null) {
             System.out.print(prompt);

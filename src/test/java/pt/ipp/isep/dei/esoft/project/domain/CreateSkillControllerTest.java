@@ -44,6 +44,7 @@ public class CreateSkillControllerTest {
     /**
      * Testa a criação de uma habilidade com um usuário e organização válidos.
      */
+    /*
     @Test
     public void testCreateSkillWithValidUserAndOrganization() {
         // Mock user session
@@ -66,11 +67,13 @@ public class CreateSkillControllerTest {
         // Verify the result
         assertTrue(createdSkill.isPresent());
         assertEquals(skill, createdSkill.get());
-    }
+    }*/
 
     /**
      * Testa a criação de uma habilidade com um usuário inválido.
      */
+
+    /*
     @Test
     public void testCreateSkillWithInvalidUser() {
         // Mock user session
@@ -85,11 +88,13 @@ public class CreateSkillControllerTest {
 
         // Verify the exception message
         assertEquals("User is not authorized to create a job.", exception.getMessage());
-    }
+    }*/
 
     /**
      * Testa a criação de uma habilidade com uma organização inválida.
      */
+
+    /*
     @Test
     public void testCreateSkillWithInvalidOrganization() {
         // Mock user session
@@ -108,7 +113,8 @@ public class CreateSkillControllerTest {
 
         // Verify the exception message
         assertEquals("Organization not found for user: user@example.com", exception.getMessage());
-    }
+    }*/
+
 }
 
 

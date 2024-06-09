@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 import pt.ipp.isep.dei.esoft.project.controller.ConsultTasksController;
 import pt.ipp.isep.dei.esoft.project.domain.Status;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.ReadDate;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
-public class ConsultTasksUI implements Runnable {
+public class ConsultTasksUI implements Runnable, ReadDate {
     private final Scanner scan = new Scanner(System.in);
     private final ConsultTasksController controller;
 
@@ -28,8 +29,8 @@ public class ConsultTasksUI implements Runnable {
     @Override
     public void run() {
         System.out.println("  Insert the starting and ending dates to make a search!!");
-        LocalDate startDate = readDateFromConsole(formatter, "Start Date(DD-MM-YYYY): ");
-        LocalDate endDate = readDateFromConsole(formatter, "End Date(DD-MM-YYYY): ");
+        LocalDate startDate = readDateFromConsole(scan, formatter, "Start Date(DD-MM-YYYY): ");
+        LocalDate endDate = readDateFromConsole(scan, formatter, "End Date(DD-MM-YYYY): ");
 
         List<Status> options = Arrays.asList(Status.values());
 
@@ -65,21 +66,6 @@ public class ConsultTasksUI implements Runnable {
 
     }
 
-    private static LocalDate readDateFromConsole(DateTimeFormatter formatter, String prompt) {
-        Scanner scanner = new Scanner(System.in);
-        LocalDate date = null;
-        while (date == null) {
-            System.out.print("Start date (DD-MM-YYYY): ");
-            String dateString = scanner.nextLine();
-            try {
-                date = LocalDate.parse(dateString, formatter);
-            } catch (DateTimeParseException e) {
-                System.out.println("Invalid date format. Please enter the date in DD-MM-YYYY format.");
-            }
-        }
-        return date;
-    }
-
 
     private void printTasks(LocalDate startDate, LocalDate endDate, Status status) {
         List<Task> tasks = getController().consultTasks(startDate, endDate, status);
@@ -91,5 +77,20 @@ public class ConsultTasksUI implements Runnable {
         for (Task task : tasks) {
             System.out.println(task);
         }
+    }
+
+    @Override
+    public LocalDate readDateFromConsole(Scanner scanner, DateTimeFormatter formatter, String prompt) {
+        LocalDate date = null;
+        while (date == null) {
+            System.out.print(prompt);
+            String dateString = scanner.nextLine();
+            try {
+                date = LocalDate.parse(dateString, formatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please enter the date in DD-MM-YYYY format.");
+            }
+        }
+        return date;
     }
 }
