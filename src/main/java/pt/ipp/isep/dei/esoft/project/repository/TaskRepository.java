@@ -34,6 +34,7 @@ public class TaskRepository {
     }
 
     public List<Task> getTasksManagedByMe(String email) {
+        //TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
         TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
         UserSession userSession = Repositories.getInstance().getAuthenticationRepository().getCurrentUserSession();
         List<Task> tasks = new ArrayList<>();

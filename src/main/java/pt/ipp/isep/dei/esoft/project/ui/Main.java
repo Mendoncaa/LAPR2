@@ -14,9 +14,7 @@ public class Main {
         deserialization.skillDeserialization();
         deserialization.teamDeserialization();
         deserialization.taskDeserialization();
-
         deserialization.vehicleDeserialization();
-
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.run();
         

@@ -8,6 +8,7 @@ import pt.ipp.isep.dei.esoft.project.ui.console.menu.VfmUI;
 import java.sql.ClientInfoStatus;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Bootstrap implements Runnable {
@@ -24,8 +25,21 @@ public class Bootstrap implements Runnable {
         OrganizationRepository organizationRepository = Repositories.getInstance().getOrganizationRepository();
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();
+        SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
+        TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
         Organization organization = new Organization("MusgoSublime", employeeRepository, jobRepository);
         organizationRepository.add(organization);
+
+        /*List<Skill> skills = new ArrayList<>();
+        skills.add(skillRepository.getSkills().get(0));
+
+        List<Employee> employees = new ArrayList<>();
+        employees.add(employeeRepository.getEmployeeById("amadeu@this.app"));
+
+        Team team = new Team(1, 1, skills, employees);
+        team.assignTeamMember(employeeRepository.getEmployeeById("amadeu@this.app"));
+        System.out.println(team);
+        teamRepository.addTeam(team);*/
 
         /*Job job = new Job("Collaborator");
         jobRepository.addJob(job);

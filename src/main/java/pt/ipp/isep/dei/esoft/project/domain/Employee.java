@@ -32,6 +32,7 @@ public class Employee implements Comparable<Employee>, Serializable {
     private String taxpayerId;
     private Job job;
     private List<Skill> skills = new ArrayList<>();
+    private Team team;
 
     /**
      * Constructs an Employee object with the given details.
@@ -220,6 +221,11 @@ public class Employee implements Comparable<Employee>, Serializable {
 
     public Task createTask(String title, String description, GreenSpace greenSpace, Urgency urgency, Duration duration, String email) {
         return new Task(title, greenSpace, description, urgency, duration, email);
+    }
+
+
+    public void addTeamToEntry(Team team, Task task) {
+        task.setTeam(team);
     }
 
 

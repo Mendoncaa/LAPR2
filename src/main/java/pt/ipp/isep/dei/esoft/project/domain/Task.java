@@ -17,6 +17,7 @@ public class Task implements Comparable<Task>, Serializable {
     private Duration duration;
     private String email;
     private List<Vehicle> vehicles = new ArrayList<>();
+    private Team team;
 
 
 
@@ -93,6 +94,16 @@ public class Task implements Comparable<Task>, Serializable {
         this.vehicles = vehicles;
         return true;
     }
+
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
 
     @Override
     public String toString() {

@@ -21,7 +21,7 @@ public class ConsultTasksController {
 
         UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
 
-        if (userSession.isLoggedInWithRole("Collab")) {
+        if (userSession.isLoggedInWithRole("Gsm")) {
             String userEmail = userSession.getUserId().getEmail();
             Optional<Organization> organizationOptional = repositories.getOrganizationRepository().
                     getOrganizationByEmployeeEmail(userEmail);

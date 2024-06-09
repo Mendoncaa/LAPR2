@@ -1,24 +1,23 @@
 package pt.ipp.isep.dei.esoft.project.controller;
 
-import pt.ipp.isep.dei.esoft.project.domain.Employee;
-import pt.ipp.isep.dei.esoft.project.domain.Organization;
-import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.TaskRepository;
+import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
 import pt.isep.lei.esoft.auth.UserSession;
-import pt.isep.lei.esoft.auth.domain.model.User;
 
 import java.util.List;
 import java.util.Optional;
 
-public class TaskCompletionController {
+public class AddTeamToAgendaEntryController {
 
     Repositories repositories = Repositories.getInstance();
+    UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
 
-    public void completeTask(Task task) {
+    public List<Team> getTeams() {
 
-        UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
+
 
         if (userSession.isLoggedInWithRole("Gsm")) {
             String userEmail = userSession.getUserId().getEmail();
@@ -28,11 +27,9 @@ public class TaskCompletionController {
 
             if (organizationOptional.isPresent()) {
 
-                TaskRepository taskRepository = repositories.getTaskRepository();
-                EmployeeRepository employeeRepository = repositories.getEmployeeRepository();
-                Employee employee = employeeRepository.getEmployeeById(userEmail);
+                TeamRepository teamRepository = repositories.getTeamRepository();
 
-                employee.completeTask(task);
+                return teamRepository.getTeams();
 
 
             } else {
@@ -46,14 +43,29 @@ public class TaskCompletionController {
             throw new IllegalArgumentException("User is not authorized to record the completion of a task.");
 
         }
+
     }
 
-    public List<Task> getTasksByManagedMe() {
-        UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
+
+    public List<Task> getTasks() {
 
         TaskRepository taskRepository = repositories.getTaskRepository();
 
-        return taskRepository.getTasksManagedByMe(userSession.getUserId().getEmail());
+        List<Task> tasks = taskRepository.getTasksManagedByMe(userSession.getUserId().getEmail());
+
+
+        return taskRepository.getTasksByStatus(tasks, Status.PLANNED);
+
+    }
+
+
+    public void addTeamToEntry(Team team, Task task) {
+
+        EmployeeRepository employeeRepository = repositories.getEmployeeRepository();
+        String email = userSession.getUserId().getEmail();
+        Employee employee = employeeRepository.getEmployeeById(email);
+
+        employee.addTeamToEntry(team, task);
 
     }
 
