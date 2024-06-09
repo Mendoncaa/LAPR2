@@ -5,64 +5,55 @@ skinparam shadowing false
 
 autonumber
 
-title System Sequence Diagram (SSD) - US006
-
-actor "VFM" as VFM
-
-participant ":CreateVehicleUI\n" as UI
-participant ":CreateVehicleController\n" as CTRL
-participant ":Repositories\n" as SR
-participant ":repositories:\nRepositories" as RR
+actor "Green Space Manager\n(GSM)" as GSM
+participant ":AssignTeamToTaskUI" as UI
+participant ":AssignTeamToTaskController" as CTRL
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
 participant "AuthFacade\n:AuthenticationRepository" as AUTHREP
 participant "userSession\n:UserSession" as USER
-participant ":EmployeeRepository\n" as ER
-participant ":Employee\n" as E
-participant ":Vehicle\n" as V
+participant "taskRepository:\nTaskRepository" as TaskRepository
+participant "task\n:Task" as TASK
+participant "teamRepository:\nTeamRepository" as TeamRepository
+participant "team\n:Team" as TEAM
+participant "NotificationService\n:NotificationService" as NOTIF
 
-activate VFM
+activate GSM
 
-    VFM -> UI : asks to register a new vehicle
+        GSM -> UI : asks to assign a team to a task
+        activate UI
 
-    activate UI
-        UI --> VFM : requests data
+        UI --> GSM : requests data (Team and Task details)
     deactivate UI
 
-    VFM -> UI : types requested data
+    GSM -> UI : provides requested data (Team and Task details)
     activate UI
-        UI --> VFM : shows all data and requests confirmation
+
+        UI --> GSM : shows all data and requests confirmation
     deactivate UI
 
-    VFM -> UI : confirms data
+    GSM -> UI : confirms data
     activate UI
-        UI -> CTRL : createVehicle(vehicleId)
+
+        UI -> CTRL : assignTeam(employees, task)
         activate CTRL
-
-
 
         CTRL -> CTRL : getUserFromSession()
 
-        CTRL -> SR : getInstance()
-        activate SR
-        CTRL <-- SR : Repositories
-        deactivate SR
+        CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+        CTRL <-- RepositorySingleton : Repositories
+        deactivate RepositorySingleton
 
-        CTRL -> RR : getAuthenticationRepository()
-
-        activate RR
-        CTRL <-- RR : AuthenticationRepository()
-        deactivate RR
-
-
+        CTRL -> PLAT : getAuthenticationRepository()
+        activate PLAT
+        CTRL <-- PLAT : AuthenticationRepository()
+        deactivate PLAT
 
         CTRL -> AUTHREP : getCurrentUserSession()
-
         activate AUTHREP
 
-
-
-
-        AUTHREP -> USER : isLoggedWithRule(VFM)
-
+        AUTHREP -> USER : isLoggedWithRole(GSM)
         activate USER
 
         AUTHREP <-- USER : "True/False"
@@ -73,215 +64,67 @@ activate VFM
         CTRL <-- AUTHREP : userId(email)
         deactivate AUTHREP
 
+        CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+        CTRL <-- RepositorySingleton : Repositories
+        deactivate RepositorySingleton
 
+        CTRL -> PLAT : getTaskRepository()
+        activate PLAT
+        CTRL <-- PLAT : TaskRepository()
+        deactivate PLAT
 
-            CTRL -> SR : getInstance()
-            activate SR
-                SR --> CTRL : repositories
-            deactivate SR
-            CTRL -> RR : getEmployeeRepository()
-            activate RR
-                RR --> CTRL : employeeRepository()
-            deactivate RR
-            CTRL -> ER : getEmployeeByUserEmail(email)
-            activate ER
-                loop for each employee
-                    ER -> E : anyUserHasId(email)
-                    activate E
-                        E --> ER : True/False
-                    deactivate E
-                end loop
-                ER --> CTRL : employee
-            deactivate ER
-            CTRL -> E : createVehicle(vehicleId)
-            activate E
-                E -> V : createVehicle(vehicleId)
-                activate V
-                V --> E: vehicle
-                deactivate V
-            E--> CTRL : vehicle
-            deactivate E
+        CTRL -> TaskRepository : getTask(taskId)
+        activate TaskRepository
 
+            TaskRepository -> TASK : anyTaskHasThisId(taskId)
+            activate TASK
+            TaskRepository <-- TASK : True/False
+            deactivate TASK
 
-            CTRL --> UI : vehicle
-        deactivate CTRL
-        UI --> VFM : displays operation success
+        CTRL <-- TaskRepository : task
+        deactivate TaskRepository
+
+        CTRL -> RepositorySingleton : getInstance()
+        activate RepositorySingleton
+        CTRL <-- RepositorySingleton : Repositories
+        deactivate RepositorySingleton
+
+        CTRL -> PLAT : getTeamRepository()
+        activate PLAT
+        CTRL <-- PLAT : TeamRepository()
+        deactivate PLAT
+
+        CTRL -> TeamRepository : getTeamById(teamId)
+        activate TeamRepository
+
+            TeamRepository -> TEAM : anyTeamHasThisId(teamId)
+            activate TEAM
+            TeamRepository <-- TEAM : True/False
+            deactivate TEAM
+
+        CTRL <-- TeamRepository : team
+        deactivate TeamRepository
+
+        CTRL -> TASK : assignTeam(team)
+        activate TASK
+
+        TASK -> TASK : setStatus(assigned)
+        TASK --> CTRL : updated task
+        deactivate TASK
+
+        CTRL -> NOTIF : notifyTeamAssignment(employees, task)
+        activate NOTIF
+
+        NOTIF --> CTRL : notification sent
+        deactivate NOTIF
+
+        CTRL --> UI : task assigned and notification sent
+    deactivate CTRL
+
+    UI --> GSM : displays operation success
     deactivate UI
 
-deactivate VFM
-
-
-'
-''hide footbox
-''actor "Organization Employee" as VFM
-'participant ":CreateTaskUI" as UI
-'participant ":CreateTaskController" as CTRL
-'participant ":Repositories" as RepositorySingleton
-'participant "repositories\n:Repositories" as PLAT
-'participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
-'participant ":ApplicationSession" as _APP
-'participant "appSession\n:ApplicationSession" as APP
-'participant "currentSession\n:UserSession" as SESSAO
-'participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
-'participant "organization\n:Organization" as ORG
-'participant "task\n:Task" as TAREFA
-'
-'activate VFM
-'
-'        VFM -> UI : asks to create a new task
-'
-'        activate UI
-'
-''            UI --> VFM : requests data (reference, description,  informal \n description, technical description, duration, cost)
-'            'create CTRL
-'            UI -> CTRL** : create
-'
-'            UI -> CTRL : getTaskCategories()
-'            activate CTRL
-'
-'                CTRL -> RepositorySingleton : getInstance()
-'                activate RepositorySingleton
-'
-'                    RepositorySingleton --> CTRL: repositories
-'                deactivate RepositorySingleton
-'
-'                CTRL -> PLAT : getTaskCategoryRepository()
-'                activate PLAT
-'
-'                    PLAT --> CTRL: taskCategoryRepository
-'                deactivate PLAT
-'
-'                CTRL -> TaskCategoryRepository : getTaskCategories()
-'                activate TaskCategoryRepository
-'
-'                    TaskCategoryRepository --> CTRL : taskCategoryList
-'                deactivate TaskCategoryRepository
-'
-'                CTRL --> UI : taskCategoryList
-'            deactivate CTRL
-'
-'            UI --> VFM : shows task category list\n and asks to sleect one
-'        deactivate UI
-'
-'    VFM -> UI : selects a task category
-'    activate UI
-'
-'        UI --> VFM : requests data
-'    deactivate UI
-'
-'    VFM -> UI : types requested data (reference, description, \ninformal description, technical description,\nduration, cost)
-'    activate UI
-'
-'        UI --> VFM : shows selected category and requested data
-'    deactivate UI
-'
-'    VFM -> UI : submits data
-'    activate UI
-'
-'        UI -> CTRL : createTask(reference,\ndescription,\ninformalDescription,\ntechnicalDescription,\nduration, cost,\ntaskCategoryDescription)
-'        activate CTRL
-'
-'            CTRL -> CTRL : getTaskCategoryByDescription(taskCategoryDescription)
-'            activate CTRL
-'
-'                CTRL -> RepositorySingleton : getInstance()
-'                activate RepositorySingleton
-'
-'                    RepositorySingleton --> CTRL: repositories
-'                deactivate RepositorySingleton
-'
-'                CTRL -> PLAT : getTaskCategoryRepository()
-'                activate PLAT
-'
-'                    PLAT -> CTRL : taskCategoryRepository
-'                deactivate PLAT
-'
-'                CTRL -> TaskCategoryRepository : getTaskCategoryByDescription(taskCategoryDescription)
-'                activate TaskCategoryRepository
-'
-'                    TaskCategoryRepository --> CTRL : taskCategory
-'                deactivate TaskCategoryRepository
-'                    CTRL --> CTRL : taskCategory
-'            deactivate CTRL
-'
-'            |||
-'            CTRL -> CTRL : getEmployeeFromSession()
-'            activate CTRL
-'
-'                CTRL -> _APP: getInstance()
-'                activate _APP
-'                    _APP -> CTRL: appSession
-'                deactivate _APP
-'
-'
-'                CTRL -> APP: getCurrentSession()
-'                activate APP
-'
-'                    APP --> CTRL: currentSession
-'                deactivate APP
-'
-'                CTRL -> SESSAO: email = getUserEmail()
-'                activate SESSAO
-'
-'                    SESSAO --> CTRL: email
-'                deactivate SESSAO
-'
-'
-'                CTRL -> PLAT: getOrganizationRepository(email)
-'                activate PLAT
-'
-'                    PLAT --> CTRL: organizationRepository
-'                deactivate PLAT
-'
-'
-'                CTRL -> OrganizationRepository: getOrganizationByEmployeeEmail(email)
-'                activate OrganizationRepository
-'
-'                    loop [for each organization
-'                        OrganizationRepository -> ORG : anyEmployeeHasEmail(email)
-'                        activate ORG
-'
-'                             ORG --> OrganizationRepository : true/false
-'                        deactivate ORG
-'                    end
-'                    OrganizationRepository --> CTRL : organization
-'                deactivate OrganizationRepository
-'
-'                CTRL -> ORG: getEmployeeByEmail(email)
-'                activate ORG
-'
-'                    ORG --> CTRL : employee
-'                deactivate ORG
-'
-'                CTRL --> CTRL : employee
-'            deactivate CTRL
-'
-'            |||
-'            CTRL -> ORG: createTask(employee, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, , taskCategory, employee)
-'            activate ORG
-'
-'                ORG -> TAREFA**: create(employee, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, taskCategory, employee)
-'                ORG -> ORG: addTask (task)
-'
-'
-'                activate ORG
-'                    ORG -> ORG: validateTask(task)
-'                    activate ORG
-'                        ORG --> ORG
-'                    deactivate ORG
-'
-'                    ORG --> ORG
-'                deactivate ORG
-'
-'                ORG --> CTRL : task
-'
-'            deactivate ORG
-'
-'            CTRL --> UI: task
-'            deactivate CTRL
-'            UI --> VFM: displays operation success
-'    deactivate UI
-'
-'deactivate VFM
+deactivate GSM
 
 @enduml

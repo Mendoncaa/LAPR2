@@ -1,25 +1,27 @@
 @startuml
-skinparam monochrome false
+skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - US24
+title System Sequence Diagram (SSD) - US023
+
 
 autonumber
 
-actor "Green Space Manager \nManager" as GSM
+actor "Green Space Manager\n(GSM)" as GSM
 participant ":System" as System
 
 activate GSM
 
-    GSM -> System : asks to postpone an entry
+    GSM -> System : asks to assign a team to a task
     activate System
 
-        System --> GSM : requests data (i.e. entry, i.e. data)
+        System --> GSM : requests data (Team and Task details)
     deactivate System
 
-    GSM -> System : types requested data
+    GSM -> System : provides requested data (Team and Task details)
     activate System
+
 
         System --> GSM : shows all data and requests confirmation
     deactivate System
@@ -30,4 +32,8 @@ activate GSM
         System --> GSM : displays operation success
     deactivate System
 
+deactivate GSM
+
 @enduml
+
+

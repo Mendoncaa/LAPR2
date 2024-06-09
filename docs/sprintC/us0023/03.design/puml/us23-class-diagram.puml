@@ -9,11 +9,11 @@ skinparam classAttributeIconSize 0
 
 'left to right direction
 
-class AssignTeamUI {
+class AssignTeamToTaskUI {
 }
 
-class AssignTeamController {
-    + AssignTeamController(employeeRepository, taskRepository, notificationService)
+class AssignTeamToTaskController {
+    + AssignTeamToTaskController(employeeRepository, taskRepository, notificationService)
     + assignTeam(employees, task)
 }
 
@@ -23,72 +23,110 @@ class Repositories {
     + getEmployeeRepository()
     + getTaskRepository()
     + getAuthenticationRepository()
+    + getTemMemberRepository()
+    + getTeamRepository()
 }
 
 class AuthenticationRepository {
     + getCurrentUserSession()
 }
 
+
 class UserSession {
     + isLoggedInWithRole()
     + getUserId()
 }
 
-class EmployeeRepository {
-    + getEmployeesByOrganization(organization)
+class TeamRepository {
+    + createTeam(minSize: int, maxSize: int, skills: List<Skill>, teamMembers: List<TeamMember>): Team
 }
 
-class OrganizationRepository {
-    + getOrganizationByUserEmail(email)
+class Team {
+    - minSize: int
+    - maxSize: int
+    - skills: List<Skill>
+    - teamMembers: List<TeamMember>
+    + assignTeamMember(teamMember: TeamMember): void
 }
 
-class Organization {
-    - String name
-    - String vatNumber
-    - String phone
-    - String email
-    - Address postalAddress
-    - validateSkill(skill)
-    + Organization(name, vatNumber, webSite, phone, email, postalAddress)
-    - getUserByEmail(email)
-}
+'class EmployeeRepository {
+'    + getEmployeesByOrganization(organization)
+'}
+
+'class OrganizationRepository {
+'    + getOrganizationByUserEmail(email)
+'}
+
+'class Organization {
+'    - String name
+'    - String vatNumber
+'    - String phone
+'    - String email
+'    - Address postalAddress
+'    - validateSkill(skill)
+'    + Organization(name, vatNumber, webSite, phone, email, postalAddress)
+'    - getUserByEmail(email)
+'}
 
 class TaskRepository {
     + getTask(taskId)
 }
 
+class TaskRepository {
+  +TaskExistsByTitle(Title)
+}
+
+class Tasks {
+  -tasks: List<Task>
+  +getTasks(): List<Task>
+}
+
 class Task {
-    - String taskId
-    - String description
-    - List<Employee> assignedEmployees
-    + assignTeam(employees)
-    + addTeam(employees)
+    + title: String
+    + greenSpace: GreenSpace
+    + description: String
+    + status: Status
+    + urgency: Urgency
+    + days: int
+    + hours: int
+    + getTitle(): String
+    + getGreenSpace(): GreenSpace
+    + getDescription(): String
+    + getStatus(): Status
+    + setStatus(): Status
+    + getUrgency(): Urgency
+    + getDays(): int
+    + getHours(): int
+    + toString(): String
+    + findTasksByDateRange(startDate: Date, endDate: Date): List<Task>
+    + compareTo(otherTask: Task): int
 }
 
 class NotificationService {
     + notifyTeamAssignment(employees, task)
 }
 
-class Employee {
-    - String name
-    - String email
-    + sendNotification()
-}
+'class Employee {
+'    - String name
+'    - String email
+'    + sendNotification()
+'}
 
 
 
 Repositories -> Repositories : instance
-AssignTeamUI .> AssignTeamController
-AssignTeamController .> Repositories : repositories
-Repositories --> "1" EmployeeRepository
-EmployeeRepository --> "*" Employee : employees
+AssignTeamToTaskUI .> AssignTeamToTaskController
+AssignTeamToTaskController .> Repositories : repositories
+Repositories --> "1" TeamRepository
+TeamRepository --> "*" Team : employees
 AuthenticationRepository -> "1" UserSession : usersession
 Repositories --> "1" AuthenticationRepository
 Repositories --> "1" TaskRepository
-TaskRepository --> "*" Task : tasks
-Task "1" --> "*" Employee : assigns
-AssignTeamController .> AuthenticationRepository
-Employee "1" --> "*" String : contacts
-NotificationService .> Employee : notifies
+Tasks --> "*" Task : tasks
+TaskRepository --> Tasks
+Task "1" <-- "1" Team : assigns
+AssignTeamToTaskController .> AuthenticationRepository
+NotificationService .> Team : notifies
+
 
 @enduml
