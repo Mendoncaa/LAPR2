@@ -2,117 +2,73 @@
 
 ## 4. Tests 
 
-**Test 1:** Checks the functionality of creating a new skill in the system 
+**Test 1:** Checks the creation of a new skill within an organization
 
-	@Test
-    void createSkillWithValidName() {
-        String skillName = "Test Skill";
-        boolean expResult = true;
-        boolean result = controller.createSkill(skillName);
-        assertEquals(expResult, result);
-    }
 
-**Test 2:** Checks the functionality of creating a new skill in the system when the skill name is invalid
+    /**
+    *Tests the creation of a new skill in the organization.
+    */
+    @org.junit.Test
+    public void createSkillTest() {
 
-    @Test
-    void createSkillWithInvalidName() {
-        String skillName = "Test Skill 123";
-        boolean expResult = false;
-        boolean result = controller.createSkill(skillName);
-        assertEquals(expResult, result);
-    }
+       // Setting up the test environment
+       Employee employee = new Employee(
+               "Zé",
+               LocalDate.of(1992, 2, 2),
+               LocalDate.of(2021, 11, 30),
+               "Rua da Morada 02",
+               "Porto",
+               "4000-051",
+               "987654336",
+               "collaborator@this.app",
+               "CC",
+               "12345678",
+               "987784321",
+               new Job("Gardener"));
 
-**Test 3:** Checks the functionality of the SkillRepository class constructor and the initial behavior of the skill list
+       // Initializing the CreateSkillController
+       CreateSkillController createSkillController = new CreateSkillController();
 
-    @Test
-    void testConstructor() {
+       // Defining the skill name
+       String skillName = "Programacao";
+
+       // Setting up repositories and organization
+       EmployeeRepository employeeRepository = new EmployeeRepository();
+       JobRepository jobRepository = new JobRepository();
+       Organization organization = new Organization("1234", employeeRepository, jobRepository);
+
+       // Creating the skill in the organization
+       Skill skill = organization.createSkill(skillName);
+
+       // Asserting that the skill was created with the correct name
+       assertEquals(skillName, skill.getName());
+
+  }
+
+**Test 2:** Checks the addition of a new skill to the skill repository (SkillRepository)
+
+    @org.junit.Test
+    public void addSkillTest() {
+
+        // Initializing the SkillRepository
         SkillRepository skillRepository = new SkillRepository();
-        skillRepository.getSkills();
-        assertTrue(skillRepository.getSkills().isEmpty());
-    }
-	
 
-**Test 4:** Checks the functionality of the getSkillById method of the SkillRepository class
+        // Creating a new skill
+        Skill skill = new Skill("Programacao");
 
-    @Test
-    void testGetSkillById_found() {
-        SkillRepository skillRepository = new SkillRepository();
-        Skill skill = new Skill("Programming");
+        // Adding the skill to the repository
         skillRepository.addSkill(skill);
-        assertEquals(skill, skillRepository.getSkillById(skill.getId()));
-    }
-	
 
-**Test 5:** Checks the functionality of the SkillRepository class's getSkillById method when the provided ID does not match any existing skills
+        // Retrieving all skills from the repository
+        List<Skill> skills = skillRepository.listAllSkills();
 
-    @Test
-    void testGetSkillById_notFound() {
-        SkillRepository skillRepository = new SkillRepository();
-        assertNull(skillRepository.getSkillById("nonexistentId"));
+        // Asserting that the skill was added correctly
+        assertEquals(1, skills.size());
+        assertEquals(skill, skills.get(0));
     }
 
-**Test 6:** Checks the functionality of the createTeamMember method of the TeamMemberRepository class
-
-    @Test
-    void testCreateTeamMember() {
-        TeamMember teamMember = teamMemberRepository.createTeamMember("João Gomes");
-        assertNotNull(teamMember);
-        assertEquals("João Gomes", teamMember.getName());
-    }
     
-**Test 7:** Checks the functionality of the getTeamMemberById method of the TeamMemberRepository class
 
-    @Test
-    void testGetTeamMemberById() {
-        TeamMember teamMember = teamMemberRepository.createTeamMember("João Gomes");
-        TeamMember fetchedTeamMember = teamMemberRepository.getTeamMemberById(teamMember.getId());
-        assertEquals(teamMember, fetchedTeamMember);
-    }
-
-**Test 8:** Checks the functionality of the deleteTeamMember method of the TeamMemberRepository class
-
-    @Test
-    void testDeleteTeamMember() {
-        TeamMember teamMember = teamMemberRepository.createTeamMember("João Gomes");
-        teamMemberRepository.deleteTeamMember(teamMember.getId());
-        assertNull(teamMemberRepository.getTeamMemberById(teamMember.getId()));
-    }
-
-**Test 9:** Checks the functionality of the Team Member class constructor
-
-    @Test
-    void testConstructor() {
-        TeamMember teamMember = new TeamMember("Pedro Gomes");
-        assertEquals("Pedro Gomes", teamMember.getName());
-        assertTrue(teamMember.getSkills().isEmpty());
-    }
-
-**Test 10:** Checks the functionality of the add Skill method of the Team Member class
-
-    @Test
-    void testAddSkill() {
-        TeamMember teamMember = new TeamMember("Pedro Gomes");
-        Skill skill = new Skill("Programming");
-        teamMember.addSkill(skill);
-        assertTrue(teamMember.getSkills().contains(skill));
-    }
-
-**Test 11:** Checks the functionality of the Skill class constructor
-
-    @Test
-    void testConstructor_validName() {
-        Skill skill = new Skill("Programming");
-        assertEquals("Programming", skill.getName());
-    }
-
-**Test 12:** Checks the functionality of the getId method of the Skill class
-
-    @Test
-    void testGenerateId() {
-        Skill skill1 = new Skill("Programming");
-        Skill skill2 = new Skill("Design");
-        assertNotEquals(skill1.getId(), skill2.getId());
-    }
 
 
 
@@ -121,12 +77,21 @@
 ### Class CreateSkillController 
 
 ```java
+/**
+ * Controller class responsible for handling the creation of skills.
+ */
 public class CreateSkillController {
     private Organization organization;
 
     private AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
 
-
+    /**
+     * Creates a new skill if the user has the appropriate role.
+     *
+     * @param skillName The name of the skill to be created.
+     * @return An Optional containing the created skill if successful.
+     * @throws IllegalArgumentException If the user is not authorized or the organization is not found.
+     */
 
 
     public Optional<Skill> createSkill(String skillName) throws IllegalArgumentException{
@@ -154,10 +119,9 @@ public class CreateSkillController {
             throw new IllegalArgumentException("User is not authorized to create a job.");
         }
     }
-
-
-
 }
+
+
 
 ```
 
@@ -171,8 +135,9 @@ public class Organization {
     private String website;
     private String phone;
     private String email;
-    private EmployeeRepository employeeRepository;
-    private JobRepository jobRepository;
+    private EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
+    private JobRepository jobRepository = Repositories.getInstance().getJobRepository();
+    private VehicleRepository vehicleRepository = Repositories.getInstance().getVehicleRepository();
     /**
      * This method is the constructor of the organization.
      *
@@ -203,6 +168,16 @@ public class Organization {
         }
 
         employeeRepository.addEmployee(employee);
+    }
+
+
+    public void addVehicle(Vehicle vehicle) {
+        // Check if the employee already exists in the repository
+        if (vehicleRepository.plateIDExists(vehicle.getPlateID())) {
+            throw new IllegalArgumentException("Vehicle with the same plate already exists");
+        }
+
+        vehicleRepository.addVehicle(vehicle);
     }
 
     public List<Employee> listAllEmployees() {
@@ -256,6 +231,14 @@ public class Organization {
         skillRepository.addSkill(skill);
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getVatNumber() {
+        return vatNumber;
+    }
+
     //Clone organization
     public Organization clone() {
         Organization clone = new Organization(this.vatNumber,this.employeeRepository,this.jobRepository);
@@ -266,8 +249,17 @@ public class Organization {
         return clone;
     }
 }
+```
 
-public class Employee implements Comparable<Employee> {
+
+### Class Employee
+
+```java
+
+/**
+ * Represents an employee in an organization.
+ */
+public class Employee implements Comparable<Employee>, Serializable {
     private String name;
     private LocalDate birthdate;
     private LocalDate admissionDate;
@@ -341,6 +333,9 @@ public class Employee implements Comparable<Employee> {
     public void setAdmissionDate(LocalDate admissionDate) {
         if (admissionDate == null || admissionDate.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("Invalid admission date");
+        }
+        if (birthdate != null && admissionDate.isBefore(birthdate.plusYears(15))) {
+            throw new IllegalArgumentException("Admission date must be at least 15 years after birthdate");
         }
         this.admissionDate = admissionDate;
     }
@@ -463,8 +458,8 @@ public class Employee implements Comparable<Employee> {
     }
 
 
-    public Task createTask(String title, String description, GreenSpace greenSpace, Urgency urgency, int hours, int days) {
-        return new Task(title, greenSpace, description, urgency, hours, days);
+    public Task createTask(String title, String description, GreenSpace greenSpace, Urgency urgency, Duration duration, String email) {
+        return new Task(title, greenSpace, description, urgency, duration, email);
     }
 
 
@@ -475,6 +470,94 @@ public class Employee implements Comparable<Employee> {
     public List<Skill> getSkills() {
         return skills;
     }
+
+
+    public void planTaskInAgenda(Task task, LocalDate startDate) {
+        task.planTaskInAgenda(startDate);
+    }
+
+    public void completeTask(Task task) {
+        task.completeTask();
+    }
+
+    /**
+     * Updates the task with the given list of vehicles.
+     *
+     * @param task     The task to be updated.
+     * @param vehicles The list of vehicles to be assigned to the task.
+     * @return
+     * @throws IllegalArgumentException If the task or vehicles are invalid.
+     */
+    public Boolean addUpdatedTaskVehicles(Task task, List<Vehicle> vehicles) {
+
+        validateTask(task, vehicles);
+
+        return task.setVehicles(vehicles);
+    }
+
+    /**
+     * Validates the task and the list of vehicles.
+     *
+     * @param task     The task to be validated.
+     * @param vehicles The list of vehicles to be validated.
+     * @throws IllegalArgumentException If the task or vehicles are invalid.
+     */
+    public void validateTask(Task task, List<Vehicle> vehicles) {
+        if (task == null) {
+            throw new IllegalArgumentException("Task cannot be null");
+        }
+        if (vehicles == null || vehicles.isEmpty()) {
+            throw new IllegalArgumentException("Vehicle list cannot be null or empty");
+        }
+
+    }
+    public List<Task> listThisGsmTasksInAgenda(String userEmail) {
+        Tasks taskManager = new Tasks();
+        return taskManager.filterThisGsmTasksInAgenda(userEmail);
+    }
+
+    public List<Vehicle> filterVehiclesNotAssignedByDateOfTasks(Task task, List<Vehicle> vehicles) {
+        Tasks taskManager = new Tasks();
+        return taskManager.filterVehiclesNotAssignedByDateOfTask(task, vehicles);
+    }
+
+
+    public List<GreenSpace> getGreenSpacesManagedByMe() {
+        GreenSpaces greenSpaces = new GreenSpaces();
+
+        AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
+        UserSession userSession = authenticationRepository.getCurrentUserSession();
+
+        return greenSpaces.getGreenSpacesManagedByMe(userSession.getUserId().getEmail());
+    }
+    /**
+     * Sorts the given list of green spaces managed by me by areas using the specified algorithm name.
+     *
+     * @param algorithmName The name of the sorting algorithm to be used.
+     * @return The sorted list of green spaces.
+     */
+    public List<GreenSpace> sortGreenSpaces(String algorithmName)  {
+        List<GreenSpace> greenSpaces = getGreenSpacesManagedByMe();
+        SortingConfigAdapter sortingConfigAdapter = new SortingConfigAdapter();
+        List<GreenSpace> sortedGreenSpaces = sortingConfigAdapter.getSortedGreenSpaces(algorithmName,greenSpaces);
+
+        return sortedGreenSpaces;
+    }
+    /**
+     * Retrieves the names of all available sorting algorithms.
+     *
+     * @return The list of available sorting algorithm names.
+     */
+    public List<String> getAvailableSortingAlgorithms() {
+        SortingConfigAdapter sortingConfigAdapter = new SortingConfigAdapter();
+        return sortingConfigAdapter.getAllSortingAlgorithmsNames();
+    }
+
+
+    public void addSkill(Skill skill) {
+        this.skills.add(skill);
+    }
+
 
     @Override
     public String toString() {
@@ -517,17 +600,36 @@ public class Employee implements Comparable<Employee> {
 
 }
 
+```
 
-public class Skill implements Comparable<Skill> {
+### Class Skill
+
+```java
+/**
+ * Class representing a skill with a unique ID and a name.
+ * Implements Comparable to allow comparison based on the skill name.
+ */
+public class Skill implements Comparable<Skill>, Serializable {
     private String id;
     private String name;
 
+/**
+ * Constructor for Skill.
+ * Generates a unique ID and sets the skill name.
+ *
+ * @param name The name of the skill.
+ */
     public Skill(String name) {
         this.id = generateId();
         setSkillName(name);
     }
 
-
+/**
+ * Sets the skill name after validating it.
+ *
+ * @param name The name of the skill.
+ * @throws IllegalArgumentException If the name is empty, contains special characters or digits, or doesn't contain at least one word.
+ */
 
     public void setSkillName(String name) {
 
@@ -544,22 +646,40 @@ public class Skill implements Comparable<Skill> {
         }
         this.name = name;
     }
-    /**
-     *
-     * @return Generates a universally unique identifier (UUID) and converts it to a string, generates a string representing a random UUID, is used to generate a unique ID for each Skill or TeamMember instance
-     */
+
+/**
+ * Generates a universally unique identifier (UUID) for the skill.
+ *
+ * @return A string representing a random UUID.
+ */
     private String generateId() {
         return UUID.randomUUID().toString();
     }
 
+/**
+ * Gets the unique ID of the skill.
+ *
+ * @return The skill ID.
+ */
     public String getId() {
         return id;
     }
 
+/**
+ * Gets the name of the skill.
+ *
+ * @return The skill name.
+ */
     public String getName() {
         return name;
     }
 
+
+/**
+ * Returns a string representation of the skill.
+ *
+ * @return A string representation of the skill, including its ID and name.
+ */
     @Override
     public String toString() {
         return "Skill{" +
@@ -568,19 +688,17 @@ public class Skill implements Comparable<Skill> {
                 '}';
     }
 
+
+/**
+ * Compares this skill to another skill based on their names.
+ *
+ * @param skill The skill to be compared with.
+ * @return A negative integer, zero, or a positive integer as this skill name is less than, equal to, or greater than the specified skill name.
+ */
     @Override
     public int compareTo(Skill skill) {
         return this.name.compareTo(skill.name);
     }
 }
 
-```
-
-
-## 6. Integration and Demo 
-
-
-
-## 7. Observations
-
-n/a
+```  

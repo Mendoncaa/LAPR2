@@ -1,49 +1,35 @@
-# US24 - Postpone an entry in the Agenda
+# US23 - As a GSM, I want to assign a Team to an entry in the Agenda
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
-As a GSM, I want to Postpone an entry in the Agenda to a specific future date
-
+As a GSM, I want to assign a Team to an entry in the Agenda
 
 ### 1.2. Customer Specifications and Clarifications 
 
 **From the specifications document:**
 
-> The agenda are made of entries and each entry is made of, among others, its status (Planned, Postponed, and Done)
-
-> Only GSM is authorized edit the status field;
-
-**From the client clarifications:**
-
-[//]: # (https://moodle.isep.ipp.pt/mod/forum/discuss.php?d=29753#p37717)
-> **Question:** What are the input to postpone an entry?
-> 
-> From my perspective the Green Spaces Manager only needs to select the entry and introduce the new date.
->
-> **Answer:** Yes, you are correct!
+> The Agenda is made up of entries that relate to a task (which was previously in the To-Do List), the team that will carry out the task, the vehicles/equipment assigned to  the task, expected duration, and the status (Planned, Postponed, Canceled, Done).
 
 
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** Allows the GSM to postpone an entry in the agenda.
-* **AC2:** The entry date must be later than the current date.
+* **AC1:** A message must be sent to all team members informing them about the assignment
+* **AC2:** Different email services can send the message. These services must be defined through a configuration file to allow the use of different platforms (e.g. Gmail, DEI’s email service, etc.)
 
 
-[//]: # (* **AC3:**)
 
 ### 1.4. Found out Dependencies
 
-* US24 depends on the US05, first we must create a team in order to assign to the agenda.
+* US23 depends on the US05, first we must create a team in order to assign to the agenda.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 * Selected data
-  * Entry 
-* Typed data
-  * Date
+  * Tasks
+  * Team
 
 
 **Output Data:**

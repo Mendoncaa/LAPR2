@@ -12,10 +12,19 @@ import pt.isep.lei.esoft.auth.domain.model.User;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This class is responsible for controlling the completion of tasks and retrieving tasks managed by the current user.
+ */
 public class TaskCompletionController {
 
     Repositories repositories = Repositories.getInstance();
 
+    /**
+     * Marks a task as completed.
+     *
+     * @param task the task to be marked as completed
+     * @throws IllegalArgumentException if the user is not authorized to record the completion of a task or if the organization is not found for the logged-in user
+     */
     public void completeTask(Task task) {
 
         UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
@@ -48,6 +57,11 @@ public class TaskCompletionController {
         }
     }
 
+    /**
+     * Retrieves tasks managed by the current user.
+     *
+     * @return a list of tasks managed by the current user
+     */
     public List<Task> getTasksByManagedMe() {
         UserSession userSession = repositories.getAuthenticationRepository().getCurrentUserSession();
 

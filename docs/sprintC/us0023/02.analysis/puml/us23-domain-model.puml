@@ -3,21 +3,20 @@
 hide methods
 hide circle
 
-class VFM {
+class Teams {
+  - numElements
+  - skillsNeeded
 }
 
-class Vehicles {
-  - brand
-  - model
-  - type
-  - tareWeight
-  - grossWeight
-  - currentKms
-  - registrationDate
-  - acquisitionDate
-  - maintenanceFrequency
+class Tasks {
+  - taskCategory
+  - toDoList
 }
 
-VFM -- Vehicles : manages >
+class Agenda {
 
+}
+
+Teams "1"---"0..*" Tasks : assigned to >
+Agenda "1"---"1..*" Tasks : organizes >
 @enduml

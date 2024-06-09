@@ -17,12 +17,18 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This class contains unit tests for the CreateSkillController.
+ */
 public class CreateSkillControllerTest {
 
+/**
+ * Tests the creation of a new skill in the organization.
+ */
     @org.junit.Test
     public void createSkillTest() {
 
-        // Setup do ambiente de teste
+        // Setting up the test environment
         Employee employee = new Employee(
                 "Zé",
                 LocalDate.of(1992, 2, 2),
@@ -37,35 +43,44 @@ public class CreateSkillControllerTest {
                 "987784321",
                 new Job("Gardener"));
 
-        // Criação do controller
+        // Initializing the CreateSkillController
         CreateSkillController createSkillController = new CreateSkillController();
 
-        // Dados da habilidade
+        // Defining the skill name
         String skillName = "Programacao";
 
-
+        // Setting up repositories and organization
         EmployeeRepository employeeRepository = new EmployeeRepository();
         JobRepository jobRepository = new JobRepository();
         Organization organization = new Organization("1234", employeeRepository, jobRepository);
+
+        // Creating the skill in the organization
         Skill skill = organization.createSkill(skillName);
 
+        // Asserting that the skill was created with the correct name
         assertEquals(skillName, skill.getName());
 
     }
 
+/**
+ * Tests the addition of a skill to the skill repository.
+ */
     @org.junit.Test
     public void addSkillTest() {
-        // Setup do ambiente de teste
+
+        // Initializing the SkillRepository
         SkillRepository skillRepository = new SkillRepository();
 
-        // Criação de uma nova habilidade
+        // Creating a new skill
         Skill skill = new Skill("Programacao");
 
-        // Adiciona a habilidade ao repositório
+        // Adding the skill to the repository
         skillRepository.addSkill(skill);
 
-        // Lista as habilidades e verifica se a habilidade foi adicionada corretamente
+        // Retrieving all skills from the repository
         List<Skill> skills = skillRepository.listAllSkills();
+
+        // Asserting that the skill was added correctly
         assertEquals(1, skills.size());
         assertEquals(skill, skills.get(0));
     }

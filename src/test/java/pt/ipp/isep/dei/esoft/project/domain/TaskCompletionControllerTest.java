@@ -15,9 +15,14 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * This class contains unit tests for the TaskCompletionController.
+ */
 public class TaskCompletionControllerTest {
 
+/**
+ * Tests the completion of a task when a collaborator is logged in and no organization is found.
+*/
     @Test
     public void testCompleteTask_CollabLoggedIn_NoOrganizationFound() {
             GreenSpace greenSpace1 = new GreenSpace("Parque da cidade", SizeClassification.LARGE_SIZED_PARK,

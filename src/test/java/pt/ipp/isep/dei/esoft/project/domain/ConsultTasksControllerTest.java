@@ -19,9 +19,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains unit tests for the ConsultTasksController.
+ */
 public class ConsultTasksControllerTest {
 
-
+/**
+ * Tests the retrieval of tasks by their status.
+ */
     @Test
     public void getTasksByStatusTest() {
         // Configurar o cenário
@@ -39,18 +44,26 @@ public class ConsultTasksControllerTest {
                 Urgency.LOW, Duration.ofDays(2), "gsm@this.app");
         task3.completeTask();
 
+
+
         List<Task> tasks = Arrays.asList(task1, task2, task3);
 
-        // Chamar o método a ser testado
+        // Calling the method to be tested
         List<Task> plannedTasks = getTasksByStatus(tasks, Status.PLANNED);
 
-        // Verificar o resultado
+        // Verifying the result
         assertNotNull(plannedTasks);
         assertEquals(1, plannedTasks.size());
         assertTrue(plannedTasks.contains(task2));
     }
 
-    // Método a ser testado
+/**
+ * Retrieves a list of tasks filtered by their status.
+ *
+ * @param tasks the list of tasks to be filtered
+ * @param status the status to filter tasks by
+ * @return a list of tasks with the specified status
+ */
     public List<Task> getTasksByStatus(List<Task> tasks, Status status) {
         List<Task> tasks2 = new ArrayList<>();
         for (Task task : tasks) {
@@ -62,9 +75,9 @@ public class ConsultTasksControllerTest {
     }
 
 
-    /**
-     * Test of readDataFromConsole method (AddAgendaEntryUI)
-     */
+/**
+ * Test of readDataFromConsole method (AddAgendaEntryUI).
+ */
     @org.junit.Test
     public void readDataFromConsoleTest() {
         String userInput = "30-06-2024";
