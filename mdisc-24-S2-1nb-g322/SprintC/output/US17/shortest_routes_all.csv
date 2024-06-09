@@ -1,0 +1,51 @@
+1 -> 3; Custo: 10
+﻿Biblioteca -> AP; Custo total: 10
+
+2 -> 3; Custo: 7
+Teatro -> AP; Custo total: 7
+
+4 -> 3; Custo: 5
+Pavilhao -> AP; Custo total: 5
+
+5 -> 3; Custo: 9
+Topo -> AP; Custo total: 9
+
+6 -> 5 -> 3; Custo: 16
+ParqueInfantil -> Topo -> AP; Custo total: 16
+
+7 -> 6 -> 5 -> 3; Custo: 26
+Macieirinha -> ParqueInfantil -> Topo -> AP; Custo total: 26
+
+8 -> 9 -> 5 -> 3; Custo: 20
+Fontaine -> Miradouro -> Topo -> AP; Custo total: 20
+
+9 -> 5 -> 3; Custo: 12
+Miradouro -> Topo -> AP; Custo total: 12
+
+10 -> 5 -> 3; Custo: 13
+Capela -> Topo -> AP; Custo total: 13
+
+11 -> 9 -> 5 -> 3; Custo: 21
+Torreao -> Miradouro -> Topo -> AP; Custo total: 21
+
+12 -> 3; Custo: 9
+Lago -> AP; Custo total: 9
+
+13 -> 17 -> 18 -> 3; Custo: 18
+Escadas3 -> Escadas2 -> Escadas1 -> AP; Custo total: 18
+
+14 -> 17 -> 18 -> 3; Custo: 20
+Sentimentos -> Escadas2 -> Escadas1 -> AP; Custo total: 20
+
+15 -> 17 -> 18 -> 3; Custo: 17
+CasaRoseiral -> Escadas2 -> Escadas1 -> AP; Custo total: 17
+
+16 -> 17 -> 18 -> 3; Custo: 16
+JardimRoseiral -> Escadas2 -> Escadas1 -> AP; Custo total: 16
+
+17 -> 18 -> 3; Custo: 13
+Escadas2 -> Escadas1 -> AP; Custo total: 13
+
+18 -> 3; Custo: 10
+Escadas1 -> AP; Custo total: 10
+

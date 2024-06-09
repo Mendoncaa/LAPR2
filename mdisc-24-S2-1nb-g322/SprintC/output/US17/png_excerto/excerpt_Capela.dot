@@ -1,0 +1,7 @@
+digraph G {
+  "Capela" [label="Capela"];
+  "Topo" [label="Topo"];
+  "AP" [label="AP"];
+  "Capela" -> "Topo" [label="4", color=red, penwidth=2.0];
+  "Topo" -> "AP" [label="9", color=red, penwidth=2.0];
+}
