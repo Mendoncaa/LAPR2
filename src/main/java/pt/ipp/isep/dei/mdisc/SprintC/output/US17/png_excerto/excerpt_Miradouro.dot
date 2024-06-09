@@ -1,7 +1,0 @@
-digraph G {
-  "Miradouro" [label="Miradouro"];
-  "Topo" [label="Topo"];
-  "AP" [label="AP"];
-  "Miradouro" -> "Topo" [label="3", color=red, penwidth=2.0];
-  "Topo" -> "AP" [label="9", color=red, penwidth=2.0];
-}

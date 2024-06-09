@@ -1,5 +1,0 @@
-digraph G {
-  "Topo" [label="Topo"];
-  "AP" [label="AP"];
-  "Topo" -> "AP" [label="9", color=red, penwidth=2.0];
-}

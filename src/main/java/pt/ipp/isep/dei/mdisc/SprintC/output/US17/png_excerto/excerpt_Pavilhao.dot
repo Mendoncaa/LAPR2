@@ -1,5 +1,0 @@
-digraph G {
-  "Pavilhao" [label="Pavilhao"];
-  "AP" [label="AP"];
-  "Pavilhao" -> "AP" [label="5", color=red, penwidth=2.0];
-}
