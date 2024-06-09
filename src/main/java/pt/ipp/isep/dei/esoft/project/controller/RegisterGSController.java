@@ -21,6 +21,7 @@ public class RegisterGSController {
             Optional<Organization> organizationOptional = Repositories.getInstance().getOrganizationRepository()
                     .getOrganizationByEmployeeEmail(userEmail);
             EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
+
             for (Employee employee : employeeRepository.listEmployees()) {
                 System.out.println(employee);
             }

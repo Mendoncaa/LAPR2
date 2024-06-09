@@ -89,4 +89,9 @@ public class OrganizationRepository {
 
         return isValid;
     }
+
+
+    public List<Organization> getOrganizations() {
+        return organizations;
+    }
 }
